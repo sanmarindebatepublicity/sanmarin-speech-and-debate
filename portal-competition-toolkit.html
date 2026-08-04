@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Competition Toolkit — Member Portal — San Marin Speech &amp; Debate</title>
+
+  <script>
+    (function() {
+      // Session gate — the role is set by the portal.html login only (never
+      // from the URL). Sessions expire after 90 days (~one season); the
+      // timestamp refreshes on each visit so active members stay signed in.
+      var MAX_SESSION_MS = 90 * 24 * 60 * 60 * 1000;
+      var role = '', ts = 0;
+      try {
+        role = localStorage.getItem('sanmarinAuthRole') || '';
+        ts = parseInt(localStorage.getItem('sanmarinAuthTime') || '0', 10) || 0;
+      } catch(e) {}
+      var valid = (role === 'member' || role === 'captain') && ts > 0 && (Date.now() - ts) < MAX_SESSION_MS;
+      if (valid) {
+        try { localStorage.setItem('sanmarinAuthTime', String(Date.now())); } catch(e) {}
+      } else {
+        try { localStorage.removeItem('sanmarinAuthRole'); localStorage.removeItem('sanmarinAuthTime'); } catch(e) {}
+        window.location.href = 'portal.html';
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="portal-styles.css" />
+
+  <style>
+    /* ── TOOLKIT PAGE STYLES ── */
+
+    /* Section spacing */
+    section.tk-section { margin-bottom: 8px; }
+
+    /* Section divider — softer */
+    .tk-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,207,196,0.22) 18%, rgba(212,207,196,0.26) 50%, rgba(212,207,196,0.22) 82%, transparent);
+      margin: 56px 0;
+      border: 0;
+    }
+
+    /* Section header — eyebrow + icon */
+    .tk-section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+    .tk-section-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(196,165,90,0.1);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c4a55a;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    section:hover > .tk-section-header .tk-section-icon {
+      transform: rotate(-4deg);
+      background: rgba(196,165,90,0.15);
+    }
+    .tk-section-icon svg { width: 19px; height: 19px; }
+    .tk-section-info { flex: 1; min-width: 0; }
+    .tk-section-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #c4a55a;
+      margin-bottom: 8px;
+    }
+    .tk-section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #f5f4ec;
+      letter-spacing: -0.025em;
+      margin-bottom: 6px;
+    }
+    .tk-section-sub {
+      font-size: 13.5px;
+      color: rgba(236,239,230,0.55);
+      line-height: 1.65;
+      margin-bottom: 30px;
+      max-width: 580px;
+    }
+
+    /* ── SUBSECTION 1: RESOURCE CARDS — asymmetric grid ── */
+    .tk-resource-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+    }
+    @media (max-width: 720px) { .tk-resource-grid { grid-template-columns: 1fr; } }
+
+    .tk-res-card {
+      background: rgba(28,54,32,0.5);
+      border: 1px solid rgba(196,165,90,0.13);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 26px 24px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+    .tk-res-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(196,165,90,0.32);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.32);
+    }
+    .tk-res-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .tk-res-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(196,165,90,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c4a55a;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .tk-res-card:hover .tk-res-icon { transform: scale(1.06); }
+    .tk-res-icon svg { width: 19px; height: 19px; }
+    .tk-res-info { flex: 1; min-width: 0; }
+    .tk-res-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #f5f4ec;
+      letter-spacing: -0.015em;
+      margin-bottom: 5px;
+    }
+    .tk-res-desc {
+      font-size: 13px;
+      color: rgba(236,239,230,0.55);
+      line-height: 1.6;
+    }
+    .tk-res-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .tk-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s ease;
+    }
+    .tk-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .tk-btn-primary { background: #2d6a4f; color: #fff; }
+    .tk-btn-primary:hover { background: #348160; transform: translateY(-1px); }
+    .tk-btn-secondary { background: transparent; color: rgba(236,239,230,0.7); border: 1px solid rgba(255,255,255,0.14); }
+    .tk-btn-secondary:hover { border-color: rgba(196,165,90,0.5); color: #c4a55a; }
+    .tk-btn-external { background: transparent; color: rgba(236,239,230,0.7); border: 1px solid rgba(255,255,255,0.14); }
+    .tk-btn-external:hover { border-color: rgba(196,165,90,0.5); color: #c4a55a; }
+
+    /* Coming soon card state */
+    .tk-res-card.is-coming-soon { opacity: 0.6; }
+    .tk-coming-soon-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(255,255,255,0.06);
+      color: rgba(236,239,230,0.4);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      margin-top: 4px;
+    }
+
+    /* PDF Viewer Panel */
+    .tk-pdf-panel {
+      display: none;
+      margin-top: 20px;
+      border: 1px solid rgba(196,165,90,0.22);
+      border-radius: 16px;
+      background: rgba(15,26,15,0.9);
+      overflow: hidden;
+    }
+    .tk-pdf-panel.open { display: block; animation: tkPdfIn 0.35s ease-out both; }
+    @keyframes tkPdfIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .tk-pdf-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      background: rgba(28,54,32,0.6);
+    }
+    .tk-pdf-panel-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: rgba(236,239,230,0.65);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .tk-pdf-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(236,239,230,0.5);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      padding: 4px 8px;
+      border-radius: 100px;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .tk-pdf-close:hover { color: #f5f4ec; background: rgba(255,255,255,0.05); }
+    .tk-pdf-close svg { width: 13px; height: 13px; }
+    .tk-pdf-panel iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: block;
+      background: #fff;
+    }
+    @media (max-width: 640px) { .tk-pdf-panel iframe { height: 420px; } }
+
+    /* ── SUBSECTION 2: TOURNAMENT INFO ── */
+    .tk-gdoc-wrap {
+      border: 1px solid rgba(196,165,90,0.16);
+      background: rgba(22,40,24,0.55);
+      border-radius: 18px;
+      padding: 8px;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tk-gdoc-wrap:hover { border-color: rgba(196,165,90,0.3); box-shadow: 0 12px 32px rgba(0,0,0,0.28); }
+    .tk-gdoc-wrap iframe {
+      width: 100%;
+      min-height: 600px;
+      border: none;
+      border-radius: 12px;
+      display: block;
+      background: #fff;
+    }
+    .tk-gdoc-fallback {
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: rgba(236,239,230,0.4);
+    }
+    .tk-gdoc-fallback a {
+      color: #c4a55a;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+    .tk-gdoc-fallback a:hover { color: #d8b96d; }
+
+    /* ── SUBSECTION 3: PACKING LIST — workspace feel ── */
+    .pk-workspace {
+      background:
+        radial-gradient(ellipse 50% 60% at 100% 0%, rgba(196,165,90,0.06) 0%, transparent 70%),
+        rgba(22,40,24,0.45);
+      border: 1px solid rgba(196,165,90,0.14);
+      border-radius: 20px;
+      padding: 32px 32px 28px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    @media (max-width: 640px) { .pk-workspace { padding: 22px 18px; border-radius: 16px; } }
+
+    /* Dress code block */
+    .pk-dress-block {
+      background: rgba(45,90,58,0.22);
+      border-left: 3px solid #6db285;
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .pk-dress-lead {
+      font-size: 13px;
+      font-weight: 700;
+      color: #8fc7a4;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+    .pk-dress-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+      align-items: flex-start;
+    }
+    .pk-dress-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #c4a55a;
+      white-space: nowrap;
+      padding-top: 1px;
+      min-width: 62px;
+      letter-spacing: 0.04em;
+    }
+    .pk-dress-text {
+      font-size: 12.5px;
+      color: rgba(236,239,230,0.7);
+      line-height: 1.6;
+    }
+    .pk-dress-everyone {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .pk-dress-everyone ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .pk-dress-everyone ul li {
+      font-size: 12.5px;
+      color: rgba(236,239,230,0.65);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .pk-dress-everyone ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #6db285;
+    }
+
+    /* Checklist items — smooth interactive */
+    .pk-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .pk-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.22s ease, transform 0.22s ease;
+    }
+    .pk-item:hover { background: rgba(255,255,255,0.03); transform: translateX(2px); }
+    .pk-item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.03);
+      flex-shrink: 0;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.28s ease, border-color 0.28s ease, transform 0.28s cubic-bezier(0.22, 1.5, 0.5, 1);
+    }
+    .pk-item input[type="checkbox"]:hover {
+      border-color: rgba(196,165,90,0.5);
+    }
+    .pk-item input[type="checkbox"]:checked {
+      background: #2d6a4f;
+      border-color: #2d6a4f;
+      transform: scale(1.08);
+    }
+    .pk-item input[type="checkbox"]:checked::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 5px;
+      top: 1.5px;
+      width: 6px;
+      height: 11px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+      animation: pkCheckIn 0.28s ease-out both;
+    }
+    @keyframes pkCheckIn {
+      from { opacity: 0; transform: rotate(45deg) scale(0.4); }
+      to { opacity: 1; transform: rotate(45deg) scale(1); }
+    }
+    .pk-item-label {
+      font-size: 14px;
+      color: rgba(236,239,230,0.82);
+      font-weight: 500;
+      transition: color 0.25s ease, opacity 0.25s ease;
+      line-height: 1.45;
+    }
+    .pk-item.checked .pk-item-label {
+      color: rgba(236,239,230,0.32);
+      text-decoration: line-through;
+    }
+
+    /* Contact cards */
+    .pk-contact-card {
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 16px 18px;
+      background: rgba(45,90,58,0.18);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pk-contact-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(196,165,90,0.28);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+    }
+    .pk-contact-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #f5f4ec;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .pk-contact-phone {
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 800;
+      color: #8fc7a4;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      transition: color 0.2s ease;
+    }
+    .pk-contact-phone:hover { color: #b2dec1; }
+    .pk-contact-note {
+      font-size: 11.5px;
+      color: rgba(236,239,230,0.5);
+      line-height: 1.55;
+      font-style: italic;
+    }
+    .pk-contacts-footer {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: rgba(196,165,90,0.08);
+      border: 1px solid rgba(196,165,90,0.24);
+      border-radius: 12px;
+      font-size: 12.5px;
+      color: #d8b96d;
+      font-weight: 600;
+    }
+
+    /* Reset button */
+    .pk-reset-wrap {
+      margin-top: 26px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pk-reset-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: transparent;
+      color: rgba(236,239,230,0.55);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s ease;
+    }
+    .pk-reset-btn:hover { border-color: rgba(196,165,90,0.45); color: #c4a55a; transform: translateY(-1px); }
+    .pk-reset-btn svg { width: 13px; height: 13px; }
+
+    /* Progress bar */
+    .pk-progress-wrap {
+      margin-bottom: 26px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .pk-progress-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+      border-radius: 9999px;
+    }
+    .pk-progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2d6a4f, #c4a55a);
+      transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+      width: 0%;
+      border-radius: 9999px;
+    }
+    .pk-progress-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: rgba(236,239,230,0.55);
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SUBSECTION 4: QUICK LINKS ── */
+    .tk-quicklinks {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .tk-quicklink {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 24px;
+      background: rgba(28,54,32,0.5);
+      border: 1px solid rgba(196,165,90,0.13);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+      min-width: 220px;
+      flex: 1;
+    }
+    .tk-quicklink:hover {
+      transform: translateY(-3px);
+      border-color: rgba(196,165,90,0.32);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.32);
+    }
+    .tk-ql-icon {
+      width: 38px;
+      height: 38px;
+      background: rgba(196,165,90,0.1);
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c4a55a;
+      flex-shrink: 0;
+    }
+    .tk-ql-icon svg { width: 16px; height: 16px; }
+    .tk-ql-content { flex: 1; min-width: 0; }
+    .tk-ql-name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #f5f4ec;
+      letter-spacing: -0.015em;
+      margin-bottom: 3px;
+    }
+    .tk-ql-desc {
+      font-size: 12px;
+      color: rgba(236,239,230,0.5);
+      line-height: 1.45;
+    }
+    .tk-ql-arrow {
+      color: rgba(236,239,230,0.3);
+      flex-shrink: 0;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+    .tk-quicklink:hover .tk-ql-arrow { color: #c4a55a; transform: translateX(3px); }
+    .tk-ql-arrow svg { width: 14px; height: 14px; }
+
+    /* ── SUBSECTION 5: PARENTS & JUDGES ── */
+    .tk-judges-intro {
+      font-size: 14px;
+      color: rgba(236,239,230,0.72);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      max-width: 640px;
+      background: rgba(196,165,90,0.06);
+      padding: 18px 18px 18px 22px;
+      border-left: 3px solid #c4a55a;
+      border-radius: 0 14px 14px 0;
+    }
+
+    /* ── UNIFIED PACKING GRID ── */
+    .pk-unified-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 44px;
+      margin-bottom: 28px;
+    }
+    .pk-col-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #c4a55a;
+      margin-top: 26px;
+      margin-bottom: 6px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(196,165,90,0.22);
+    }
+    .pk-col > .pk-col-label:first-child { margin-top: 0; }
+    .pk-supplies-note {
+      font-size: 12px;
+      color: rgba(236,239,230,0.5);
+      font-style: italic;
+      margin-bottom: 8px;
+      line-height: 1.55;
+    }
+
+    /* ── CONTACTS ROW ── */
+    .pk-contacts-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 340px;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    /* ── RESPONSIVE FIXES ── */
+    @media (max-width: 860px) {
+      .tk-quicklinks { flex-direction: column; }
+      .tk-quicklink { min-width: unset; }
+    }
+    @media (max-width: 700px) {
+      .pk-contacts-row { grid-template-columns: 1fr; max-width: none; }
+    }
+    @media (max-width: 640px) {
+      .tk-section-title { font-size: 19px; }
+      .tk-judges-intro { font-size: 13px; }
+      .pk-unified-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ SITE NAVBAR ═══════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate Seal" />
+        <div class="nav-brand-text">
+          <div class="top">San Marin</div>
+          <div class="bot">Speech &amp; Debate</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <div class="nav-dropdown" id="about-dd">
+          <button class="nav-dd-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="about-dd-panel" id="about-dd-btn">
+            About
+            <svg class="nav-dd-chevron" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dd-panel" id="about-dd-panel" role="menu" aria-label="About submenu" aria-hidden="true">
+            <a href="about.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">History &amp; Awards</div>
+              <div class="nav-dd-item-sub">Club story and achievements</div>
+            </a>
+            <div class="nav-dd-sep" role="separator" aria-hidden="true"></div>
+            <a href="leadership.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">Leadership Team</div>
+              <div class="nav-dd-item-sub">Officers and club structure</div>
+            </a>
+          </div>
+        </div>
+        <a href="events.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="portal.html" class="nav-cta nav-cta-active">Member Portal</a>
+      <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" id="hamburger-btn">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="index.html" class="mob-link">Home</a>
+      <button class="mob-acc-btn" aria-expanded="false" aria-controls="mob-about-panel" id="mob-about-btn">
+        About
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mob-acc-panel" id="mob-about-panel" aria-hidden="true">
+        <a href="about.html" class="mob-sub-link">History &amp; Awards</a>
+        <a href="leadership.html" class="mob-sub-link">Leadership Team</a>
+      </div>
+      <a href="events.html" class="mob-link">Media</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="portal.html" class="mob-cta">Member Portal</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ PORTAL BODY ═══════════════ -->
+  <div class="portal-body">
+
+    <!-- SIDEBAR -->
+    <aside class="portal-sidebar" aria-label="Portal navigation">
+
+      <div class="sidebar-header">
+        <svg class="sidebar-header-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="sidebar-header-title">Member Portal</span>
+        <button class="sidebar-toggle-btn" id="sidebar-toggle" type="button" aria-label="Collapse sidebar" title="Collapse sidebar">
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Portal sections">
+        <a href="portal-team-hub.html" class="sidebar-link">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Team Hub
+        </a>
+        <a href="portal-competition-toolkit.html" class="sidebar-link active" aria-current="page">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke-linecap="round"/>
+          </svg>
+          Competition Toolkit
+        </a>
+        <a href="portal-training-vault.html" class="sidebar-link">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
+          </svg>
+          Training Vault
+        </a>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="sidebar-signout" id="sidebar-signout" type="button">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke-linecap="round"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Sign Out
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- SIDEBAR REOPEN BUTTON (fixed, visible when sidebar collapsed) -->
+    <button class="sidebar-open-fab" id="sidebar-open-fab" type="button" aria-label="Open sidebar" title="Open sidebar">
+      <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- MAIN CONTENT -->
+    <main class="portal-main">
+
+      <div class="page-hero reveal">
+        <div class="page-hero-tag">Member Portal</div>
+        <h1 class="page-hero-title">Competition Toolkit</h1>
+        <p class="page-hero-sub">Tournament resources, packing list, and quick links — everything you need to compete.</p>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════
+           SECTION 1: SPEECH & DEBATE TOURNAMENT RESOURCES
+      ══════════════════════════════════════════ -->
+      <section class="tk-section" aria-labelledby="s1-title">
+        <div class="tk-section-header reveal-left">
+          <div class="tk-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="tk-section-info">
+            <div class="tk-section-tag">Section 1</div>
+            <h2 class="tk-section-title" id="s1-title">Speech &amp; Debate Tournament Resources</h2>
+            <p class="tk-section-sub">Templates and reference materials for building your case and running your round.</p>
+          </div>
+        </div>
+
+        <div class="tk-resource-grid stagger">
+
+          <!-- Card 1: Speaker Cheat Sheet -->
+          <div class="tk-res-card reveal">
+            <div class="tk-res-card-top">
+              <div class="tk-res-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <div class="tk-res-info">
+                <div class="tk-res-title">Speaker Cheat Sheet</div>
+                <div class="tk-res-desc">Speech templates for AFF/NEG speakers in fact, value, and policy debates.</div>
+              </div>
+            </div>
+            <div class="tk-res-actions">
+              <button class="tk-btn tk-btn-primary" onclick="togglePDF('cheatsheet-panel', this, 'Speech%20%26%20Debate%20TOURNAMENT%20Resources/Cheat%20Sheet%20for%20Speakers.docx.pdf')" id="cheatsheet-view-btn">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </button>
+              <a class="tk-btn tk-btn-secondary" href="Speech%20%26%20Debate%20TOURNAMENT%20Resources/Cheat%20Sheet%20for%20Speakers.docx.pdf" download>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Flow Sheet Template -->
+          <div class="tk-res-card reveal">
+            <div class="tk-res-card-top">
+              <div class="tk-res-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M3 9h18M3 15h18M9 3v18" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="tk-res-info">
+                <div class="tk-res-title">Flow Sheet Template</div>
+                <div class="tk-res-desc">Blank flow sheet for tracking arguments during rounds.</div>
+              </div>
+            </div>
+            <div class="tk-res-actions">
+              <button class="tk-btn tk-btn-primary" onclick="togglePDF('flowsheet-panel', this, 'Speech%20%26%20Debate%20TOURNAMENT%20Resources/flowsheet.pdf')" id="flowsheet-view-btn">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </button>
+              <a class="tk-btn tk-btn-secondary" href="Speech%20%26%20Debate%20TOURNAMENT%20Resources/flowsheet.pdf" download>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: Tabroom.com -->
+          <div class="tk-res-card reveal">
+            <div class="tk-res-card-top">
+              <div class="tk-res-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M3 9h18M3 15h18M9 3v18" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="tk-res-info">
+                <div class="tk-res-title">Tabroom.com</div>
+                <div class="tk-res-desc">Check pairings, results, and live docs for your tournament.</div>
+              </div>
+            </div>
+            <div class="tk-res-actions">
+              <a class="tk-btn tk-btn-external" href="https://www.tabroom.com" target="_blank" rel="noopener noreferrer">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Open Tabroom
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: NPDL Competition Rules (external link only) -->
+          <div class="tk-res-card reveal">
+            <div class="tk-res-card-top">
+              <div class="tk-res-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="tk-res-info">
+                <div class="tk-res-title">NPDL Competition Rules</div>
+                <div class="tk-res-desc">Official rules used in most of our tournaments.</div>
+              </div>
+            </div>
+            <div class="tk-res-actions">
+              <a class="tk-btn tk-btn-external" href="https://www.parliamentarydebate.org/league-rules" target="_blank" rel="noopener noreferrer">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Open Rules
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /tk-resource-grid -->
+
+        <!-- PDF Viewer: Speaker Cheat Sheet -->
+        <div class="tk-pdf-panel" id="cheatsheet-panel" role="region" aria-label="Speaker Cheat Sheet preview">
+          <div class="tk-pdf-panel-header">
+            <span class="tk-pdf-panel-title">Speaker Cheat Sheet</span>
+            <button class="tk-pdf-close" onclick="closePDF('cheatsheet-panel', 'cheatsheet-view-btn')">
+              <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Close
+            </button>
+          </div>
+          <iframe id="cheatsheet-iframe" title="Speaker Cheat Sheet PDF" loading="lazy"></iframe>
+        </div>
+
+        <!-- PDF Viewer: Flow Sheet Template -->
+        <div class="tk-pdf-panel" id="flowsheet-panel" role="region" aria-label="Flow Sheet Template preview">
+          <div class="tk-pdf-panel-header">
+            <span class="tk-pdf-panel-title">Flow Sheet Template</span>
+            <button class="tk-pdf-close" onclick="closePDF('flowsheet-panel', 'flowsheet-view-btn')">
+              <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Close
+            </button>
+          </div>
+          <iframe id="flowsheet-iframe" title="Flow Sheet Template PDF" loading="lazy"></iframe>
+        </div>
+
+      </section>
+
+
+      <hr class="tk-divider" aria-hidden="true" />
+
+
+      <!-- ══════════════════════════════════════════
+           SECTION 2: TOURNAMENT INFORMATION
+      ══════════════════════════════════════════ -->
+      <section class="tk-section" aria-labelledby="s2-title">
+        <div class="tk-section-header reveal-left">
+          <div class="tk-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div class="tk-section-info">
+            <div class="tk-section-tag">Section 2</div>
+            <h2 class="tk-section-title" id="s2-title">Tournament Information</h2>
+            <p class="tk-section-sub">Schedules, rules, and details for upcoming tournaments. Updated by team leadership.</p>
+          </div>
+        </div>
+
+        <div class="tk-gdoc-wrap reveal">
+          <iframe
+            src="https://docs.google.com/document/d/e/2PACX-1vQqACkxkJFGBLfP2fPxM41wQsGFFOn2qwviTKWDnwpcCkZorcsIlI7-HfHb08kkU72tmbG1NRRoxIqG/pub?embedded=true"
+            title="Tournament Information Document"
+            loading="lazy"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <p class="tk-gdoc-fallback">
+          Can't see the document?
+          <a href="https://docs.google.com/document/d/e/2PACX-1vQqACkxkJFGBLfP2fPxM41wQsGFFOn2qwviTKWDnwpcCkZorcsIlI7-HfHb08kkU72tmbG1NRRoxIqG/pub" target="_blank" rel="noopener noreferrer">Open in Google Docs ↗</a>
+        </p>
+
+      </section>
+
+
+      <hr class="tk-divider" aria-hidden="true" />
+
+
+      <!-- ══════════════════════════════════════════
+           SECTION 3: TOURNAMENT PACKING LIST
+      ══════════════════════════════════════════ -->
+      <section class="tk-section" aria-labelledby="s3-title">
+        <div class="tk-section-header reveal-left">
+          <div class="tk-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="12" y1="22.08" x2="12" y2="12" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="tk-section-info">
+            <div class="tk-section-tag">Section 3</div>
+            <h2 class="tk-section-title" id="s3-title">Tournament Packing List</h2>
+            <p class="tk-section-sub">Everything you need to bring on tournament day. No excuses.</p>
+          </div>
+        </div>
+
+        <div class="pk-workspace reveal">
+
+        <!-- Progress bar -->
+        <div class="pk-progress-wrap">
+          <div class="pk-progress-bar-bg">
+            <div class="pk-progress-bar-fill" id="pk-progress-fill"></div>
+          </div>
+          <span class="pk-progress-label" id="pk-progress-label">0 / 14 packed</span>
+        </div>
+
+        <!-- Dress code compact block -->
+        <div class="pk-dress-block">
+          <div class="pk-dress-lead">"Dress professionally — you're representing San Marin."</div>
+          <div class="pk-dress-row">
+            <span class="pk-dress-label">Boys:</span>
+            <span class="pk-dress-text">Dress slacks with a nicer shirt and a tie if you have one. A full suit is even better.</span>
+          </div>
+          <div class="pk-dress-row">
+            <span class="pk-dress-label">Girls:</span>
+            <span class="pk-dress-text">Pants or skirts (not too short) with blouses, sweaters, or blazers. Lean toward the professional side.</span>
+          </div>
+          <div class="pk-dress-everyone">
+            <ul>
+              <li>Try to have a little color — avoid being completely black and white.</li>
+              <li>Everything cleaned and ironed.</li>
+              <li>Comfortable shoes or bring a pair to change into.</li>
+              <li>Don't forget deodorant.</li>
+              <li>If rain is predicted, bring rain gear.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2-column checklist grid -->
+        <div class="pk-unified-grid">
+
+          <!-- Left column: Attire + Personal Items -->
+          <div class="pk-col">
+            <div class="pk-col-label">Attire</div>
+            <div class="pk-items" data-category="attire">
+              <label class="pk-item">
+                <input type="checkbox" data-group="attire" />
+                <span class="pk-item-label">Professional outfit (cleaned and ironed)</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="attire" />
+                <span class="pk-item-label">Comfortable shoes</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="attire" />
+                <span class="pk-item-label">Rain gear (if needed)</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="attire" />
+                <span class="pk-item-label">Deodorant</span>
+              </label>
+            </div>
+            <div class="pk-col-label">Personal Items</div>
+            <div class="pk-items" data-category="personal">
+              <label class="pk-item">
+                <input type="checkbox" data-group="personal" />
+                <span class="pk-item-label">Water bottle</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="personal" />
+                <span class="pk-item-label">Snacks</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="personal" />
+                <span class="pk-item-label">Phone charger</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="personal" />
+                <span class="pk-item-label">Cash for food</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="personal" />
+                <span class="pk-item-label">Medications (if needed)</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="personal" />
+                <span class="pk-item-label">Student ID</span>
+              </label>
+            </div>
+          </div><!-- /left col -->
+
+          <!-- Right column: Debate Supplies -->
+          <div class="pk-col">
+            <div class="pk-col-label">Debate Supplies</div>
+            <div class="pk-supplies-note">Mrs. Kenyon will provide: legal pad, flow sheets, prep sheets, and rules packet.</div>
+            <div class="pk-items" data-category="supplies">
+              <label class="pk-item">
+                <input type="checkbox" data-group="supplies" />
+                <span class="pk-item-label">Pens (multiple colors)</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="supplies" />
+                <span class="pk-item-label">Highlighters</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="supplies" />
+                <span class="pk-item-label">Phone for timer / stopwatch</span>
+              </label>
+              <label class="pk-item">
+                <input type="checkbox" data-group="supplies" />
+                <span class="pk-item-label">Laptop + charger</span>
+              </label>
+            </div>
+          </div><!-- /right col -->
+
+        </div><!-- /pk-unified-grid -->
+
+        <!-- Team contacts — 3 columns on desktop, stacked on mobile -->
+        <div class="pk-contacts-row">
+          <div class="pk-contact-card">
+            <div class="pk-contact-name">Mrs. Kenyon — Debate Coach</div>
+            <a href="tel:4153285073" class="pk-contact-phone">415-328-5073</a>
+            <div class="pk-contact-note">Contact for permission to leave the tournament for any reason.</div>
+          </div>
+        </div>
+        <div class="pk-contacts-footer">
+          Save these numbers in your phone before tournament day.
+        </div>
+
+        <div class="pk-reset-wrap">
+          <button class="pk-reset-btn" id="pk-reset-btn" type="button">
+            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <polyline points="1 4 1 10 7 10"/>
+              <path d="M3.51 15a9 9 0 102.13-9.36L1 10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Reset Checklist
+          </button>
+        </div>
+
+        </div><!-- /pk-workspace -->
+
+      </section>
+
+
+      <hr class="tk-divider" aria-hidden="true" />
+
+
+      <!-- ══════════════════════════════════════════
+           SECTION 4: FOR PARENTS & JUDGES
+      ══════════════════════════════════════════ -->
+      <section class="tk-section" aria-labelledby="s4b-title">
+        <div class="tk-section-header reveal-left">
+          <div class="tk-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="tk-section-info">
+            <div class="tk-section-tag">Section 4</div>
+            <h2 class="tk-section-title" id="s4b-title">For Parents &amp; Judges</h2>
+          </div>
+        </div>
+
+        <div class="tk-judges-intro reveal">
+          New to judging? This guide was written by our debate coach, Karen Kenyon, and covers everything you need to know to judge a parliamentary debate round. Please review it before your first tournament.
+        </div>
+
+        <!-- Judging Guide card -->
+        <div class="tk-resource-grid" style="max-width: 500px;">
+          <div class="tk-res-card reveal">
+            <div class="tk-res-card-top">
+              <div class="tk-res-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <div class="tk-res-info">
+                <div class="tk-res-title">Judging Guide</div>
+                <div class="tk-res-desc">Parent guidelines for judging a parliamentary debate round — written by Coach Karen Kenyon.</div>
+              </div>
+            </div>
+            <div class="tk-res-actions">
+              <button class="tk-btn tk-btn-primary" onclick="togglePDF('judging-panel', this, 'Speech%20%26%20Debate%20TOURNAMENT%20Resources/Parent%20-%20Guidelines%20for%20Parli%20Judging.pdf')" id="judging-view-btn">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View
+              </button>
+              <a class="tk-btn tk-btn-secondary" href="Speech%20%26%20Debate%20TOURNAMENT%20Resources/Parent%20-%20Guidelines%20for%20Parli%20Judging.pdf" download>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PDF Viewer: Judging Guide -->
+        <div class="tk-pdf-panel" id="judging-panel" role="region" aria-label="Judging Guide preview" style="margin-top: 18px; max-width: 480px;">
+          <div class="tk-pdf-panel-header">
+            <span class="tk-pdf-panel-title">Parent — Guidelines for Parli Judging</span>
+            <button class="tk-pdf-close" onclick="closePDF('judging-panel', 'judging-view-btn')">
+              <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Close
+            </button>
+          </div>
+          <iframe id="judging-iframe" title="Parent Judging Guide PDF" loading="lazy" style="max-width: 100%;"></iframe>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div><!-- /portal-body -->
+
+  <!-- ═══════════════ MOBILE TAB BAR ═══════════════ -->
+  <nav class="portal-tab-bar" aria-label="Portal navigation">
+    <a href="portal-team-hub.html" class="tab-btn" aria-label="Team Hub">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </a>
+    <a href="portal-competition-toolkit.html" class="tab-btn active" aria-label="Competition Toolkit" aria-current="page">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="2" y="7" width="20" height="14" rx="2"/>
+        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <a href="portal-training-vault.html" class="tab-btn" aria-label="Training Vault">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </nav>
+
+  <script>
+    /* ── REVEAL ON SCROLL ── */
+    (function() {
+      if (typeof window === 'undefined') return;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
+        window.__portalObserve = function(root) {
+          (root || document).querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
+        };
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      function observeAll(root) {
+        (root || document).querySelectorAll('.reveal:not(.is-in), .reveal-left:not(.is-in)').forEach(function(el) {
+          io.observe(el);
+        });
+      }
+      window.__portalObserve = observeAll;
+      observeAll();
+    })();
+
+    /* ── SIGN OUT ── */
+    document.getElementById('sidebar-signout').addEventListener('click', function() {
+      try {
+        localStorage.removeItem('sanmarinAuthRole');
+        localStorage.removeItem('sanmarinAuthTime');
+      } catch(e) {}
+      window.location.href = 'portal.html';
+    });
+
+    /* ── SIDEBAR TOGGLE ── */
+    (function() {
+      var sidebar = document.querySelector('.portal-sidebar');
+      var body = document.querySelector('.portal-body');
+      var toggleBtn = document.getElementById('sidebar-toggle');
+      var openFab = document.getElementById('sidebar-open-fab');
+      function setCollapsed(collapsed) {
+        if (collapsed) {
+          sidebar.classList.add('collapsed');
+          body.classList.add('sidebar-collapsed');
+          if (toggleBtn) toggleBtn.setAttribute('aria-label', 'Expand sidebar');
+        } else {
+          sidebar.classList.remove('collapsed');
+          body.classList.remove('sidebar-collapsed');
+          if (toggleBtn) toggleBtn.setAttribute('aria-label', 'Collapse sidebar');
+        }
+        try { localStorage.setItem('smSidebarCollapsed', collapsed ? '1' : '0'); } catch(e) {}
+      }
+      var stored = '0';
+      try { stored = localStorage.getItem('smSidebarCollapsed') || '0'; } catch(e) {}
+      setCollapsed(stored === '1');
+      if (toggleBtn) toggleBtn.addEventListener('click', function() { setCollapsed(!sidebar.classList.contains('collapsed')); });
+      if (openFab) openFab.addEventListener('click', function() { setCollapsed(false); });
+    })();
+
+    /* ── NAVBAR INTERACTIONS ── */
+    (function() {
+      var dd = document.getElementById('about-dd');
+      var ddBtn = document.getElementById('about-dd-btn');
+      var ddPanel = document.getElementById('about-dd-panel');
+      if (ddBtn) {
+        ddBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = dd.classList.toggle('open');
+          ddBtn.setAttribute('aria-expanded', String(open));
+          ddPanel.setAttribute('aria-hidden', String(!open));
+        });
+      }
+      document.addEventListener('click', function() {
+        if (!dd) return;
+        dd.classList.remove('open');
+        if (ddBtn) ddBtn.setAttribute('aria-expanded','false');
+        if (ddPanel) ddPanel.setAttribute('aria-hidden','true');
+      });
+      var hamBtn = document.getElementById('hamburger-btn');
+      var mobileNav = document.getElementById('mobile-nav');
+      if (hamBtn && mobileNav) {
+        hamBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = mobileNav.classList.toggle('open');
+          hamBtn.setAttribute('aria-expanded', String(open));
+          mobileNav.setAttribute('aria-hidden', String(!open));
+        });
+      }
+      var mobAccBtn = document.getElementById('mob-about-btn');
+      var mobAccPanel = document.getElementById('mob-about-panel');
+      if (mobAccBtn && mobAccPanel) {
+        mobAccBtn.addEventListener('click', function() {
+          var open = mobAccPanel.classList.toggle('open');
+          mobAccBtn.setAttribute('aria-expanded', String(open));
+          mobAccPanel.setAttribute('aria-hidden', String(!open));
+        });
+      }
+    })();
+
+    /* ── PDF TOGGLE (lazy-load) ── */
+    function togglePDF(panelId, btn, src) {
+      var panel = document.getElementById(panelId);
+      var iframeId = panelId.replace('-panel', '-iframe');
+      var iframe = document.getElementById(iframeId);
+      var isOpen = panel.classList.contains('open');
+
+      if (isOpen) {
+        panel.classList.remove('open');
+        btn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View';
+      } else {
+        // Lazy-load: only set src on first open
+        if (!iframe.src || iframe.src === 'about:blank' || iframe.src === window.location.href) {
+          iframe.src = src;
+        }
+        panel.classList.add('open');
+        btn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Hide';
+        // Scroll to panel
+        setTimeout(function() {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
+      }
+    }
+
+    function closePDF(panelId, btnId) {
+      var panel = document.getElementById(panelId);
+      var btn = document.getElementById(btnId);
+      panel.classList.remove('open');
+      if (btn) {
+        btn.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View';
+      }
+    }
+
+    /* ── PACKING LIST CHECKLIST ── */
+    (function() {
+      var TOTAL_ITEMS = document.querySelectorAll('.pk-items input[type="checkbox"]').length;
+
+      function updateProgress() {
+        var checked = document.querySelectorAll('.pk-items input[type="checkbox"]:checked').length;
+        var pct = TOTAL_ITEMS > 0 ? Math.round((checked / TOTAL_ITEMS) * 100) : 0;
+        document.getElementById('pk-progress-fill').style.width = pct + '%';
+        document.getElementById('pk-progress-label').textContent = checked + ' / ' + TOTAL_ITEMS + ' packed';
+      }
+
+      function updateGroupCount(group) {
+        var allInGroup = document.querySelectorAll('.pk-items input[data-group="' + group + '"]');
+        var checkedInGroup = document.querySelectorAll('.pk-items input[data-group="' + group + '"]:checked');
+        var el = document.getElementById(group + '-count');
+        if (el) el.textContent = checkedInGroup.length + ' / ' + allInGroup.length;
+      }
+
+      // Attach listeners to all checkboxes
+      document.querySelectorAll('.pk-items input[type="checkbox"]').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          var label = this.closest('.pk-item');
+          if (this.checked) {
+            label.classList.add('checked');
+          } else {
+            label.classList.remove('checked');
+          }
+          updateProgress();
+          var group = this.getAttribute('data-group');
+          if (group) updateGroupCount(group);
+        });
+      });
+
+      // Reset button
+      document.getElementById('pk-reset-btn').addEventListener('click', function() {
+        document.querySelectorAll('.pk-items input[type="checkbox"]').forEach(function(cb) {
+          cb.checked = false;
+          cb.closest('.pk-item').classList.remove('checked');
+        });
+        updateProgress();
+        ['attire', 'supplies', 'personal'].forEach(function(g) { updateGroupCount(g); });
+      });
+
+      // Initial state
+      updateProgress();
+      ['attire', 'supplies', 'personal'].forEach(function(g) { updateGroupCount(g); });
+    })();
+  </script>
+
+</body>
+</html>

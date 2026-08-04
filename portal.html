@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Member Portal — San Marin Speech &amp; Debate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #1c1c1e;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    #navbar { background: #f4f3ef; border-bottom: 1px solid #dad6d0; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .nav-brand img { width: 34px; height: 34px; object-fit: contain; }
+    .nav-brand-text { line-height: 1.1; }
+    .nav-brand-text .top { font-size: 18px; font-weight: 600; color: #1b4332; letter-spacing: -0.01em; font-family: 'Cormorant Garamond', Georgia, serif; line-height: 1.1; }
+    .nav-brand-text .bot { font-size: 10px; font-weight: 500; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; }
+    .nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(27,67,50,0.05); border: 1px solid rgba(27,67,50,0.11); border-radius: 100px; padding: 5px; gap: 2px; }
+    .nav-links > a { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(27,67,50,0.55); text-decoration: none; padding: 7px 16px; border-radius: 100px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+    .nav-links > a:hover { color: #1b4332; background: rgba(27,67,50,0.06); }
+    .nav-links > a.active { color: #fff; background: #1b4332; }
+    .nav-cta { font-size: 11px !important; font-weight: 700 !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; color: #1b4332 !important; text-decoration: none !important; padding: 10px 20px !important; background: transparent !important; border: 1px solid rgba(27,67,50,0.32) !important; border-radius: 100px !important; transition: background 0.15s, border-color 0.15s, color 0.15s !important; white-space: nowrap; flex-shrink: 0; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: #1b4332 !important; color: #fff !important; border-color: #1b4332 !important; }
+    .nav-cta.nav-cta-active { background: #1b4332 !important; color: #fff !important; border-color: #1b4332 !important; }
+    .nav-dropdown { position: relative; }
+    .nav-dd-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(27,67,50,0.55); padding: 7px 16px; border-radius: 100px; transition: color 0.15s, background 0.15s; }
+    .nav-dd-btn:hover { color: #1b4332; background: rgba(27,67,50,0.06); }
+    .nav-dd-btn.active, .nav-dropdown.open .nav-dd-btn { color: #fff; background: #1b4332; }
+    .nav-dd-chevron { transition: transform 0.2s ease; }
+    .nav-dropdown.open .nav-dd-chevron { transform: rotate(180deg); }
+    .nav-dd-panel { position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-6px); background: #fff; border: 1px solid #dad6d0; border-radius: 12px; padding: 6px; min-width: 220px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s; box-shadow: 0 16px 40px rgba(27,67,50,0.12), 0 0 0 1px rgba(27,67,50,0.04); pointer-events: none; z-index: 300; }
+    .nav-dropdown.open .nav-dd-panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .nav-dd-item { display: block; padding: 10px 14px; border-radius: 8px; text-decoration: none; transition: background 0.15s; }
+    .nav-dd-item:hover { background: rgba(27,67,50,0.05); }
+    .nav-dd-item.item-active { background: rgba(27,67,50,0.08); }
+    .nav-dd-item-title { font-size: 13px; font-weight: 600; color: #1b4332; }
+    .nav-dd-item-sub { font-size: 11.5px; color: #4e6b56; margin-top: 2px; }
+    .nav-dd-sep { height: 1px; background: #dad6d0; margin: 4px 2px; }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; color: #1b4332; padding: 6px; border-radius: 6px; }
+    .mobile-nav { display: none; flex-direction: column; background: #f4f3ef; border-top: 1px solid #dad6d0; padding: 12px 20px 20px; gap: 2px; }
+    .mobile-nav.open { display: flex; }
+    .mob-link { display: block; padding: 10px 8px; font-size: 14px; font-weight: 500; color: rgba(27,67,50,0.55); text-decoration: none; border-bottom: 1px solid #dad6d0; }
+    .mob-link:hover, .mob-link.active { color: #1b4332; }
+    .mob-acc-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 8px; font-size: 14px; font-weight: 500; color: rgba(27,67,50,0.55); background: none; border: none; border-bottom: 1px solid #dad6d0; cursor: pointer; }
+    .mob-acc-btn.active { color: #1b4332; }
+    .mob-acc-panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s; opacity: 0; padding-left: 16px; }
+    .mob-acc-panel.open { max-height: 200px; opacity: 1; }
+    .mob-sub-link { display: block; padding: 9px 8px; font-size: 13.5px; color: rgba(27,67,50,0.5); text-decoration: none; }
+    .mob-sub-link:hover, .mob-sub-link.active { color: #1b4332; }
+    .mob-cta { display: block; margin-top: 8px; padding: 11px 18px; background: #1b4332; color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 100px; text-align: center; border: 1px solid #1b4332; }
+    .mob-cta:hover { background: #2d6a4f; }
+    @media (max-width: 760px) { .nav-links { display: none; } .nav-cta { display: none; } .hamburger { display: block; } }
+
+    /* ── HERO ── */
+    #hero {
+      background: #0a2218;
+      padding: 88px 32px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 0%, rgba(27,94,53,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 100%, rgba(201,162,39,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; max-width: 620px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c9a227;
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 28px;
+    }
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c9a227;
+      flex-shrink: 0;
+    }
+    #hero h1 {
+      font-size: 58px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.035em;
+      margin-bottom: 18px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    @media (max-width: 640px) {
+      #hero { padding: 64px 20px 60px; }
+      #hero h1 { font-size: 40px; }
+    }
+
+    /* ── WHAT'S INSIDE ── */
+    #features {
+      background: #fff;
+      padding: 64px 32px 60px;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .features-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .features-eyebrow {
+      text-align: center;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1b5e35;
+      margin-bottom: 14px;
+    }
+    .features-heading {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: #1c1c1e;
+      letter-spacing: -0.025em;
+      margin-bottom: 48px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      border: 1px solid #e5e7eb;
+      border-top: 3px solid transparent;
+      border-radius: 12px;
+      padding: 28px 24px 30px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+    }
+    .feature-card.gold-accent { border-top-color: #c9a227; }
+    .feature-card.green-accent { border-top-color: #1b5e35; }
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+    .feature-icon.gold { background: rgba(201,162,39,0.1); color: #a87e1a; }
+    .feature-icon.green { background: #e8f5ee; color: #1b5e35; }
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1c1c1e;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 13.5px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+    .feature-meta {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #c9a227;
+    }
+    .feature-meta.green { color: #1b5e35; }
+    @media (max-width: 860px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .features-grid { grid-template-columns: 1fr; } #features { padding: 48px 20px 44px; } }
+
+    /* ── LOGIN ── */
+    #access {
+      background: #f7f8f6;
+      padding: 72px 32px 80px;
+    }
+    .access-inner {
+      max-width: 440px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .access-eyebrow {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1b5e35;
+      margin-bottom: 10px;
+    }
+    .access-heading {
+      font-size: 26px;
+      font-weight: 800;
+      color: #1c1c1e;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+    }
+    .access-sub {
+      font-size: 14px;
+      color: #8e8e93;
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+    .login-panel {
+      background: #fff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+      text-align: left;
+    }
+    .login-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+    .login-panel-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: #e8f5ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .login-panel-title { font-size: 17px; font-weight: 800; color: #1c1c1e; letter-spacing: -0.015em; }
+    .login-panel-subtitle { font-size: 12px; color: #8e8e93; font-weight: 400; margin-top: 1px; }
+    .login-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1c1c1e;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .login-input-wrap { position: relative; margin-bottom: 14px; }
+    .login-input {
+      width: 100%;
+      height: 46px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 9px;
+      padding: 0 44px 0 14px;
+      font-size: 14.5px;
+      font-family: 'Inter', sans-serif;
+      color: #1c1c1e;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .login-input::placeholder { color: #c7c7cc; letter-spacing: 0; }
+    .login-input:focus {
+      border-color: #1b5e35;
+      box-shadow: 0 0 0 3px rgba(27,94,53,0.1);
+    }
+    .login-input-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c7c7cc;
+      pointer-events: none;
+    }
+    .login-btn {
+      width: 100%;
+      height: 46px;
+      background: #c9a227;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      margin-bottom: 16px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .login-btn:hover { background: #b89020; transform: translateY(-1px); }
+    .login-btn:active { transform: none; }
+    .login-message {
+      display: none;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .login-message.error {
+      background: #fff1f1;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .login-message.success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .msg-icon { flex-shrink: 0; margin-top: 1px; }
+    .login-disclaimer {
+      font-size: 12px;
+      color: #8e8e93;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .login-divider { height: 1px; background: #f2f2f2; margin: 20px 0; }
+    .login-help { font-size: 12.5px; color: #8e8e93; text-align: center; }
+    .login-help a { color: #1b5e35; font-weight: 600; text-decoration: none; }
+    .login-help a:hover { text-decoration: underline; }
+    @media (max-width: 480px) {
+      #access { padding: 56px 20px 64px; }
+      .login-panel { padding: 28px 20px; }
+    }
+
+    /* ─── FOOTER (unified site-wide) ─── */
+    .site-footer { background: #0d1a10; border-top: 1px solid #1e3020; padding: 56px 0 26px; position: relative; overflow: hidden; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .site-footer::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .site-footer::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(184,144,90,0.35) 50%, transparent 100%); z-index: 1; }
+    .site-footer-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 44px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px; }
+    .site-footer-brand { display: flex; align-items: center; gap: 14px; }
+    .site-footer-brand img { width: 38px; height: 38px; object-fit: contain; }
+    .site-footer-brand-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; color: #f0ede6; letter-spacing: -0.005em; line-height: 1.1; }
+    .site-footer-brand-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; color: rgba(156,173,154,0.55); letter-spacing: 0.16em; text-transform: uppercase; display: block; margin-top: 4px; }
+    .site-footer-links { display: flex; align-items: center; gap: 0; border: 1px solid #1e3020; }
+    .site-footer-links a { padding: 10px 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(156,173,154,0.55); text-decoration: none; border-right: 1px solid #1e3020; transition: color 0.18s ease, background 0.18s ease; }
+    .site-footer-links a:last-child { border-right: none; }
+    .site-footer-links a:hover { color: #f0ede6; background: rgba(184,144,90,0.08); }
+    .site-footer-social { display: flex; gap: 0; border: 1px solid #1e3020; }
+    .site-footer-social a { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: rgba(156,173,154,0.6); text-decoration: none; border-right: 1px solid #1e3020; transition: color 0.18s ease, background 0.18s ease; }
+    .site-footer-social a:last-child { border-right: none; }
+    .site-footer-social a:hover { color: #b8905a; background: rgba(184,144,90,0.1); }
+    .site-footer-copy { position: relative; z-index: 1; width: 100%; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; color: rgba(156,173,154,0.35); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 34px; padding: 22px 24px 0; border-top: 1px solid #1e3020; }
+    @media (max-width: 820px) {
+      .site-footer { padding: 44px 0 22px; }
+      .site-footer-inner { flex-direction: column; align-items: center; text-align: center; padding: 0 24px; gap: 22px; }
+      .site-footer-brand { flex-direction: column; gap: 10px; text-align: center; }
+      .site-footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .site-footer-links a { padding: 9px 12px; font-size: 9px; }
+    }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    .fade-in-children > * { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .fade-in-children.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.05s; }
+    .fade-in-children.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.13s; }
+    .fade-in-children.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.21s; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate Seal" />
+        <div class="nav-brand-text">
+          <div class="top">San Marin</div>
+          <div class="bot">Speech &amp; Debate</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <div class="nav-dropdown" id="about-dd">
+          <button class="nav-dd-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="about-dd-panel" id="about-dd-btn">
+            About
+            <svg class="nav-dd-chevron" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dd-panel" id="about-dd-panel" role="menu" aria-label="About submenu" aria-hidden="true">
+            <a href="about.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">History &amp; Awards</div>
+              <div class="nav-dd-item-sub">Club story and achievements</div>
+            </a>
+            <div class="nav-dd-sep" role="separator" aria-hidden="true"></div>
+            <a href="leadership.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">Leadership Team</div>
+              <div class="nav-dd-item-sub">Officers and club structure</div>
+            </a>
+          </div>
+        </div>
+        <a href="events.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="portal.html" class="nav-cta nav-cta-active">Member Portal</a>
+      <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" id="hamburger-btn">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="index.html" class="mob-link">Home</a>
+      <button class="mob-acc-btn" aria-expanded="false" aria-controls="mob-about-panel" id="mob-about-btn">
+        About
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mob-acc-panel" id="mob-about-panel" aria-hidden="true">
+        <a href="about.html" class="mob-sub-link">History &amp; Awards</a>
+        <a href="leadership.html" class="mob-sub-link">Leadership Team</a>
+      </div>
+      <a href="events.html" class="mob-link">Media</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="portal.html" class="mob-cta">Member Portal</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        Member-Only Access
+      </div>
+      <h1>Member Portal</h1>
+      <p class="hero-sub">
+        Exclusive training resources, competitive tools, and team materials for San Marin Speech &amp; Debate members.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ WHAT'S INSIDE ═══════════════ -->
+  <section id="features">
+    <div class="features-inner">
+      <div class="features-eyebrow fade-in">Inside the Portal</div>
+      <div class="features-heading fade-in">Everything you need to compete.</div>
+      <div class="features-grid fade-in-children">
+
+        <div class="feature-card gold-accent">
+          <div class="feature-icon gold" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Training Vault</h3>
+          <p>12 interactive curriculum units covering Parliamentary debate from the basics to advanced competitive strategy — with quizzes and exercises at every step.</p>
+          <span class="feature-meta">12 units · Interactive</span>
+        </div>
+
+        <div class="feature-card green-accent">
+          <div class="feature-icon green" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <h3>PDF Resource Library</h3>
+          <p>Curated debate guides organized by level — Novice fundamentals and JV &amp; Varsity advanced materials — all viewable in-browser or downloadable.</p>
+          <span class="feature-meta green">Novice + JV/Varsity · 20 docs</span>
+        </div>
+
+        <div class="feature-card gold-accent">
+          <div class="feature-icon gold" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="2" y="7" width="20" height="14" rx="2"/>
+              <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Competition Toolkit</h3>
+          <p>Tournament prep resources including flowsheets, judging guides, speaker cheat sheets, and travel logistics — everything you need on tournament day.</p>
+          <span class="feature-meta">Tournaments · Round Prep</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PORTAL LOGIN ═══════════════ -->
+  <section id="access">
+    <div class="access-inner">
+      <div class="access-eyebrow fade-in">Get In</div>
+      <div class="access-heading fade-in">Enter the Portal</div>
+      <p class="access-sub fade-in">Use the team access code distributed by leadership at the start of each season.</p>
+
+      <div class="login-panel fade-in">
+        <div class="login-panel-header">
+          <div class="login-panel-icon" aria-hidden="true">🔐</div>
+          <div>
+            <div class="login-panel-title">Access Code</div>
+            <div class="login-panel-subtitle">Team members only</div>
+          </div>
+        </div>
+
+        <label class="login-label" for="access-code">Enter your code</label>
+        <div class="login-input-wrap">
+          <input
+            type="password"
+            id="access-code"
+            class="login-input"
+            placeholder="Access code"
+            autocomplete="off"
+            spellcheck="false"
+            maxlength="32"
+          />
+          <svg class="login-input-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+
+        <div id="login-message" class="login-message" role="alert" aria-live="polite"></div>
+
+        <button class="login-btn" id="login-btn" type="button">Enter Portal</button>
+
+        <p class="login-disclaimer">Access is limited to authorized team members only.</p>
+
+        <div class="login-divider"></div>
+
+        <p class="login-help">
+          Don't have a code?
+          <a href="mailto:sanmarindebate@gmail.com">Contact leadership</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate logo" />
+        <div>
+          <div class="site-footer-brand-name">San Marin Speech &amp; Debate</div>
+          <span class="site-footer-brand-sub">Novato, California</span>
+        </div>
+      </div>
+      <nav class="site-footer-links" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="events.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="site-footer-social">
+        <a href="https://www.instagram.com/sanmarinspeechanddebate/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/sanmarinspeechanddebate/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="site-footer-copy">© 2025 San Marin High School Speech &amp; Debate Club · All rights reserved</div>
+  </footer>
+
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script>
+    /* Scroll fade-in */
+    const fadeTargets = document.querySelectorAll('.fade-in, .fade-in-children');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeTargets.forEach(el => observer.observe(el));
+
+    /* Portal Login
+     * Codes are stored as SHA-256 hashes so the plaintext codes never appear
+     * in the page source. To rotate a code, see the "Access codes" section in
+     * captain-docs.html — it includes a one-line snippet to generate a hash. */
+    const ACCESS_CODE_HASHES = {
+      '31a8000a93a744097b39c4460569e73a90f4784a17bc4a50de6773db83d9cdb0': { role: 'member',  redirect: 'portal-team-hub.html' },
+      'd08ab4442e15b2a44364b25b900bf125eac9842983e5a688e4504301c2b0c4fd': { role: 'captain', redirect: 'captain-docs.html' }
+    };
+
+    async function sha256Hex(str) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const loginBtn  = document.getElementById('login-btn');
+    const inputEl   = document.getElementById('access-code');
+    const messageEl = document.getElementById('login-message');
+
+    function showMessage(type, html) {
+      messageEl.className = 'login-message ' + type;
+      messageEl.innerHTML = html;
+      messageEl.style.display = 'flex';
+    }
+
+    function clearMessage() {
+      messageEl.style.display = 'none';
+      messageEl.className = 'login-message';
+      messageEl.innerHTML = '';
+    }
+
+    inputEl.addEventListener('input', clearMessage);
+
+    loginBtn.addEventListener('click', async function () {
+      const val = inputEl.value.trim();
+
+      if (!val) {
+        showMessage('error',
+          '<svg class="msg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+          'Please enter your access code.'
+        );
+        inputEl.focus();
+        return;
+      }
+
+      let match = null;
+      try {
+        const hash = await sha256Hex(val);
+        match = Object.prototype.hasOwnProperty.call(ACCESS_CODE_HASHES, hash) ? ACCESS_CODE_HASHES[hash] : null;
+      } catch (e) {
+        // crypto.subtle requires a secure context (https, localhost, or file)
+        showMessage('error',
+          '<svg class="msg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+          'Login requires a secure connection. Please use the https:// address of this site.'
+        );
+        return;
+      }
+
+      if (match) {
+        try {
+          localStorage.setItem('sanmarinAuthRole', match.role);
+          localStorage.setItem('sanmarinAuthTime', String(Date.now()));
+        } catch (e) {}
+
+        inputEl.disabled = true;
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Authenticated';
+        loginBtn.style.background = '#1b5e35';
+        loginBtn.style.cursor = 'default';
+        showMessage('success',
+          '<svg class="msg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>' +
+          'Welcome! Redirecting to your dashboard&hellip;'
+        );
+        setTimeout(function () { window.location.href = match.redirect; }, 650);
+      } else {
+        showMessage('error',
+          '<svg class="msg-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+          'Invalid access code. Please contact leadership.'
+        );
+        inputEl.style.borderColor = '#ef4444';
+        inputEl.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.12)';
+        inputEl.select();
+        setTimeout(() => {
+          inputEl.style.borderColor = '';
+          inputEl.style.boxShadow = '';
+        }, 1800);
+      }
+    });
+
+    inputEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') loginBtn.click();
+    });
+
+    /* Nav dropdown + hamburger */
+    (function() {
+      var dd = document.getElementById('about-dd');
+      var ddBtn = document.getElementById('about-dd-btn');
+      var ddPanel = document.getElementById('about-dd-panel');
+      if (ddBtn) {
+        ddBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = dd.classList.toggle('open');
+          ddBtn.setAttribute('aria-expanded', String(open));
+          ddPanel.setAttribute('aria-hidden', String(!open));
+        });
+        ddPanel.addEventListener('keydown', function(e) {
+          var items = Array.from(ddPanel.querySelectorAll('[role="menuitem"]'));
+          var idx = items.indexOf(document.activeElement);
+          if (e.key === 'ArrowDown') { e.preventDefault(); items[Math.min(idx+1, items.length-1)].focus(); }
+          if (e.key === 'ArrowUp') { e.preventDefault(); items[Math.max(idx-1, 0)].focus(); }
+          if (e.key === 'Escape') { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded','false'); ddPanel.setAttribute('aria-hidden','true'); ddBtn.focus(); }
+        });
+      }
+      document.addEventListener('click', function() {
+        if (!dd) return;
+        dd.classList.remove('open');
+        if (ddBtn) ddBtn.setAttribute('aria-expanded','false');
+        if (ddPanel) ddPanel.setAttribute('aria-hidden','true');
+      });
+      var hamBtn = document.getElementById('hamburger-btn');
+      var mobileNav = document.getElementById('mobile-nav');
+      if (hamBtn && mobileNav) {
+        hamBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = mobileNav.classList.toggle('open');
+          hamBtn.setAttribute('aria-expanded', String(open));
+          mobileNav.setAttribute('aria-hidden', String(!open));
+        });
+      }
+      var mobAccBtn = document.getElementById('mob-about-btn');
+      var mobAccPanel = document.getElementById('mob-about-panel');
+      if (mobAccBtn && mobAccPanel) {
+        mobAccBtn.addEventListener('click', function() {
+          var open = mobAccPanel.classList.toggle('open');
+          mobAccBtn.setAttribute('aria-expanded', String(open));
+          mobAccPanel.setAttribute('aria-hidden', String(!open));
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

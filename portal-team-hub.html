@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Hub — Member Portal — San Marin Speech &amp; Debate</title>
+
+  <script>
+    (function() {
+      // Session gate — the role is set by the portal.html login only (never
+      // from the URL). Sessions expire after 90 days (~one season); the
+      // timestamp refreshes on each visit so active members stay signed in.
+      var MAX_SESSION_MS = 90 * 24 * 60 * 60 * 1000;
+      var role = '', ts = 0;
+      try {
+        role = localStorage.getItem('sanmarinAuthRole') || '';
+        ts = parseInt(localStorage.getItem('sanmarinAuthTime') || '0', 10) || 0;
+      } catch(e) {}
+      var valid = (role === 'member' || role === 'captain') && ts > 0 && (Date.now() - ts) < MAX_SESSION_MS;
+      if (valid) {
+        try { localStorage.setItem('sanmarinAuthTime', String(Date.now())); } catch(e) {}
+      } else {
+        try { localStorage.removeItem('sanmarinAuthRole'); localStorage.removeItem('sanmarinAuthTime'); } catch(e) {}
+        window.location.href = 'portal.html';
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="portal-styles.css" />
+
+  <style>
+    /* ── TEAM HUB SPECIFIC STYLES ── */
+    .hub-section {
+      margin-bottom: 72px;
+    }
+    .hub-section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .hub-section-eyebrow {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #c4a55a;
+      margin-bottom: 8px;
+    }
+    .hub-section-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(196,165,90,0.1);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c4a55a;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .hub-section:hover .hub-section-icon {
+      transform: rotate(-4deg);
+      background: rgba(196,165,90,0.15);
+    }
+    .hub-section-icon svg { width: 19px; height: 19px; }
+    .hub-section-title { font-size: 22px; font-weight: 800; color: #f5f4ec; letter-spacing: -0.025em; }
+    .hub-section-subtitle { font-size: 13.5px; color: rgba(236,239,230,0.5); margin-top: 4px; line-height: 1.5; }
+
+    /* ── ANNOUNCEMENTS — asymmetric stack ── */
+    .announcements-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .announcement-card {
+      background: rgba(28,54,32,0.5);
+      border: 1px solid rgba(196,165,90,0.12);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 26px 28px;
+      position: relative;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+    .announcement-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(196,165,90,0.28);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    }
+    .announcement-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 28px;
+      bottom: 28px;
+      width: 3px;
+      background: linear-gradient(180deg, #c4a55a, rgba(196,165,90,0.1));
+      border-radius: 0 3px 3px 0;
+      opacity: 0.7;
+    }
+    .announcement-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .announcement-date {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(236,239,230,0.38);
+    }
+    .announcement-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #d8b96d;
+      letter-spacing: -0.015em;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .announcement-body {
+      font-size: 14.5px;
+      color: rgba(236,239,230,0.75);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+    .announcement-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #6db285;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(109,178,133,0.45);
+      border-radius: 100px;
+      padding: 8px 16px;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+    .announcement-link:hover { background: #2d6a4f; color: #fff; border-color: #2d6a4f; transform: translateY(-1px); }
+    .announcement-link svg { width: 12px; height: 12px; }
+    .announcements-empty {
+      padding: 36px 28px;
+      color: rgba(236,239,230,0.5);
+      font-size: 14px;
+      background: rgba(28,54,32,0.35);
+      border: 1px dashed rgba(196,165,90,0.18);
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    /* ── BY-LAWS CARD ── */
+    .bylaws-card {
+      background:
+        radial-gradient(ellipse 60% 100% at 100% 0%, rgba(196,165,90,0.08) 0%, transparent 70%),
+        rgba(28,54,32,0.55);
+      border: 1px solid rgba(196,165,90,0.14);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 30px 30px;
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      max-width: 640px;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+    .bylaws-doc-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(196,165,90,0.12);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c4a55a;
+      flex-shrink: 0;
+    }
+    .bylaws-doc-icon svg { width: 26px; height: 26px; }
+    .bylaws-info { flex: 1; min-width: 0; }
+    .bylaws-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #f5f4ec;
+      letter-spacing: -0.015em;
+      margin-bottom: 6px;
+    }
+    .bylaws-subtitle {
+      font-size: 13.5px;
+      color: rgba(236,239,230,0.55);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .bylaws-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .bylaws-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+      border-radius: 100px;
+    }
+    .bylaws-btn-primary {
+      background: #2d6a4f;
+      color: #fff;
+    }
+    .bylaws-btn-primary:hover { background: #348160; }
+    .bylaws-btn-secondary {
+      background: transparent;
+      color: rgba(236,239,230,0.7);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+    .bylaws-btn-secondary:hover { border-color: rgba(196,165,90,0.5); color: #c4a55a; }
+    .bylaws-btn svg { width: 13px; height: 13px; }
+    a.bylaws-card:hover {
+      border-color: rgba(196,165,90,0.32);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.32);
+    }
+
+    /* ── AWARDS SECTION ── */
+    .awards-filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .year-filter-btn {
+      padding: 7px 18px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(28,54,32,0.5);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      color: rgba(236,239,230,0.55);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s ease;
+    }
+    .year-filter-btn:hover { border-color: rgba(196,165,90,0.4); color: #c4a55a; transform: translateY(-1px); }
+    .year-filter-btn.active { background: #2d6a4f; border-color: #2d6a4f; color: #fff; }
+
+    /* Asymmetric awards grid — varied sizes for visual interest */
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 22px;
+      grid-auto-flow: dense;
+    }
+    .award-card { grid-column: span 2; }
+    /* Every 7th card spans 3 cols, with photo on the left */
+    .award-card.feature { grid-column: span 3; }
+    .award-card.tall { grid-row: span 1; }
+
+    /* Award card */
+    .award-card {
+      background: rgba(28,54,32,0.55);
+      border: 1px solid rgba(196,165,90,0.12);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .award-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(196,165,90,0.34);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.35);
+    }
+    .award-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      background: rgba(26,46,26,0.6);
+      transition: transform 0.5s ease;
+    }
+    .award-card:hover .award-photo { transform: scale(1.04); }
+    .award-initials {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background:
+        radial-gradient(ellipse at center, rgba(196,165,90,0.18) 0%, rgba(196,165,90,0.06) 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 900;
+      color: #d8b96d;
+      letter-spacing: -0.02em;
+    }
+    .award-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .award-name { font-size: 15px; font-weight: 800; color: #f5f4ec; letter-spacing: -0.01em; }
+    .award-meta { font-size: 12.5px; color: rgba(236,239,230,0.5); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; line-height: 1.5; }
+    .award-year-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.06);
+      color: rgba(236,239,230,0.55);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .award-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .award-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .pill-gold { background: rgba(196,165,90,0.14); color: #d8b96d; border: 1px solid rgba(196,165,90,0.32); }
+    .pill-coral { background: rgba(192,57,43,0.1); color: #ff9a8a; border: 1px solid rgba(192,57,43,0.28); }
+    .pill-emerald { background: rgba(45,106,79,0.18); color: #6db285; border: 1px solid rgba(45,106,79,0.36); }
+
+    /* Skeleton loading */
+    .awards-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .skeleton-card { background: rgba(28,54,32,0.4); border: 1px solid rgba(255,255,255,0.06); border-radius: 18px; overflow: hidden; }
+    .skeleton-img { width: 100%; aspect-ratio: 4/3; background: rgba(255,255,255,0.04); animation: pulse 1.5s ease-in-out infinite; }
+    .skeleton-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+    .skeleton-line { height: 12px; background: rgba(255,255,255,0.05); border-radius: 4px; animation: pulse 1.5s ease-in-out infinite; }
+    .skeleton-line.w80 { width: 80%; }
+    .skeleton-line.w55 { width: 55%; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .awards-error,
+    .awards-empty {
+      padding: 36px 28px;
+      background: rgba(28,54,32,0.35);
+      border: 1px dashed rgba(196,165,90,0.18);
+      border-radius: 16px;
+      color: rgba(236,239,230,0.5);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* Calendar card */
+    .hub-calendar-wrap {
+      border: 1px solid rgba(196,165,90,0.16);
+      background: rgba(22,40,24,0.55);
+      border-radius: 18px;
+      padding: 8px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hub-calendar-wrap:hover {
+      border-color: rgba(196,165,90,0.3);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+    }
+    .hub-calendar-wrap iframe {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .awards-grid { grid-template-columns: repeat(4, 1fr); }
+      .award-card { grid-column: span 2; }
+      .award-card.feature { grid-column: span 2; }
+    }
+    @media (max-width: 1000px) {
+      .awards-skeleton { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .awards-grid { grid-template-columns: 1fr 1fr; }
+      .award-card,
+      .award-card.feature { grid-column: span 1; }
+
+    }
+    @media (max-width: 540px) {
+      .awards-grid, .awards-skeleton { grid-template-columns: 1fr; }
+      .bylaws-card { flex-direction: column; gap: 16px; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ SITE NAVBAR ═══════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate Seal" />
+        <div class="nav-brand-text">
+          <div class="top">San Marin</div>
+          <div class="bot">Speech &amp; Debate</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <div class="nav-dropdown" id="about-dd">
+          <button class="nav-dd-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="about-dd-panel" id="about-dd-btn">
+            About
+            <svg class="nav-dd-chevron" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dd-panel" id="about-dd-panel" role="menu" aria-label="About submenu" aria-hidden="true">
+            <a href="about.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">History &amp; Awards</div>
+              <div class="nav-dd-item-sub">Club story and achievements</div>
+            </a>
+            <div class="nav-dd-sep" role="separator" aria-hidden="true"></div>
+            <a href="leadership.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">Leadership Team</div>
+              <div class="nav-dd-item-sub">Officers and club structure</div>
+            </a>
+          </div>
+        </div>
+        <a href="events.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="portal.html" class="nav-cta nav-cta-active">Member Portal</a>
+      <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" id="hamburger-btn">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="index.html" class="mob-link">Home</a>
+      <button class="mob-acc-btn" aria-expanded="false" aria-controls="mob-about-panel" id="mob-about-btn">
+        About
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mob-acc-panel" id="mob-about-panel" aria-hidden="true">
+        <a href="about.html" class="mob-sub-link">History &amp; Awards</a>
+        <a href="leadership.html" class="mob-sub-link">Leadership Team</a>
+      </div>
+      <a href="events.html" class="mob-link">Media</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="portal.html" class="mob-cta">Member Portal</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ PORTAL BODY ═══════════════ -->
+  <div class="portal-body">
+
+    <!-- SIDEBAR -->
+    <aside class="portal-sidebar" aria-label="Portal navigation">
+
+      <div class="sidebar-header">
+        <svg class="sidebar-header-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="sidebar-header-title">Member Portal</span>
+        <button class="sidebar-toggle-btn" id="sidebar-toggle" type="button" aria-label="Collapse sidebar" title="Collapse sidebar">
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Portal sections">
+        <a href="portal-team-hub.html" class="sidebar-link active" aria-current="page">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Team Hub
+        </a>
+        <a href="portal-competition-toolkit.html" class="sidebar-link">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke-linecap="round"/>
+          </svg>
+          Competition Toolkit
+        </a>
+        <a href="portal-training-vault.html" class="sidebar-link">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
+          </svg>
+          Training Vault
+        </a>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="sidebar-signout" id="sidebar-signout" type="button">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke-linecap="round"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Sign Out
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- SIDEBAR REOPEN BUTTON (fixed, visible when sidebar collapsed) -->
+    <button class="sidebar-open-fab" id="sidebar-open-fab" type="button" aria-label="Open sidebar" title="Open sidebar">
+      <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- MAIN CONTENT -->
+    <main class="portal-main">
+
+      <div class="page-hero reveal">
+        <div class="page-hero-tag">Member Portal</div>
+        <h1 class="page-hero-title">Team Hub</h1>
+        <p class="page-hero-sub">Announcements, awards, by-laws, and team resources — your home base.</p>
+      </div>
+
+      <!-- ══════════ SECTION 1: ANNOUNCEMENTS ══════════ -->
+      <section class="hub-section" aria-labelledby="announcements-heading">
+        <div class="hub-section-header reveal-left">
+          <div class="hub-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="hub-section-eyebrow">News</div>
+            <div id="announcements-heading" class="hub-section-title">Announcements</div>
+            <div class="hub-section-subtitle">Latest updates from team leadership</div>
+          </div>
+        </div>
+        <div id="announcements-container">
+          <div class="announcements-empty">Loading announcements…</div>
+        </div>
+      </section>
+
+      <hr class="soft-divider" />
+
+      <!-- ══════════ SECTION 2: AWARDS ══════════ -->
+      <!-- ══════════ SECTION: TEAM SCHEDULE ══════════ -->
+      <section class="hub-section" aria-labelledby="schedule-heading">
+        <div class="hub-section-header reveal-left">
+          <div class="hub-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div>
+            <div class="hub-section-eyebrow">Calendar</div>
+            <div id="schedule-heading" class="hub-section-title">Team Schedule</div>
+            <div class="hub-section-subtitle">Upcoming meetings, tournaments, and events</div>
+          </div>
+        </div>
+        <div class="hub-calendar-wrap reveal">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?height=400&wkst=1&ctz=America%2FLos_Angeles&showPrint=0&showTitle=0&showNav=1&showDate=1&showTabs=0&showCalendars=0&mode=MONTH&src=ODU5NmIxYTg4NzM4MWJiZjhmYWUzNTYzZDRiZGU5ZTVjZmZiMGE3MjY5MDc2NzFmZmI2NzQ0ZDY0NzIyZTY1ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23009688"
+            title="San Marin Speech &amp; Debate — Team Schedule"
+            width="100%" height="400" frameborder="0" scrolling="no"
+            style="display:block;"></iframe>
+        </div>
+      </section>
+
+      <hr class="soft-divider" />
+
+      <section class="hub-section" aria-labelledby="awards-heading">
+        <div class="hub-section-header reveal-left">
+          <div class="hub-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="6"/>
+              <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="hub-section-eyebrow">Recognition</div>
+            <div id="awards-heading" class="hub-section-title">Awards &amp; Recognition</div>
+            <div class="hub-section-subtitle">Celebrating our team's achievements across tournaments and seasons</div>
+          </div>
+        </div>
+
+        <!-- Year filter — populated by JS -->
+        <div class="awards-filter-bar" id="awards-filter-bar" role="group" aria-label="Filter awards by year"></div>
+
+        <!-- Awards grid -->
+        <div id="awards-container">
+          <!-- Skeleton cards while loading -->
+          <div class="awards-skeleton" aria-label="Loading awards" aria-busy="true">
+            <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line w80"></div><div class="skeleton-line w55"></div></div></div>
+            <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line w80"></div><div class="skeleton-line w55"></div></div></div>
+            <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line w80"></div><div class="skeleton-line w55"></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="soft-divider" />
+
+      <!-- ══════════ SECTION 3: BY-LAWS ══════════ -->
+      <section class="hub-section" aria-labelledby="bylaws-heading">
+        <div class="hub-section-header reveal-left">
+          <div class="hub-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <div>
+            <div class="hub-section-eyebrow">Reference</div>
+            <div id="bylaws-heading" class="hub-section-title">Team By-Laws</div>
+            <div class="hub-section-subtitle">Official constitution and team rules</div>
+          </div>
+        </div>
+
+        <a href="https://docs.google.com/document/d/1fUFruS3torl1ewYsiqGMmcP-bTbG2Xrf/edit?usp=sharing&ouid=101496105348273774476&rtpof=true&sd=true" target="_blank" rel="noopener" class="bylaws-card reveal" style="text-decoration:none;display:flex;">
+          <div class="bylaws-doc-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+          <div class="bylaws-info">
+            <div class="bylaws-title">Team By-Laws</div>
+            <div class="bylaws-subtitle">The official constitution and rules of San Marin Speech &amp; Debate. Updated April 2026. Click to open in Google Docs.</div>
+            <div class="bylaws-actions">
+              <span class="bylaws-btn bylaws-btn-primary" style="pointer-events:none;">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                Open Document
+              </span>
+            </div>
+          </div>
+        </a>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════ MOBILE TAB BAR ═══════════════ -->
+  <nav class="portal-tab-bar" aria-label="Portal navigation">
+    <a href="portal-team-hub.html" class="tab-btn active" aria-label="Team Hub" aria-current="page">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </a>
+    <a href="portal-competition-toolkit.html" class="tab-btn" aria-label="Competition Toolkit">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="2" y="7" width="20" height="14" rx="2"/>
+        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <a href="portal-training-vault.html" class="tab-btn" aria-label="Training Vault">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </nav>
+
+  <script>
+    /* ── Sign out ── */
+    document.getElementById('sidebar-signout').addEventListener('click', function() {
+      try { localStorage.removeItem('sanmarinAuthRole'); localStorage.removeItem('sanmarinAuthTime'); } catch(e) {}
+      window.location.href = 'portal.html';
+    });
+
+    /* ── SIDEBAR TOGGLE ── */
+    (function() {
+      var sidebar = document.querySelector('.portal-sidebar');
+      var body = document.querySelector('.portal-body');
+      var toggleBtn = document.getElementById('sidebar-toggle');
+      var openFab = document.getElementById('sidebar-open-fab');
+      function setCollapsed(collapsed) {
+        if (collapsed) {
+          sidebar.classList.add('collapsed');
+          body.classList.add('sidebar-collapsed');
+          if (toggleBtn) toggleBtn.setAttribute('aria-label', 'Expand sidebar');
+        } else {
+          sidebar.classList.remove('collapsed');
+          body.classList.remove('sidebar-collapsed');
+          if (toggleBtn) toggleBtn.setAttribute('aria-label', 'Collapse sidebar');
+        }
+        try { localStorage.setItem('smSidebarCollapsed', collapsed ? '1' : '0'); } catch(e) {}
+      }
+      var stored = '0';
+      try { stored = localStorage.getItem('smSidebarCollapsed') || '0'; } catch(e) {}
+      setCollapsed(stored === '1');
+      if (toggleBtn) toggleBtn.addEventListener('click', function() { setCollapsed(!sidebar.classList.contains('collapsed')); });
+      if (openFab) openFab.addEventListener('click', function() { setCollapsed(false); });
+    })();
+
+    /* ── Nav dropdown + hamburger ── */
+    (function() {
+      var dd = document.getElementById('about-dd');
+      var ddBtn = document.getElementById('about-dd-btn');
+      var ddPanel = document.getElementById('about-dd-panel');
+      if (ddBtn) {
+        ddBtn.addEventListener('click', function(e) { e.stopPropagation(); var open = dd.classList.toggle('open'); ddBtn.setAttribute('aria-expanded', String(open)); ddPanel.setAttribute('aria-hidden', String(!open)); });
+      }
+      document.addEventListener('click', function() { if (!dd) return; dd.classList.remove('open'); if (ddBtn) ddBtn.setAttribute('aria-expanded','false'); if (ddPanel) ddPanel.setAttribute('aria-hidden','true'); });
+      var hamBtn = document.getElementById('hamburger-btn');
+      var mobileNav = document.getElementById('mobile-nav');
+      if (hamBtn && mobileNav) { hamBtn.addEventListener('click', function(e) { e.stopPropagation(); var open = mobileNav.classList.toggle('open'); hamBtn.setAttribute('aria-expanded', String(open)); mobileNav.setAttribute('aria-hidden', String(!open)); }); }
+      var mobAccBtn = document.getElementById('mob-about-btn');
+      var mobAccPanel = document.getElementById('mob-about-panel');
+      if (mobAccBtn && mobAccPanel) { mobAccBtn.addEventListener('click', function() { var open = mobAccPanel.classList.toggle('open'); mobAccBtn.setAttribute('aria-expanded', String(open)); mobAccPanel.setAttribute('aria-hidden', String(!open)); }); }
+    })();
+
+    /* ── REVEAL ON SCROLL ── */
+    (function() {
+      if (typeof window === 'undefined') return;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        // Fallback — show all immediately
+        document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
+        window.__portalObserve = function(root) {
+          (root || document).querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
+        };
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      function observeAll(root) {
+        (root || document).querySelectorAll('.reveal:not(.is-in), .reveal-left:not(.is-in)').forEach(function(el) {
+          io.observe(el);
+        });
+      }
+      window.__portalObserve = observeAll;
+      observeAll();
+    })();
+
+    /* ── ANNOUNCEMENTS ── */
+    (function() {
+      var container = document.getElementById('announcements-container');
+
+      function formatDate(dateStr) {
+        try {
+          var d = new Date(dateStr + 'T12:00:00');
+          return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        } catch(e) { return dateStr; }
+      }
+
+      fetch('data/announcements.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          // Filter out comment lines (JSON doesn't allow comments — this is handled by the fetch)
+          var items = Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : []);
+          items = items
+            .filter(function(a) { return a && a.title; })
+            .sort(function(a, b) { return b.date.localeCompare(a.date); })
+            .slice(0, 5);
+
+          if (items.length === 0) {
+            container.innerHTML = '<div class="announcements-empty">No announcements at this time. Check back soon.</div>';
+            return;
+          }
+
+          container.innerHTML = '<div class="announcements-list stagger">' +
+            items.map(function(a) {
+              var linkHtml = (a.link && a.linkText)
+                ? '<a href="' + escHtml(a.link) + '" target="_blank" rel="noopener" class="announcement-link">' +
+                  escHtml(a.linkText) +
+                  '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+                  '</a>'
+                : '';
+              return '<article class="announcement-card reveal">' +
+                '<div class="announcement-meta"><span class="announcement-date">' + formatDate(a.date) + '</span></div>' +
+                '<div class="announcement-title">' + escHtml(a.title) + '</div>' +
+                '<p class="announcement-body">' + escHtml(a.body) + '</p>' +
+                linkHtml +
+                '</article>';
+            }).join('') +
+            '</div>';
+          if (window.__portalObserve) window.__portalObserve(container);
+        })
+        .catch(function() {
+          container.innerHTML = '<div class="announcements-empty">Announcements are temporarily unavailable.</div>';
+        });
+    })();
+
+    /* ── AWARDS ── */
+    (function() {
+      var awardsContainer = document.getElementById('awards-container');
+      var filterBar = document.getElementById('awards-filter-bar');
+      var allAwards = [];
+      var activeYear = 'All';
+
+      function escHtml(str) {
+        return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      function getInitials(name) {
+        return String(name || '?').split(' ').map(function(w) { return w[0] || ''; }).slice(0,2).join('').toUpperCase();
+      }
+
+      function getPillClass(level) {
+        var l = String(level).toLowerCase();
+        if (l.includes('undefeated')) return 'pill-gold';
+        if (l.includes('winning')) return 'pill-coral';
+        if (l.includes('advanced') || l.includes('jv') || l.includes('varsity')) return 'pill-emerald';
+        return 'pill-emerald';
+      }
+
+      function renderAwards(awards) {
+        if (awards.length === 0) {
+          awardsContainer.innerHTML = '<div class="awards-empty">No awards found for this filter — try another year above.</div>';
+          return;
+        }
+        awardsContainer.innerHTML = '<div class="awards-grid stagger">' +
+          awards.map(function(a, i) {
+            var photoHtml = a.photo
+              ? '<img class="award-photo" src="' + escHtml(a.photo) + '" alt="' + escHtml(a.memberName) + '" loading="lazy" />'
+              : '<div class="award-initials" aria-hidden="true">' + escHtml(getInitials(a.memberName)) + '</div>';
+
+            var metaParts = [];
+            if (a.awardTitle) metaParts.push(escHtml(a.awardTitle));
+            if (a.tournament) metaParts.push(escHtml(a.tournament));
+            var yearBadge = a.year ? '<span class="award-year-badge">' + escHtml(a.year) + '</span>' : '';
+
+            var pills = [];
+            if (a.achievementLevel) {
+              pills.push('<span class="award-pill ' + getPillClass(a.achievementLevel) + '">' + escHtml(a.achievementLevel) + '</span>');
+            }
+            if (a.place) {
+              pills.push('<span class="award-pill pill-emerald">' + escHtml(a.place) + '</span>');
+            }
+
+            // Every 7th card gets a "feature" wider treatment for asymmetry
+            var featureClass = (i % 7 === 3) ? ' feature' : '';
+
+            return '<div class="award-card reveal' + featureClass + '">' +
+              photoHtml +
+              '<div class="award-body">' +
+              '<div class="award-name">' + escHtml(a.memberName) + '</div>' +
+              '<div class="award-meta">' + metaParts.join(' · ') + (yearBadge ? ' ' + yearBadge : '') + '</div>' +
+              (pills.length ? '<div class="award-tags">' + pills.join('') + '</div>' : '') +
+              '</div></div>';
+          }).join('') +
+          '</div>';
+        if (window.__portalObserve) window.__portalObserve(awardsContainer);
+      }
+
+      function buildFilterBar(awards) {
+        var years = [];
+        awards.forEach(function(a) { if (a.year && !years.includes(a.year)) years.push(a.year); });
+        years.sort(function(a, b) { return b.localeCompare(a); });
+
+        var btns = '<button class="year-filter-btn active" data-year="All">All</button>';
+        years.forEach(function(y) {
+          btns += '<button class="year-filter-btn" data-year="' + escHtml(y) + '">' + escHtml(y) + '</button>';
+        });
+        filterBar.innerHTML = btns;
+
+        filterBar.querySelectorAll('.year-filter-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            filterBar.querySelectorAll('.year-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            activeYear = btn.dataset.year;
+            var filtered = activeYear === 'All' ? allAwards : allAwards.filter(function(a) { return a.year === activeYear; });
+            renderAwards(filtered);
+          });
+        });
+      }
+
+      fetch('/api/awards')
+        .then(function(r) {
+          if (!r.ok) throw new Error(r.statusText);
+          return r.json();
+        })
+        .then(function(data) {
+          allAwards = data.awards || [];
+          buildFilterBar(allAwards);
+          renderAwards(allAwards);
+        })
+        .catch(function() {
+          filterBar.innerHTML = '';
+          awardsContainer.innerHTML = '<div class="awards-error">Awards are currently unavailable. Please check back soon.</div>';
+        });
+    })();
+
+    function escHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+  </script>
+
+</body>
+</html>

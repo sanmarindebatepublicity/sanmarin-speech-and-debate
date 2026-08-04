@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Training Vault — Member Portal — San Marin Speech &amp; Debate</title>
+
+  <script>
+    (function() {
+      // Session gate — the role is set by the portal.html login only (never
+      // from the URL). Sessions expire after 90 days (~one season); the
+      // timestamp refreshes on each visit so active members stay signed in.
+      var MAX_SESSION_MS = 90 * 24 * 60 * 60 * 1000;
+      var role = '', ts = 0;
+      try {
+        role = localStorage.getItem('sanmarinAuthRole') || '';
+        ts = parseInt(localStorage.getItem('sanmarinAuthTime') || '0', 10) || 0;
+      } catch(e) {}
+      var valid = (role === 'member' || role === 'captain') && ts > 0 && (Date.now() - ts) < MAX_SESSION_MS;
+      if (valid) {
+        try { localStorage.setItem('sanmarinAuthTime', String(Date.now())); } catch(e) {}
+      } else {
+        try { localStorage.removeItem('sanmarinAuthRole'); localStorage.removeItem('sanmarinAuthTime'); } catch(e) {}
+        window.location.href = 'portal.html';
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap" rel="stylesheet" />
+
+  <!-- Portal chrome first, then vault internals -->
+  <link rel="stylesheet" href="portal-styles.css" />
+  <link rel="stylesheet" href="vault-styles.css" />
+
+  <style>
+    /* ── Portal body: vault-styles overwrites body — keep relaxed dark green ── */
+    body {
+      background: #142a1a !important;
+      color: #ecefe6 !important;
+      background-image:
+        radial-gradient(ellipse 70% 50% at 18% 0%, rgba(40,72,46,0.45) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 88% 18%, rgba(196,165,90,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 45% at 50% 100%, rgba(28,54,32,0.4) 0%, transparent 70%) !important;
+      background-attachment: fixed !important;
+    }
+
+    /* ── Fix vault's global a { color: gold } for portal chrome ── */
+    #navbar a,
+    .portal-sidebar .sidebar-link,
+    .portal-sidebar .sidebar-signout,
+    .portal-tab-bar .tab-btn,
+    .back-link {
+      color: inherit;
+    }
+    .nav-links > a       { color: rgba(243,244,246,0.5); }
+    .nav-links > a:hover { color: #fff; }
+    .nav-links > a.active { color: #fff; background: #15573a; }
+    .nav-cta             { color: #fff !important; }
+
+    /* ── Vault content band: seamless with portal background ── */
+    .vault-content-area {
+      background: transparent;
+      margin: 0 -52px 0;
+    }
+    @media (max-width: 1024px) { .vault-content-area { margin: 0 -36px 0; } }
+    @media (max-width: 860px)  { .vault-content-area { margin: 0 -26px 0; } }
+    @media (max-width: 768px)  { .vault-content-area { margin: 0 -22px 0; } }
+    @media (max-width: 480px)  { .vault-content-area { margin: 0 -16px 0; } }
+
+    /* Vault's internal sidebar: adjust sticky offset for portal nav height */
+    .vault-content-area #sidebar { top: 80px; }
+
+    /* ── PDF RESOURCE TRACKS ── */
+    .resource-track {
+      margin-top: 64px;
+    }
+
+    .resource-track-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 26px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .resource-track-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .resource-track:hover .resource-track-icon { transform: rotate(-4deg); }
+    .resource-track-icon svg { width: 21px; height: 21px; }
+
+    .resource-track-eyebrow {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #c4a55a;
+      margin-bottom: 6px;
+    }
+
+    .resource-track-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #f5f4ec;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+
+    .resource-track-sub {
+      font-size: 13.5px;
+      color: rgba(236,239,230,0.55);
+      margin-top: 6px;
+      line-height: 1.6;
+      max-width: 640px;
+    }
+    .resource-track-credit {
+      font-size: 11.5px;
+      font-style: italic;
+      color: rgba(196,165,90,0.6);
+      margin-top: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 640px) { .pdf-grid { grid-template-columns: 1fr; } }
+
+    .pdf-card {
+      background: rgba(28,54,32,0.5);
+      border: 1px solid rgba(196,165,90,0.13);
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+    .pdf-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(196,165,90,0.3);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.32);
+    }
+
+    .pdf-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .pdf-card:hover .pdf-icon { transform: scale(1.06); }
+    .pdf-icon svg { width: 19px; height: 19px; }
+
+    .pdf-name {
+      flex: 1;
+      min-width: 0;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #f5f4ec;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .pdf-btn {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 13px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+      white-space: nowrap;
+      display: inline-block;
+      border: 1px solid transparent;
+    }
+    .pdf-btn:hover { transform: translateY(-1px); }
+
+    /* Novice track — sage green */
+    .track-novice .resource-track-icon {
+      background: rgba(45,90,58,0.22);
+      color: #8fc7a4;
+    }
+    .track-novice .pdf-icon    { background: rgba(45,90,58,0.18); color: #8fc7a4; }
+    .track-novice .pdf-btn-view {
+      background: rgba(45,90,58,0.22);
+      color: #8fc7a4;
+      border-color: rgba(143,199,164,0.28);
+    }
+    .track-novice .pdf-btn-view:hover {
+      background: rgba(45,90,58,0.36);
+      color: #b2dec1;
+    }
+    .track-novice .pdf-btn-dl {
+      background: rgba(255,255,255,0.04);
+      color: rgba(236,239,230,0.55);
+      border-color: rgba(255,255,255,0.1);
+    }
+    .track-novice .pdf-btn-dl:hover {
+      background: rgba(255,255,255,0.08);
+      color: #f5f4ec;
+    }
+
+    /* JV/Varsity track — soft gold */
+    .track-jv .resource-track-icon {
+      background: rgba(196,165,90,0.12);
+      color: #c4a55a;
+    }
+    .track-jv .pdf-icon    { background: rgba(196,165,90,0.1); color: #c4a55a; }
+    .track-jv .pdf-btn-view {
+      background: rgba(196,165,90,0.12);
+      color: #c4a55a;
+      border-color: rgba(196,165,90,0.32);
+    }
+    .track-jv .pdf-btn-view:hover {
+      background: rgba(196,165,90,0.22);
+      color: #d8b96d;
+    }
+    .track-jv .pdf-btn-dl {
+      background: rgba(255,255,255,0.04);
+      color: rgba(236,239,230,0.55);
+      border-color: rgba(255,255,255,0.1);
+    }
+    .track-jv .pdf-btn-dl:hover {
+      background: rgba(255,255,255,0.08);
+      color: #f5f4ec;
+    }
+
+    /* bottom breathing room */
+    .pdf-tracks-end { height: 80px; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ SITE NAVBAR ═══════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate Seal" />
+        <div class="nav-brand-text">
+          <div class="top">San Marin</div>
+          <div class="bot">Speech &amp; Debate</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <div class="nav-dropdown" id="about-dd">
+          <button class="nav-dd-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="about-dd-panel" id="about-dd-btn">
+            About
+            <svg class="nav-dd-chevron" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dd-panel" id="about-dd-panel" role="menu" aria-label="About submenu" aria-hidden="true">
+            <a href="about.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">History &amp; Awards</div>
+              <div class="nav-dd-item-sub">Club story and achievements</div>
+            </a>
+            <div class="nav-dd-sep" role="separator" aria-hidden="true"></div>
+            <a href="leadership.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">Leadership Team</div>
+              <div class="nav-dd-item-sub">Officers and club structure</div>
+            </a>
+          </div>
+        </div>
+        <a href="events.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="portal.html" class="nav-cta nav-cta-active">Member Portal</a>
+      <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" id="hamburger-btn">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="index.html" class="mob-link">Home</a>
+      <button class="mob-acc-btn" aria-expanded="false" aria-controls="mob-about-panel" id="mob-about-btn">
+        About
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mob-acc-panel" id="mob-about-panel" aria-hidden="true">
+        <a href="about.html" class="mob-sub-link">History &amp; Awards</a>
+        <a href="leadership.html" class="mob-sub-link">Leadership Team</a>
+      </div>
+      <a href="events.html" class="mob-link">Media</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="portal.html" class="mob-cta">Member Portal</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ PORTAL BODY ═══════════════ -->
+  <div class="portal-body">
+
+    <!-- SIDEBAR -->
+    <aside class="portal-sidebar" aria-label="Portal navigation">
+
+      <div class="sidebar-header">
+        <svg class="sidebar-header-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="sidebar-header-title">Member Portal</span>
+        <button class="sidebar-toggle-btn" id="sidebar-toggle" type="button" aria-label="Collapse sidebar" title="Collapse sidebar">
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Portal sections">
+        <a href="portal-team-hub.html" class="sidebar-link">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Team Hub
+        </a>
+        <a href="portal-competition-toolkit.html" class="sidebar-link">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke-linecap="round"/>
+          </svg>
+          Competition Toolkit
+        </a>
+        <a href="portal-training-vault.html" class="sidebar-link active" aria-current="page">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
+          </svg>
+          Training Vault
+        </a>
+      </nav>
+
+      <div class="sidebar-actions">
+        <button class="sidebar-signout" id="sidebar-signout" type="button">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke-linecap="round"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Sign Out
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- SIDEBAR REOPEN BUTTON (fixed, visible when sidebar collapsed) -->
+    <button class="sidebar-open-fab" id="sidebar-open-fab" type="button" aria-label="Open sidebar" title="Open sidebar">
+      <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- MAIN CONTENT -->
+    <main class="portal-main">
+
+      <div class="page-hero reveal">
+        <div class="page-hero-tag">Member Portal</div>
+        <h1 class="page-hero-title">Training Vault</h1>
+        <p class="page-hero-sub">New to Speech &amp; Debate? Start here. 12 interactive units covering everything from your first speech to competitive strategy.</p>
+      </div>
+
+      <!-- ═══ VAULT CONTENT (dark, full-width band) ═══ -->
+      <div class="vault-content-area">
+        <main class="vault-main">
+
+          <!-- Dashboard View -->
+          <div id="dashboard-view">
+            <div id="course-catalog"></div>
+
+            <div id="sidebar">
+              <div id="calendar-embed">
+                <div class="cal-header">
+                  <h3>Team Schedule</h3>
+                  <span class="live-pill"><span class="dot"></span>Live</span>
+                </div>
+                <iframe
+                  src="https://calendar.google.com/calendar/embed?height=380&wkst=1&ctz=America%2FLos_Angeles&showPrint=0&showTitle=0&showNav=1&showDate=1&showTabs=0&showCalendars=0&mode=AGENDA&src=ODU5NmIxYTg4NzM4MWJiZjhmYWUzNTYzZDRiZGU5ZTVjZmZiMGE3MjY5MDc2NzFmZmI2NzQ0ZDY0NzIyZTY1ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23009688"
+                  title="San Marin Speech &amp; Debate — Team Schedule"
+                  style="border:0" width="100%" height="340" frameborder="0" scrolling="no"></iframe>
+              </div>
+              <div id="quick-stats"></div>
+              <div id="quote-box"></div>
+            </div>
+          </div>
+
+          <!-- Lesson View (hidden by default) -->
+          <div id="lesson-view" style="display:none">
+            <button type="button" id="back-btn">&larr; Back to Courses</button>
+            <div id="lesson-title"></div>
+            <div id="lesson-content"></div>
+            <div id="lesson-nav">
+              <button type="button" id="prev-btn">Previous Step</button>
+              <button type="button" id="next-btn">Next Step</button>
+              <button type="button" id="complete-btn">Mark Complete</button>
+            </div>
+          </div>
+
+        </main>
+      </div>
+      <!-- /vault content area -->
+
+      <div id="confetti-container"></div>
+
+      <!-- ═══ NOVICE FUNDAMENTALS ═══ -->
+      <section class="resource-track track-novice" aria-label="Novice Fundamentals">
+        <div class="resource-track-header reveal-left">
+          <div class="resource-track-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 17l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="resource-track-eyebrow">Start Here</div>
+            <div class="resource-track-title">Novice Fundamentals</div>
+            <div class="resource-track-sub">Essential debate guides for beginners — numbered in the recommended reading order. Start with #1 and work your way through.</div>
+            <div class="resource-track-credit">Material Courtesy of Tyler Colenbrander &amp; Karen Kenyon</div>
+          </div>
+        </div>
+
+        <div class="pdf-grid stagger">
+
+          <!-- 1 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Speech and Debate Basics</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Speech and Debate Basics.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Speech and Debate Basics.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">The Basics of Parliamentary Debate</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/The Basics of Parliamentary Debate.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/The Basics of Parliamentary Debate.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Constructing Arguments</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Constructing Arguments.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Constructing Arguments.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">The Flow of Debate</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/The Flow of Debate.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/The Flow of Debate.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">All Points</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/All Points.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/All Points.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 6 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Case Construction</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Case Construction.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Case Construction.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 7 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Affirmative Team Speaker Duties</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Affirmative Team Speaker Duties.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Affirmative Team Speaker Duties.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 8 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Negative Speaker Duties</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Negative Speaker Duties.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Negative Speaker Duties.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 9 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Constructing a Fact or Value Case</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Constructing a Fact or Value Case.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Constructing a Fact or Value Case.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 10 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Constructing a Policy Case</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Constructing a Policy Case.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Constructing a Policy Case.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 11 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Guide to Rebuttals</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Guide to Rebuttals.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Guide to Rebuttals.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 12 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Attacking Arguments</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Attacking Arguments.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Attacking Arguments.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 13 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Counterplans</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Counterplans.docx.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Counterplans.docx.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <!-- 14 -->
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Summary of Constitution &amp; Amendments</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resource_basics/Summary of Constitution-Amendments.docx.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resource_basics/Summary of Constitution-Amendments.docx.pdf" download>Download</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ═══ JV & VARSITY ADVANCED ═══ -->
+      <section class="resource-track track-jv" aria-label="JV and Varsity Advanced Guides">
+        <div class="resource-track-header reveal-left">
+          <div class="resource-track-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <div>
+            <div class="resource-track-eyebrow">Advanced</div>
+            <div class="resource-track-title">JV &amp; Varsity Advanced</div>
+            <div class="resource-track-sub">Advanced strategy and technique guides for experienced debaters.</div>
+            <div class="resource-track-credit">Material Courtesy of Tyler Colenbrander &amp; Karen Kenyon</div>
+          </div>
+        </div>
+
+        <div class="pdf-grid stagger">
+
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Avoiding Fallacies in Arguments</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resources_jv_and_varsity/Avoiding Fallacies in Arguments.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resources_jv_and_varsity/Avoiding Fallacies in Arguments.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">CP Quick Outlines</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resources_jv_and_varsity/CP Quick Outlines.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resources_jv_and_varsity/CP Quick Outlines.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Impact Calculus</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resources_jv_and_varsity/Impact Calculus.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resources_jv_and_varsity/Impact Calculus.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Intro to Theory Arguments</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resources_jv_and_varsity/Intro to Theory Arguments.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resources_jv_and_varsity/Intro to Theory Arguments.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Philosophic Ideas</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resources_jv_and_varsity/Philosophic Ideas.docx.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resources_jv_and_varsity/Philosophic Ideas.docx.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="pdf-card reveal">
+            <div class="pdf-icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pdf-name">Pros &amp; Cons: A Debater's Handbook</div>
+            <div class="pdf-actions">
+              <a class="pdf-btn pdf-btn-view" href="debate_resources_jv_and_varsity/Pros and Cons, A Debater Handbook, 2014, 19th Edition.pdf" target="_blank" rel="noopener">View</a>
+              <a class="pdf-btn pdf-btn-dl" href="debate_resources_jv_and_varsity/Pros and Cons, A Debater Handbook, 2014, 19th Edition.pdf" download>Download</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="pdf-tracks-end"></div>
+
+    </main>
+
+  </div>
+
+  <!-- ═══════════════ MOBILE TAB BAR ═══════════════ -->
+  <nav class="portal-tab-bar" aria-label="Portal navigation">
+    <a href="portal-team-hub.html" class="tab-btn" aria-label="Team Hub">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </a>
+    <a href="portal-competition-toolkit.html" class="tab-btn" aria-label="Competition Toolkit">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="2" y="7" width="20" height="14" rx="2"/>
+        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <a href="portal-training-vault.html" class="tab-btn active" aria-label="Training Vault" aria-current="page">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </nav>
+
+  <!-- Vault JS (renders into #course-catalog, #sidebar, #lesson-view, etc.) -->
+  <script src="vault-curriculum.js"></script>
+  <script src="vault-exercises.js"></script>
+  <script src="vault-app.js"></script>
+
+  <script>
+    /* ── REVEAL ON SCROLL ── */
+    (function() {
+      if (typeof window === 'undefined') return;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
+        window.__portalObserve = function(root) {
+          (root || document).querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
+        };
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      function observeAll(root) {
+        (root || document).querySelectorAll('.reveal:not(.is-in), .reveal-left:not(.is-in)').forEach(function(el) {
+          io.observe(el);
+        });
+      }
+      window.__portalObserve = observeAll;
+      observeAll();
+    })();
+
+    /* Sign out */
+    document.getElementById('sidebar-signout').addEventListener('click', function() {
+      try {
+        localStorage.removeItem('sanmarinAuthRole');
+        localStorage.removeItem('sanmarinAuthTime');
+      } catch(e) {}
+      window.location.href = 'portal.html';
+    });
+
+    /* ── SIDEBAR TOGGLE ── */
+    (function() {
+      var sidebar = document.querySelector('.portal-sidebar');
+      var body = document.querySelector('.portal-body');
+      var toggleBtn = document.getElementById('sidebar-toggle');
+      var openFab = document.getElementById('sidebar-open-fab');
+      function setCollapsed(collapsed) {
+        if (collapsed) {
+          sidebar.classList.add('collapsed');
+          body.classList.add('sidebar-collapsed');
+          if (toggleBtn) toggleBtn.setAttribute('aria-label', 'Expand sidebar');
+        } else {
+          sidebar.classList.remove('collapsed');
+          body.classList.remove('sidebar-collapsed');
+          if (toggleBtn) toggleBtn.setAttribute('aria-label', 'Collapse sidebar');
+        }
+        try { localStorage.setItem('smSidebarCollapsed', collapsed ? '1' : '0'); } catch(e) {}
+      }
+      var stored = '0';
+      try { stored = localStorage.getItem('smSidebarCollapsed') || '0'; } catch(e) {}
+      setCollapsed(stored === '1');
+      if (toggleBtn) toggleBtn.addEventListener('click', function() { setCollapsed(!sidebar.classList.contains('collapsed')); });
+      if (openFab) openFab.addEventListener('click', function() { setCollapsed(false); });
+    })();
+
+    /* Nav dropdown + hamburger */
+    (function() {
+      var dd = document.getElementById('about-dd');
+      var ddBtn = document.getElementById('about-dd-btn');
+      var ddPanel = document.getElementById('about-dd-panel');
+      if (ddBtn) {
+        ddBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = dd.classList.toggle('open');
+          ddBtn.setAttribute('aria-expanded', String(open));
+          ddPanel.setAttribute('aria-hidden', String(!open));
+        });
+        ddPanel.addEventListener('keydown', function(e) {
+          var items = Array.from(ddPanel.querySelectorAll('[role="menuitem"]'));
+          var idx = items.indexOf(document.activeElement);
+          if (e.key === 'ArrowDown') { e.preventDefault(); items[Math.min(idx+1, items.length-1)].focus(); }
+          if (e.key === 'ArrowUp') { e.preventDefault(); items[Math.max(idx-1, 0)].focus(); }
+          if (e.key === 'Escape') { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded','false'); ddPanel.setAttribute('aria-hidden','true'); ddBtn.focus(); }
+        });
+      }
+      document.addEventListener('click', function() {
+        if (!dd) return;
+        dd.classList.remove('open');
+        if (ddBtn) ddBtn.setAttribute('aria-expanded','false');
+        if (ddPanel) ddPanel.setAttribute('aria-hidden','true');
+      });
+      var hamBtn = document.getElementById('hamburger-btn');
+      var mobileNav = document.getElementById('mobile-nav');
+      if (hamBtn && mobileNav) {
+        hamBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = mobileNav.classList.toggle('open');
+          hamBtn.setAttribute('aria-expanded', String(open));
+          mobileNav.setAttribute('aria-hidden', String(!open));
+        });
+      }
+      var mobAccBtn = document.getElementById('mob-about-btn');
+      var mobAccPanel = document.getElementById('mob-about-panel');
+      if (mobAccBtn && mobAccPanel) {
+        mobAccBtn.addEventListener('click', function() {
+          var open = mobAccPanel.classList.toggle('open');
+          mobAccBtn.setAttribute('aria-expanded', String(open));
+          mobAccPanel.setAttribute('aria-hidden', String(!open));
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

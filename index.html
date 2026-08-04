@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>San Marin Speech &amp; Debate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; }
+
+    /* ─── DESIGN TOKENS ─── */
+    :root {
+      --canvas:      #f4f3ef;
+      --canvas-alt:  #eeece8;
+      --forest:      #1b4332;
+      --forest-mid:  #2d6a4f;
+      --forest-pale: #74b49b;
+      --gold:        #b8905a;
+      --dark:        #0d1a10;
+      --dark-card:   #111d14;
+      --tp:          #1b4332;
+      --ts:          #4e6b56;
+      --tdp:         #f0ede6;
+      --tds:         #9cad9a;
+      --hl:          #dad6d0;
+      --hd:          #1e3020;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--canvas);
+      color: var(--tp);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.vis { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s !important; }
+    .d2 { transition-delay: 0.2s !important; }
+    .d3 { transition-delay: 0.3s !important; }
+    .d4 { transition-delay: 0.45s !important; }
+
+    .section-reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 700ms cubic-bezier(0.16,1,0.3,1), transform 700ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .section-reveal.is-visible { opacity: 1; transform: none; }
+
+    .reveal { clip-path: inset(100% 0 0 0); transition: clip-path 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.vis { clip-path: inset(0% 0 0 0); }
+    .reveal-x { clip-path: inset(0 100% 0 0); transition: clip-path 0.85s cubic-bezier(0.16,1,0.3,1) 0.12s; }
+    .reveal-x.vis { clip-path: inset(0 0% 0 0); }
+
+    /* ─── NOISE (applied to dark sections via ::before) ─── */
+    .noise-dark::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      position: relative;
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 28px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap; line-height: 1;
+    }
+    .btn::after {
+      content: '';
+      position: absolute; bottom: -4px; right: -4px;
+      width: 100%; height: 100%;
+      border-radius: 100px;
+      pointer-events: none;
+      transition: bottom 0.15s, right 0.15s;
+    }
+    .btn:hover { transform: translate(-2px, -2px); }
+    .btn:hover::after { bottom: -2px; right: -2px; }
+
+    /* Filled forest */
+    .btn-forest { background: var(--forest); color: #f4f3ef; border: 1.5px solid var(--forest); }
+    .btn-forest::after { border: 1.5px solid var(--forest-mid); }
+    .btn-forest:hover { background: var(--forest-mid); border-color: var(--forest-mid); }
+
+    /* Outlined on cream */
+    .btn-outline { background: transparent; color: var(--forest); border: 1.5px solid rgba(27,67,50,0.38); }
+    .btn-outline::after { border: 1.5px solid rgba(27,67,50,0.6); }
+    .btn-outline:hover { background: rgba(27,67,50,0.05); border-color: var(--forest); }
+
+    /* Outlined on dark */
+    .btn-outline-light { background: transparent; color: var(--tdp); border: 1.5px solid rgba(240,237,230,0.28); }
+    .btn-outline-light::after { border: 1.5px solid rgba(240,237,230,0.55); }
+    .btn-outline-light:hover { background: rgba(240,237,230,0.07); border-color: rgba(240,237,230,0.55); }
+
+    /* Breathing pulse glow */
+    @keyframes btnGlowPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(27,67,50,0.5), 0 0 12px rgba(27,67,50,0.1); }
+      50%       { box-shadow: 0 0 0 10px rgba(27,67,50,0), 0 0 32px 8px rgba(27,67,50,0.26); }
+    }
+    .btn-pulse { animation: btnGlowPulse 2.8s ease-in-out infinite; }
+
+    /* ─── NAV ─── */
+    #navbar {
+      background: rgba(244,243,239,0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--hl);
+      position: sticky; top: 0; z-index: 200;
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 40px; height: 62px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-brand img { width: 31px; height: 31px; object-fit: contain; }
+    .nav-brand-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px; font-weight: 600; color: var(--forest);
+      letter-spacing: -0.01em; line-height: 1.1;
+    }
+    .nav-brand-sub {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9px; font-weight: 500; color: var(--ts);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      display: block; margin-top: 2px;
+    }
+
+    /* Centered pill nav */
+    .nav-links {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center;
+      background: rgba(27,67,50,0.05);
+      border: 1px solid rgba(27,67,50,0.11);
+      border-radius: 100px;
+      padding: 5px; gap: 2px;
+    }
+    .nav-link {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: rgba(27,67,50,0.48); text-decoration: none;
+      padding: 7px 17px; border-radius: 100px;
+      transition: color 0.15s, background 0.15s; white-space: nowrap;
+    }
+    .nav-link::after { display: none; }
+    .nav-link:hover { color: var(--forest); background: rgba(27,67,50,0.06); }
+    .nav-link.active { color: #fff; background: var(--forest); }
+
+    /* Dropdown */
+    .nav-dropdown { position: relative; }
+    .nav-dd-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 5px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+      color: rgba(27,67,50,0.48);
+      padding: 7px 17px; border-radius: 100px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-dd-btn::after { display: none; }
+    .nav-dd-btn:hover { color: var(--forest); background: rgba(27,67,50,0.06); }
+    .nav-dropdown.open .nav-dd-btn { color: #fff; background: var(--forest); }
+    .nav-dd-chevron { transition: transform 0.2s; }
+    .nav-dropdown.open .nav-dd-chevron { transform: rotate(180deg); }
+
+    .nav-dd-panel {
+      position: absolute; top: calc(100% + 16px); left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      background: #fff; border: 1px solid var(--hl); border-radius: 12px;
+      min-width: 210px; padding: 4px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      z-index: 300;
+      box-shadow: 0 16px 40px rgba(27,67,50,0.1), 0 0 0 1px rgba(27,67,50,0.04);
+    }
+    .nav-dropdown.open .nav-dd-panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+    .nav-dd-item {
+      display: block; padding: 11px 14px; text-decoration: none;
+      border-bottom: 1px solid var(--hl); border-radius: 8px;
+      transition: background 0.12s;
+    }
+    .nav-dd-item:last-child { border-bottom: none; }
+    .nav-dd-item:hover { background: rgba(27,67,50,0.04); }
+    .nav-dd-item-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 600; color: var(--forest); }
+    .nav-dd-item-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; color: var(--ts); margin-top: 3px; }
+
+    /* Member Portal CTA */
+    .nav-cta {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--forest); text-decoration: none;
+      padding: 10px 20px; background: transparent;
+      border: 1.5px solid rgba(27,67,50,0.32); border-radius: 100px;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-cta::after { display: none; }
+    .nav-cta:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: none; }
+
+    /* Hamburger */
+    .hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--forest); padding: 6px; }
+
+    /* Mobile drawer */
+    .mobile-nav { display: none; flex-direction: column; background: var(--canvas); border-top: 1px solid var(--hl); padding: 8px 20px 20px; gap: 0; }
+    .mobile-nav.open { display: flex; }
+    .mob-link { display: block; padding: 12px 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: rgba(27,67,50,0.48); text-decoration: none; border-bottom: 1px solid var(--hl); transition: color 0.15s; }
+    .mob-link:hover, .mob-link.active { color: var(--forest); }
+    .mob-acc-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 12px 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: rgba(27,67,50,0.48); background: none; border: none; border-bottom: 1px solid var(--hl); cursor: pointer; }
+    .mob-acc-btn.active { color: var(--forest); }
+    .mob-acc-panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s; opacity: 0; }
+    .mob-acc-panel.open { max-height: 200px; opacity: 1; }
+    .mob-sub-link { display: block; padding: 10px 24px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 500; color: rgba(27,67,50,0.38); text-decoration: none; border-bottom: 1px solid var(--hl); transition: color 0.15s; }
+    .mob-sub-link:hover, .mob-sub-link.active { color: var(--forest-mid); }
+    .mob-cta { display: block; margin-top: 12px; padding: 13px 18px; background: var(--forest); color: #f4f3ef; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; text-align: center; border: 1.5px solid var(--forest); border-radius: 100px; transition: background 0.15s; }
+    .mob-cta:hover { background: var(--forest-mid); }
+
+    /* Mobile bottom bar */
+    .mob-bottom-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 150; background: var(--canvas); border-top: 1px solid var(--hl); flex-direction: row; }
+    .mob-bottom-link { flex: 1; display: flex; align-items: center; justify-content: center; padding: 13px 4px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(27,67,50,0.32); text-decoration: none; border-right: 1px solid var(--hl); transition: color 0.15s, background 0.15s; }
+    .mob-bottom-link:last-child { border-right: none; }
+    .mob-bottom-link.active, .mob-bottom-link:hover { color: var(--forest); background: rgba(27,67,50,0.05); }
+
+    /* ─── HERO ─── */
+    #hero {
+      display: grid; grid-template-columns: 55fr 45fr;
+      grid-template-rows: 1fr;
+      height: calc(100vh - 63px);
+      min-height: 600px; max-height: 920px;
+      border-bottom: 1px solid var(--hl);
+    }
+
+    /* Hero Left — warm cream */
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 68px 80px;
+      background: var(--canvas);
+      border-right: 1px solid var(--hl);
+      position: relative; overflow: hidden;
+    }
+
+    /* Ambient blobs */
+    .hero-blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.15; z-index: 0; pointer-events: none; }
+    .hero-blob-1 { width: 450px; height: 450px; background: var(--forest); top: -10%; left: -18%; animation: blobDrift1 14s ease-in-out infinite; }
+    .hero-blob-2 { width: 320px; height: 320px; background: var(--forest-mid); bottom: 8%; right: -4%; animation: blobDrift2 18s ease-in-out infinite; }
+    @keyframes blobDrift1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-22px,-28px); } }
+    @keyframes blobDrift2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(20px,24px); } }
+
+    /* All hero-left children sit above blobs (blobs stay absolute behind) */
+    .hero-left > *:not(.hero-blob) { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(27,67,50,0.42);
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+    .hero-section-ctr {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(27,67,50,0.28); margin-bottom: 30px;
+    }
+
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(62px, 7.4vw, 110px);
+      font-weight: 400; color: var(--forest);
+      line-height: 0.96; letter-spacing: -0.02em;
+    }
+    .hero-h1 em { font-style: italic; color: var(--forest-mid); }
+
+    .hero-rule {
+      width: 100%; height: 1px; background: var(--gold);
+      margin: 26px 0 20px; position: relative;
+    }
+    .hero-rule::after { content: ''; position: absolute; right: 0; top: -3px; width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
+
+    .hero-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 400; color: var(--ts); line-height: 1.72; max-width: 420px; margin-bottom: 5px; }
+    .hero-tag2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.04em; color: rgba(27,67,50,0.32); margin-bottom: 46px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Hero Right — deep forest green */
+    .hero-right {
+      position: relative; overflow: hidden;
+      background: var(--forest);
+    }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.38; display: block; }
+    .hero-right-grad {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(27,67,50,0.85) 0%, transparent 45%);
+      pointer-events: none; z-index: 2;
+    }
+    /* Noise on hero right */
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 3; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .hero-spotlight { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 400ms ease; z-index: 4; }
+
+    /* Quote carousel */
+    .hero-quote-carousel {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 80px 48px 42px;
+      background: linear-gradient(to top, rgba(11,22,13,0.96) 0%, rgba(11,22,13,0.5) 55%, transparent 100%);
+      z-index: 5;
+    }
+    .hero-quote-inner { transition: opacity 400ms ease; }
+    .hero-quote-inner.fading { opacity: 0; }
+    .hero-quote-text { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 15px; color: rgba(210,235,215,0.88); line-height: 1.75; margin-bottom: 12px; display: block; }
+    .hero-quote-meta { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--forest-pale); }
+
+    /* ─── TICKER ─── */
+    #stat-bar { background: var(--canvas); border-bottom: 1px solid var(--hl); overflow: hidden; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-track {
+      display: inline-flex; align-items: stretch;
+      animation: marquee 36s linear infinite; will-change: transform;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+
+    .ticker-item {
+      display: inline-flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 28px 52px;
+      cursor: pointer; text-align: center;
+      transition: background 0.18s; user-select: none; flex-shrink: 0;
+    }
+    .ticker-item:hover { background: rgba(27,67,50,0.04); }
+    .ticker-item:hover .ticker-num { text-shadow: 0 0 24px rgba(27,67,50,0.2); }
+    .ticker-item:hover .ticker-label { text-decoration: underline; text-decoration-color: rgba(27,67,50,0.3); }
+
+    .ticker-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 42px; font-weight: 400; color: var(--forest); letter-spacing: -0.03em; line-height: 1; display: block; }
+    .ticker-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 600; color: var(--ts); margin-top: 7px; letter-spacing: 0.12em; text-transform: uppercase; display: block; }
+
+    .ticker-dot { display: inline-flex; align-items: center; align-self: center; padding: 0 6px; font-size: 20px; color: rgba(27,67,50,0.18); flex-shrink: 0; user-select: none; line-height: 1; }
+
+    /* Ticker year animation — zero layout shift */
+    .ticker-year-wrap { position: relative; height: 64px; width: 140px; display: flex; align-items: center; justify-content: center; }
+    .ticker-year-face-cur,
+    .ticker-year-face-est {
+      position: absolute;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity 260ms ease, transform 260ms ease;
+    }
+    .ticker-year-face-est { opacity: 0; transform: translateY(10px); }
+    .ticker-year-item.show-est .ticker-year-face-cur { opacity: 0; transform: translateY(-10px); }
+    .ticker-year-item.show-est .ticker-year-face-est { opacity: 1; transform: translateY(0); }
+
+    /* ─── SHARED SECTION STYLES ─── */
+    .sec-inner { max-width: 1280px; margin: 0 auto; padding: 0 44px; }
+
+    .sec-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--forest); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .sec-label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .sec-label.light { color: var(--forest-pale); }
+    .sec-label.light::before { background: rgba(116,180,155,0.45); }
+
+    .sec-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(32px,3.8vw,52px); font-weight: 400; color: var(--tp); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 24px; }
+    .sec-h2 em { font-style: italic; color: var(--forest-mid); }
+    .sec-h2.dk { color: var(--tdp); }
+
+    .body-p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 400; color: var(--ts); line-height: 1.85; margin-bottom: 14px; }
+    .body-p.dk { color: var(--tds); }
+    .gold-rule { width: 36px; height: 1px; background: var(--gold); margin: 22px 0; }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--canvas); border-bottom: 1px solid var(--hl); overflow: hidden; }
+    .about-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; }
+    .about-photo { overflow: hidden; border-right: 1px solid var(--hl); position: relative; }
+    .about-photo img { width: 100%; min-height: 560px; object-fit: cover; display: block; filter: brightness(0.86) saturate(0.88); will-change: transform; transform-origin: center center; transform: scale(1.18); }
+    .about-text { padding: 56px 56px; display: flex; flex-direction: column; justify-content: center; }
+
+    .underline-phrase { position: relative; display: inline; }
+    .underline-svg { position: absolute; bottom: -5px; left: 0; width: 100%; height: 9px; overflow: visible; pointer-events: none; }
+    .underline-svg path { stroke: var(--forest-mid); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+
+    /* ─── PROGRAM ─── */
+    #program { background: var(--canvas-alt); border-bottom: 1px solid var(--hl); padding: 56px 0; }
+    .sec-header { margin-bottom: 24px; }
+    .sec-header-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(28px,3.2vw,44px); font-weight: 400; color: var(--tp); letter-spacing: -0.02em; margin-bottom: 8px; }
+    .sec-header-p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: var(--ts); }
+
+    .parl-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0 40px; }
+    .parl-level-card { background: #fff; border: 1px solid var(--hl); padding: 26px 24px 24px; position: relative; }
+    .parl-level-card .level-badge { margin-bottom: 16px; }
+    .parl-start-flag { position: absolute; top: 0; right: 0; background: var(--forest); color: #f4f3ef; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; }
+    .parl-level-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; font-weight: 500; color: var(--tp); letter-spacing: -0.01em; margin-bottom: 6px; }
+    .parl-level-desc { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; color: var(--ts); line-height: 1.75; margin: 0; }
+
+
+    .level-badge { display: inline-block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid; }
+    .level-n  { border-color: var(--forest); color: var(--forest); background: rgba(27,67,50,0.05); }
+    .level-jv { border-color: var(--gold); color: #7a5a22; background: rgba(184,144,90,0.07); }
+    .level-v  { border-color: #b91c1c; color: #b91c1c; background: rgba(185,28,28,0.05); }
+
+    /* ─── WHY WE SHOW UP (GAINED COMPETENCIES) ─── */
+    #diversity { background: var(--dark); border-bottom: 1px solid var(--hd); padding: 80px 0 72px; position: relative; overflow: hidden; }
+    #diversity .sec-inner { position: relative; z-index: 1; }
+    .compet-head { text-align: center; margin-bottom: 48px; }
+    .compet-head .sec-label { justify-content: center; }
+    .compet-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(40px,5vw,68px); font-weight: 400; color: var(--tdp); line-height: 1.05; letter-spacing: -0.02em; }
+
+    .benefits-stack { display: flex; flex-direction: column; gap: 18px; max-width: 880px; margin: 0 auto; text-align: center; }
+    .benefit-block { padding: 48px 44px; border: 1px solid var(--hd); background: var(--dark-card); color: var(--tds); line-height: 1.45; cursor: default; will-change: transform, opacity; opacity: 0.3; transition: opacity 400ms ease, color 400ms ease, border-color 400ms ease, box-shadow 400ms ease; font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(21px,2.3vw,29px); font-weight: 400; }
+    .benefit-block.active { opacity: 1; color: var(--tdp); border-color: rgba(116,180,155,0.3); box-shadow: 0 18px 50px rgba(0,0,0,0.35); }
+    .inline-pill { display: inline-block; background: var(--forest); color: #f4f3ef; padding: 4px 16px; border-radius: 100px; white-space: nowrap; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.6em; font-weight: 600; vertical-align: middle; transform: translateY(-3px); }
+
+    .alumni-quote-card { margin: 56px auto 0; max-width: 980px; background: var(--dark-card); border: 1px solid var(--hd); border-left: 3px solid var(--forest); padding: 52px 60px 44px; position: relative; }
+    .alumni-quote-card::after { content: ''; position: absolute; bottom: -4px; right: -4px; width: 100%; height: 100%; border: 1px solid var(--hd); pointer-events: none; }
+    .alumni-quote-mark { position: absolute; top: 30px; right: 44px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 110px; line-height: 0.55; color: rgba(116,180,155,0.16); pointer-events: none; user-select: none; }
+    .alumni-quote-text { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: clamp(17px,1.8vw,22px); color: var(--tdp); line-height: 1.75; margin-bottom: 30px; display: block; }
+    .alumni-quote-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--hd); padding-top: 24px; }
+    .alumni-quote-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--tdp); display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .alumni-quote-name::before { content: ''; width: 22px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .alumni-quote-attr { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; color: var(--forest-pale); letter-spacing: 0.14em; text-transform: uppercase; font-style: normal; display: block; padding-left: 32px; }
+    .keynote-chip { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tds); border: 1px solid var(--hd); border-radius: 100px; padding: 10px 18px; white-space: nowrap; }
+
+    /* light-background variant (alumni showcase) */
+    .alumni-quote-card.light { margin: 0 0 26px; max-width: none; background: #fff; border-color: var(--hl); }
+    .alumni-quote-card.light::after { border-color: var(--hl); }
+    .alumni-quote-card.light .alumni-quote-mark { color: rgba(27,67,50,0.12); }
+    .alumni-quote-card.light .alumni-quote-text { color: var(--tp); }
+    .alumni-quote-card.light .alumni-quote-name { color: var(--tp); }
+    .alumni-quote-card.light .alumni-quote-attr { color: var(--forest-mid); }
+    .alumni-quote-card.light .alumni-quote-foot { border-top-color: var(--hl); }
+    .alumni-quote-card.light .keynote-chip { color: var(--ts); border-color: var(--hl); }
+
+    /* ─── ALUMNI SHOWCASE ─── */
+    #alumni-showcase { background: var(--canvas-alt); border-bottom: 1px solid var(--hl); padding: 64px 0 56px; }
+    .alumni-main-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(40px,5.5vw,76px); font-weight: 400; color: var(--tp); line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .alumni-sub-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--ts); line-height: 1.55; margin-bottom: 28px; max-width: 560px; }
+
+    .uni-photo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 32px; }
+    .uni-photo-card { background: #fff; border: 1px solid var(--hl); padding: 0; cursor: pointer; text-align: left; display: flex; flex-direction: column; font: inherit; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+    .uni-photo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(27,67,50,0.12); }
+    .uni-photo-card.active { border-color: var(--forest); box-shadow: 0 0 0 2px var(--forest), 0 12px 28px rgba(27,67,50,0.14); }
+    .uni-photo-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; border-bottom: 1px solid var(--hl); filter: saturate(0.92); }
+    .uni-photo-label { display: flex; align-items: center; padding: 18px 16px; }
+    .uni-photo-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; font-weight: 600; color: var(--tp); letter-spacing: -0.01em; line-height: 1.2; }
+
+    .uni-detail-panel { background: #fff; border: 1px solid var(--hl); border-left: 3px solid var(--forest); padding: 44px 52px; position: relative; min-height: 180px; }
+    .uni-detail-panel::after { content: ''; position: absolute; bottom: -4px; right: -4px; width: 100%; height: 100%; border: 1px solid var(--hl); pointer-events: none; }
+    @keyframes panelExit { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-6px); } }
+    @keyframes panelEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes alumIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .uni-panel-inner.panel-exit { animation: panelExit 150ms cubic-bezier(0.4,0,1,1) forwards; }
+    .uni-panel-inner.panel-enter { animation: panelEnter 240ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    .uni-alum-entry { opacity: 0; animation: alumIn 240ms cubic-bezier(0.23,1,0.32,1) forwards; }
+    @media (prefers-reduced-motion: reduce) {
+      .uni-panel-inner.panel-exit { animation: none; opacity: 0; }
+      .uni-panel-inner.panel-enter { animation: none; opacity: 1; }
+      .uni-alum-entry { animation: none; opacity: 1; }
+    }
+    .uni-detail-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(28px,3vw,40px); font-weight: 500; color: var(--tp); letter-spacing: -0.01em; padding-bottom: 18px; border-bottom: 1px solid var(--hl); margin-bottom: 26px; }
+    .uni-detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 32px 48px; }
+    .uni-alum-name-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 9px; }
+    .uni-alum-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 800; color: var(--tp); line-height: 1.2; }
+    .uni-alum-class { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ts); background: rgba(27,67,50,0.07); padding: 5px 10px; border-radius: 3px; }
+    .uni-alum-field { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--forest-mid); margin-bottom: 11px; }
+    .uni-alum-desc { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--ts); line-height: 1.7; }
+
+    /* ─── FUTURES BENTO ─── */
+    #futures { background: var(--canvas); border-bottom: 1px solid var(--hl); padding: 56px 0; }
+    .futures-heading { text-align: center; margin-bottom: 30px; }
+    .futures-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(30px,3.5vw,46px); font-weight: 400; color: var(--tp); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 10px; }
+    .futures-h2 em { font-style: italic; color: var(--forest-mid); }
+    .bento-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .uni-card { aspect-ratio: 1/1; perspective: 900px; cursor: pointer; transition: transform 0.22s ease; }
+    .uni-card:not(.flipped):hover { transform: scale(1.03); }
+    .uni-card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.4,0,0.2,1); }
+    .uni-card.flipped .uni-card-inner { transform: rotateY(180deg); }
+    .uni-card-front, .uni-card-back { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 1px solid var(--hl); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; }
+    .uni-card-front { background: #fff; transition: border-color 0.22s ease, box-shadow 0.22s ease; }
+    .uni-card:not(.flipped):hover .uni-card-front { border-color: rgba(27,67,50,0.4); box-shadow: 0 0 0 1px rgba(27,67,50,0.15), 0 4px 20px rgba(27,67,50,0.08); }
+    .uni-card-back { transform: rotateY(180deg); background: var(--forest); align-items: flex-start; justify-content: center; gap: 6px; padding: 20px; }
+    .uni-logo { width: 72%; max-height: 58%; object-fit: contain; margin-bottom: 10px; }
+    .uni-name-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 8px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ts); text-align: center; line-height: 1.4; }
+    .uni-fallback-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(14px,1.6vw,20px); color: var(--tp); text-align: center; line-height: 1.2; }
+    .back-alumni { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 2px; }
+    .back-major { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; color: rgba(255,255,255,0.7); letter-spacing: 0.04em; margin-bottom: 6px; }
+    .back-context { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.88); line-height: 1.5; }
+
+    /* ─── NEWSLETTER TEASER ─── */
+    #news-teaser { background: var(--canvas); border-bottom: 1px solid var(--hl); padding: 56px 0; display: none; }
+    #news-teaser.has-posts { display: block; }
+    .news-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-bottom: 28px; }
+    .news-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(28px,3.2vw,44px); font-weight: 400; color: var(--tp); letter-spacing: -0.02em; line-height: 1.1; }
+    .news-h2 em { font-style: italic; color: var(--forest-mid); }
+    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .news-card { background: #fff; border: 1px solid var(--hl); padding: 26px 24px 24px; text-decoration: none; display: flex; flex-direction: column; gap: 10px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+    .news-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(27,67,50,0.12); border-color: rgba(27,67,50,0.35); }
+    .news-card-date { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7a5a22; }
+    .news-card-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 500; color: var(--tp); line-height: 1.25; }
+    .news-card-brief { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; color: var(--ts); line-height: 1.7; }
+    .news-card-more { margin-top: auto; padding-top: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--forest-mid); }
+    @media (max-width: 860px) { .news-grid { grid-template-columns: 1fr; } }
+
+    /* ─── JOINING PATH (inside How It Works) ─── */
+    @media (max-width: 600px) { #news-teaser { padding: 44px 0; } }
+
+    /* ─── JOIN ─── */
+    #join { background: var(--dark); border-top: 1px solid var(--hd); border-bottom: 1px solid var(--hd); padding: 60px 0; position: relative; overflow: hidden; }
+    #join::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .join-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .join-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(36px,4.2vw,58px); font-weight: 400; color: var(--tdp); letter-spacing: -0.025em; line-height: 1.02; margin-bottom: 14px; }
+    .join-p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--tds); line-height: 1.75; margin-bottom: 18px; }
+    .join-steps-mini { list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .join-steps-mini li { display: flex; align-items: baseline; gap: 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; color: var(--tds); line-height: 1.5; }
+    .jsm-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; color: var(--forest-pale); flex-shrink: 0; width: 16px; }
+    .join-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .join-cal-embed { border: 1px solid var(--hd); overflow: hidden; position: relative; }
+    .join-cal-embed::after { content: ''; position: absolute; bottom: -4px; right: -4px; width: 100%; height: 100%; border: 1px solid var(--forest); pointer-events: none; }
+    .join-cal-embed iframe { display: block; width: 100%; border: 0; }
+
+    /* ─── FOOTER (unified site-wide) ─── */
+    .site-footer { background: #0d1a10; border-top: 1px solid #1e3020; padding: 56px 0 26px; position: relative; overflow: hidden; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .site-footer::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .site-footer::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(184,144,90,0.35) 50%, transparent 100%); z-index: 1; }
+    .site-footer-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 44px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px; }
+    .site-footer-brand { display: flex; align-items: center; gap: 14px; }
+    .site-footer-brand img { width: 38px; height: 38px; object-fit: contain; }
+    .site-footer-brand-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; color: #f0ede6; letter-spacing: -0.005em; line-height: 1.1; }
+    .site-footer-brand-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; color: rgba(156,173,154,0.55); letter-spacing: 0.16em; text-transform: uppercase; display: block; margin-top: 4px; }
+    .site-footer-links { display: flex; align-items: center; gap: 0; border: 1px solid #1e3020; }
+    .site-footer-links a { padding: 10px 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(156,173,154,0.55); text-decoration: none; border-right: 1px solid #1e3020; transition: color 0.18s ease, background 0.18s ease; }
+    .site-footer-links a:last-child { border-right: none; }
+    .site-footer-links a:hover { color: #f0ede6; background: rgba(184,144,90,0.08); }
+    .site-footer-social { display: flex; gap: 0; border: 1px solid #1e3020; }
+    .site-footer-social a { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: rgba(156,173,154,0.6); text-decoration: none; border-right: 1px solid #1e3020; transition: color 0.18s ease, background 0.18s ease; }
+    .site-footer-social a:last-child { border-right: none; }
+    .site-footer-social a:hover { color: #b8905a; background: rgba(184,144,90,0.1); }
+    .site-footer-copy { position: relative; z-index: 1; width: 100%; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; color: rgba(156,173,154,0.35); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 34px; padding: 22px 24px 0; border-top: 1px solid #1e3020; }
+    @media (max-width: 820px) {
+      .site-footer { padding: 44px 0 22px; }
+      .site-footer-inner { flex-direction: column; align-items: center; text-align: center; padding: 0 24px; gap: 22px; }
+      .site-footer-brand { flex-direction: column; gap: 10px; text-align: center; }
+      .site-footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .site-footer-links a { padding: 9px 12px; font-size: 9px; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; min-height: auto; max-height: none; }
+      .hero-right { display: none; }
+      .hero-left { padding: 72px 28px 80px; border-right: none; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-photo { display: none; }
+      .about-text { padding: 60px 28px; }
+      .uni-photo-row { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .join-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .sec-inner { padding: 0 28px; }
+      .hamburger { display: block; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .mob-bottom-bar { display: flex; }
+      body { padding-bottom: 48px; }
+    }
+    @media (max-width: 768px) {
+      .bento-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+      .parl-levels { grid-template-columns: 1fr; }
+      .uni-photo-row { grid-template-columns: repeat(2, 1fr); }
+      .uni-detail-panel { padding: 32px 26px; }
+      .benefit-block { padding: 34px 26px; }
+      .alumni-quote-card { padding: 38px 30px 34px; }
+      .alumni-quote-mark { right: 24px; font-size: 80px; }
+    }
+    @media (max-width: 600px) {
+      #program, #diversity, #futures { padding: 44px 0; }
+      #join { padding: 52px 0; }
+      .nav-inner { padding: 0 20px; }
+      .sec-inner { padding: 0 20px; }
+      .join-inner { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ NAVBAR ═══════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate Seal" />
+        <div>
+          <div class="nav-brand-name">San Marin</div>
+          <span class="nav-brand-sub">Speech &amp; Debate</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+
+        <div class="nav-dropdown" id="about-dd">
+          <button class="nav-dd-btn" aria-haspopup="menu" aria-expanded="false"
+                  aria-controls="about-dd-panel" id="about-dd-btn">
+            About
+            <svg class="nav-dd-chevron" width="12" height="12" fill="none"
+                 stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="nav-dd-panel" id="about-dd-panel" role="menu"
+               aria-label="About submenu" aria-hidden="true">
+            <a href="about.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">History &amp; Awards</div>
+              <div class="nav-dd-item-sub">Club story and achievements</div>
+            </a>
+            <a href="leadership.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">Leadership Team</div>
+              <div class="nav-dd-item-sub">Officers and club structure</div>
+            </a>
+          </div>
+        </div>
+
+        <a href="events.html" class="nav-link">Media</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <a href="portal.html" class="nav-cta">Member Portal</a>
+      <button class="hamburger" aria-label="Open navigation"
+              aria-expanded="false" aria-controls="mobile-nav" id="hamburger-btn">
+        <svg width="22" height="22" fill="none" stroke="currentColor"
+             stroke-width="2" viewBox="0 0 24 24">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="index.html" class="mob-link active">Home</a>
+      <button class="mob-acc-btn" aria-expanded="false"
+              aria-controls="mob-about-panel" id="mob-about-btn">
+        About
+        <svg width="14" height="14" fill="none" stroke="currentColor"
+             stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="mob-acc-panel" id="mob-about-panel" aria-hidden="true">
+        <a href="about.html" class="mob-sub-link">History &amp; Awards</a>
+        <a href="leadership.html" class="mob-sub-link">Leadership Team</a>
+      </div>
+      <a href="events.html" class="mob-link">Media</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="portal.html" class="mob-cta">Member Portal</a>
+    </div>
+  </nav>
+
+  <!-- ═══════ HERO ═══════ -->
+  <section id="hero">
+    <!-- Left — warm cream editorial -->
+    <div class="hero-left">
+      <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+      <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+
+      <div class="hero-eyebrow">San Marin High School &nbsp;·&nbsp; Novato, CA</div>
+      <div class="hero-section-ctr">00 — Homepage</div>
+
+      <h1 class="hero-h1">
+        San Marin<br />
+        <em>Speech &amp;</em><br />
+        Debate
+      </h1>
+
+      <div class="hero-rule"></div>
+
+      <p class="hero-sub">Competing. Speaking. Leading.</p>
+      <p class="hero-tag2">California's competitive parliamentary debate program.</p>
+
+      <div class="hero-btns">
+        <a href="#join" class="btn btn-forest btn-pulse">Join Now</a>
+        <a href="about.html" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Right — deep forest green panel -->
+    <div class="hero-right" id="hero-right-panel">
+      <img src="teampictures/565254287_1392368116082285_5418007671911608714_n.jpg"
+           alt="San Marin Debate Team" id="hero-img" />
+      <div class="hero-right-grad"></div>
+
+      <!-- Cursor spotlight -->
+      <div class="hero-spotlight" id="hero-spotlight" aria-hidden="true"></div>
+
+      <!-- Auto-cycling member quote carousel -->
+      <div class="hero-quote-carousel" id="hero-quote-carousel">
+        <div class="hero-quote-inner" id="hero-quote-inner">
+          <span class="hero-quote-text" id="hero-quote-text"></span>
+          <div class="hero-quote-meta" id="hero-quote-meta"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ STATS TICKER ═══════ -->
+  <div id="stat-bar" class="section-reveal">
+    <div class="ticker-track">
+
+      <!-- ── Set 1 ── -->
+      <div class="ticker-item ticker-year-item">
+        <div class="ticker-year-wrap">
+          <div class="ticker-year-face-cur">
+            <span class="ticker-num ticker-year-num"></span>
+            <span class="ticker-label">Active Season</span>
+          </div>
+          <div class="ticker-year-face-est">
+            <span class="ticker-num">2007</span>
+            <span class="ticker-label">Est.</span>
+          </div>
+        </div>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+      <div class="ticker-item" data-href="https://www.facebook.com/sanmarinspeechanddebate/">
+        <span class="ticker-num">26</span>
+        <span class="ticker-label">Members</span>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+      <div class="ticker-item" data-href="https://smhsponyexpress.org/9754/news/san-marin-wins-big-in-speech-and-debate/">
+        <span class="ticker-num">1.4K</span>
+        <span class="ticker-label">Speeches Given &amp; Growing</span>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+      <div class="ticker-item" data-href="https://www.niche.com/k12/san-marin-high-school-novato-ca/">
+        <span class="ticker-num">71%</span>
+        <span class="ticker-label">Student Club Engagement</span>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+      <div class="ticker-item" data-href="https://smhsponyexpress.org/9754/news/san-marin-wins-big-in-speech-and-debate/">
+        <span class="ticker-num">#1</span>
+        <span class="ticker-label">Speech &amp; Debate Club, NW Bay Area</span>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+
+      <!-- ── Set 2 (seamless duplicate) ── -->
+      <div class="ticker-item ticker-year-item">
+        <div class="ticker-year-wrap">
+          <div class="ticker-year-face-cur">
+            <span class="ticker-num ticker-year-num"></span>
+            <span class="ticker-label">Active Season</span>
+          </div>
+          <div class="ticker-year-face-est">
+            <span class="ticker-num">2007</span>
+            <span class="ticker-label">Est.</span>
+          </div>
+        </div>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+      <div class="ticker-item" data-href="https://www.facebook.com/sanmarinspeechanddebate/">
+        <span class="ticker-num">26</span>
+        <span class="ticker-label">Members</span>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+      <div class="ticker-item" data-href="https://smhsponyexpress.org/9754/news/san-marin-wins-big-in-speech-and-debate/">
+        <span class="ticker-num">1.4K</span>
+        <span class="ticker-label">Speeches Given &amp; Growing</span>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+      <div class="ticker-item" data-href="https://www.niche.com/k12/san-marin-high-school-novato-ca/">
+        <span class="ticker-num">71%</span>
+        <span class="ticker-label">Student Club Engagement</span>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+      <div class="ticker-item" data-href="https://smhsponyexpress.org/9754/news/san-marin-wins-big-in-speech-and-debate/">
+        <span class="ticker-num">#1</span>
+        <span class="ticker-label">Speech &amp; Debate Club, NW Bay Area</span>
+      </div>
+      <span class="ticker-dot" aria-hidden="true">•</span>
+
+    </div>
+  </div>
+
+  <!-- ═══════ ABOUT SNAPSHOT ═══════ -->
+  <section id="about" class="section-reveal">
+    <div class="about-inner">
+      <div class="about-photo">
+        <img src="teampictures/580213877_1413246730661090_3449423014134675675_n.jpg"
+             alt="San Marin Debate Team" />
+      </div>
+      <div class="about-text fade-up">
+        <div class="sec-label">01 — About Snapshot</div>
+        <h2 class="sec-h2">Who We <em>Are</em></h2>
+        <div class="gold-rule"></div>
+        <p class="body-p">San Marin Speech &amp; Debate started as a handful of students who just wanted to argue, and somehow turned that into something real. No professional setup, no outside help. Just a group of kids who <span class="underline-phrase" id="about-underline-phrase">figured it out together<svg class="underline-svg" viewBox="0 0 300 8" preserveAspectRatio="none" aria-hidden="true"><path d="M2,5 Q75,2 150,5 Q225,8 298,5"/></svg></span>, year after year.</p>
+        <p class="body-p">Over a decade later, the team has won competitions across the Bay Area, made it to the California State Tournament, and in 2026 walked into one of the biggest invitationals in the state and finished in the top eight. Twenty-six students. One volunteer coach. And the thing is, that almost didn't happen...</p>
+        <div style="margin-top:28px;">
+          <a href="about.html" class="btn btn-outline">
+            Learn More
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24" style="vertical-align:middle;">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ WHY WE SHOW UP / GAINED COMPETENCIES ═══════ -->
+  <section id="diversity" class="section-reveal noise-dark">
+    <div class="sec-inner">
+      <div class="compet-head fade-up">
+        <h2 class="compet-h2">Why We Show Up</h2>
+      </div>
+      <div class="benefits-stack" id="benefits-stack">
+        <div class="benefit-block" data-benefit="1">
+          Say what you actually think, with <span class="inline-pill">confidence</span>
+        </div>
+        <div class="benefit-block" data-benefit="2">
+          Hold your ground when someone pushes back
+        </div>
+        <div class="benefit-block" data-benefit="3">
+          Command a room full of people
+        </div>
+        <div class="benefit-block" data-benefit="4">
+          Turn nerves into fuel
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ ALUMNI SHOWCASE ═══════ -->
+  <section id="alumni-showcase" class="section-reveal">
+    <div class="sec-inner">
+      <div class="sec-label">02 — Alumni Outcomes</div>
+      <h2 class="alumni-main-h2">Our alumni go everywhere.</h2>
+      <p class="alumni-sub-text">From Bay Area stages to research labs, courtrooms, and places you wouldn't expect.</p>
+      <blockquote class="alumni-quote-card light fade-up">
+        <span class="alumni-quote-mark" aria-hidden="true">&rdquo;</span>
+        <span class="alumni-quote-text">"Of all the things I learned in high school, public speaking is the only skill which I return to every day. Whenever I'm navigating interviews, leading classroom discussions, or backpedaling out of a political debate I really want to avoid, I fall back to the lessons I learned in speech and debate."</span>
+        <div class="alumni-quote-foot">
+          <div>
+            <div class="alumni-quote-name">Ben Rasmussen</div>
+            <cite class="alumni-quote-attr">Yale University Alumnus</cite>
+          </div>
+          <span class="keynote-chip">Keynote Testimony</span>
+        </div>
+      </blockquote>
+
+      <div class="uni-photo-row" id="uni-photo-row" role="tablist" aria-label="Select a university"></div>
+      <div class="uni-detail-panel" id="uni-detail-panel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ═══════ HOW IT WORKS (levels + joining) ═══════ -->
+  <section id="program" class="section-reveal">
+    <div class="sec-inner fade-up">
+      <div class="sec-header">
+        <div class="sec-label">03 — How It Works</div>
+        <h2 class="sec-header-h2">Parliamentary Debate, Made Simple</h2>
+        <p class="sec-header-p">Two teams get a topic shortly before the round, then trade six speeches — one side for, one side against. No scripts, no memorizing. Everyone starts at Novice, and we teach the rest at practice.</p>
+      </div>
+
+      <div class="parl-levels">
+        <div class="parl-level-card">
+          <span class="parl-start-flag">Start Here</span>
+          <span class="level-badge level-n">Novice</span>
+          <div class="parl-level-name">Your first year</div>
+          <p class="parl-level-desc">Same format, shorter speeches — room to find your footing.</p>
+        </div>
+        <div class="parl-level-card">
+          <span class="level-badge level-jv">JV</span>
+          <div class="parl-level-name">Building experience</div>
+          <p class="parl-level-desc">Full-length speeches against more experienced debaters.</p>
+        </div>
+        <div class="parl-level-card">
+          <span class="level-badge level-v">Varsity</span>
+          <div class="parl-level-name">The top level</div>
+          <p class="parl-level-desc">Our most experienced competitors, at the highest level of competition.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ NEWSLETTER TEASER (shown only when the feed loads) ═══════ -->
+  <section id="news-teaser" class="section-reveal" aria-label="Latest newsletter posts">
+    <div class="sec-inner">
+      <div class="news-head">
+        <div>
+          <div class="sec-label">04 — Latest Updates</div>
+          <h2 class="news-h2">Fresh from <em>the team</em></h2>
+        </div>
+        <a href="events.html" class="btn btn-outline">All Updates &amp; Photos</a>
+      </div>
+      <div class="news-grid" id="news-grid"></div>
+    </div>
+  </section>
+
+  <!-- ═══════ JOIN + CALENDAR ═══════ -->
+  <section id="join" class="section-reveal">
+    <div class="join-inner">
+      <div class="fade-up">
+        <div class="sec-label light">05 — Get Involved</div>
+        <h2 class="join-h2">Join Speech &amp; Debate</h2>
+        <p class="join-p">Open to every student — no experience, no tryout.</p>
+        <ol class="join-steps-mini">
+          <li><span class="jsm-num">1</span>Show up on a Wednesday</li>
+          <li><span class="jsm-num">2</span>Learn the format at practice</li>
+          <li><span class="jsm-num">3</span>Compete at your first tournament</li>
+        </ol>
+        <div class="join-btns">
+          <a href="https://forms.gle/N3ShiSWrztLDWy1N9" target="_blank" rel="noopener" class="btn btn-forest btn-pulse" style="font-size:12px;padding:14px 30px;">Join Now</a>
+        </div>
+      </div>
+      <div class="fade-up d2">
+        <div class="join-cal-embed">
+          <div style="filter: invert(1) hue-rotate(180deg) contrast(0.95);">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?height=380&wkst=1&ctz=America%2FLos_Angeles&showPrint=0&showTitle=0&showNav=1&showDate=1&showTabs=0&showCalendars=0&mode=AGENDA&src=ODU5NmIxYTg4NzM4MWJiZjhmYWUzNTYzZDRiZGU5ZTVjZmZiMGE3MjY5MDc2NzFmZmI2NzQ0ZDY0NzIyZTY1ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23009688"
+              title="San Marin Speech &amp; Debate — Upcoming Events"
+              height="380" scrolling="no"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate logo" />
+        <div>
+          <div class="site-footer-brand-name">San Marin Speech &amp; Debate</div>
+          <span class="site-footer-brand-sub">Novato, California</span>
+        </div>
+      </div>
+      <nav class="site-footer-links" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="events.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="site-footer-social">
+        <a href="https://www.instagram.com/sanmarinspeechanddebate/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/sanmarinspeechanddebate/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="site-footer-copy">© 2025 San Marin High School Speech &amp; Debate Club · All rights reserved</div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mob-bottom-bar" aria-label="Mobile quick navigation">
+    <a href="index.html" class="mob-bottom-link active">Home</a>
+    <a href="about.html" class="mob-bottom-link">About</a>
+    <a href="events.html" class="mob-bottom-link">Media</a>
+    <a href="contact.html" class="mob-bottom-link">Contact</a>
+    <a href="portal.html" class="mob-bottom-link">Portal</a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    /* ═══ DATA ═══ */
+    const HERO_QUOTES = [
+      { quote: "Debate gave me the confidence to walk into any room and hold my own.",     name: "Jordan M.",  role: "Varsity Debater", year: "2025" },
+      { quote: "The research and critical thinking carry into every class and interview.",  name: "Priya K.",   role: "JV Debater",      year: "2026" },
+      { quote: "I used to freeze when called on. Now I volunteer to go first.",             name: "Tyler B.",   role: "Novice",          year: "2027" },
+      { quote: "One season changed how I listen to people, not just how I talk.",          name: "Aisha L.",   role: "Varsity Debater", year: "2025" }
+    ];
+
+    /* ─── LENIS ─── */
+    let lenis = null;
+    try {
+      lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      (function lenisRaf(time) { lenis.raf(time); requestAnimationFrame(lenisRaf); })(0);
+    } catch (e) { /* CDN miss — native scroll still works */ }
+
+    /* ─── TICKER ─── */
+    (function () {
+      const year = new Date().getFullYear();
+      document.querySelectorAll('.ticker-year-num').forEach(el => { el.textContent = year; });
+
+      let flipActive = false;
+      document.querySelectorAll('.ticker-year-item').forEach(item => {
+        item.addEventListener('click', () => {
+          if (flipActive) return;
+          flipActive = true;
+          document.querySelectorAll('.ticker-year-item').forEach(i => i.classList.add('show-est'));
+          setTimeout(() => {
+            document.querySelectorAll('.ticker-year-item').forEach(i => i.classList.remove('show-est'));
+            setTimeout(() => { flipActive = false; }, 300);
+          }, 2250);
+        });
+      });
+
+      document.querySelectorAll('.ticker-item[data-href]').forEach(item => {
+        item.addEventListener('click', () => window.open(item.dataset.href, '_blank', 'noopener,noreferrer'));
+      });
+    })();
+
+    /* ─── SECTION REVEAL OBSERVER ─── */
+    const sectionIo = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); sectionIo.unobserve(e.target); }
+      });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.section-reveal').forEach(el => sectionIo.observe(el));
+
+    /* ─── CLIP + FADE-UP OBSERVER ─── */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal, .reveal-x, .fade-up').forEach(el => io.observe(el));
+
+    /* ─── HERO PARALLAX ─── */
+    const heroImg = document.getElementById('hero-img');
+    function applyParallax(sy) {
+      if (heroImg) heroImg.style.transform = `translateY(${sy * 0.22}px) scale(1)`;
+    }
+    if (lenis) {
+      lenis.on('scroll', ({ scroll }) => applyParallax(scroll));
+    } else {
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(() => { applyParallax(window.pageYOffset); ticking = false; }); ticking = true; }
+      }, { passive: true });
+    }
+
+    /* ─── HERO SPOTLIGHT ─── */
+    (function () {
+      const panel = document.getElementById('hero-right-panel');
+      const spot  = document.getElementById('hero-spotlight');
+      if (!panel || !spot) return;
+      panel.addEventListener('mousemove', e => {
+        const r = panel.getBoundingClientRect();
+        spot.style.background = `radial-gradient(320px circle at ${e.clientX - r.left}px ${e.clientY - r.top}px, rgba(116,180,155,0.14), transparent)`;
+        spot.style.opacity = '1';
+      });
+      panel.addEventListener('mouseleave', () => { spot.style.opacity = '0'; });
+    })();
+
+    /* ─── HERO QUOTE CAROUSEL (4.5s cycle) ─── */
+    (function () {
+      const inner  = document.getElementById('hero-quote-inner');
+      const textEl = document.getElementById('hero-quote-text');
+      const metaEl = document.getElementById('hero-quote-meta');
+      if (!inner || !textEl || !metaEl) return;
+      let idx = 0;
+      function render(q) {
+        textEl.textContent = '“' + q.quote + '”';
+        metaEl.textContent = '— ' + q.name + ' · ' + q.role + ', ' + q.year;
+      }
+      render(HERO_QUOTES[0]);
+      setInterval(() => {
+        inner.classList.add('fading');
+        setTimeout(() => {
+          idx = (idx + 1) % HERO_QUOTES.length;
+          render(HERO_QUOTES[idx]);
+          inner.classList.remove('fading');
+        }, 400);
+      }, 4500);
+    })();
+
+    /* ─── NAV DROPDOWN ─── */
+    (function () {
+      const dd      = document.getElementById('about-dd');
+      const ddBtn   = document.getElementById('about-dd-btn');
+      const ddPanel = document.getElementById('about-dd-panel');
+      if (!ddBtn) return;
+      ddBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const open = dd.classList.toggle('open');
+        ddBtn.setAttribute('aria-expanded', String(open));
+        ddPanel.setAttribute('aria-hidden', String(!open));
+      });
+      ddPanel.addEventListener('keydown', e => {
+        const items = Array.from(ddPanel.querySelectorAll('[role="menuitem"]'));
+        const idx   = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); items[Math.min(idx + 1, items.length - 1)].focus(); }
+        if (e.key === 'ArrowUp')   { e.preventDefault(); items[Math.max(idx - 1, 0)].focus(); }
+        if (e.key === 'Escape') {
+          dd.classList.remove('open');
+          ddBtn.setAttribute('aria-expanded', 'false');
+          ddPanel.setAttribute('aria-hidden', 'true');
+          ddBtn.focus();
+        }
+      });
+      document.addEventListener('click', () => {
+        dd.classList.remove('open');
+        ddBtn.setAttribute('aria-expanded', 'false');
+        ddPanel.setAttribute('aria-hidden', 'true');
+      });
+    })();
+
+    /* ─── HAMBURGER / MOBILE DRAWER ─── */
+    (function () {
+      const hamBtn   = document.getElementById('hamburger-btn');
+      const mobileNv = document.getElementById('mobile-nav');
+      if (!hamBtn || !mobileNv) return;
+      hamBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const open = mobileNv.classList.toggle('open');
+        hamBtn.setAttribute('aria-expanded', String(open));
+        mobileNv.setAttribute('aria-hidden', String(!open));
+      });
+    })();
+
+    /* ─── MOBILE ACCORDION ─── */
+    (function () {
+      const btn   = document.getElementById('mob-about-btn');
+      const panel = document.getElementById('mob-about-panel');
+      if (!btn || !panel) return;
+      btn.addEventListener('click', () => {
+        const open = panel.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+        panel.setAttribute('aria-hidden', String(!open));
+        btn.classList.toggle('active', open);
+      });
+    })();
+
+    /* ─── ABOUT BACKGROUND PARALLAX (0.15× scroll speed) ─── */
+    (function () {
+      const aboutSection = document.getElementById('about');
+      const aboutImg = aboutSection ? aboutSection.querySelector('.about-photo img') : null;
+      if (!aboutImg) return;
+      function updateAboutParallax() {
+        const rect = aboutSection.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        // section center relative to viewport center → drives a 0.15x parallax shift
+        const viewportCenter = window.innerHeight / 2;
+        const sectionCenter  = rect.top + rect.height / 2;
+        const delta = (viewportCenter - sectionCenter) * 0.15;
+        aboutImg.style.transform = `translate3d(0, ${delta.toFixed(2)}px, 0) scale(1.18)`;
+      }
+      if (lenis) {
+        lenis.on('scroll', updateAboutParallax);
+      } else {
+        window.addEventListener('scroll', () => requestAnimationFrame(updateAboutParallax), { passive: true });
+      }
+      window.addEventListener('resize', updateAboutParallax);
+      updateAboutParallax();
+    })();
+
+    /* ─── SVG UNDERLINE DRAW ─── */
+    (function () {
+      const phrase = document.getElementById('about-underline-phrase');
+      if (!phrase) return;
+      const svg  = phrase.querySelector('.underline-svg');
+      const path = svg ? svg.querySelector('path') : null;
+      if (!path) return;
+      let drawn = false;
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting || drawn) return;
+          drawn = true;
+          const len = path.getTotalLength();
+          path.style.strokeDasharray = len;
+          path.style.strokeDashoffset = len;
+          let start = null;
+          function step(ts) {
+            if (!start) start = ts;
+            const p = Math.min((ts - start) / 800, 1);
+            const ease = 1 - Math.pow(1 - p, 3);
+            path.style.strokeDashoffset = len * (1 - ease);
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+          io.unobserve(e.target);
+        });
+      }, { threshold: 0.6 });
+      io.observe(phrase);
+    })();
+
+    /* ─── BENEFITS JOG-WHEEL ─── */
+    (function () {
+      const blocks = document.querySelectorAll('.benefit-block');
+      if (!blocks.length) return;
+      function lerp(a, b, t) { return a + (b - a) * t; }
+      blocks.forEach(block => {
+        let scaleCurr = 0.88, scaleTarget = 0.88;
+        let mx = 0, my = 0, tx = 0, ty = 0;
+        let rafId = null;
+        block.style.transform = 'scale(0.88)';
+        function tick() {
+          scaleCurr = lerp(scaleCurr, scaleTarget, 0.15);
+          mx = lerp(mx, tx, 0.12); my = lerp(my, ty, 0.12);
+          block.style.transform = `translateX(${mx.toFixed(2)}px) translateY(${my.toFixed(2)}px) scale(${scaleCurr.toFixed(4)})`;
+          const settled = Math.abs(scaleCurr - scaleTarget) < 0.0005 && Math.abs(mx - tx) < 0.05 && Math.abs(my - ty) < 0.05;
+          if (!settled) { rafId = requestAnimationFrame(tick); }
+          else { scaleCurr = scaleTarget; mx = tx; my = ty; rafId = null; block.style.transform = `translateX(${mx}px) translateY(${my}px) scale(${scaleCurr})`; }
+        }
+        block._setScale = s => { scaleTarget = s; if (!rafId) rafId = requestAnimationFrame(tick); };
+        block.addEventListener('mousemove', e => {
+          const r = block.getBoundingClientRect();
+          tx = ((e.clientX - (r.left + r.width  / 2)) / (r.width  / 2)) * 6;
+          ty = ((e.clientY - (r.top  + r.height / 2)) / (r.height / 2)) * 6;
+          if (!rafId) rafId = requestAnimationFrame(tick);
+        });
+        block.addEventListener('mouseleave', () => { tx = 0; ty = 0; if (!rafId) rafId = requestAnimationFrame(tick); });
+      });
+      const benefitIo = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          const active = e.isIntersecting;
+          e.target.classList.toggle('active', active);
+          if (e.target._setScale) e.target._setScale(active ? 1.0 : 0.88);
+        });
+      }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+      blocks.forEach(b => benefitIo.observe(b));
+    })();
+
+    /* ─── ALUMNI SHOWCASE ─── */
+    (function () {
+      var UNIS = [
+        { id: 'yale', name: 'Yale University', short: 'Yale', letter: 'Y', photo: 'collegephotos/yale.webp',
+          alumni: [{ name: 'Ben Rasmussen', classOf: null, field: 'Global Affairs & Intl. Security', desc: '"Researcher, Roosevelt Institute and Global Intelligence Trust. Interned at Hong Kong Economic Trade Office tracking Baltic Sea geopolitical strategies."' }] },
+        { id: 'princeton', name: 'Princeton University', short: 'Princeton', letter: 'P', photo: 'collegephotos/princeton.webp',
+          alumni: [] },
+        { id: 'stanford', name: 'Stanford University', short: 'Stanford', letter: 'S', photo: 'collegephotos/stanford.jpg',
+          alumni: [{ name: 'Mahalia Morgan', classOf: 'Class of 2023', field: 'Political Science', desc: '"Received the San Rafael Elks Lodge Most Valuable Student award and won the North Bay Leadership Teen Speech Competition."' }] },
+        { id: 'cal', name: 'UC Berkeley', short: 'UC Berkeley', letter: 'C', photo: 'collegephotos/cal.jpg',
+          alumni: [
+            { name: 'Gabrielle Skarka', classOf: null, field: 'Public Health / Political Science', desc: '"Interned for Senator Dianne Feinstein; clinical internship in South Africa. Four-year team competitor."' },
+            { name: 'Aditya Katewa', classOf: null, field: 'Molecular & Cellular Biology', desc: '"National Merit Scholar on an advanced medical and research track."' },
+            { name: 'Shook Sundararaman', classOf: null, field: 'Molecular & Cell Biology / Neurobiology', desc: '"Core science and laboratory research."' }
+          ] },
+        { id: 'ucla', name: 'UC Los Angeles', short: 'UC Los Angeles', letter: 'U', photo: 'collegephotos/ucla.jpg',
+          alumni: [
+            { name: 'John Homan', classOf: 'Class of 2026–2030', field: 'Mechanical Engineering', desc: '"Focusing on structural mechanics and physical momentum dynamics."' },
+            { name: 'Aashna Selvraj', classOf: 'Class of 2026', field: 'Psychobiology', desc: '"Researching the intersection of cognitive function and biological pathways."' }
+          ] },
+        { id: 'caltech', name: 'California Institute of Technology', short: 'Caltech', letter: 'C', photo: 'collegephotos/caltech.jpg',
+          alumni: [{ name: 'Tyler Kollenbrander', classOf: null, field: 'Electrical / Mechanical Engineering', desc: '"National Merit Scholar; elected County Superintendent of Schools. Selected as 1 of 20 students globally for USC Energy Resources program."' }] },
+        { id: 'oxford', name: 'University of Oxford', short: 'Oxford', letter: 'O', photo: 'collegephotos/oxford.webp',
+          alumni: [] },
+        { id: 'dartmouth', name: 'Dartmouth College', short: 'Dartmouth', letter: 'D', photo: 'collegephotos/dartmouth.avif',
+          alumni: [] }
+      ];
+
+      var activeIdx = 0;
+      var row   = document.getElementById('uni-photo-row');
+      var panel = document.getElementById('uni-detail-panel');
+      if (!row || !panel) return;
+
+      UNIS.forEach(function (uni, i) {
+        var card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'uni-photo-card' + (i === 0 ? ' active' : '');
+        card.setAttribute('role', 'tab');
+        card.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+
+        var img = document.createElement('img');
+        img.className = 'uni-photo-img';
+        img.src = uni.photo;
+        img.alt = uni.name + ' campus';
+        img.loading = 'lazy';
+
+        var label = document.createElement('div'); label.className = 'uni-photo-label';
+        var nm    = document.createElement('span'); nm.className = 'uni-photo-name'; nm.textContent = uni.short;
+        label.appendChild(nm);
+
+        card.appendChild(img); card.appendChild(label);
+        card.addEventListener('click', function () {
+          if (activeIdx === i) return;
+          activeIdx = i; updateCards(); transitionPanel();
+        });
+        row.appendChild(card);
+      });
+
+      function updateCards() {
+        row.querySelectorAll('.uni-photo-card').forEach(function (card, i) {
+          var isActive = i === activeIdx;
+          card.classList.toggle('active', isActive);
+          card.setAttribute('aria-selected', String(isActive));
+        });
+      }
+
+      function buildPanelInner() {
+        var uni = UNIS[activeIdx];
+        var inner = document.createElement('div');
+        inner.className = 'uni-panel-inner';
+
+        var heading = document.createElement('h3');
+        heading.className = 'uni-detail-name uni-alum-entry';
+        heading.style.animationDelay = '0ms';
+        heading.textContent = uni.name;
+        inner.appendChild(heading);
+
+        var grid = document.createElement('div');
+        grid.className = 'uni-detail-grid';
+        if (!uni.alumni.length) {
+          var empty = document.createElement('p');
+          empty.className = 'uni-alum-desc uni-alum-entry';
+          empty.style.animationDelay = '40ms';
+          empty.textContent = 'Alumni profiles for this campus are being verified — check back soon.';
+          grid.appendChild(empty);
+        }
+        uni.alumni.forEach(function (a, ai) {
+          var entry = document.createElement('div');
+          entry.className = 'uni-alum-entry';
+          entry.style.animationDelay = (40 + ai * 50) + 'ms';
+          var nameRow = document.createElement('div'); nameRow.className = 'uni-alum-name-row';
+          var nm = document.createElement('span'); nm.className = 'uni-alum-name'; nm.textContent = a.name;
+          nameRow.appendChild(nm);
+          if (a.classOf) {
+            var cls = document.createElement('span'); cls.className = 'uni-alum-class'; cls.textContent = a.classOf;
+            nameRow.appendChild(cls);
+          }
+          entry.appendChild(nameRow);
+          var field = document.createElement('div'); field.className = 'uni-alum-field'; field.textContent = a.field;
+          entry.appendChild(field);
+          var desc = document.createElement('p'); desc.className = 'uni-alum-desc'; desc.textContent = a.desc;
+          entry.appendChild(desc);
+          grid.appendChild(entry);
+        });
+        inner.appendChild(grid);
+        return inner;
+      }
+
+      function transitionPanel() {
+        var oldInner = panel.querySelector('.uni-panel-inner');
+        var newInner = buildPanelInner();
+        newInner.classList.add('panel-enter');
+        if (oldInner) {
+          oldInner.classList.add('panel-exit');
+          setTimeout(function () {
+            panel.innerHTML = '';
+            panel.appendChild(newInner);
+          }, 145);
+        } else {
+          panel.innerHTML = '';
+          panel.appendChild(newInner);
+        }
+      }
+
+      panel.appendChild(buildPanelInner());
+    })();
+
+    /* ─── NEWSLETTER TEASER ───
+       Pulls the 3 latest Substack posts (same feed as the Media page).
+       The section stays hidden unless the feed loads, so a proxy outage
+       never leaves a broken block on the homepage. */
+    (function () {
+      var section = document.getElementById('news-teaser');
+      var grid = document.getElementById('news-grid');
+      if (!section || !grid) return;
+
+      var FEED = 'https://api.rss2json.com/v1/api.json?rss_url=' +
+                 encodeURIComponent('https://sanmarinspeechanddebate.substack.com/feed');
+
+      function textOf(html) {
+        var d = document.createElement('div');
+        d.innerHTML = html || '';
+        return (d.textContent || '').replace(/\s+/g, ' ').trim();
+      }
+
+      fetch(FEED)
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) {
+          if (data.status !== 'ok' || !data.items || !data.items.length) return;
+          data.items.slice(0, 3).forEach(function (item) {
+            // Built with DOM APIs (not innerHTML) so feed content can't inject markup
+            var card = document.createElement('a');
+            card.className = 'news-card';
+            card.href = /^https:\/\//.test(item.link || '') ? item.link : 'events.html';
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+
+            var date = document.createElement('div');
+            date.className = 'news-card-date';
+            try {
+              date.textContent = new Date(item.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            } catch (e) { date.textContent = ''; }
+
+            var title = document.createElement('div');
+            title.className = 'news-card-title';
+            title.textContent = item.title || 'Untitled';
+
+            var brief = document.createElement('div');
+            brief.className = 'news-card-brief';
+            var t = textOf(item.description || item.content || '');
+            brief.textContent = t.length > 140 ? t.slice(0, 140) + '…' : t;
+
+            var more = document.createElement('div');
+            more.className = 'news-card-more';
+            more.textContent = 'Read on Substack →';
+
+            card.appendChild(date); card.appendChild(title); card.appendChild(brief); card.appendChild(more);
+            grid.appendChild(card);
+          });
+          section.classList.add('has-posts');
+          // Section was display:none when the reveal observer first ran — show it now
+          section.classList.add('is-visible');
+        })
+        .catch(function () { /* leave the section hidden */ });
+    })();
+
+  </script>
+</body>
+</html>

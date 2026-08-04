@@ -1,0 +1,15 @@
+{
+  "name": "sanmarin-debate-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node serve.mjs",
+    "static": "http-server . -p 3000 -c-1 --cors -o"
+  },
+  "dependencies": {
+    "googleapis": "^172.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

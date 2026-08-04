@@ -1,0 +1,24 @@
+# Secrets & local-only files — must never be publicly served
+.env
+credentials.json
+token.json
+
+# Dev tooling (package.json/package-lock.json ARE deployed — Vercel needs them
+# to install googleapis for the /api functions)
+node_modules
+serve.py
+serve.rb
+serve.mjs
+HOW-TO-RUN.md
+CLAUDE (1).md
+skills-lock.json
+.agents
+.tmp
+.DS_Store
+
+# Design mockups, screenshots, and unused leftovers — not referenced by any page
+pages
+Mockupimages
+bottommemberportalsignuppagecalender
+config.json
+photos.json

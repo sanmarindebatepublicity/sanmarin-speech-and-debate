@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events &amp; Media — San Marin Speech &amp; Debate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── DESIGN TOKENS (canonical San Marin palette — matched to index.html / about-styles.css) ── */
+    :root {
+      --color-bg:           #f4f3ef;  /* warm cream canvas */
+      --color-bg-white:     #faf9f6;  /* soft warm white */
+      --color-bg-alt:       #eeece8;  /* canvas alt */
+      --color-bg-card:      #fbfaf7;  /* card surface */
+      --color-bg-card-tint: #f1efe9;  /* tinted card */
+
+      --color-accent:       #1b4332;  /* forest */
+      --color-accent-hover: #2d6a4f;  /* forest mid */
+
+      --color-gold:         #b8905a;  /* muted bronze */
+      --color-gold-soft:    #c9a87f;
+      --color-gold-hover:   #a37c48;
+
+      --color-text-primary: #1b4332;
+      --color-text-body:    #3c4b42;
+      --color-text-muted:   #4e6b56;
+      --color-text-citation:#8a978c;
+
+      --color-border-base:  #dad6d0;
+      --color-border-card:  #e3ded6;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+      --font-ui:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text-body);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Nav + page banner stay on the site-wide UI face (Inter), unchanged */
+    #navbar, .mobile-nav, .leadership-header { font-family: var(--font-ui); }
+    #navbar button, .mobile-nav button { font-family: inherit; }
+
+    /* ── SHARED SECTION FURNITURE (the canonical site signature) ── */
+    .sec-eyebrow {
+      font-family: var(--font-body);
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--color-accent);
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .sec-eyebrow::before {
+      content: ''; width: 26px; height: 1px;
+      background: var(--color-gold); flex-shrink: 0;
+    }
+    .sec-heading {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4vw, 50px);
+      color: var(--color-text-primary);
+      font-weight: 500; letter-spacing: -0.02em; line-height: 1.04;
+    }
+    .sec-heading em { font-style: italic; color: var(--color-gold); font-weight: 500; }
+    .sec-sub {
+      font-family: var(--font-body);
+      font-size: 16px; color: var(--color-text-muted);
+      margin-top: 18px; max-width: 560px; line-height: 1.6;
+    }
+    .gold-rule {
+      width: 40px; height: 2px;
+      background: linear-gradient(90deg, var(--color-gold), var(--color-gold-soft));
+      border-radius: 2px; margin-top: 22px;
+    }
+
+    /* ── NAV ── */
+    #navbar { background: #f4f3ef; border-bottom: 1px solid #dad6d0; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .nav-brand img { width: 34px; height: 34px; object-fit: contain; }
+    .nav-brand-text { line-height: 1.1; }
+    .nav-brand-text .top { font-size: 18px; font-weight: 600; color: #1b4332; letter-spacing: -0.01em; font-family: 'Cormorant Garamond', Georgia, serif; line-height: 1.1; }
+    .nav-brand-text .bot { font-size: 10px; font-weight: 500; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; }
+    /* ── PILL CONTAINER ── */
+    .nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(27,67,50,0.05); border: 1px solid rgba(27,67,50,0.11); border-radius: 100px; padding: 5px; gap: 2px; }
+    .nav-links > a { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(27,67,50,0.55); text-decoration: none; padding: 7px 16px; border-radius: 100px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+    .nav-links > a:hover { color: #1b4332; background: rgba(27,67,50,0.06); }
+    .nav-links > a.active { color: #fff; background: #1b4332; }
+    .nav-cta { font-size: 11px !important; font-weight: 700 !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; color: #1b4332 !important; text-decoration: none !important; padding: 10px 20px !important; background: transparent !important; border: 1px solid rgba(27,67,50,0.32) !important; border-radius: 100px !important; transition: background 0.15s, border-color 0.15s, color 0.15s !important; white-space: nowrap; flex-shrink: 0; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: #1b4332 !important; color: #fff !important; border-color: #1b4332 !important; }
+    /* ── DROPDOWN NAV ── */
+    .nav-dropdown { position: relative; }
+    .nav-dd-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(27,67,50,0.55); padding: 7px 16px; border-radius: 100px; transition: color 0.15s, background 0.15s; }
+    .nav-dd-btn:hover { color: #1b4332; background: rgba(27,67,50,0.06); }
+    .nav-dd-btn.active, .nav-dropdown.open .nav-dd-btn { color: #fff; background: #1b4332; }
+    .nav-dd-chevron { transition: transform 0.2s ease; }
+    .nav-dropdown.open .nav-dd-chevron { transform: rotate(180deg); }
+    .nav-dd-panel { position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-6px); background: #fff; border: 1px solid #dad6d0; border-radius: 12px; padding: 6px; min-width: 220px; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s; box-shadow: 0 16px 40px rgba(27,67,50,0.12), 0 0 0 1px rgba(27,67,50,0.04); pointer-events: none; z-index: 300; }
+    .nav-dropdown.open .nav-dd-panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .nav-dd-item { display: block; padding: 10px 14px; border-radius: 8px; text-decoration: none; transition: background 0.15s; }
+    .nav-dd-item:hover { background: rgba(27,67,50,0.05); }
+    .nav-dd-item.item-active { background: rgba(27,67,50,0.08); }
+    .nav-dd-item-title { font-size: 13px; font-weight: 600; color: #1b4332; }
+    .nav-dd-item-sub { font-size: 11.5px; color: #4e6b56; margin-top: 2px; }
+    .nav-dd-sep { height: 1px; background: #dad6d0; margin: 4px 2px; }
+    /* ── HAMBURGER / MOBILE NAV ── */
+    .hamburger { display: none; background: none; border: none; cursor: pointer; color: #1b4332; padding: 6px; border-radius: 6px; }
+    .mobile-nav { display: none; flex-direction: column; background: #f4f3ef; border-top: 1px solid #dad6d0; padding: 12px 20px 20px; gap: 2px; }
+    .mobile-nav.open { display: flex; }
+    .mob-link { display: block; padding: 10px 8px; font-size: 14px; font-weight: 500; color: rgba(27,67,50,0.55); text-decoration: none; border-bottom: 1px solid #dad6d0; }
+    .mob-link:hover, .mob-link.active { color: #1b4332; }
+    .mob-acc-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 8px; font-size: 14px; font-weight: 500; color: rgba(27,67,50,0.55); background: none; border: none; border-bottom: 1px solid #dad6d0; cursor: pointer; }
+    .mob-acc-btn.active { color: #1b4332; }
+    .mob-acc-panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s; opacity: 0; padding-left: 16px; }
+    .mob-acc-panel.open { max-height: 200px; opacity: 1; }
+    .mob-sub-link { display: block; padding: 9px 8px; font-size: 13.5px; color: rgba(27,67,50,0.5); text-decoration: none; }
+    .mob-sub-link:hover, .mob-sub-link.active { color: #1b4332; }
+    .mob-cta { display: block; margin-top: 8px; padding: 11px 18px; background: #1b4332; color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 100px; text-align: center; border: 1px solid #1b4332; }
+    .mob-cta:hover { background: #2d6a4f; }
+    @media (max-width: 760px) { .nav-links { display: none; } .nav-cta { display: none; } .hamburger { display: block; } }
+
+    /* ── PAGE HEADER ── */
+    .leadership-header { background: #eeece8; padding: 72px 48px 64px; text-align: center; position: relative; border-bottom: 1px solid #dad6d0; }
+    .leadership-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, #b8905a 20%, #b8905a 80%, transparent 100%); opacity: 0.65; }
+    .leadership-header .season-label { font-size: 0.7rem; letter-spacing: 3.5px; text-transform: uppercase; color: #b8905a; margin-bottom: 16px; }
+    .leadership-header h1 { font-size: 2.8rem; font-weight: 700; color: #1b4332; letter-spacing: -0.5px; margin-bottom: 14px; }
+    .leadership-header .divider { width: 40px; height: 1px; background: #b8905a; margin: 0 auto 16px; opacity: 0.6; }
+    .leadership-header .subtitle { font-size: 0.9rem; color: #4e6b56; font-style: italic; }
+
+    /* ── FOOTER (unified site-wide) ── */
+    .site-footer { background: #0d1a10; border-top: 1px solid #1e3020; padding: 56px 0 26px; position: relative; overflow: hidden; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .site-footer::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .site-footer::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(184,144,90,0.35) 50%, transparent 100%); z-index: 1; }
+    .site-footer-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 44px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px; }
+    .site-footer-brand { display: flex; align-items: center; gap: 14px; }
+    .site-footer-brand img { width: 38px; height: 38px; object-fit: contain; }
+    .site-footer-brand-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; color: #f0ede6; letter-spacing: -0.005em; line-height: 1.1; }
+    .site-footer-brand-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; color: rgba(156,173,154,0.55); letter-spacing: 0.16em; text-transform: uppercase; display: block; margin-top: 4px; }
+    .site-footer-links { display: flex; align-items: center; gap: 0; border: 1px solid #1e3020; }
+    .site-footer-links a { padding: 10px 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(156,173,154,0.55); text-decoration: none; border-right: 1px solid #1e3020; transition: color 0.18s ease, background 0.18s ease; }
+    .site-footer-links a:last-child { border-right: none; }
+    .site-footer-links a:hover { color: #f0ede6; background: rgba(184,144,90,0.08); }
+    .site-footer-social { display: flex; gap: 0; border: 1px solid #1e3020; }
+    .site-footer-social a { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: rgba(156,173,154,0.6); text-decoration: none; border-right: 1px solid #1e3020; transition: color 0.18s ease, background 0.18s ease; }
+    .site-footer-social a:last-child { border-right: none; }
+    .site-footer-social a:hover { color: #b8905a; background: rgba(184,144,90,0.1); }
+    .site-footer-copy { position: relative; z-index: 1; width: 100%; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; color: rgba(156,173,154,0.35); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 34px; padding: 22px 24px 0; border-top: 1px solid #1e3020; }
+    @media (max-width: 820px) {
+      .site-footer { padding: 44px 0 22px; }
+      .site-footer-inner { flex-direction: column; align-items: center; text-align: center; padding: 0 24px; gap: 22px; }
+      .site-footer-brand { flex-direction: column; gap: 10px; text-align: center; }
+      .site-footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .site-footer-links a { padding: 9px 12px; font-size: 9px; }
+    }
+
+    /* ── SCROLL FADE (matched to about.html's luxurious easing) ── */
+    .fade-in {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity 0.85s var(--ease-lux), transform 0.85s var(--ease-lux);
+      will-change: opacity, transform;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+    .delay-1 { transition-delay: 0.10s; }
+    .delay-2 { transition-delay: 0.20s; }
+    .delay-3 { transition-delay: 0.32s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { transition: none; opacity: 1; transform: none; }
+      * { animation: none !important; }
+    }
+
+    /* ── RESPONSIVE: PAGE BANNER ── */
+    @media (max-width: 700px) {
+      .leadership-header { padding: 48px 32px; }
+      .leadership-header h1 { font-size: 2rem; }
+    }
+
+    /* ══════════════════════════════════════════
+       NEWSLETTER — "Team Updates & Recaps"
+       Re-themed to the canonical palette: warm cream · forest ·
+       muted bronze · Cormorant + Jakarta. Editorial cards on a warm
+       canvas, matching the award/principle cards on History & Awards.
+    ══════════════════════════════════════════ */
+    #events-section {
+      background: var(--color-bg-alt);
+      border-top: 1px solid var(--color-border-base);
+      padding: 100px 80px;
+    }
+    .events-wrap { max-width: 1200px; margin: 0 auto; }
+
+    .blog-col-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 36px; margin-bottom: 48px; flex-wrap: wrap;
+    }
+
+    /* Subscribe pill — same CTA language as the site's primary button */
+    .subscribe-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--font-body);
+      font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+      padding: 14px 32px;
+      color: #fff;
+      background: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      border-radius: 100px;
+      text-decoration: none; white-space: nowrap; flex-shrink: 0;
+      transition: background 0.4s var(--ease-lux), transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux), gap 0.4s var(--ease-lux);
+    }
+    .subscribe-btn:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-2px);
+      gap: 15px;
+      box-shadow: 0 14px 30px rgba(27,67,50,0.22);
+    }
+
+    .newsletter-feed { display: flex; flex-direction: column; gap: 18px; }
+
+    /* ── Expandable issue cards ── */
+    .feed-card {
+      position: relative;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border-card);
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(27,67,50,0.03);
+      overflow: hidden;
+      transition: box-shadow 0.5s var(--ease-lux), transform 0.5s var(--ease-lux), border-color 0.5s var(--ease-lux);
+    }
+    /* gold accent edge that grows on hover/open — the award-card signature */
+    .feed-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; z-index: 2;
+      background: linear-gradient(180deg, var(--color-gold), var(--color-gold-soft));
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.55s var(--ease-lux);
+    }
+    .feed-card:hover {
+      box-shadow: 0 22px 48px rgba(27,67,50,0.12), 0 4px 12px rgba(27,67,50,0.06);
+      transform: translateY(-4px);
+      border-color: rgba(184,144,90,0.4);
+    }
+    .feed-card:hover::before,
+    .feed-card.expanded::before { transform: scaleY(1); }
+    .feed-card.expanded {
+      transform: none;
+      border-color: rgba(184,144,90,0.45);
+      box-shadow: 0 22px 48px rgba(27,67,50,0.10);
+    }
+
+    .feed-card-header {
+      display: flex; align-items: center; gap: 24px;
+      padding: 22px 26px;
+      cursor: pointer; user-select: none;
+      transition: background 0.35s var(--ease-lux);
+    }
+    .feed-card-header:hover { background: var(--color-bg-card-tint); }
+    .feed-card-header:focus-visible { outline: 2px solid var(--color-gold); outline-offset: -3px; }
+
+    .feed-card-img-wrap {
+      flex-shrink: 0;
+      width: 124px; height: 88px;
+      border-radius: 3px; overflow: hidden;
+      border: 1px solid var(--color-border-card);
+      background: linear-gradient(140deg, var(--color-bg-card-tint), #e6e2da);
+      position: relative;
+    }
+    .feed-card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.9s var(--ease-lux);
+    }
+    .feed-card:hover .feed-card-img-wrap img { transform: scale(1.06); }
+    .feed-card-img-wrap.no-img::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(184,144,90,0.30), transparent 62%),
+        radial-gradient(circle at 78% 82%, rgba(27,67,50,0.16), transparent 58%);
+    }
+
+    .feed-card-body { flex: 1; min-width: 0; }
+    .feed-card-meta {
+      font-family: var(--font-body);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--color-gold-hover);
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 9px;
+    }
+    .feed-card-meta::before {
+      content: ''; width: 18px; height: 1px;
+      background: var(--color-gold); flex-shrink: 0;
+    }
+    .feed-card-title {
+      font-family: var(--font-display);
+      font-size: 25px; font-weight: 600;
+      color: var(--color-text-primary);
+      letter-spacing: -0.01em; line-height: 1.18;
+      transition: color 0.35s var(--ease-lux);
+    }
+    .feed-card:hover .feed-card-title,
+    .feed-card.expanded .feed-card-title { color: var(--color-gold-hover); }
+    .feed-card-brief {
+      font-family: var(--font-body);
+      font-size: 14px; color: var(--color-text-muted);
+      line-height: 1.65; margin-top: 8px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .feed-card.expanded .feed-card-brief { display: none; }
+
+    .feed-card-chevron {
+      flex-shrink: 0;
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1px solid var(--color-border-card);
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-gold);
+      transition: transform 0.5s var(--ease-lux), background 0.35s var(--ease-lux), border-color 0.35s var(--ease-lux);
+    }
+    .feed-card:hover .feed-card-chevron { border-color: rgba(184,144,90,0.45); }
+    .feed-card.expanded .feed-card-chevron {
+      transform: rotate(180deg);
+      background: rgba(184,144,90,0.12);
+      border-color: rgba(184,144,90,0.5);
+    }
+
+    /* Expand / collapse animation via grid rows */
+    .feed-card-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.55s var(--ease-lux);
+      overflow: hidden;
+    }
+    .feed-card.expanded .feed-card-content { grid-template-rows: 1fr; }
+    .feed-card-content-inner { min-height: 0; overflow: hidden; }
+    .feed-card-content-body { padding: 0 26px 32px; }
+    .feed-card-content-body::before {
+      content: ''; display: block; height: 1px; margin-bottom: 26px;
+      background: linear-gradient(90deg, var(--color-gold), rgba(184,144,90,0.14) 55%, transparent);
+    }
+
+    /* Full post typography — reads like the rest of the site */
+    .post-body {
+      font-family: var(--font-body);
+      font-size: 15.5px; line-height: 1.85;
+      color: var(--color-text-body);
+    }
+    .post-body p { margin-bottom: 16px; }
+    .post-body h1, .post-body h2, .post-body h3, .post-body h4 {
+      font-family: var(--font-display);
+      color: var(--color-text-primary); font-weight: 600;
+      letter-spacing: -0.015em; margin: 26px 0 10px; line-height: 1.15;
+    }
+    .post-body h1 { font-size: 30px; }
+    .post-body h2 { font-size: 25px; }
+    .post-body h3 { font-size: 21px; }
+    .post-body h4 { font-size: 18px; }
+    .post-body img {
+      max-width: 100%; height: auto; display: block;
+      border-radius: 3px; border: 1px solid var(--color-border-card);
+      margin: 22px auto;
+    }
+    .post-body a {
+      color: var(--color-accent);
+      text-decoration: underline;
+      text-decoration-color: rgba(184,144,90,0.6);
+      text-underline-offset: 3px;
+      transition: color 0.3s var(--ease-lux);
+    }
+    .post-body a:hover { color: var(--color-gold-hover); }
+    .post-body blockquote {
+      border-left: 2px solid var(--color-gold);
+      padding: 2px 0 2px 20px; margin: 22px 0;
+      font-family: var(--font-display);
+      font-size: 21px; font-style: italic; line-height: 1.5;
+      color: var(--color-text-muted);
+    }
+    .post-body ul, .post-body ol { padding-left: 22px; margin-bottom: 16px; }
+    .post-body li { margin-bottom: 8px; }
+    .post-body hr { border: none; border-top: 1px solid var(--color-border-base); margin: 28px 0; }
+    .post-body figure { margin: 22px 0; }
+    .post-body figcaption {
+      font-family: var(--font-body);
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--color-text-citation);
+      text-align: center; margin-top: 12px;
+    }
+    .post-body pre {
+      background: var(--color-bg-card-tint);
+      border: 1px solid var(--color-border-card);
+      border-radius: 3px; padding: 14px 16px;
+      overflow-x: auto; margin-bottom: 16px;
+    }
+    .post-body code {
+      background: var(--color-bg-card-tint);
+      border-radius: 3px; padding: 2px 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+    }
+    .post-body pre code { background: none; padding: 0; }
+    /* Substack authoring chrome — restack/expand buttons and the inert
+       subscribe form only work on their site, and render as bare boxes here. */
+    .post-body .image-link-expand,
+    .post-body .fake-input-wrapper,
+    .post-body .fake-input,
+    .post-body .fake-button,
+    .post-body .button-wrapper { display: none !important; }
+    .post-body .captioned-image-container,
+    .post-body .image2-inset { position: relative; }
+
+    .post-read-more {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 26px;
+      font-family: var(--font-body);
+      font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+      color: var(--color-accent); text-decoration: none;
+      transition: gap 0.4s var(--ease-lux), color 0.3s var(--ease-lux);
+    }
+    .post-read-more:hover { color: var(--color-gold-hover); gap: 14px; }
+
+    /* Loading skeleton + empty + error states */
+    .feed-skel {
+      height: 134px; border-radius: 4px;
+      border: 1px solid var(--color-border-card);
+      background: linear-gradient(90deg, var(--color-bg-card) 0%, var(--color-bg-card-tint) 50%, var(--color-bg-card) 100%);
+      background-size: 200% 100%;
+      animation: feed-shimmer 1.8s ease-in-out infinite;
+    }
+    @keyframes feed-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .feed-state {
+      padding: 60px 28px; text-align: center;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border-card);
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 15px; color: var(--color-text-muted); line-height: 1.7;
+    }
+    .feed-state strong {
+      display: block; margin-bottom: 10px;
+      font-family: var(--font-display);
+      font-size: 26px; font-weight: 600;
+      letter-spacing: -0.01em; text-transform: none;
+      color: var(--color-text-primary);
+    }
+    .feed-state a {
+      color: var(--color-accent); text-decoration: underline;
+      text-decoration-color: rgba(184,144,90,0.6); text-underline-offset: 3px;
+    }
+    .feed-state a:hover { color: var(--color-gold-hover); }
+
+    /* ══════════════════════════════════════════
+       PHOTO GALLERY — Season Highlights
+    ══════════════════════════════════════════ */
+    #photo-gallery {
+      background: var(--color-bg-white);
+      border-bottom: 1px solid var(--color-border-base);
+      padding: 100px 80px;
+    }
+    .gallery-inner { max-width: 1200px; margin: 0 auto; }
+    .gallery-heading-row { margin-bottom: 44px; }
+
+    /* Season tabs */
+    .gallery-tabs {
+      display: flex; gap: 2px;
+      border-bottom: 1px solid var(--color-border-base);
+      margin-bottom: 40px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .gallery-tabs::-webkit-scrollbar { display: none; }
+    .gallery-tab-btn {
+      position: relative;
+      display: inline-flex; align-items: center;
+      padding: 14px 24px;
+      font-family: var(--font-body);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--color-text-citation);
+      background: transparent; border: none;
+      cursor: pointer; white-space: nowrap;
+      transition: color 0.4s var(--ease-lux);
+    }
+    .gallery-tab-btn::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+      background: linear-gradient(90deg, var(--color-gold), var(--color-gold-soft));
+      transform: scaleX(0); transform-origin: center;
+      transition: transform 0.5s var(--ease-lux);
+    }
+    /* keep the first tab flush with the section heading above it */
+    .gallery-tab-btn:first-child { padding-left: 2px; }
+    .gallery-tab-btn:hover { color: var(--color-accent); }
+    .gallery-tab-btn:focus-visible { outline: 2px solid var(--color-gold); outline-offset: -3px; }
+    .gallery-tab-btn.active { color: var(--color-accent); }
+    .gallery-tab-btn.active::after { transform: scaleX(1); }
+
+    /* Tab skeleton */
+    .gallery-tab-skel {
+      height: 13px; width: 96px; border-radius: 2px; margin: 15px 14px;
+      background: linear-gradient(90deg, var(--color-bg-card-tint) 0%, #e4e0d8 50%, var(--color-bg-card-tint) 100%);
+      background-size: 200% 100%;
+      animation: skel-shimmer 1.8s ease-in-out infinite;
+    }
+
+    /* Photo grid — masonry via CSS columns */
+    .gallery-grid { columns: 3; column-gap: 22px; }
+    .gallery-photo-item {
+      break-inside: avoid; margin-bottom: 22px;
+      position: relative; overflow: hidden;
+      border-radius: 4px;
+      border: 1px solid var(--color-border-card);
+      background: var(--color-bg-card-tint);
+      box-shadow: 0 1px 2px rgba(27,67,50,0.03);
+      cursor: pointer;
+      transition: box-shadow 0.6s var(--ease-lux), transform 0.6s var(--ease-lux), border-color 0.6s var(--ease-lux);
+    }
+    .gallery-photo-item img {
+      width: 100%; display: block;
+      transition: transform 0.9s var(--ease-lux);
+    }
+    .gallery-photo-item:hover {
+      transform: translateY(-6px);
+      border-color: rgba(184,144,90,0.45);
+      box-shadow: 0 22px 48px rgba(27,67,50,0.14), 0 4px 12px rgba(27,67,50,0.06);
+    }
+    .gallery-photo-item:hover img { transform: scale(1.06); }
+    .gallery-photo-item:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+    .gallery-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,26,16,0.74) 0%, rgba(13,26,16,0.20) 55%, rgba(13,26,16,0.06) 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: #f0ede6;
+      opacity: 0;
+      transition: opacity 0.45s var(--ease-lux);
+    }
+    .gallery-photo-item:hover .gallery-photo-overlay,
+    .gallery-photo-item:focus-visible .gallery-photo-overlay { opacity: 1; }
+    .gallery-photo-overlay svg {
+      transform: translateY(8px);
+      transition: transform 0.55s var(--ease-lux);
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.45));
+    }
+    .gallery-photo-item:hover .gallery-photo-overlay svg,
+    .gallery-photo-item:focus-visible .gallery-photo-overlay svg { transform: none; }
+
+    /* Photo grid skeleton */
+    .gallery-skel-wrap { columns: 3; column-gap: 22px; }
+    .gallery-skel {
+      break-inside: avoid; margin-bottom: 22px;
+      border-radius: 4px; aspect-ratio: 4/3;
+      border: 1px solid var(--color-border-card);
+      background: linear-gradient(90deg, var(--color-bg-card) 0%, var(--color-bg-card-tint) 50%, var(--color-bg-card) 100%);
+      background-size: 200% 100%;
+      animation: skel-shimmer 1.8s ease-in-out infinite;
+    }
+    .gallery-skel:nth-child(3n+2) { aspect-ratio: 3/4; }
+
+    @keyframes skel-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Empty / error states — span the full masonry width, not one column */
+    .gallery-state {
+      column-span: all;
+      text-align: center; padding: 72px 24px;
+      font-family: var(--font-body);
+      font-size: 15px; color: var(--color-text-muted); line-height: 1.7;
+    }
+    .gallery-state strong {
+      display: block; margin-bottom: 10px;
+      font-family: var(--font-display);
+      font-size: 26px; font-weight: 600; letter-spacing: -0.01em;
+      color: var(--color-text-primary);
+    }
+
+    /* ── Lightbox (deep forest, bronze accents) ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.4s var(--ease-lux);
+      pointer-events: none;
+    }
+    .lightbox.lb-open { opacity: 1; pointer-events: auto; }
+    .lightbox[hidden] { display: none; }
+    .lb-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(13, 26, 16, 0.95);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+    }
+    .lb-img-wrap {
+      position: relative; z-index: 1;
+      max-width: calc(100vw - 160px);
+      max-height: calc(100vh - 100px);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lb-img {
+      max-width: 100%; max-height: calc(100vh - 100px);
+      border-radius: 4px; object-fit: contain;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      transition: opacity 0.3s var(--ease-lux);
+    }
+    .lb-img.lb-loading { opacity: 0; }
+
+    /* Spinner shown while lightbox image loads */
+    .lb-spinner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .lb-spinner::after {
+      content: '';
+      width: 34px; height: 34px;
+      border: 2px solid rgba(240,237,230,0.14);
+      border-top-color: var(--color-gold);
+      border-radius: 50%;
+      animation: lb-spin 0.8s linear infinite;
+    }
+    .lb-img:not(.lb-loading) ~ .lb-spinner { display: none; }
+    @keyframes lb-spin { to { transform: rotate(360deg); } }
+
+    .lb-close {
+      position: fixed; top: 20px; right: 20px; z-index: 2;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: rgba(240,237,230,0.07);
+      border: 1px solid rgba(240,237,230,0.18);
+      color: #f0ede6; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.35s var(--ease-lux), border-color 0.35s var(--ease-lux), transform 0.35s var(--ease-lux);
+    }
+    .lb-close:hover {
+      background: rgba(184,144,90,0.18);
+      border-color: rgba(184,144,90,0.55);
+      transform: scale(1.06);
+    }
+
+    .lb-prev, .lb-next {
+      position: fixed; top: 50%; transform: translateY(-50%); z-index: 2;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: rgba(240,237,230,0.06);
+      border: 1px solid rgba(240,237,230,0.16);
+      color: #f0ede6; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.35s var(--ease-lux), border-color 0.35s var(--ease-lux), transform 0.35s var(--ease-lux);
+    }
+    .lb-prev { left: 20px; }
+    .lb-next { right: 20px; }
+    .lb-prev:hover, .lb-next:hover {
+      background: rgba(184,144,90,0.18);
+      border-color: rgba(184,144,90,0.55);
+    }
+    .lb-prev:hover { transform: translateY(-50%) translateX(-3px); }
+    .lb-next:hover { transform: translateY(-50%) translateX(3px); }
+
+    .lb-counter {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 2;
+      font-family: var(--font-body);
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(240,237,230,0.55);
+      background: rgba(13,26,16,0.55);
+      border: 1px solid rgba(240,237,230,0.12);
+      padding: 7px 18px; border-radius: 999px;
+    }
+
+    /* ── RESPONSIVE: GALLERY + NEWSLETTER ── */
+    @media (max-width: 1024px) {
+      #photo-gallery { padding: 80px 40px; }
+      #events-section { padding: 80px 40px; }
+    }
+    @media (max-width: 760px) {
+      #photo-gallery { padding: 64px 24px; }
+      #events-section { padding: 64px 24px; }
+      .gallery-heading-row { margin-bottom: 34px; }
+      .gallery-tabs { margin-bottom: 30px; }
+      .gallery-tab-btn { padding: 13px 18px; }
+      .gallery-grid, .gallery-skel-wrap { columns: 2; column-gap: 16px; }
+      .gallery-photo-item, .gallery-skel { margin-bottom: 16px; }
+      .blog-col-header { align-items: flex-start; gap: 26px; margin-bottom: 34px; }
+      .feed-card-header { gap: 16px; padding: 18px; }
+      .feed-card-img-wrap { width: 92px; height: 68px; }
+      .feed-card-title { font-size: 20px; }
+      .feed-card-content-body { padding: 0 18px 26px; }
+      .post-body { font-size: 15px; }
+    }
+    @media (max-width: 520px) {
+      .gallery-grid, .gallery-skel-wrap { columns: 1; }
+      .feed-card-brief { display: none; }
+      .feed-card-chevron { width: 30px; height: 30px; }
+      .subscribe-btn { padding: 13px 26px; }
+      .lb-img-wrap { max-width: calc(100vw - 80px); }
+      .lb-prev, .lb-next { width: 44px; height: 44px; }
+      .lb-prev { left: 8px; }
+      .lb-next { right: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate Seal" />
+        <div class="nav-brand-text">
+          <div class="top">San Marin</div>
+          <div class="bot">Speech &amp; Debate</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <div class="nav-dropdown" id="about-dd">
+          <button class="nav-dd-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="about-dd-panel" id="about-dd-btn">
+            About
+            <svg class="nav-dd-chevron" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dd-panel" id="about-dd-panel" role="menu" aria-label="About submenu" aria-hidden="true">
+            <a href="about.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">History &amp; Awards</div>
+              <div class="nav-dd-item-sub">Club story and achievements</div>
+            </a>
+            <div class="nav-dd-sep" role="separator" aria-hidden="true"></div>
+            <a href="leadership.html" class="nav-dd-item" role="menuitem">
+              <div class="nav-dd-item-title">Leadership Team</div>
+              <div class="nav-dd-item-sub">Officers and club structure</div>
+            </a>
+          </div>
+        </div>
+        <a href="events.html" class="active">Media</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="portal.html" class="nav-cta">Member Portal</a>
+      <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav" id="hamburger-btn">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <a href="index.html" class="mob-link">Home</a>
+      <button class="mob-acc-btn" aria-expanded="false" aria-controls="mob-about-panel" id="mob-about-btn">
+        About
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mob-acc-panel" id="mob-about-panel" aria-hidden="true">
+        <a href="about.html" class="mob-sub-link">History &amp; Awards</a>
+        <a href="leadership.html" class="mob-sub-link">Leadership Team</a>
+      </div>
+      <a href="events.html" class="mob-link active">Media</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="portal.html" class="mob-cta">Member Portal</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       PAGE HEADER
+  ════════════════════════════════════════════ -->
+  <section class="leadership-header">
+    <p class="season-label">2025–2026 Season</p>
+    <h1>Events &amp; Media</h1>
+    <div class="divider"></div>
+    <p class="subtitle">Photo galleries, newsletters, and season highlights</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PHOTO GALLERY
+  ════════════════════════════════════════════ -->
+  <section id="photo-gallery" class="fade-in">
+    <div class="gallery-inner">
+      <div class="gallery-heading-row">
+        <div class="sec-eyebrow">Photo Gallery</div>
+        <h2 class="sec-heading">Season <em>Highlights</em></h2>
+        <p class="sec-sub">Tournaments, showcases, and the quiet moments in between — captured across every season of the program.</p>
+        <div class="gold-rule"></div>
+      </div>
+
+      <!-- Season tabs — populated by JS -->
+      <div id="gallery-tabs" class="gallery-tabs" role="tablist" aria-label="Season tabs">
+        <!-- Skeleton tab placeholders while seasons load -->
+        <div class="gallery-tab-skel"></div>
+        <div class="gallery-tab-skel"></div>
+        <div class="gallery-tab-skel"></div>
+      </div>
+
+      <!-- Photo grid — populated by JS -->
+      <div id="gallery-grid" class="gallery-grid" aria-live="polite">
+        <!-- Skeleton photo placeholders -->
+        <div class="gallery-skel-wrap">
+          <div class="gallery-skel"></div>
+          <div class="gallery-skel"></div>
+          <div class="gallery-skel"></div>
+          <div class="gallery-skel"></div>
+          <div class="gallery-skel"></div>
+          <div class="gallery-skel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+      <div class="lb-backdrop" id="lb-backdrop"></div>
+      <button class="lb-close" id="lb-close" aria-label="Close lightbox">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+      </button>
+      <button class="lb-prev" id="lb-prev" aria-label="Previous photo">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="lb-img-wrap">
+        <img id="lb-img" src="" alt="" class="lb-img" />
+        <div class="lb-spinner" id="lb-spinner"></div>
+      </div>
+      <button class="lb-next" id="lb-next" aria-label="Next photo">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="lb-counter" id="lb-counter"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       NEWSLETTER
+  ════════════════════════════════════════════ -->
+  <section id="events-section">
+    <div class="events-wrap">
+
+      <!-- SUBSTACK NEWSLETTER FEED -->
+      <div class="fade-in">
+        <div class="blog-col-header">
+          <div>
+            <div class="sec-eyebrow">Newsletter</div>
+            <h2 class="sec-heading">Team Updates &amp; <em>Recaps</em></h2>
+            <p class="sec-sub">Tournament results, roster news, and reflections from the season — published straight from our Substack.</p>
+            <div class="gold-rule"></div>
+          </div>
+          <a id="subscribe-btn" href="#" target="_blank" rel="noopener noreferrer" class="subscribe-btn">
+            Subscribe
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div
+          id="newsletter-feed"
+          class="newsletter-feed"
+          aria-live="polite"
+          aria-busy="true">
+          <!-- Skeleton placeholders while first fetch resolves -->
+          <div class="feed-skel"></div>
+          <div class="feed-skel"></div>
+          <div class="feed-skel"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate logo" />
+        <div>
+          <div class="site-footer-brand-name">San Marin Speech &amp; Debate</div>
+          <span class="site-footer-brand-sub">Novato, California</span>
+        </div>
+      </div>
+      <nav class="site-footer-links" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="events.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="site-footer-social">
+        <a href="https://www.instagram.com/sanmarinspeechanddebate/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/sanmarinspeechanddebate/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="site-footer-copy">© 2025 San Marin High School Speech &amp; Debate Club · All rights reserved</div>
+  </footer>
+
+  <script>
+    /* ─── Scroll fade-in ─── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /*
+     * ─── TO ADD NEWSLETTER POSTS: Log into substack.com and publish a new post.
+     *     It will appear on the site automatically with no code changes needed. ───
+     *
+     * Fetches https://sanmarinspeechanddebate.substack.com/feed via the
+     * rss2json CORS proxy, renders the 5 most recent posts as expandable
+     * cards with full inline HTML content. Re-polls every 60 seconds.
+     */
+    (function() {
+      var feedEl = document.getElementById('newsletter-feed');
+      var subscribeBtn = document.getElementById('subscribe-btn');
+      if (!feedEl) return;
+
+      var RSS_URL = 'https://sanmarinspeechanddebate.substack.com/feed';
+      var PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+      var SUBSCRIBE_URL = 'https://sanmarinspeechanddebate.substack.com/subscribe';
+      var MAX_POSTS = 5;
+      var REVALIDATE_MS = 60 * 1000;
+
+      // Wire up subscribe button immediately — no need to wait for feed
+      if (subscribeBtn) subscribeBtn.href = SUBSCRIBE_URL;
+
+      // Extract cover image: try thumbnail first, then first <img> in content/description
+      function extractCover(item) {
+        if (item.thumbnail) return item.thumbnail;
+        var html = item.content || item.description || '';
+        var m = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+        return m ? m[1] : '';
+      }
+
+      function escapeHTML(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+      function stripHTML(html) {
+        var d = document.createElement('div');
+        d.innerHTML = html || '';
+        return d.textContent || d.innerText || '';
+      }
+      // Sanitize feed HTML before injecting it into the page. The feed passes
+      // through a third-party proxy (rss2json), so we must not trust it:
+      // strip active elements (script/iframe/etc.), inline event handlers,
+      // and javascript: URLs, keeping only the formatting markup.
+      function sanitizeHTML(html) {
+        var doc;
+        try { doc = new DOMParser().parseFromString(html || '', 'text/html'); }
+        catch (e) { return ''; }
+        doc.querySelectorAll('script, iframe, object, embed, form, style, link, meta, base').forEach(function(el) { el.remove(); });
+        doc.querySelectorAll('*').forEach(function(el) {
+          Array.prototype.slice.call(el.attributes).forEach(function(attr) {
+            var n = attr.name.toLowerCase();
+            var v = String(attr.value).replace(/[\s\u0000-\u001f]+/g, '').toLowerCase();
+            if (n.indexOf('on') === 0 ||
+                ((n === 'href' || n === 'src' || n === 'xlink:href' || n === 'srcset' || n === 'action' || n === 'formaction') &&
+                 (v.indexOf('javascript:') === 0 || v.indexOf('vbscript:') === 0 || v.indexOf('data:text/html') === 0))) {
+              el.removeAttribute(attr.name);
+            }
+          });
+        });
+        return doc.body.innerHTML;
+      }
+      function firstSentence(html) {
+        var text = stripHTML(html).replace(/\s+/g, ' ').trim();
+        var m = text.match(/^.+?[.!?](?=\s|$)/);
+        return m ? m[0] : (text.slice(0, 120) + (text.length > 120 ? '…' : ''));
+      }
+      function formatDate(str) {
+        try {
+          return new Date(str).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        } catch(e) { return ''; }
+      }
+      function renderState(html) { feedEl.innerHTML = html; }
+
+      // Exposed globally so inline onclick handlers can reach it
+      window.toggleNewsCard = function(idx) {
+        var card = feedEl.querySelector('[data-idx="' + idx + '"]');
+        if (!card) return;
+        var expanded = card.classList.toggle('expanded');
+        var header = card.querySelector('.feed-card-header');
+        var content = card.querySelector('.feed-card-content');
+        if (header) header.setAttribute('aria-expanded', String(expanded));
+        if (content) content.setAttribute('aria-hidden', String(!expanded));
+      };
+
+      var chevron = '<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+      function renderPosts(items) {
+        if (!items || !items.length) {
+          renderState('<div class="feed-state"><strong>No posts yet</strong>Newsletter issues will appear here once published on Substack.</div>');
+          return;
+        }
+
+        var html = items.slice(0, MAX_POSTS).map(function(item, i) {
+          var title = item.title || 'Untitled';
+          var link = item.link || SUBSCRIBE_URL;
+          var date = formatDate(item.pubDate);
+          var preview = firstSentence(item.description || item.content || '');
+          // item.content maps from content:encoded — the full Substack post HTML
+          var fullHTML = sanitizeHTML(item.content || item.description || '');
+          var cover = extractCover(item);
+
+          var imgWrap = cover
+            ? '<div class="feed-card-img-wrap"><img src="' + escapeHTML(cover) + '" alt="" loading="lazy"></div>'
+            : '<div class="feed-card-img-wrap no-img"></div>';
+
+          return (
+            '<div class="feed-card" data-idx="' + i + '">' +
+              '<div class="feed-card-header"' +
+                   ' role="button" tabindex="0"' +
+                   ' aria-expanded="false"' +
+                   ' aria-label="' + escapeHTML(title) + '"' +
+                   ' onclick="toggleNewsCard(' + i + ')"' +
+                   ' onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();toggleNewsCard(' + i + ')}">' +
+                imgWrap +
+                '<div class="feed-card-body">' +
+                  '<div class="feed-card-meta">' + escapeHTML(date) + '</div>' +
+                  '<div class="feed-card-title">' + escapeHTML(title) + '</div>' +
+                  (preview ? '<div class="feed-card-brief">' + escapeHTML(preview) + '</div>' : '') +
+                '</div>' +
+                '<div class="feed-card-chevron">' + chevron + '</div>' +
+              '</div>' +
+              '<div class="feed-card-content" aria-hidden="true">' +
+                '<div class="feed-card-content-inner">' +
+                  '<div class="feed-card-content-body">' +
+                    '<div class="post-body">' + fullHTML + '</div>' +
+                    '<a href="' + escapeHTML(link) + '" target="_blank" rel="noopener noreferrer" class="post-read-more">Read on Substack →</a>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join('');
+
+        feedEl.innerHTML = html;
+      }
+
+      function fetchFeed() {
+        return fetch(PROXY + encodeURIComponent(RSS_URL))
+          .then(function(r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+          })
+          .then(function(data) {
+            if (data.status !== 'ok') throw new Error(data.message || 'Feed error');
+            return data.items || [];
+          });
+      }
+
+      function load(isFirst) {
+        if (isFirst) feedEl.setAttribute('aria-busy', 'true');
+        fetchFeed()
+          .then(function(items) {
+            renderPosts(items);
+            feedEl.setAttribute('aria-busy', 'false');
+          })
+          .catch(function(err) {
+            feedEl.setAttribute('aria-busy', 'false');
+            if (isFirst) {
+              renderState(
+                '<div class="feed-state"><strong>Couldn\'t load newsletter</strong>' +
+                'Visit us directly at <a href="https://sanmarinspeechanddebate.substack.com" target="_blank" rel="noopener">Substack</a>.</div>'
+              );
+            }
+            console.warn('[substack-feed]', err);
+          });
+      }
+
+      load(true);
+      setInterval(function() { load(false); }, REVALIDATE_MS);
+    })();
+
+    /*
+     * Photo gallery — fetches seasons and photos from /api/get-photos
+     * which reads from Google Drive via a Vercel serverless function.
+     * No code changes needed when new season folders are added to Drive.
+     */
+    (function() {
+      var API = '/api/get-photos';
+
+      var tabsEl   = document.getElementById('gallery-tabs');
+      var gridEl   = document.getElementById('gallery-grid');
+      var lightbox = document.getElementById('lightbox');
+      var lbImg    = document.getElementById('lb-img');
+      var lbPrev   = document.getElementById('lb-prev');
+      var lbNext   = document.getElementById('lb-next');
+      var lbClose  = document.getElementById('lb-close');
+      var lbCounter = document.getElementById('lb-counter');
+      var lbSpinner = document.getElementById('lb-spinner');
+      var lbBackdrop = document.getElementById('lb-backdrop');
+
+      var currentPhotos = [];
+      var currentIdx    = 0;
+
+      // Local copy — the newsletter IIFE's escapeHTML is not in scope here, and
+      // referencing it threw a ReferenceError inside renderGrid, which the fetch
+      // .catch() swallowed as "Couldn't load photos" on every successful load.
+      function escapeHTML(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+
+      /* ── Lightbox ── */
+      function openLb(idx) {
+        currentIdx = idx;
+        lightbox.removeAttribute('hidden');
+        // Trigger fade-in on next frame
+        requestAnimationFrame(function() { lightbox.classList.add('lb-open'); });
+        document.body.style.overflow = 'hidden';
+        showLbPhoto();
+        lbClose.focus();
+      }
+
+      function closeLb() {
+        lightbox.classList.remove('lb-open');
+        lightbox.addEventListener('transitionend', function handler() {
+          lightbox.setAttribute('hidden', '');
+          lightbox.removeEventListener('transitionend', handler);
+        });
+        document.body.style.overflow = '';
+      }
+
+      function showLbPhoto() {
+        var photo = currentPhotos[currentIdx];
+        lbImg.classList.add('lb-loading');
+        lbImg.src = photo.fullUrl;
+        lbImg.alt = photo.name || ('Photo ' + (currentIdx + 1));
+        lbCounter.textContent = (currentIdx + 1) + ' / ' + currentPhotos.length;
+        lbImg.onload  = function() { lbImg.classList.remove('lb-loading'); };
+        lbImg.onerror = function() { lbImg.classList.remove('lb-loading'); };
+      }
+
+      function prevPhoto() {
+        currentIdx = (currentIdx - 1 + currentPhotos.length) % currentPhotos.length;
+        showLbPhoto();
+      }
+      function nextPhoto() {
+        currentIdx = (currentIdx + 1) % currentPhotos.length;
+        showLbPhoto();
+      }
+
+      lbClose.addEventListener('click', closeLb);
+      lbPrev.addEventListener('click', prevPhoto);
+      lbNext.addEventListener('click', nextPhoto);
+      lbBackdrop.addEventListener('click', closeLb);
+      document.addEventListener('keydown', function(e) {
+        if (lightbox.hasAttribute('hidden')) return;
+        if (e.key === 'Escape')      closeLb();
+        if (e.key === 'ArrowLeft')   prevPhoto();
+        if (e.key === 'ArrowRight')  nextPhoto();
+      });
+
+      /* ── Grid ── */
+      var expandIcon = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+      function showGridSkeleton() {
+        gridEl.innerHTML =
+          '<div class="gallery-skel-wrap">' +
+            '<div class="gallery-skel"></div>' +
+            '<div class="gallery-skel"></div>' +
+            '<div class="gallery-skel"></div>' +
+            '<div class="gallery-skel"></div>' +
+            '<div class="gallery-skel"></div>' +
+            '<div class="gallery-skel"></div>' +
+          '</div>';
+      }
+
+      function renderGrid(photos) {
+        if (!photos || !photos.length) {
+          gridEl.innerHTML =
+            '<div class="gallery-state">' +
+              '<strong>No photos yet</strong>' +
+              'Photos will appear here once uploaded to Google Drive.' +
+            '</div>';
+          return;
+        }
+        currentPhotos = photos;
+        gridEl.innerHTML = photos.map(function(photo, i) {
+          return (
+            '<div class="gallery-photo-item" tabindex="0" role="button" aria-label="View photo ' + (i + 1) + '"' +
+                ' onclick="__galleryOpen(' + i + ')"' +
+                ' onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();__galleryOpen(' + i + ')}">' +
+              '<img src="' + escapeHTML(photo.url) + '" alt="Season photo ' + (i + 1) + '" loading="lazy" />' +
+              '<div class="gallery-photo-overlay">' + expandIcon + '</div>' +
+            '</div>'
+          );
+        }).join('');
+      }
+
+      window.__galleryOpen = function(idx) { openLb(idx); };
+
+      /* ── Season loading ── */
+      function loadPhotos(folderId) {
+        showGridSkeleton();
+        fetch(API + '?folderId=' + encodeURIComponent(folderId))
+          .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+          .then(function(data) { renderGrid(data.photos || []); })
+          .catch(function(err) {
+            console.error('[gallery] photos fetch failed:', err);
+            gridEl.innerHTML =
+              '<div class="gallery-state">' +
+                '<strong>Couldn\'t load photos</strong>' +
+                'Check your connection or try again shortly.' +
+              '</div>';
+          });
+      }
+
+      /* ── Tab building ── */
+      function buildTabs(seasons) {
+        tabsEl.innerHTML = '';
+        if (!seasons.length) {
+          tabsEl.innerHTML = '<span style="padding:14px 4px;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-citation)">No seasons found</span>';
+          gridEl.innerHTML = '<div class="gallery-state"><strong>No seasons yet</strong>Add a season folder to Google Drive to get started.</div>';
+          return;
+        }
+
+        seasons.forEach(function(season, i) {
+          var btn = document.createElement('button');
+          btn.className = 'gallery-tab-btn' + (i === 0 ? ' active' : '');
+          btn.setAttribute('role', 'tab');
+          btn.setAttribute('aria-selected', String(i === 0));
+          btn.textContent = season.name;
+          btn.addEventListener('click', function() {
+            tabsEl.querySelectorAll('.gallery-tab-btn').forEach(function(b) {
+              b.classList.remove('active');
+              b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            loadPhotos(season.id);
+          });
+          tabsEl.appendChild(btn);
+        });
+
+        // Auto-load the first (newest) season
+        loadPhotos(seasons[0].id);
+      }
+
+      /* ── Bootstrap: fetch season list ── */
+      fetch(API + '?type=seasons')
+        .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function(data) { buildTabs(data.seasons || []); })
+        .catch(function(err) {
+          console.error('[gallery] seasons fetch failed:', err);
+          tabsEl.innerHTML = '';
+          gridEl.innerHTML =
+            '<div class="gallery-state">' +
+              '<strong>Gallery unavailable</strong>' +
+              'Could not connect to the photo service. Make sure the site is deployed on Vercel.' +
+            '</div>';
+        });
+    })();
+
+    // Nav dropdown + hamburger
+    (function() {
+      var dd = document.getElementById('about-dd');
+      var ddBtn = document.getElementById('about-dd-btn');
+      var ddPanel = document.getElementById('about-dd-panel');
+      if (ddBtn) {
+        ddBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = dd.classList.toggle('open');
+          ddBtn.setAttribute('aria-expanded', String(open));
+          ddPanel.setAttribute('aria-hidden', String(!open));
+        });
+        ddPanel.addEventListener('keydown', function(e) {
+          var items = Array.from(ddPanel.querySelectorAll('[role="menuitem"]'));
+          var idx = items.indexOf(document.activeElement);
+          if (e.key === 'ArrowDown') { e.preventDefault(); items[Math.min(idx+1, items.length-1)].focus(); }
+          if (e.key === 'ArrowUp') { e.preventDefault(); items[Math.max(idx-1, 0)].focus(); }
+          if (e.key === 'Escape') { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded','false'); ddPanel.setAttribute('aria-hidden','true'); ddBtn.focus(); }
+        });
+      }
+      document.addEventListener('click', function() {
+        if (!dd) return;
+        dd.classList.remove('open');
+        if (ddBtn) ddBtn.setAttribute('aria-expanded','false');
+        if (ddPanel) ddPanel.setAttribute('aria-hidden','true');
+      });
+      var hamBtn = document.getElementById('hamburger-btn');
+      var mobileNav = document.getElementById('mobile-nav');
+      if (hamBtn && mobileNav) {
+        hamBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var open = mobileNav.classList.toggle('open');
+          hamBtn.setAttribute('aria-expanded', String(open));
+          mobileNav.setAttribute('aria-hidden', String(!open));
+        });
+      }
+      var mobAccBtn = document.getElementById('mob-about-btn');
+      var mobAccPanel = document.getElementById('mob-about-panel');
+      if (mobAccBtn && mobAccPanel) {
+        mobAccBtn.addEventListener('click', function() {
+          var open = mobAccPanel.classList.toggle('open');
+          mobAccBtn.setAttribute('aria-expanded', String(open));
+          mobAccPanel.setAttribute('aria-hidden', String(!open));
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

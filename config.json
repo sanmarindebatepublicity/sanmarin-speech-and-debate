@@ -1,0 +1,7 @@
+{
+  "_comment": "TO ADD A NEW SEASON: Create a new folder in Cloudinary Media Library with the season name (e.g. 26-27 Season), upload photos there, then add the folder name as a new entry at the end of the seasons array here. A new tab will appear on the website automatically.",
+  "cloudinaryCloud": "dvszda37i",
+  "seasons": [
+    "25-26 Season"
+  ]
+}

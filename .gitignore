@@ -1,0 +1,16 @@
+# Secrets — never commit
+.env
+credentials.json
+token.json
+
+# Dependencies
+node_modules/
+
+# Local scratch / intermediates (regenerated as needed)
+.tmp/
+.DS_Store
+**/.DS_Store
+
+# Large design-reference media (exceeds GitHub's comfortable file size;
+# screen recording of the homepage mockup, kept locally only)
+Mockupimages/*.mov

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Captain Docs — San Marin Speech &amp; Debate</title>
+
+  <!-- Blocking auth guard: captain-only -->
+  <script>
+    (function() {
+      // Captain-only session gate — the role is set by the portal.html login
+      // only (never from the URL). Sessions expire after 90 days (~one season);
+      // the timestamp refreshes on each visit.
+      var MAX_SESSION_MS = 90 * 24 * 60 * 60 * 1000;
+      var role = '', ts = 0;
+      try {
+        role = localStorage.getItem('sanmarinAuthRole') || '';
+        ts = parseInt(localStorage.getItem('sanmarinAuthTime') || '0', 10) || 0;
+      } catch(e) {}
+      var valid = role === 'captain' && ts > 0 && (Date.now() - ts) < MAX_SESSION_MS;
+      if (valid) {
+        try { localStorage.setItem('sanmarinAuthTime', String(Date.now())); } catch(e) {}
+      } else {
+        window.location.href = 'portal.html';
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #07110c;
+      color: #e5e7eb;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .cap-nav {
+      background: #0b0e0b;
+      border-bottom: 1px solid rgba(201,162,39,0.18);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .cap-nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cap-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .cap-brand img { width: 32px; height: 32px; object-fit: contain; }
+    .cap-brand-text .top { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+    .cap-brand-text .bot { font-size: 10px; font-weight: 700; color: #c9a227; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 2px; }
+    .cap-nav-right { display: flex; align-items: center; gap: 12px; }
+    .role-chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 6px 12px; border-radius: 999px;
+      background: rgba(201,162,39,0.1); color: #c9a227;
+      border: 1px solid rgba(201,162,39,0.3);
+    }
+    .role-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: #c9a227; }
+    .vault-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; color: #4ade80;
+      font-size: 12.5px; font-weight: 600;
+      padding: 7px 14px; border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(74,222,128,0.3);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .vault-link:hover { background: rgba(74,222,128,0.08); border-color: rgba(74,222,128,0.5); }
+    .signout-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.8);
+      font: inherit; font-size: 12.5px; font-weight: 600;
+      padding: 7px 14px; border-radius: 8px; cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+    .signout-btn:hover { border-color: #ef4444; color: #fca5a5; background: rgba(239,68,68,0.06); }
+
+    /* ── MAIN ── */
+    main.cap-main { max-width: 900px; margin: 0 auto; padding: 48px 32px 80px; }
+
+    .cap-hero {
+      padding: 32px 36px;
+      border-radius: 18px;
+      background: linear-gradient(160deg, #14100a 0%, #0b0e0b 60%, #07110c 100%);
+      border: 1px solid rgba(201,162,39,0.28);
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cap-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 90% 10%, rgba(201,162,39,0.14), transparent 50%);
+      pointer-events: none;
+    }
+    .cap-hero > * { position: relative; z-index: 1; }
+    .cap-hero .tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #c9a227; margin-bottom: 14px;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .cap-hero .tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: #c9a227;
+      box-shadow: 0 0 12px rgba(201,162,39,0.6);
+    }
+    .cap-hero h1 {
+      font-size: 34px; font-weight: 900; color: #fff;
+      letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 10px;
+    }
+    .cap-hero h1 .accent { color: #c9a227; }
+    .cap-hero p { font-size: 14.5px; color: rgba(255,255,255,0.55); line-height: 1.65; max-width: 620px; }
+
+    /* ── SECTIONS ── */
+    .doc-section {
+      margin-bottom: 32px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 28px 30px;
+    }
+    .doc-section h2 {
+      font-size: 17px; font-weight: 800; color: #fff;
+      letter-spacing: -0.01em; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .doc-section h2 .bar {
+      display: inline-block; width: 4px; height: 18px; border-radius: 2px;
+      background: #c9a227;
+    }
+    .doc-section p {
+      font-size: 14px; color: rgba(255,255,255,0.65);
+      line-height: 1.7; margin-bottom: 12px;
+    }
+    .doc-section p:last-child { margin-bottom: 0; }
+
+    .step-list { counter-reset: step; list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+    .step-list li {
+      counter-increment: step;
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 16px 18px;
+      background: rgba(201,162,39,0.04);
+      border: 1px solid rgba(201,162,39,0.15);
+      border-radius: 12px;
+    }
+    .step-list li::before {
+      content: counter(step);
+      flex-shrink: 0;
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(201,162,39,0.2); color: #c9a227;
+      font-size: 13px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .step-body { flex: 1; padding-top: 3px; }
+    .step-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .step-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* Code block */
+    .code-block {
+      font-family: 'JetBrains Mono', Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      background: #020503;
+      border: 1px solid rgba(201,162,39,0.18);
+      border-radius: 10px;
+      padding: 16px 18px;
+      color: #e5e7eb;
+      overflow-x: auto;
+      line-height: 1.7;
+      margin-top: 10px;
+    }
+    .code-block .k { color: #c9a227; }
+    .code-block .s { color: #4ade80; }
+    .code-block .c { color: rgba(255,255,255,0.35); font-style: italic; }
+
+    code.inline {
+      font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+      background: rgba(201,162,39,0.12); color: #c9a227;
+      padding: 2px 7px; border-radius: 5px;
+      border: 1px solid rgba(201,162,39,0.2);
+    }
+
+    .actions-row {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px;
+    }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #c9a227; color: #1c1c1e;
+      font-size: 13.5px; font-weight: 700;
+      padding: 11px 22px; border-radius: 9px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .btn-gold:hover { background: #e0b834; transform: translateY(-1px); }
+    .btn-outline-green {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #4ade80;
+      font-size: 13.5px; font-weight: 700;
+      padding: 10px 22px; border-radius: 9px;
+      text-decoration: none;
+      border: 1.5px solid rgba(74,222,128,0.4);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn-outline-green:hover { background: rgba(74,222,128,0.08); border-color: rgba(74,222,128,0.65); }
+
+    /* Warning callout */
+    .callout {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 16px 18px; margin-top: 18px;
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 12px;
+    }
+    .callout svg { color: #fca5a5; flex-shrink: 0; margin-top: 2px; }
+    .callout .t { font-size: 13px; font-weight: 700; color: #fca5a5; margin-bottom: 4px; letter-spacing: 0.02em; }
+    .callout .d { font-size: 12.5px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      main.cap-main { padding: 32px 20px 64px; }
+      .cap-nav-inner { padding: 0 18px; }
+      .cap-nav-right .role-chip { display: none; }
+      .cap-hero { padding: 28px 24px; }
+      .cap-hero h1 { font-size: 26px; }
+      .doc-section { padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="cap-nav">
+    <div class="cap-nav-inner">
+      <a href="captain-docs.html" class="cap-brand">
+        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Seal" />
+        <div class="cap-brand-text">
+          <div class="top">Captain Docs</div>
+          <div class="bot">Admin Manual</div>
+        </div>
+      </a>
+      <div class="cap-nav-right">
+        <span class="role-chip"><span class="dot"></span>Captain</span>
+        <a href="vault.html" class="vault-link">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10h14V10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Vault
+        </a>
+        <button type="button" class="signout-btn" id="signout-btn" aria-label="Sign out">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="cap-main">
+
+    <section class="cap-hero">
+      <div class="tag">Captain-only</div>
+      <h1>Technical <span class="accent">Manual</span></h1>
+      <p>Instructions for captains and officers who maintain the San Marin Speech &amp; Debate member portal. Everything below assumes you have GitHub repository access.</p>
+      <div class="actions-row">
+        <a href="vault.html" class="btn-gold">
+          Go to Member Vault
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="portal.html" class="btn-outline-green">Back to Portal</a>
+      </div>
+    </section>
+
+    <!-- How to update the vault -->
+    <section class="doc-section">
+      <h2><span class="bar"></span>Updating the Vault</h2>
+      <p>To update the Vault: Go to GitHub, open <code class="inline">app/vault/page.tsx</code>, and edit the <code class="inline">announcements</code> or <code class="inline">resources</code> lists at the top.</p>
+      <p style="color: rgba(255,255,255,0.45); font-size: 12.5px; font-style: italic; margin-top: 10px;">
+        <strong style="color: rgba(255,255,255,0.65); font-style: normal;">Current project note:</strong>
+        This site is plain HTML, so in this deployment the data arrays actually live at <code class="inline">vault.html</code> near the bottom inside the <code class="inline">&lt;script&gt;</code> block. The steps below reference the real file in use.
+      </p>
+
+      <ol class="step-list">
+        <li>
+          <div class="step-body">
+            <div class="step-title">Open the repository on GitHub</div>
+            <div class="step-desc">Navigate to the San Marin Speech &amp; Debate repository in your browser and open the <code class="inline">vault.html</code> file.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-body">
+            <div class="step-title">Find the data arrays</div>
+            <div class="step-desc">Scroll to the script block near the bottom. You'll see two arrays — one for announcements and one for resources.</div>
+            <pre class="code-block"><span class="c">/* Content data (update these two arrays to change what members see) */</span>
+<span class="k">const</span> announcements = [
+  { id: 1, text: <span class="s">"Welcome to the 2026-2027 season!"</span> }
+];
+<span class="k">const</span> resources = [
+  { id: 1, title: <span class="s">"Parliamentary Debate Prep Guide"</span>, link: <span class="s">"#"</span> }
+];</pre>
+          </div>
+        </li>
+        <li>
+          <div class="step-body">
+            <div class="step-title">Add or edit items</div>
+            <div class="step-desc">Increment the <code class="inline">id</code> for each new entry. Each announcement needs <code class="inline">{ id, text }</code>; each resource needs <code class="inline">{ id, title, link }</code>. Use <code class="inline">"#"</code> for the link if the resource isn't ready yet.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-body">
+            <div class="step-title">Commit &amp; push</div>
+            <div class="step-desc">Commit directly to <code class="inline">main</code> with a short message like <em>"vault: announcement for Bay Area Open"</em>. Once pushed, the change is live on the next deploy.</div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Access codes -->
+    <section class="doc-section">
+      <h2><span class="bar"></span>Rotating Access Codes</h2>
+      <p>The portal accepts two codes — one for general members and one for captains. The codes themselves are <em>not</em> stored anywhere in the site's source; only their SHA-256 hashes live in <code class="inline">portal.html</code>, in the <code class="inline">ACCESS_CODE_HASHES</code> map:</p>
+      <pre class="code-block"><span class="k">const</span> ACCESS_CODE_HASHES = {
+  <span class="s">'&lt;sha-256 hash of member code&gt;'</span>:  { role: <span class="s">'member'</span>,  redirect: <span class="s">'portal-team-hub.html'</span> },
+  <span class="s">'&lt;sha-256 hash of captain code&gt;'</span>: { role: <span class="s">'captain'</span>, redirect: <span class="s">'captain-docs.html'</span> }
+};</pre>
+      <p>To rotate a code: pick the new code, open the browser console on any page of the site (F12 → Console), and run the line below with your new code. Copy the 64-character result and replace the matching hash key in <code class="inline">portal.html</code>.</p>
+      <pre class="code-block">crypto.subtle.digest(<span class="s">'SHA-256'</span>, <span class="k">new</span> TextEncoder().encode(<span class="s">'NEW-CODE-HERE'</span>))
+  .then(b =&gt; console.log([...<span class="k">new</span> Uint8Array(b)].map(x =&gt; x.toString(16).padStart(2,<span class="s">'0'</span>)).join(<span class="s">''</span>)));</pre>
+
+      <div class="callout">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <div class="t">This is still gate UX, not real auth</div>
+          <div class="d">The site is static, so the gate runs in the visitor's browser and the member pages are technically reachable without it by anyone determined. Hashing keeps the codes out of the page source, but treat the portal as a courtesy gate: rotate codes each season, share them privately (never in a public post), and never put truly sensitive information behind it.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Troubleshooting -->
+    <section class="doc-section">
+      <h2><span class="bar"></span>Troubleshooting</h2>
+      <p><strong style="color:#fff; font-weight:700;">A member says their code doesn't work.</strong> Confirm they're typing the current season's code exactly — it's case-sensitive. Ask them to clear site data for the portal and retry.</p>
+      <p><strong style="color:#fff; font-weight:700;">Someone is stuck on a redirect loop.</strong> That usually means localStorage is disabled or blocked. Ask them to use a standard Chrome/Safari/Firefox window (not incognito with storage blocked).</p>
+      <p><strong style="color:#fff; font-weight:700;">I need to sign someone out remotely.</strong> You can't — the session is in their browser's localStorage. You can, however, rotate the access code, which instantly invalidates anyone who would try to log in fresh.</p>
+    </section>
+
+    <div class="actions-row" style="margin-top: 4px;">
+      <a href="vault.html" class="btn-gold">
+        Open Member Vault
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+  </main>
+
+  <script>
+    /* Sign out */
+    document.getElementById('signout-btn').addEventListener('click', function() {
+      try {
+        localStorage.removeItem('sanmarinAuthRole');
+        localStorage.removeItem('sanmarinAuthTime');
+      } catch (e) {}
+      window.location.replace('portal.html');
+    });
+  </script>
+</body>
+</html>

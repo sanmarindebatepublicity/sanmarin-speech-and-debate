@@ -1,0 +1,7 @@
+{
+  "_instructions": "TO ADD PHOTOS: Upload to Cloudinary, copy the public ID shown after upload, and paste it into the relevant season array in this file. Public IDs look like: 25-26 Season/filename",
+  "seasons": {
+    "25-26 Season": [
+    ]
+  }
+}
