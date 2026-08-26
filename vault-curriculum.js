@@ -58,19 +58,22 @@ window.CURRICULUM = [
             type: 'exercise',
             exerciseType: 'multipleChoice',
             exerciseConfig: {
-              question: 'How long does each team get to prepare after the resolution is announced?',
+              // Was: options offered 20/45/5/none with "20 minutes" marked
+              // correct and called "exactly" — inside a novice lesson that
+              // states 30. Novices had no correct option available.
+              question: 'You are competing in the Novice division. How long does your team get to prepare after the resolution is announced?',
               options: [
                 '5 minutes',
-                '20 minutes',
-                '45 minutes',
+                '15 minutes',
+                '30 minutes',
                 'No prep time — parli is fully impromptu'
               ],
-              correctIndex: 1,
+              correctIndex: 2,
               explanations: [
-                'Not quite. 5 minutes is not enough to build an entire case from scratch.',
-                'Correct! Both teams get exactly 20 minutes to prepare after the resolution is announced. Use every second wisely.',
-                '45 minutes is way too long — part of the challenge is making fast, smart decisions under time pressure.',
-                'Close — parli is extemporaneous (no pre-researched evidence), but you do get 20 minutes to prep once the topic drops.'
+                'Not quite — 5 minutes is nowhere near enough to build an entire case from scratch.',
+                'Longer than that. Novice prep is generous on purpose, because you are writing a whole case from nothing.',
+                'Correct. Novice teams get 30 minutes. JV and Varsity get 20, so if you move up a division you will be building the same case in a third less time — worth practising for before you get there.',
+                'Close — parli is extemporaneous, meaning no pre-researched evidence, but you do get prep time once the topic drops.'
               ]
             }
           },
@@ -98,19 +101,22 @@ window.CURRICULUM = [
             type: 'exercise',
             exerciseType: 'multipleChoice',
             exerciseConfig: {
+              // The correct option used to repeat the POI tooltip word for word,
+              // one step earlier in the same lesson, so it could be matched
+              // without understanding it. Reworded around the mechanic instead.
               question: 'What are Points of Information (POIs)?',
               options: [
                 'Written questions submitted to the judge before the round begins',
-                'Short interruptions raised by the opposing team during constructive speeches',
                 'A printed handout of evidence the speaking team distributes',
-                'Questions the judge asks the speaking team after each speech'
+                'Questions the judge asks the speaking team after each speech',
+                'A brief request to speak, offered mid-speech by the other team, which the speaker may take or wave off'
               ],
-              correctIndex: 1,
+              correctIndex: 3,
               explanations: [
-                'POIs are live verbal interruptions — nothing written goes to the judge beforehand.',
-                'Exactly! POIs are short (15–20 second) interruptions raised during the first four constructive speeches, only between the 1:01 mark and the last minute of each speech.',
+                'POIs are live and verbal — nothing written goes to the judge beforehand.',
                 'No printed materials are allowed inside the debate round at all.',
-                'Judges listen silently and don\'t interrupt speeches with questions.'
+                'Judges listen silently and don\'t interrupt speeches with questions.',
+                'Exactly — and the last part matters most. The speaker chooses whether to take it. POIs run 15–20 seconds, happen only during the four constructive speeches, and only after the first minute and before the last minute of each.'
               ]
             }
           }
@@ -171,14 +177,14 @@ window.CURRICULUM = [
             type: 'exercise',
             exerciseType: 'dragSort',
             exerciseConfig: {
-              instruction: 'Sort these 6 resolutions so that the two FACT resolutions are in positions 1–2, the two VALUE resolutions in positions 3–4, and the two POLICY resolutions in positions 5–6.',
+              instruction: 'Sort these 6 resolutions so that the two FACT resolutions are in positions 1–2, the two VALUE resolutions in positions 3–4, and the two POLICY resolutions in positions 5–6. Use the cheat sheet above — look at the verb.',
               items: [
-                '"The USFG should guarantee universal childcare." [Policy]',
-                '"The death penalty benefits outweigh consequences." [Fact]',
-                '"The environmental movement ought to prioritize ecocentrism over anthropocentric ecology." [Value]',
-                '"The USFG should substantially increase its investment in space colonization." [Policy]',
-                '"Carceral justice organizations should prioritize job-specific education over general education." [Fact]',
-                '"When in conflict, environmental protection is prioritized over natural landscape." [Value]'
+                '"The USFG should guarantee universal childcare."',
+                '"The death penalty is an effective deterrent to violent crime."',
+                '"The environmental movement ought to prioritize ecocentrism over anthropocentric ecology."',
+                '"The USFG should substantially increase its investment in space colonization."',
+                '"Job-specific education reduces recidivism more than general education does."',
+                '"When in conflict, environmental protection ought to be prioritized over economic development."'
               ],
               correctOrder: [1, 4, 2, 5, 0, 3]
             }
@@ -198,7 +204,7 @@ window.CURRICULUM = [
 <p>Six speeches total. Constructives first — where ALL arguments get introduced. Then rebuttals, where you tell the judge why you won. No new arguments in rebuttals — ever.</p>
 
 <div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
-  <strong>Novice Format (San Marino beginners)</strong><br/>
+  <strong>Novice Format (San Marin beginners)</strong><br/>
   Constructive speeches: <strong>5 min each</strong> · Rebuttals: <strong>3 min each</strong> · Prep time: <strong>30 min</strong>
 </div>
 
@@ -285,14 +291,18 @@ window.CURRICULUM = [
             type: 'exercise',
             exerciseType: 'dragSort',
             exerciseConfig: {
-              instruction: 'Put the six speeches of a parliamentary debate round in the correct order, from first (position 1) to last (position 6). Times shown are for Novice format.',
+              // Speeches are named by side and type only. Numbering them
+              // ("1st Affirmative") stated the order the question asks for, and
+              // printing the times sorted it a second way, since the rebuttals
+              // were the only short speeches.
+              instruction: 'Put the six speeches of a parliamentary debate round in the correct order, from first (position 1) to last (position 6).',
               items: [
-                '2nd Negative Constructive (5 min novice / 8 min JV-V)',
-                '1st Affirmative Constructive (5 min novice / 7 min JV-V)',
-                'Affirmative Rebuttal (3 min novice / 5 min JV-V)',
-                '1st Negative Constructive (5 min novice / 8 min JV-V)',
-                'Negative Rebuttal (3 min novice / 4 min JV-V)',
-                '2nd Affirmative Constructive (5 min novice / 8 min JV-V)'
+                'Negative Constructive — second Negative speaker',
+                'Affirmative Constructive — first Affirmative speaker',
+                'Affirmative Rebuttal',
+                'Negative Constructive — first Negative speaker',
+                'Negative Rebuttal',
+                'Affirmative Constructive — second Affirmative speaker'
               ],
               correctOrder: [1, 3, 5, 0, 4, 2]
             }
@@ -690,7 +700,7 @@ window.CURRICULUM = [
             exerciseType: 'checklist',
             exerciseConfig: {
               instruction: 'Read the sample First Affirmative speech below. Check every item from the First Affirmative Checklist that the speaker actually completed. One item is missing — can you spot it?',
-              context: 'Sample speech: "Good afternoon. Every year, the United States spends over $300 billion importing foreign oil, leaving our economy at the mercy of unstable regimes. For this reason, we of the Affirmation support the resolution: The USFG should significantly increase the use of alternate energy sources.\n\nIn the next 7 minutes I will frame this debate, define our key terms, and present two reasons why alternate energy is our best future.\n\nThis is a policy debate. We ask the judge to evaluate our arguments on net benefits — which side produces more overall good for Americans. We define \'alternate energy sources\' as all energy sources other than oil and coal.\n\nOur first contention: America\'s dependence on foreign oil is a national security crisis. Subpoint A — the US imports 8 million barrels per day from politically unstable nations (EIA, 2022). Subpoint B — when those nations restrict supply, gas prices spike, hurting every American family. By shifting to domestic renewable energy, we eliminate that vulnerability and protect American families from sudden economic shocks.\n\nOur second contention: Renewable energy creates jobs. The solar industry alone employed 260,000 Americans in 2022 (DOE), and that number doubles with every $50 billion in federal investment. Voting Affirmative means hundreds of thousands of new, good-paying jobs for Americans.\n\nFor these reasons — national security and economic opportunity — we urge a vote for the Affirmation."',
+              context: 'Sample speech: "Good afternoon. Every year, the United States spends over $300 billion importing foreign oil, leaving our economy at the mercy of unstable regimes. For this reason, we of the Affirmation support the resolution: The USFG should significantly increase the use of alternate energy sources.\n\nIn the next 5 minutes I will frame this debate, define our key terms, and present two reasons why alternate energy is our best future.\n\nThis is a policy debate. We ask the judge to evaluate our arguments on net benefits — which side produces more overall good for Americans. We define \'alternate energy sources\' as all energy sources other than oil and coal.\n\nOur first contention: America\'s dependence on foreign oil is a national security crisis. Subpoint A — the US imports 8 million barrels per day from politically unstable nations (EIA, 2022). Subpoint B — when those nations restrict supply, gas prices spike, hurting every American family. By shifting to domestic renewable energy, we eliminate that vulnerability and protect American families from sudden economic shocks.\n\nOur second contention: Renewable energy creates jobs. The solar industry alone employed roughly a quarter of a million Americans in 2022, and sustained federal investment grows that workforce further. Voting Affirmative means hundreds of thousands of new, good-paying jobs for Americans.\n\nFor these reasons — national security and economic opportunity — we urge a vote for the Affirmation."',
               items: [
                 { text: 'Gave a short, compelling introduction', correct: true },
                 { text: 'Stated the resolution', correct: true },
@@ -1656,14 +1666,19 @@ window.CURRICULUM = [
             type: 'exercise',
             exerciseType: 'dragSort',
             exerciseConfig: {
-              instruction: 'The debate is on the resolution "The USFG should significantly increase the use of alternate energy sources." The NEG team argued in the 1NC that the plan costs too much, and there is no proven harm from current energy sources. The AFF extended their contentions in the 2AC.\n\nNow in the Negative Rebuttal, the first Neg speaker makes the following statements. Sort them into two groups: statements 1–3 should be EXTENSIONS (acceptable — extending previously made arguments) and statements 4–6 should be NEW ARGUMENTS (not acceptable — grounds for a Point of Order).',
+              instruction: 'The debate is on the resolution "The USFG should significantly increase the use of alternate energy sources." The NEG team argued in the 1NC that the plan costs too much, and there is no proven harm from current energy sources. The AFF extended their contentions in the 2AC.\n\nNow in the Negative Rebuttal, the first Neg speaker makes the following statements. Sort them into two groups: statements 1–3 should be EXTENSIONS (acceptable — extending previously made arguments) and statements 4–6 should be NEW ARGUMENTS (not acceptable — grounds for a Point of Order).\n\nThey all sound confident. Ask one question of each: can I trace this back to something already said in a constructive speech?',
+              // No labels, and the new arguments no longer announce themselves.
+              // Phrases like "we haven't raised this before" gave the answer away
+              // three times over, and no opponent would ever really say them. The
+              // skill being tested is noticing an argument has no root in a
+              // constructive speech, so these have to sound perfectly ordinary.
               items: [
-                'The Affirmative\'s response to our cost argument cited job creation from Solyndra-type companies — but as we showed in the 2NC, Solyndra went bankrupt. That evidence still stands. [Extension]',
-                'I also want to mention that adopting this plan would violate the U.S. treaty obligations under the WTO — a legal problem we haven\'t discussed yet in this round. [New Argument]',
-                'On our second contention — no proven harm from current energy — the Affirmative pointed to gas price hikes. But we responded that energy price volatility isn\'t unique to oil, and the Affirmative provided no data to contradict that. [Extension]',
-                'We\'d like to introduce a completely new point: the scientific consensus on whether solar energy is ready for large-scale adoption is actually in dispute among climate scientists. [New Argument]',
-                'Our first contention is still the strongest argument on the flow. The Affirmative never provided a specific dollar figure to rebut our cost analysis — they only said it \'creates jobs,\' which we already addressed. [Extension]',
-                'One more thing we haven\'t raised before: this plan would also create a serious national security vulnerability by putting energy infrastructure in the hands of private contractors. [New Argument]'
+                'The Affirmative\'s response to our cost argument cited job creation from Solyndra-type companies — but as we showed in the 2NC, Solyndra went bankrupt. That evidence still stands.',
+                'Adopting this plan would put the United States in violation of its treaty obligations under the WTO, and the Affirmative has no answer for that.',
+                'On our second contention — no proven harm from current energy — the Affirmative pointed to gas price hikes. But we responded that energy price volatility isn\'t unique to oil, and the Affirmative provided no data to contradict that.',
+                'The scientific consensus on whether solar is ready for large-scale adoption is genuinely in dispute among climate scientists, which undercuts the entire Affirmative case.',
+                'Our first contention is still the strongest argument on the flow. The Affirmative never provided a specific dollar figure to rebut our cost analysis — they only said it \'creates jobs,\' which we already addressed.',
+                'This plan hands energy infrastructure to private contractors, creating a national security vulnerability the judge should weigh heavily.'
               ],
               correctOrder: [0, 2, 4, 1, 3, 5]
             }
@@ -1716,7 +1731,7 @@ window.CURRICULUM = [
             type: 'exercise',
             exerciseType: 'scenario',
             exerciseConfig: {
-              situation: 'Resolution: "The USFG should significantly increase the use of alternate energy sources." You are the First Negative speaker preparing your 4-minute Negative Rebuttal. Here is the state of the round:\n\n• NEG Contention 1 (cost too high): You extended with the Solyndra bankruptcy example. AFF said it creates jobs but didn\'t address Solyndra specifically. This argument is STRONG for the NEG.\n\n• NEG Contention 2 (no proven harm from oil dependence): AFF said gas prices have risen. You countered that volatility affects all energy sources. Both sides responded. This argument is CONTESTED — judge could go either way.\n\n• AFF Contention 1 (oil dependence): AFF extended it, NEG attacked it. Argument is CONTESTED.\n\n• AFF Contention 2 (creates jobs): NEG attacked in both 1NC and 2NC with Solyndra. AFF never specifically responded to Solyndra. This argument is STRONG for the NEG.\n\n• AFF Contention 3 (environmental benefits of renewables): The 1NC NEVER ATTACKED THIS. AFF pointed out the drop. This argument goes to the AFF — acknowledge the loss.\n\nWhich voting issues should you focus on in your 4-minute Negative Rebuttal?',
+              situation: 'Resolution: "The USFG should significantly increase the use of alternate energy sources." You are the First Negative speaker preparing your 3-minute Negative Rebuttal. Here is the state of the round:\n\n• NEG Contention 1 (cost too high): You extended with the Solyndra bankruptcy example. AFF said it creates jobs but didn\'t address Solyndra specifically. This argument is STRONG for the NEG.\n\n• NEG Contention 2 (no proven harm from oil dependence): AFF said gas prices have risen. You countered that volatility affects all energy sources. Both sides responded. This argument is CONTESTED — judge could go either way.\n\n• AFF Contention 1 (oil dependence): AFF extended it, NEG attacked it. Argument is CONTESTED.\n\n• AFF Contention 2 (creates jobs): NEG attacked in both 1NC and 2NC with Solyndra. AFF never specifically responded to Solyndra. This argument is STRONG for the NEG.\n\n• AFF Contention 3 (environmental benefits of renewables): The 1NC NEVER ATTACKED THIS. AFF pointed out the drop. This argument goes to the AFF — acknowledge the loss.\n\nWhich voting issues should you focus on in your 3-minute Negative Rebuttal?',
               options: [
                 {
                   text: 'Cover all 5 arguments equally — you need to address everything to show the judge you\'re still competing on all fronts.',
@@ -1869,7 +1884,7 @@ window.CURRICULUM = [
 <h3>What You Cannot Do</h3>
 <ul>
   <li><strong>No new arguments.</strong> Same rule as the NR — anything new in the AR is a Point of Order violation.</li>
-  <li><strong>Don't rehash everything.</strong> 5 minutes is not enough to re-argue the entire round. Issue selection matters just as much here as in the NR.</li>
+  <li><strong>Don't rehash everything.</strong> 3 minutes is not enough to re-argue the entire round. Issue selection matters just as much here as in the NR.</li>
   <li><strong>Don't ignore the NR's framing.</strong> If you don't address what the NEG said, the judge may assume you concede their points.</li>
 </ul>
 `
@@ -1978,7 +1993,7 @@ window.CURRICULUM = [
                 {
                   label: 'Opening Remark + State the Resolution (hook the judge, then state the resolution)',
                   placeholder: 'Start with a compelling hook, then: "For this reason, we of the Affirmation support the resolution that states: …"',
-                  modelAnswer: 'In 2022 alone, 171 people were murdered in Los Angeles County. When society fails to apply consequences proportional to the crime, it fails the victims of those crimes. For this reason and others, we of the Affirmation support the resolution that states: The death penalty benefits outweigh consequences.'
+                  modelAnswer: 'Every year in this country, thousands of families lose someone to murder. When society fails to apply consequences proportional to the crime, it fails the victims of those crimes. For this reason and others, we of the Affirmation support the resolution that states: The death penalty benefits outweigh consequences.\n\n(Note the hook does not cite a number. In parliamentary debate you speak from memory and a judge may ask where a figure came from. Use a specific statistic only when you genuinely know it and can say your source — a number you half-remember will cost you more than the vaguer sentence above ever would.)'
                 },
                 {
                   label: 'Resolutional Analysis — State the type, then define "death penalty" and "benefits outweigh consequences"',
@@ -1993,7 +2008,7 @@ window.CURRICULUM = [
                 {
                   label: 'Contention 1 — Write a fully developed contention (claim → evidence → warrant → impact)',
                   placeholder: 'Our first contention is that…',
-                  modelAnswer: 'Our first contention is that the death penalty provides justice for victims of the most heinous crimes. The families of murder victims have a right to see proportional justice. A life sentence does not restore the life that was taken — and in many cases, convicted killers continue to harm others from prison. The Death Penalty Information Center found that 4.1% of federal prisoners serving life sentences committed additional crimes in prison, including assault and homicide. The warrant: when the justice system fails to match the severity of the crime with the severity of the penalty, it communicates to victims and their families that their lives were not worth the full weight of the law. Impact: A vote for the Affirmation is a vote for a justice system that treats the most extreme crimes with the seriousness they deserve.'
+                  modelAnswer: 'Our first contention is that the death penalty provides justice for victims of the most heinous crimes. The families of murder victims have a right to see proportional justice. A life sentence does not restore the life that was taken — and in some cases, those convicted of violent crimes go on to harm others while incarcerated. The warrant: when the justice system fails to match the severity of the crime with the severity of the penalty, it communicates to victims and their families that their lives were not worth the full weight of the law. Impact: A vote for the Affirmation is a vote for a justice system that treats the most extreme crimes with the seriousness they deserve.'
                 },
                 {
                   label: 'Underview — Briefly summarize your key points and urge a vote for the Affirmation',
@@ -2785,7 +2800,7 @@ window.CURRICULUM = [
 
 <h3>The Cardinal Rule of Prep Time</h3>
 <div style="background:rgba(255,255,255,.04);border-left:3px solid var(--gold-400);padding:14px 20px;margin:20px 0;border-radius:0 8px 8px 0;">
-  <p style="margin:0;font-size:14px;color:var(--text-secondary);line-height:1.7;"><strong>Never spend all your prep time writing — leave time to think.</strong> A debate round is not an essay you prepared in advance; it's a live exchange. The team that spends 19 of 20 minutes writing and no time thinking about the opponent's strategy enters the round tactically blind. The team that understands both sides' arguments can respond, adapt, and pivot in real time.</p>
+  <p style="margin:0;font-size:14px;color:var(--text-secondary);line-height:1.7;"><strong>Never spend all your prep time writing — leave time to think.</strong> A debate round is not an essay you prepared in advance; it's a live exchange. The team that spends 29 of their 30 minutes writing and no time thinking about the opponent's strategy enters the round tactically blind. The team that understands both sides' arguments can respond, adapt, and pivot in real time.</p>
 </div>
 `
           },
