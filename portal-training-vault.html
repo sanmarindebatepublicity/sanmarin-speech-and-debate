@@ -37,12 +37,12 @@
   <style>
     /* ── Portal body: vault-styles overwrites body — keep relaxed dark green ── */
     body {
-      background: #142a1a !important;
+      background: #181d19 !important;
       color: #ecefe6 !important;
       background-image:
-        radial-gradient(ellipse 70% 50% at 18% 0%, rgba(40,72,46,0.45) 0%, transparent 65%),
+        radial-gradient(ellipse 70% 50% at 18% 0%, rgba(44,58,48,0.28) 0%, transparent 65%),
         radial-gradient(ellipse 60% 50% at 88% 18%, rgba(196,165,90,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 45% at 50% 100%, rgba(28,54,32,0.4) 0%, transparent 70%) !important;
+        radial-gradient(ellipse 60% 45% at 50% 100%, rgba(35,44,38,0.35) 0%, transparent 70%) !important;
       background-attachment: fixed !important;
     }
 
@@ -139,7 +139,7 @@
     @media (max-width: 640px) { .pdf-grid { grid-template-columns: 1fr; } }
 
     .pdf-card {
-      background: rgba(28,54,32,0.5);
+      background: rgba(36,44,38,0.5);
       border: 1px solid rgba(196,165,90,0.13);
       border-radius: 14px;
       backdrop-filter: blur(10px);
@@ -325,6 +325,12 @@
             <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
+      </div>
+
+      <div class="sidebar-search">
+        <input id="portal-search" type="search" placeholder="Search this page" autocomplete="off"
+               role="combobox" aria-expanded="false" aria-controls="portal-search-results" aria-label="Search this page" />
+        <div id="portal-search-results" role="listbox" hidden></div>
       </div>
 
       <nav class="sidebar-nav" aria-label="Portal sections">
@@ -841,5 +847,6 @@
     })();
   </script>
 
+  <script src="portal-search.js"></script>
 </body>
 </html>

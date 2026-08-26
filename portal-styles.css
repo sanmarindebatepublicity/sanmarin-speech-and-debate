@@ -12,14 +12,14 @@
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #142a1a;
+  background: #181d19;
   color: #ecefe6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   background-image:
-    radial-gradient(ellipse 70% 50% at 18% 0%, rgba(40,72,46,0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 50% at 18% 0%, rgba(44,58,48,0.28) 0%, transparent 65%),
     radial-gradient(ellipse 60% 50% at 88% 18%, rgba(196,165,90,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(28,54,32,0.4) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(35,44,38,0.35) 0%, transparent 70%);
   background-attachment: fixed;
 }
 
@@ -90,7 +90,7 @@ body {
 .portal-sidebar {
   width: 210px;
   flex-shrink: 0;
-  background: rgba(15,28,17,0.72);
+  background: rgba(19,23,20,0.78);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-right: 1px solid rgba(255,255,255,0.05);
@@ -149,7 +149,7 @@ body {
   left: 18px;
   width: 38px;
   height: 38px;
-  background: rgba(15,28,17,0.92);
+  background: rgba(19,23,20,0.93);
   border: 1px solid rgba(196,165,90,0.28);
   border-radius: 10px;
   color: #c4a55a;
@@ -340,7 +340,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: rgba(28,54,32,0.5);
+  background: rgba(36,44,38,0.5);
   border: 1px solid rgba(196,165,90,0.13);
   border-radius: 18px;
   backdrop-filter: blur(10px);
@@ -387,7 +387,7 @@ body {
 
 /* ── COMING SOON ── */
 .coming-soon-block {
-  background: rgba(28,54,32,0.5);
+  background: rgba(36,44,38,0.5);
   border: 1px solid rgba(196,165,90,0.14);
   border-radius: 18px;
   backdrop-filter: blur(10px);
@@ -429,7 +429,7 @@ body {
   left: 0;
   right: 0;
   height: 58px;
-  background: rgba(15,28,17,0.92);
+  background: rgba(19,23,20,0.93);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -501,4 +501,57 @@ body {
   .page-hero { padding: 28px 18px 26px; border-radius: 14px; }
   .page-hero-title { font-size: 24px; }
   .soft-divider { margin: 36px 0; }
+}
+
+/* ── PORTAL SEARCH ── */
+.sidebar-search { position: relative; padding: 12px 14px 4px; }
+#portal-search {
+  width: 100%;
+  padding: 8px 11px;
+  font: inherit; font-size: 12.5px;
+  color: #ecefe6;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+}
+#portal-search::placeholder { color: rgba(236,239,230,0.65); }
+#portal-search:focus {
+  outline: none;
+  border-color: rgba(196,165,90,0.55);
+  box-shadow: 0 0 0 3px rgba(196,165,90,0.15);
+}
+#portal-search-results {
+  position: absolute;
+  top: calc(100% - 2px); left: 14px; right: 14px;
+  z-index: 60;
+  max-height: 320px; overflow-y: auto;
+  background: #20241f;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.5);
+  padding: 5px;
+}
+.psr-group {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #c4a55a;
+  padding: 8px 9px 4px;
+}
+.psr-item {
+  display: block; width: 100%;
+  text-align: left;
+  font: inherit; font-size: 12.5px; line-height: 1.4;
+  color: rgba(236,239,230,0.88);
+  background: none; border: none; border-radius: 7px;
+  padding: 7px 9px;
+  cursor: pointer;
+}
+.psr-item:hover, .psr-item.psr-active { background: rgba(196,165,90,0.16); color: #fff; }
+.psr-item:focus-visible { outline: 2px solid #c4a55a; outline-offset: -2px; }
+
+/* The landing highlight after a jump */
+.search-hit {
+  outline: 2px solid rgba(196,165,90,0.85);
+  outline-offset: 3px;
+  transition: outline-color 0.4s ease;
 }

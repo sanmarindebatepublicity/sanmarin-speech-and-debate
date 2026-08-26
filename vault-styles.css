@@ -36,10 +36,10 @@
   --gray-900:  #111827;
 
   /* Semantic */
-  --bg-base:       #0b160b;
-  --bg-surface:    rgba(26, 46, 26, 0.6);
-  --bg-elevated:   rgba(45, 74, 45, 0.4);
-  --bg-overlay:    rgba(13, 26, 13, 0.85);
+  --bg-base:       #111511;
+  --bg-surface:    rgba(32, 40, 33, 0.6);
+  --bg-elevated:   rgba(48, 60, 50, 0.4);
+  --bg-overlay:    rgba(17, 21, 17, 0.85);
   --border-subtle: rgba(212, 168, 67, 0.12);
   --border-muted:  rgba(212, 168, 67, 0.25);
   --border-active: rgba(212, 168, 67, 0.55);
@@ -55,7 +55,7 @@
   --info:     #60a5fa;
 
   /* Glassmorphism */
-  --glass-bg:     rgba(26, 46, 26, 0.55);
+  --glass-bg:     rgba(32, 40, 33, 0.55);
   --glass-border: rgba(212, 168, 67, 0.18);
   --glass-blur:   blur(14px);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(212, 168, 67, 0.08) inset;
