@@ -4,6 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Member Portal &middot; San Marin Speech &amp; Debate</title>
+
+  <!-- Already signed in? Skip the login form. Signing out clears these keys
+       first, so this never traps someone who is trying to leave. -->
+  <script>
+    (function() {
+      var MAX_SESSION_MS = 90 * 24 * 60 * 60 * 1000;
+      var role = '', ts = 0;
+      try {
+        role = localStorage.getItem('sanmarinAuthRole') || '';
+        ts = parseInt(localStorage.getItem('sanmarinAuthTime') || '0', 10) || 0;
+      } catch(e) {}
+      if ((role === 'member' || role === 'captain') && ts > 0 && (Date.now() - ts) < MAX_SESSION_MS) {
+        window.location.replace('portal-team-hub.html');
+      }
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -616,7 +633,11 @@
      * captain-docs.html — it includes a one-line snippet to generate a hash. */
     const ACCESS_CODE_HASHES = {
       '31a8000a93a744097b39c4460569e73a90f4784a17bc4a50de6773db83d9cdb0': { role: 'member',  redirect: 'portal-team-hub.html' },
-      'e4d6d32df23fc57332f17f9cbdcbb43f0318a48a2510fc3028dde0ff6b2fb08d': { role: 'captain', redirect: 'captain-docs.html' }
+      // Captains land in the portal like everyone else. Captain Docs is a
+      // reference manual, not a home page — it appears in the portal sidebar
+      // for captains once signed in. Sending captains straight there used to
+      // strand them: it links nowhere into the member pages.
+      'e4d6d32df23fc57332f17f9cbdcbb43f0318a48a2510fc3028dde0ff6b2fb08d': { role: 'captain', redirect: 'portal-team-hub.html' }
     };
 
     async function sha256Hex(str) {

@@ -17,10 +17,17 @@
         role = localStorage.getItem('sanmarinAuthRole') || '';
         ts = parseInt(localStorage.getItem('sanmarinAuthTime') || '0', 10) || 0;
       } catch(e) {}
-      var valid = role === 'captain' && ts > 0 && (Date.now() - ts) < MAX_SESSION_MS;
-      if (valid) {
+      // Two different failures reach this page, and they must not be treated
+      // alike. An expired session is dead and should be cleared. A signed-in
+      // member who simply is not a captain still has a good session — clearing
+      // it would sign them out for opening the wrong URL.
+      var expired = !(ts > 0 && (Date.now() - ts) < MAX_SESSION_MS);
+      if (role === 'captain' && !expired) {
         try { localStorage.setItem('sanmarinAuthTime', String(Date.now())); } catch(e) {}
       } else {
+        if (expired) {
+          try { localStorage.removeItem('sanmarinAuthRole'); localStorage.removeItem('sanmarinAuthTime'); } catch(e) {}
+        }
         window.location.href = 'portal.html';
       }
     })();
@@ -244,9 +251,9 @@
       </a>
       <div class="cap-nav-right">
         <span class="role-chip"><span class="dot"></span>Captain</span>
-        <a href="vault.html" class="vault-link">
+        <a href="portal-team-hub.html" class="vault-link">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10h14V10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Vault
+          Portal
         </a>
         <button type="button" class="signout-btn" id="signout-btn" aria-label="Sign out">Sign Out</button>
       </div>
@@ -260,11 +267,11 @@
       <h1>Technical <span class="accent">Manual</span></h1>
       <p>Instructions for captains and officers who maintain the San Marin Speech &amp; Debate member portal. Everything below assumes you have GitHub repository access.</p>
       <div class="actions-row">
-        <a href="vault.html" class="btn-gold">
-          Go to Member Vault
+        <a href="portal-training-vault.html" class="btn-gold">
+          Go to Training Vault
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a href="portal.html" class="btn-outline-green">Back to Portal</a>
+        <a href="portal-team-hub.html" class="btn-outline-green">Back to Team Hub</a>
       </div>
     </section>
 
@@ -342,8 +349,8 @@
     </section>
 
     <div class="actions-row" style="margin-top: 4px;">
-      <a href="vault.html" class="btn-gold">
-        Open Member Vault
+      <a href="portal-training-vault.html" class="btn-gold">
+        Open Training Vault
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>

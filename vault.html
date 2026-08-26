@@ -5,91 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Member Vault &middot; San Marin Speech &amp; Debate</title>
 
-  <!-- Blocking auth guard (runs before body renders) -->
-  <script>
-    (function() {
-      // Session gate — the role is set by the portal.html login only (never
-      // from the URL). Sessions expire after 90 days (~one season); the
-      // timestamp refreshes on each visit so active members stay signed in.
-      var MAX_SESSION_MS = 90 * 24 * 60 * 60 * 1000;
-      var role = '', ts = 0;
-      try {
-        role = localStorage.getItem('sanmarinAuthRole') || '';
-        ts = parseInt(localStorage.getItem('sanmarinAuthTime') || '0', 10) || 0;
-      } catch(e) {}
-      var valid = (role === 'member' || role === 'captain') && ts > 0 && (Date.now() - ts) < MAX_SESSION_MS;
-      if (valid) {
-        try { localStorage.setItem('sanmarinAuthTime', String(Date.now())); } catch(e) {}
-      } else {
-        try { localStorage.removeItem('sanmarinAuthRole'); localStorage.removeItem('sanmarinAuthTime'); } catch(e) {}
-        window.location.href = 'portal.html';
-      }
-    })();
-  </script>
+  <!-- Retired page.
+       This was a second shell around the same Training Vault course engine
+       (vault-curriculum.js / vault-exercises.js / vault-app.js). Keeping two
+       shells meant every chrome fix had to be made twice, and they had already
+       drifted apart. portal-training-vault.html is now the only Training Vault.
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="vault-styles.css" />
+       This file stays as a redirect so old bookmarks and any link still
+       pointing here keep working instead of 404ing. It deliberately does no
+       auth check of its own — the page it forwards to runs the real gate. -->
+  <meta http-equiv="refresh" content="0;url=portal-training-vault.html" />
+  <script>window.location.replace('portal-training-vault.html');</script>
+  <link rel="canonical" href="portal-training-vault.html" />
 </head>
 <body>
-
-  <nav class="vault-nav">
-    <div class="vault-nav-inner">
-      <a href="vault.html" class="vault-brand">
-        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Seal" />
-        <div class="vault-brand-text">
-          <div class="top">Member Vault</div>
-          <div class="bot">Authenticated Access</div>
-        </div>
-      </a>
-      <div class="vault-nav-right">
-        <span id="role-chip" class="role-chip"><span class="dot"></span><span id="role-label">Member</span></span>
-        <button type="button" class="signout-btn" id="signout-btn" aria-label="Sign out">Sign Out</button>
-      </div>
-    </div>
-  </nav>
-
-  <main class="vault-main">
-
-    <!-- Dashboard View -->
-    <div id="dashboard-view">
-      <div id="course-catalog"></div>
-
-      <div id="sidebar">
-        <div id="calendar-embed">
-          <div class="cal-header">
-            <h3>Team Schedule</h3>
-            <span class="live-pill"><span class="dot"></span>Live</span>
-          </div>
-          <iframe
-            src="https://calendar.google.com/calendar/embed?height=380&wkst=1&ctz=America%2FLos_Angeles&showPrint=0&showTitle=0&showNav=1&showDate=1&showTabs=0&showCalendars=0&mode=AGENDA&src=ODU5NmIxYTg4NzM4MWJiZjhmYWUzNTYzZDRiZGU5ZTVjZmZiMGE3MjY5MDc2NzFmZmI2NzQ0ZDY0NzIyZTY1ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23009688"
-            title="San Marin Speech &amp; Debate — Team Schedule"
-            style="border:0" width="100%" height="340" frameborder="0" scrolling="no"></iframe>
-        </div>
-        <div id="quick-stats"></div>
-        <div id="quote-box"></div>
-      </div>
-    </div>
-
-    <!-- Lesson View (hidden by default) -->
-    <div id="lesson-view" style="display:none">
-      <button type="button" id="back-btn">&larr; Back to Courses</button>
-      <div id="lesson-title"></div>
-      <div id="lesson-content"></div>
-      <div id="lesson-nav">
-        <button type="button" id="prev-btn">Previous Step</button>
-        <button type="button" id="next-btn">Next Step</button>
-        <button type="button" id="complete-btn">Mark Complete</button>
-      </div>
-    </div>
-
-  </main>
-
-  <div id="confetti-container"></div>
-
-  <script src="vault-curriculum.js"></script>
-  <script src="vault-exercises.js"></script>
-  <script src="vault-app.js"></script>
+  <p>The Member Vault has moved. <a href="portal-training-vault.html">Continue to the Training Vault</a>.</p>
 </body>
 </html>

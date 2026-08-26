@@ -2,6 +2,13 @@
 
 /* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* The browser hides [hidden] with display:none, but that is a UA rule and any
+   author `display:` beats it — .sidebar-link{display:flex} silently un-hid the
+   captain-only link for every member. Role-gated markup depends on `hidden`
+   actually hiding, so enforce it. */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;

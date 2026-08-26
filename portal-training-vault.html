@@ -349,6 +349,15 @@
           </svg>
           Training Vault
         </a>
+        <!-- Captains only. Hidden in markup and revealed by the role check
+             below, so members never see it even briefly. -->
+        <a href="captain-docs.html" class="sidebar-link" id="sidebar-captain-docs" hidden>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Captain Docs
+        </a>
       </nav>
 
       <div class="sidebar-actions">
@@ -763,6 +772,16 @@
     })();
 
     /* Sign out */
+    /* Captains get one extra sidebar entry. The link ships hidden so a member
+       never sees it, even for a frame, if this script is slow or blocked. */
+    (function() {
+      var link = document.getElementById('sidebar-captain-docs');
+      if (!link) return;
+      var role = '';
+      try { role = localStorage.getItem('sanmarinAuthRole') || ''; } catch(e) {}
+      if (role === 'captain') link.hidden = false;
+    })();
+
     document.getElementById('sidebar-signout').addEventListener('click', function() {
       try {
         localStorage.removeItem('sanmarinAuthRole');
