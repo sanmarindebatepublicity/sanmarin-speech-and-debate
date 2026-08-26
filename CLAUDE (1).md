@@ -69,3 +69,53 @@ Please keep the following constraints and goals in mind for all design choices a
    - **Clear Separation:** Do not hardcode text into complex UI component files. The UI should dynamically fetch and map data from the central data file.
    - **Documentation:** Include clear, jargon-free code comments directly inside the data file explaining exactly how a future captain can update text or images. 
 IMPORTANT: PLEASE TRY TO USE JSON FILES FOR TEXT, IMAGES, AND OTHER INFORMATION THAT FUTURE PUBLICITY CAPTAINS WILL NEED TO UPDATE IN THE WEBSITE
+---
+
+# Project Conventions (learned on this site — follow these)
+
+## Writing
+- **No em dashes or en dashes anywhere in visible copy.** Use commas, semicolons,
+  periods, parentheses, or rewrite. Hyphens are fine inside compound words
+  (`well-being`, `2025-26`). This applies to `<title>` tags too, which use `·`.
+- Avoid AI-tell patterns: contrastive negation ("that's not X, it's Y"), repeated
+  comparative parallelism, marketing hype, filler, forced enthusiasm.
+- Plain words, short sentences, active voice. Casual grammar is fine; starting a
+  sentence with "and" or "but" is fine.
+- Do not use colons unless preserving quoted material or required formatting.
+
+## Content accuracy
+- The team history came from coach Karen Kenyon and is the source of truth. Do not
+  invent results, dates, advisors, or award counts.
+- Some claims are repeated on purpose so they stay visible to skimmers. Where a
+  claim repeats, give each instance **a different angle** rather than the same
+  sentence: homepage tagline = longevity, ticker = size, about principle card =
+  scarcity, timeline = past-tense history.
+- The stats ticker on `index.html` exists **twice** (marquee loop). Both copies must
+  always match or the seam visibly stutters.
+
+## Layout traps hit before
+- `.person-grid` / any CSS grid: cards stretch to the tallest sibling by default. Use
+  `align-self: start` when a card can expand, or absolutely-positioned children detach
+  from their content.
+- `flex-grow` alone does **not** produce proportional widths; content size is folded in.
+  Add `flex-basis: 0` when a bar must be to scale.
+- Do not stack an offset ghost outline (`::after`) with a glow on the same button. On
+  transparent buttons the ghost shows through and reads as a misprint. Buttons lift into
+  a shadow instead; the ghost-outline treatment is only for large cards.
+- Before placing a decorative element "in the whitespace", measure **rendered line
+  boxes** (`Range.getClientRects()`), not element boxes. Block elements span the full
+  column even when their text is short.
+
+## Graphics
+- Each page has its own mark vocabulary; do not copy a graphic from another page.
+  `index.html` uses a swoop underline, ink wash, and highlighter. `about.html` uses
+  editor's marks (pen circle, proofreader's caret, margin bracket) plus a scissors cut.
+  `leadership.html` uses a single painted brush stroke.
+- Decorative SVG should be `aria-hidden="true"` and inherit `currentColor` where possible.
+- Always honor `prefers-reduced-motion` on anything that animates.
+
+## Verification
+- Verify in the browser before claiming something works. Measure geometry rather than
+  eyeballing screenshots; several bugs here looked fine in a screenshot and were wrong.
+- Check both desktop and mobile widths, and confirm no horizontal scroll.
+- Clean up screenshot artifacts from the repo when finished.
