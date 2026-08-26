@@ -62,7 +62,7 @@ async function fetchFromNotion(token) {
     return {
       id: page.id,
       memberName: extractText(p['Member Names'] || p['Member Name'] || p['Name']),
-      awardTitle: extractText(p['Award Title']),
+      awardTitle: extractText(p['Award Title'] || p['Award title']),
       tournament: extractText(p['Tournament']),
       year: extractSelect(p['Year']),
       achievementLevel: extractSelect(p['Level'] || p['Achievement Level']),
