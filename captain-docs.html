@@ -236,6 +236,82 @@
       .cap-hero h1 { font-size: 26px; }
       .doc-section { padding: 22px 20px; }
     }
+
+    /* An attribute-hidden element must actually hide, even when a rule
+       elsewhere gives it a display value. The season-scoped callouts and the
+       guide player both rely on this. */
+    [hidden] { display: none !important; }
+
+    /* ── WALKTHROUGH VIDEO PLAYER ── */
+    .guide-player {
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.18);
+      max-width: 720px;
+    }
+    .guide-frame {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.28);
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          rgba(255,255,255,0.014) 0 12px,
+          transparent 12px 24px
+        );
+    }
+    .guide-frame-note {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .guide-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .guide-meta { flex: 1; min-width: 0; text-align: center; }
+    .guide-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #f0ede6;
+      line-height: 1.35;
+    }
+    .guide-count {
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.34);
+      margin-top: 3px;
+    }
+    .guide-nav {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.72);
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .guide-nav:hover:not(:disabled) {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .guide-nav:disabled { opacity: 0.3; cursor: default; }
+    .guide-nav:focus-visible {
+      outline: 2px solid #c9a227;
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body>
@@ -275,48 +351,159 @@
       </div>
     </section>
 
-    <!-- How to update the vault -->
+    <!-- What to edit, and where -->
     <section class="doc-section">
-      <h2><span class="bar"></span>Updating the Vault</h2>
-      <p>To update the Vault: Go to GitHub, open <code class="inline">app/vault/page.tsx</code>, and edit the <code class="inline">announcements</code> or <code class="inline">resources</code> lists at the top.</p>
-      <p style="color: rgba(255,255,255,0.45); font-size: 12.5px; font-style: italic; margin-top: 10px;">
-        <strong style="color: rgba(255,255,255,0.65); font-style: normal;">Current project note:</strong>
-        This site is plain HTML, so in this deployment the data arrays actually live at <code class="inline">vault.html</code> near the bottom inside the <code class="inline">&lt;script&gt;</code> block. The steps below reference the real file in use.
-      </p>
+      <h2><span class="bar"></span>What to Edit, and Where</h2>
+      <p>Almost everything that changes during a season lives outside the code. Find your row below, and only open GitHub if the row says to.</p>
+
+      <div class="callout">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <div class="t">Sign in with the debate publicity Google account</div>
+          <div class="d">Every external service this site reads &mdash; the Google Form, the Drive photo folder, the shared Drive documents, the team calendar &mdash; is owned by the debate publicity Google account. Use that account, not your personal one, or you will be locked out of things the site depends on. Ask an outgoing officer for the login.</div>
+        </div>
+      </div>
 
       <ol class="step-list">
         <li>
           <div class="step-body">
-            <div class="step-title">Open the repository on GitHub</div>
-            <div class="step-desc">Navigate to the San Marin Speech &amp; Debate repository in your browser and open the <code class="inline">vault.html</code> file.</div>
+            <div class="step-title">Announcements &mdash; edit <code class="inline">data/announcements.json</code></div>
+            <div class="step-desc">On GitHub, open <code class="inline">data/announcements.json</code> and add an object to the top of the list. Newest first. Each entry needs a <code class="inline">date</code>, a <code class="inline">title</code>, and a <code class="inline">body</code>. The optional <code class="inline">link</code> and <code class="inline">linkText</code> add a button under the announcement &mdash; this is how you point people at a Drive folder.</div>
+            <pre class="code-block">{
+  <span class="s">"date"</span>: <span class="s">"2026-09-08"</span>,
+  <span class="s">"title"</span>: <span class="s">"Quarry Lane packet is up"</span>,
+  <span class="s">"body"</span>: <span class="s">"Cases, blocks and the prep doc are in the folder."</span>,
+  <span class="s">"link"</span>: <span class="s">"https://drive.google.com/drive/folders/YOUR_FOLDER_ID"</span>,
+  <span class="s">"linkText"</span>: <span class="s">"Open the tournament folder"</span>
+}</pre>
           </div>
         </li>
         <li>
           <div class="step-body">
-            <div class="step-title">Find the data arrays</div>
-            <div class="step-desc">Scroll to the script block near the bottom. You'll see two arrays — one for announcements and one for resources.</div>
-            <pre class="code-block"><span class="c">/* Content data (update these two arrays to change what members see) */</span>
-<span class="k">const</span> announcements = [
-  { id: 1, text: <span class="s">"Welcome to the 2026-2027 season!"</span> }
-];
-<span class="k">const</span> resources = [
-  { id: 1, title: <span class="s">"Parliamentary Debate Prep Guide"</span>, link: <span class="s">"#"</span> }
-];</pre>
+            <div class="step-title">Linking a Drive folder from an announcement</div>
+            <div class="step-desc">Put tournament packets, practice pieces and prep docs in a folder on the publicity account's Drive. Open the folder, press <strong>Share</strong>, set <em>General access</em> to <strong>Anyone with the link &rarr; Viewer</strong>, then copy the link into the <code class="inline">link</code> field above. If you skip the sharing step the link opens a permission-request screen for everyone but you, which is the single most common mistake here. Always test the link in a private window before you consider it done.</div>
           </div>
         </li>
         <li>
           <div class="step-body">
-            <div class="step-title">Add or edit items</div>
-            <div class="step-desc">Increment the <code class="inline">id</code> for each new entry. Each announcement needs <code class="inline">{ id, text }</code>; each resource needs <code class="inline">{ id, title, link }</code>. Use <code class="inline">"#"</code> for the link if the resource isn't ready yet.</div>
+            <div class="step-title">Photos &mdash; no code at all</div>
+            <div class="step-desc">Drop images into the team's Drive photo folder and they appear on the Media page within about a minute, newest first. To caption one, right-click it in Drive &rarr; <strong>File information</strong> &rarr; <strong>Description</strong>, and type the caption there. It shows under the photo when someone opens it. Nothing in this repository needs editing to add, caption or remove a photo.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-body">
+            <div class="step-title">Awards &mdash; no code at all</div>
+            <div class="step-desc">Add a row to the Team Awards database in Notion. It appears on the Team Hub within five minutes. Use the dropdowns for Year and Place rather than typing custom values, so the tags stay consistent.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-body">
+            <div class="step-title">Sponsors &mdash; edit <code class="inline">data/sponsors.json</code></div>
+            <div class="step-desc">Same shape as announcements: open the file on GitHub, edit the list, commit.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-body">
+            <div class="step-title">Lessons and quizzes &mdash; edit <code class="inline">vault-curriculum.js</code></div>
+            <div class="step-desc">All Training Vault lesson text, quizzes and exercises live in this one file. It is long; use your browser's find to jump to the lesson title you want. Edit the text in place and commit &mdash; the Training Vault reads it directly, so there is nothing else to update.</div>
           </div>
         </li>
         <li>
           <div class="step-body">
             <div class="step-title">Commit &amp; push</div>
-            <div class="step-desc">Commit directly to <code class="inline">main</code> with a short message like <em>"vault: announcement for Bay Area Open"</em>. Once pushed, the change is live on the next deploy.</div>
+            <div class="step-desc">For any file above, commit with a short message describing the change, for example <em>"announcements: Quarry Lane packet"</em>. The site rebuilds and the change is live within a minute or two.</div>
           </div>
         </li>
       </ol>
+    </section>
+
+    <!-- Publicity rhythm -->
+    <section class="doc-section">
+      <h2><span class="bar"></span>Keeping the Site Alive</h2>
+      <p>A site that has not changed in two months reads as abandoned, and members stop checking it. The habit matters more than the polish.</p>
+      <p><strong style="color:#fff; font-weight:700;">Post a tip every other Tuesday afternoon.</strong> Tuesday afternoon lands after school while the week is still ahead, and every other week is a pace you can actually keep once tournament season starts. Keep each one short &mdash; one idea a novice can use at the next practice. A refutation pattern, a flowing shortcut, one thing judges keep writing on ballots. These go in <code class="inline">data/announcements.json</code> like any other announcement.</p>
+      <p><strong style="color:#fff; font-weight:700;">Post the packet before the tournament, not after.</strong> Put the folder up as soon as the resolution drops, and link it from an announcement. That is the moment people are looking for it.</p>
+
+      <div class="callout" data-until-season="2028">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <div class="t">Stuck on any of this?</div>
+          <div class="d">If you are an officer in the 2027 or 2028 season, text Arnav at <strong>415-638-9081</strong> or Hamza at <strong>628-209-9534</strong> and ask. Nothing here is obvious the first time.</div>
+        </div>
+      </div>
+
+      <div class="callout" data-from-season="2029" hidden>
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <div class="t">Stuck on any of this?</div>
+          <div class="d">Speak to the team presidents &mdash; they can get you access to the publicity account and walk you through anything on this page.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Working with an AI assistant -->
+    <section class="doc-section">
+      <h2><span class="bar"></span>Getting Help from an AI Assistant</h2>
+      <p>You do not need to know how this site is built to change it safely. Paste one of the prompts below into an AI assistant such as Claude, along with the file you are looking at, and work from what it tells you. Keep two rules: <strong style="color:#fff; font-weight:700;">change one thing at a time</strong>, and <strong style="color:#fff; font-weight:700;">check the page in a browser before you commit</strong>.</p>
+
+      <p><strong style="color:#fff; font-weight:700;">1. Understand the site before touching it</strong></p>
+      <pre class="code-block">This is a plain HTML/CSS/JS website with no build step, deployed on
+Vercel. Read the repository and explain how it fits together: which
+pages exist, how the member portal login works, and which files I would
+edit to change content rather than layout. Do not change anything yet.</pre>
+
+      <p><strong style="color:#fff; font-weight:700;">2. Change something specific</strong></p>
+      <pre class="code-block">I want to [describe the change in plain English]. Before editing,
+tell me which files you would change and why, and warn me if the same
+content is duplicated anywhere else that would also need updating.
+Then make the change and tell me how to check it in the browser.</pre>
+
+      <p><strong style="color:#fff; font-weight:700;">3. Something broke</strong></p>
+      <pre class="code-block">On [page], [what you expected] but instead [what actually happens].
+Find the cause before proposing a fix — check the browser console and
+the network tab, and tell me what the actual error is. Do not guess.
+When you have the cause, explain it in plain English, then fix it.</pre>
+
+      <p><strong style="color:#fff; font-weight:700;">4. Check my work before it goes live</strong></p>
+      <pre class="code-block">Review my uncommitted changes. Check for broken links, content I
+changed in one place but not another, anything that would look wrong on
+a phone, and any password, API key or private link I have accidentally
+included. List problems in priority order. Do not fix anything yet.</pre>
+
+      <div class="callout">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <div class="t">Never paste a key or password into a chat</div>
+          <div class="d">The site's private values &mdash; the Google service account, the Notion token &mdash; live in Vercel's Environment Variables and in a local <code class="inline">.env</code> file that is deliberately never committed. If an assistant asks for one, it does not need it. Nothing on this page requires you to share a credential.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guides -->
+    <section class="doc-section">
+      <h2><span class="bar"></span>Walkthrough Videos</h2>
+      <p>Short screen recordings for the tasks above. These are being recorded &mdash; the player below is a placeholder until they are in.</p>
+
+      <div class="guide-player">
+        <div class="guide-frame" id="guide-frame" role="img" aria-label="Video placeholder">
+          <svg width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true">
+            <polygon points="5 3 19 12 5 21 5 3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="guide-frame-note">Recording coming soon</span>
+        </div>
+        <div class="guide-bar">
+          <button type="button" class="guide-nav" id="guide-prev" aria-label="Previous walkthrough">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="guide-meta">
+            <div class="guide-title" id="guide-title">&nbsp;</div>
+            <div class="guide-count" id="guide-count">&nbsp;</div>
+          </div>
+          <button type="button" class="guide-nav" id="guide-next" aria-label="Next walkthrough">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- Access codes -->
@@ -325,7 +512,7 @@
       <p>The portal accepts two codes — one for general members and one for captains. The codes themselves are <em>not</em> stored anywhere in the site's source; only their SHA-256 hashes live in <code class="inline">portal.html</code>, in the <code class="inline">ACCESS_CODE_HASHES</code> map:</p>
       <pre class="code-block"><span class="k">const</span> ACCESS_CODE_HASHES = {
   <span class="s">'&lt;sha-256 hash of member code&gt;'</span>:  { role: <span class="s">'member'</span>,  redirect: <span class="s">'portal-team-hub.html'</span> },
-  <span class="s">'&lt;sha-256 hash of captain code&gt;'</span>: { role: <span class="s">'captain'</span>, redirect: <span class="s">'captain-docs.html'</span> }
+  <span class="s">'&lt;sha-256 hash of captain code&gt;'</span>: { role: <span class="s">'captain'</span>, redirect: <span class="s">'portal-team-hub.html'</span> }
 };</pre>
       <p>To rotate a code: pick the new code, open the browser console on any page of the site (F12 → Console), and run the line below with your new code. Copy the 64-character result and replace the matching hash key in <code class="inline">portal.html</code>.</p>
       <pre class="code-block">crypto.subtle.digest(<span class="s">'SHA-256'</span>, <span class="k">new</span> TextEncoder().encode(<span class="s">'NEW-CODE-HERE'</span>))
@@ -358,6 +545,45 @@
   </main>
 
   <script>
+    /* Walkthrough videos.
+       The recordings are not made yet, so this drives titles only and shows a
+       placeholder frame. To publish one: record the task start to finish, put
+       the file in the publicity account's Drive, and add its embed URL as
+       `src` on the matching entry below. An entry with a src will need the
+       placeholder swapped for an <iframe>; everything else already works. */
+    (function () {
+      var GUIDES = [
+        { title: 'Posting an announcement', src: null },
+        { title: 'Linking a Drive folder people can actually open', src: null },
+        { title: 'Adding and captioning photos in Drive', src: null },
+        { title: 'Adding an award in Notion', src: null },
+        { title: 'Editing a Training Vault lesson', src: null },
+        { title: 'Asking an AI assistant for help safely', src: null },
+        { title: 'Committing a change on GitHub', src: null },
+        { title: 'When the site will not update: checking Vercel', src: null },
+        { title: 'Rotating the portal access codes', src: null }
+      ];
+
+      var titleEl = document.getElementById('guide-title');
+      var countEl = document.getElementById('guide-count');
+      var prevBtn = document.getElementById('guide-prev');
+      var nextBtn = document.getElementById('guide-next');
+      if (!titleEl || !countEl || !prevBtn || !nextBtn) return;
+
+      var i = 0;
+
+      function render() {
+        titleEl.textContent = GUIDES[i].title;
+        countEl.textContent = (i + 1) + ' of ' + GUIDES.length;
+        prevBtn.disabled = i === 0;
+        nextBtn.disabled = i === GUIDES.length - 1;
+      }
+
+      prevBtn.addEventListener('click', function () { if (i > 0) { i--; render(); } });
+      nextBtn.addEventListener('click', function () { if (i < GUIDES.length - 1) { i++; render(); } });
+      render();
+    })();
+
     /* Sign out */
     document.getElementById('signout-btn').addEventListener('click', function() {
       try {
@@ -367,5 +593,9 @@
       window.location.replace('portal.html');
     });
   </script>
+
+  <!-- Drives the season-scoped callouts: the officer phone numbers retire
+       themselves after the 2028 season and hand off to the generic note. -->
+  <script src="site-dates.js"></script>
 </body>
 </html>

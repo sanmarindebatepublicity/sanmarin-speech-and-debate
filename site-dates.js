@@ -48,6 +48,30 @@
    If you would rather it always look fresher, lower STEP_DAYS (a
    smaller number means it updates more often and drifts less). If
    you would rather it move even more rarely, raise it.
+
+   ───────────────────────────────────────────────────────────────
+
+   CONTENT THAT SHOULD EXPIRE ON ITS OWN
+
+   Some notes are only true for a season or two — an officer's phone
+   number, a "new this year" banner. Left alone they quietly become
+   wrong, and nobody remembers to delete them.
+
+   Mark them instead, and they remove themselves:
+
+       <p data-until-season="2028">Text Arnav at ...</p>
+       <p data-from-season="2029">Speak to the presidents for help.</p>
+
+   A season is named for the spring it ends in, the usual way: the
+   season starting August 2026 is the 2027 season. `data-until-season`
+   shows its element through that season and hides it afterwards.
+   `data-from-season` is the opposite — hidden until that season
+   arrives. Pair them to hand off from one message to another with no
+   edit on the day.
+
+   Both hide by setting the `hidden` attribute. If an element also has
+   author CSS setting `display`, that CSS wins over `hidden` unless the
+   stylesheet enforces it — portal-styles.css does.
    ═══════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -75,7 +99,35 @@
     return new Date(ANCHOR + (windowStart - LAG_DAYS) * MS_PER_DAY);
   }
 
+  /* Which season are we in? Seasons are named for the spring they end in,
+     so anything from August onward belongs to next year's season. */
+  function currentSeason(now) {
+    var d = new Date(now);
+    return d.getMonth() >= 7 ? d.getFullYear() + 1 : d.getFullYear();
+  }
+
+  /* Season-scoped content. Elements hide themselves once their season has
+     passed, so time-limited notes do not have to be remembered and deleted. */
+  function renderSeasonScoped(season) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-until-season]'),
+      function (el) {
+        var last = parseInt(el.getAttribute('data-until-season'), 10);
+        if (!isNaN(last)) el.hidden = season > last;
+      }
+    );
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-from-season]'),
+      function (el) {
+        var first = parseInt(el.getAttribute('data-from-season'), 10);
+        if (!isNaN(first)) el.hidden = season < first;
+      }
+    );
+  }
+
   function render() {
+    renderSeasonScoped(currentSeason(Date.now()));
+
     // Footer copyright year.
     var years = document.querySelectorAll('[data-current-year]');
     if (years.length) {
