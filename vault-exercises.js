@@ -267,13 +267,16 @@
       var lbl = el('label', 'fill-in-label', esc(field.label));
       lbl.setAttribute('for', 'vex-fill-' + idx);
 
-      var inp = document.createElement('input');
-      inp.type = 'text';
+      /* A textarea, not <input type="text">. These prompts ask for a claim with
+         warrant and impact, and several model answers run well over a hundred
+         words — a single-line box that scrolls sideways made writing a real
+         answer miserable. Spellcheck stays on: this is prose, not a code field. */
+      var inp = document.createElement('textarea');
+      inp.rows = 3;
       inp.id   = 'vex-fill-' + idx;
       inp.className   = 'fill-in-field';
       inp.placeholder = field.placeholder || '';
       inp.setAttribute('autocomplete', 'off');
-      inp.setAttribute('spellcheck',   'false');
 
       var fb = el('div', 'fill-in-feedback');
       fb.style.display = 'none';
@@ -289,37 +292,39 @@
 
     /* Button row */
     var btnRow   = el('div', 'fill-in-btn-row');
-    var submitBtn = el('button', 'btn btn-primary', 'Check Answers');
-    var resetBtn  = el('button', 'btn btn-ghost',   'Try Again');
+    /* "Compare" rather than "Check": nothing here grades anything, and calling
+       it Check implied a verdict the exercise never delivers. "Hide examples"
+       rather than "Try Again", because Try Again used to erase everything the
+       student had written. */
+    var submitBtn = el('button', 'btn btn-primary', 'Compare with an example');
+    var resetBtn  = el('button', 'btn btn-ghost',   'Hide examples');
     resetBtn.style.display = 'none';
     btnRow.appendChild(submitBtn);
     btnRow.appendChild(resetBtn);
     container.appendChild(btnRow);
 
-    /* Submit */
+    /* Show the examples.
+       Inputs stay editable on purpose. The whole point is to read one way of
+       saying it and then improve your own wording — locking the box meant you
+       could compare but not act on the comparison. */
     submitBtn.addEventListener('click', function () {
-      submitBtn.disabled = true;
       fields.forEach(function (f) {
-        f.input.disabled = true;
         f.fb.style.display = 'block';
         f.fb.innerHTML =
-          '<span class="fill-model-label">Model answer:</span>' +
+          '<span class="fill-model-label">One way to say it:</span>' +
           '<span class="fill-model-text"> ' + esc(f.field.modelAnswer) + '</span>';
       });
       resetBtn.style.display = 'inline-flex';
+      submitBtn.textContent = 'Show examples again';
     });
 
-    /* Reset */
+    /* Hide the examples again — without touching what the student wrote. */
     resetBtn.addEventListener('click', function () {
       fields.forEach(function (f) {
-        f.input.value    = '';
-        f.input.disabled = false;
-        f.input.classList.remove('correct', 'incorrect');
         f.fb.style.display = 'none';
       });
-      submitBtn.disabled   = false;
       resetBtn.style.display = 'none';
-      fields[0].input.focus();
+      submitBtn.textContent = 'Compare with an example';
     });
 
     /* Enter to advance / submit */
@@ -599,17 +604,12 @@
       letter.style.cssText =
         'font-weight:800;color:var(--text-muted);flex-shrink:0;min-width:20px;font-size:13px;';
 
-      /* Text + optional best badge */
+      /* Text only. The "Best" badge is deliberately NOT built here: rendering
+         it hidden still puts the answer in the DOM, where inspect element,
+         Ctrl+F or reader mode reveals it before the student has chosen. It is
+         created in pick(), once an answer is locked in. */
       var textWrap = el('span', null, esc(opt.text));
-
-      if (opt.isOptimal) {
-        var badge = el('span', 'badge badge-gold');
-        badge.style.cssText = 'margin-left:10px;display:none;vertical-align:middle;';
-        badge.innerHTML =
-          '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-right:3px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>Best';
-        textWrap.appendChild(badge);
-        choice._badge = badge;
-      }
+      choice._textWrap = textWrap;
 
       choice.appendChild(letter);
       choice.appendChild(textWrap);
@@ -626,7 +626,15 @@
           c.setAttribute('tabindex', '-1');
           if (o.isOptimal) {
             c.classList.add('chosen-correct');
-            if (c._badge) c._badge.style.display = 'inline-flex';
+            /* Build the badge now, not at render — see the note above. */
+            if (c._textWrap && !c._badgeShown) {
+              var badge = el('span', 'badge badge-gold');
+              badge.style.cssText = 'margin-left:10px;display:inline-flex;vertical-align:middle;';
+              badge.innerHTML =
+                '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-right:3px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>Best';
+              c._textWrap.appendChild(badge);
+              c._badgeShown = true;
+            }
           }
         });
 

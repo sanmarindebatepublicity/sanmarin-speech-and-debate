@@ -49,7 +49,7 @@ Alongside the interactive curriculum, the repo carries the team's reference PDFs
 
 Two Vercel functions back the dynamic parts of the site:
 
-- [`api/get-photos.js`](api/get-photos.js) — lists team photos from a Google Drive folder, grouped by season, using a service account with read-only scope
+- [`api/get-photos.js`](api/get-photos.js) — lists the team photos in one Google Drive folder, newest first, using a service account with read-only scope. The folder is the source of truth: uploading a photo publishes it, with no code change
 - [`api/awards.js`](api/awards.js) — reads the Awards & Recognition database from Notion so the awards wall updates without a code change
 
 Both read their credentials from environment variables and return an explicit error when
@@ -96,11 +96,12 @@ The site loads without any configuration — only the photo gallery and awards w
 credentials. To enable those, create a `.env` file:
 
 ```bash
-NOTION_AWARDS_API_KEY=...        # Notion integration token for the awards database
-GOOGLE_SERVICE_ACCOUNT_JSON=...  # Service account JSON, as a single-line string
-GDRIVE_PARENT_FOLDER_ID=...      # Drive folder holding the season subfolders
+NOTION_AWARDS_API_KEY=...            # Notion integration token for the awards database
+GOOGLE_SERVICE_ACCOUNT_JSON=...      # Service account key, as one line of JSON
+GOOGLE_DRIVE_GALLERY_FOLDER_ID=...   # The Drive folder the photo gallery reads
 ```
 
+See [`.env.example`](.env.example) for the full list with placeholder values.
 `.env` is gitignored and must stay that way. In production these are set as Vercel
 environment variables.
 
@@ -118,6 +119,8 @@ non-technical team members taking over the site.
 index.html, about.html, …      Public pages
 portal*.html, vault*.js/css    Member portal and training curriculum
 api/                           Vercel serverless functions
+data/                          Editable content (announcements, sponsors)
+site-dates.js                  Footer year + "last updated" stamp
 brand-assets/                  Logos and brand guidelines
 teampictures/, collegephotos/  Site imagery
 leadershipphotos/,
@@ -127,6 +130,34 @@ debate_resource_*/             Reference PDFs served through the portal
 serve.mjs                      Local dev server (static + API routes)
 vercel.json                    Routing and security headers
 ```
+
+---
+
+## Editing content without touching code
+
+Most of what changes season to season lives in one of these places.
+
+| To change | Edit |
+|---|---|
+| Officers, captains, advisors, bios, photos | the roster arrays near the bottom of [`leadership.html`](leadership.html) |
+| Sponsors and grants on the homepage | [`data/sponsors.json`](data/sponsors.json) |
+| Portal announcements | [`data/announcements.json`](data/announcements.json) |
+| Awards on the History page | the `AWARD_CARDS` array in [`about.html`](about.html) |
+| Team history timeline | the timeline entries in [`about.html`](about.html) |
+| Portal access codes | `ACCESS_CODE_HASHES` in [`portal.html`](portal.html), see [`captain-docs.html`](captain-docs.html) |
+
+Each of those files carries comments explaining the format. `data/sponsors.json` in
+particular has a `_README` block at the top listing every field.
+
+**Dates are automatic.** Do not hardcode a year anywhere. The footer copyright and the
+"last updated" stamp are both filled in by [`site-dates.js`](site-dates.js): add
+`<span data-current-year></span>` or `<span data-last-updated></span>` and load the
+script. It is already loaded on every public page.
+
+**A leadership bio only gets a "read more" tab if the roster marks it
+`collapsible: true`.** Everyone else shows their whole bio on the card. If a bio is ever
+pasted in long enough to break the card, the tab reappears on its own, so nothing is cut
+off with no way to read it.
 
 ---
 

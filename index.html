@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="brand-assets/faviconhorse.png" />
+  <link rel="apple-touch-icon" href="brand-assets/faviconhorse.png" />
   <title>San Marin Speech &amp; Debate</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,26 +41,19 @@
     }
 
     /* ─── ANIMATIONS ─── */
-    .fade-up {
-      opacity: 0; transform: translateY(22px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .fade-up.vis { opacity: 1; transform: none; }
-    .d1 { transition-delay: 0.1s !important; }
-    .d2 { transition-delay: 0.2s !important; }
-    .d3 { transition-delay: 0.3s !important; }
-    .d4 { transition-delay: 0.45s !important; }
+    /* ─── SCROLL REVEAL — removed ───
+       .section-reveal covered eight whole page sections, all starting at
+       opacity:0 and shown only once script ran. Anything that hides content
+       until JS fires takes the page down with it when JS is slow, blocked or
+       broken, and none of it was covered by a reduced-motion escape.
+       Kept as inert no-ops so existing markup needs no edits. */
+    .fade-up, .fade-up.vis { opacity: 1; transform: none; }
+    .d1, .d2, .d3, .d4 { transition-delay: 0s !important; }
 
-    .section-reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 700ms cubic-bezier(0.16,1,0.3,1), transform 700ms cubic-bezier(0.16,1,0.3,1);
-    }
-    .section-reveal.is-visible { opacity: 1; transform: none; }
+    .section-reveal, .section-reveal.is-visible { opacity: 1; transform: none; }
 
-    .reveal { clip-path: inset(100% 0 0 0); transition: clip-path 0.9s cubic-bezier(0.16,1,0.3,1); }
-    .reveal.vis { clip-path: inset(0% 0 0 0); }
-    .reveal-x { clip-path: inset(0 100% 0 0); transition: clip-path 0.85s cubic-bezier(0.16,1,0.3,1) 0.12s; }
-    .reveal-x.vis { clip-path: inset(0 0% 0 0); }
+    .reveal, .reveal.vis { clip-path: none; }
+    .reveal-x, .reveal-x.vis { clip-path: none; }
 
     /* ─── NOISE (applied to dark sections via ::before) ─── */
     .noise-dark::before {
@@ -80,41 +75,37 @@
       padding: 13px 28px;
       border-radius: 100px;
       cursor: pointer;
-      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
       white-space: nowrap; line-height: 1;
     }
-    .btn::after {
-      content: '';
-      position: absolute; bottom: -4px; right: -4px;
-      width: 100%; height: 100%;
-      border-radius: 100px;
-      pointer-events: none;
-      transition: bottom 0.15s, right 0.15s;
-    }
-    .btn:hover { transform: translate(-2px, -2px); }
-    .btn:hover::after { bottom: -2px; right: -2px; }
+    /* Buttons lift into a soft shadow rather than carrying a second offset
+       outline. The offset-outline trick still works on the large cards further
+       down the page, but at pill-button scale the ghost edge sat close enough to
+       the real border to read as a printing misalignment, and on the transparent
+       variants it showed straight through the button face. */
+    .btn:hover { transform: translateY(-2px); }
 
     /* Filled forest */
     .btn-forest { background: var(--forest); color: #f4f3ef; border: 1.5px solid var(--forest); }
-    .btn-forest::after { border: 1.5px solid var(--forest-mid); }
-    .btn-forest:hover { background: var(--forest-mid); border-color: var(--forest-mid); }
+    .btn-forest:hover { background: var(--forest-mid); border-color: var(--forest-mid); box-shadow: 0 10px 24px rgba(27,67,50,0.26); }
 
     /* Outlined on cream */
     .btn-outline { background: transparent; color: var(--forest); border: 1.5px solid rgba(27,67,50,0.38); }
-    .btn-outline::after { border: 1.5px solid rgba(27,67,50,0.6); }
-    .btn-outline:hover { background: rgba(27,67,50,0.05); border-color: var(--forest); }
+    .btn-outline:hover { background: rgba(27,67,50,0.05); border-color: var(--forest); box-shadow: 0 8px 20px rgba(27,67,50,0.13); }
 
     /* Outlined on dark */
     .btn-outline-light { background: transparent; color: var(--tdp); border: 1.5px solid rgba(240,237,230,0.28); }
-    .btn-outline-light::after { border: 1.5px solid rgba(240,237,230,0.55); }
-    .btn-outline-light:hover { background: rgba(240,237,230,0.07); border-color: rgba(240,237,230,0.55); }
+    .btn-outline-light:hover { background: rgba(240,237,230,0.07); border-color: rgba(240,237,230,0.55); box-shadow: 0 8px 22px rgba(0,0,0,0.3); }
 
-    /* Breathing pulse glow */
+    /* Breathing pulse glow, used on the primary Join call to action only. */
     @keyframes btnGlowPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(27,67,50,0.5), 0 0 12px rgba(27,67,50,0.1); }
-      50%       { box-shadow: 0 0 0 10px rgba(27,67,50,0), 0 0 32px 8px rgba(27,67,50,0.26); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(27,67,50,0.45), 0 0 10px rgba(27,67,50,0.08); }
+      50%       { box-shadow: 0 0 0 9px rgba(27,67,50,0), 0 0 26px 6px rgba(27,67,50,0.2); }
     }
     .btn-pulse { animation: btnGlowPulse 2.8s ease-in-out infinite; }
+    /* Hovering a pulsing button hands the emphasis to the hover shadow, so the
+       two effects never animate over each other. */
+    .btn-pulse:hover { animation: none; }
 
     /* ─── NAV ─── */
     #navbar {
@@ -330,8 +321,7 @@
     }
     .hero-quote-inner { transition: opacity 400ms ease; }
     .hero-quote-inner.fading { opacity: 0; }
-    .hero-quote-text { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 15px; color: rgba(210,235,215,0.88); line-height: 1.75; margin-bottom: 12px; display: block; }
-    .hero-quote-meta { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--forest-pale); }
+    .hero-quote-text { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 15px; color: rgba(210,235,215,0.88); line-height: 1.75; margin: 0; display: block; }
 
     /* ─── TICKER ─── */
     #stat-bar { background: var(--canvas); border-bottom: 1px solid var(--hl); overflow: hidden; }
@@ -409,12 +399,48 @@
     .sec-header-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(28px,3.2vw,44px); font-weight: 400; color: var(--tp); letter-spacing: -0.02em; margin-bottom: 8px; }
     .sec-header-p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: var(--ts); }
 
-    .parl-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0 40px; }
-    .parl-level-card { background: #fff; border: 1px solid var(--hl); padding: 26px 24px 24px; position: relative; }
+    /* Cards step up left to right, bottom-aligned, so the row reads as a climb. */
+    .parl-levels { display: grid; grid-template-columns: 0.88fr 1fr 1.14fr; gap: 14px; margin: 28px 0 40px; align-items: end; }
+    .parl-level-card { background: #fff; border: 1px solid var(--hl); padding: 26px 24px 24px; position: relative; transition: transform 0.28s cubic-bezier(0.25,1,0.5,1), box-shadow 0.28s ease, border-color 0.28s ease; }
+    .parl-level-card[data-tier="n"]  { min-height: 186px; }
+    .parl-level-card[data-tier="jv"] { min-height: 214px; }
+    .parl-level-card[data-tier="v"]  { min-height: 246px; }
+    /* Accent rule that sweeps across the top edge on hover. */
+    .parl-level-card::before { content: ''; position: absolute; top: -1px; left: -1px; height: 2px; width: 0; background: var(--forest); transition: width 0.42s cubic-bezier(0.25,1,0.5,1); }
+    .parl-level-card[data-tier="jv"]::before { background: var(--gold); }
+    .parl-level-card[data-tier="v"]::before  { background: #b91c1c; }
+    .parl-level-card:hover { transform: translateY(-5px); box-shadow: 0 14px 32px rgba(27,67,50,0.10); border-color: rgba(27,67,50,0.22); }
+    .parl-level-card:hover::before { width: calc(100% + 2px); }
     .parl-level-card .level-badge { margin-bottom: 16px; }
     .parl-start-flag { position: absolute; top: 0; right: 0; background: var(--forest); color: #f4f3ef; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; }
     .parl-level-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; font-weight: 500; color: var(--tp); letter-spacing: -0.01em; margin-bottom: 6px; }
     .parl-level-desc { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; color: var(--ts); line-height: 1.75; margin: 0; }
+
+    /* ─── TYPED WORD IN THE SECTION HEADING ─── */
+    .type-slot { white-space: nowrap; }
+    .type-caret { display: inline-block; width: 2px; height: 0.92em; background: var(--forest); margin-left: 4px; vertical-align: -0.13em; animation: caretBlink 1.05s step-end infinite; }
+    @keyframes caretBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ─── ROUND FORMAT TIMELINE ─── */
+    .parl-format { border-top: 1px solid var(--hl); padding-top: 30px; }
+    .fmt-intro { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; color: var(--ts); line-height: 1.75; margin: 0 0 24px; max-width: 620px; }
+    .fmt-block { margin-bottom: 22px; }
+    .fmt-block:last-of-type { margin-bottom: 0; }
+    .fmt-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+    .fmt-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tp); }
+    .fmt-meta { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--ts); }
+    .fmt-meta b { color: var(--tp); font-weight: 700; }
+    .fmt-bar { display: flex; width: 100%; border: 1px solid var(--hl); overflow: hidden; }
+    /* flex-basis:0 makes each segment's width purely a function of its flex-grow,
+       so the bar is a true-to-scale reading of the minutes. Leaving basis at auto
+       would fold each segment's text width in and skew the proportions. */
+    .fmt-seg { display: flex; align-items: center; justify-content: center; padding: 13px 2px; border-right: 1px solid var(--hl); flex-basis: 0; min-width: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--tp); }
+    .fmt-seg:last-child { border-right: none; }
+    /* Constructives alternate light and white; the two rebuttals share one darker
+       tint so the shape of the round reads as "four, then two" with no legend. */
+    .fmt-seg[data-kind="con"]:nth-child(odd)  { background: rgba(27,67,50,0.05); }
+    .fmt-seg[data-kind="con"]:nth-child(even) { background: #fff; }
+    .fmt-seg[data-kind="reb"] { background: rgba(27,67,50,0.15); color: var(--forest); }
 
 
     .level-badge { display: inline-block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid; }
@@ -434,8 +460,12 @@
     .benefit-block.active { opacity: 1; color: var(--tdp); border-color: rgba(116,180,155,0.3); box-shadow: 0 18px 50px rgba(0,0,0,0.35); }
     .inline-pill { display: inline-block; background: var(--forest); color: #f4f3ef; padding: 4px 16px; border-radius: 100px; white-space: nowrap; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.6em; font-weight: 600; vertical-align: middle; transform: translateY(-3px); }
 
-    .alumni-quote-card { margin: 56px auto 0; max-width: 980px; background: var(--dark-card); border: 1px solid var(--hd); border-left: 3px solid var(--forest); padding: 52px 60px 44px; position: relative; }
-    .alumni-quote-card::after { content: ''; position: absolute; bottom: -4px; right: -4px; width: 100%; height: 100%; border: 1px solid var(--hd); pointer-events: none; }
+    .alumni-quote-card { margin: 56px auto 0; max-width: 980px; background: var(--dark-card); border: 1px solid var(--hd); border-left: 3px solid var(--forest); border-radius: 20px; padding: 52px 60px 44px; position: relative; overflow: hidden; }
+    .alumni-quote-card::after { content: ''; position: absolute; bottom: -4px; right: -4px; width: 100%; height: 100%; border: 1px solid var(--hd); border-radius: 20px; pointer-events: none; }
+    /* Hand-painted wash sitting under the text. Everything else in the card is
+       raised above it so the quote stays fully legible. */
+    .quote-wash { position: absolute; inset: -6% -4% auto -4%; height: 82%; width: 108%; z-index: 0; pointer-events: none; user-select: none; }
+    .alumni-quote-card > *:not(.quote-wash) { position: relative; z-index: 1; }
     .alumni-quote-mark { position: absolute; top: 30px; right: 44px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 110px; line-height: 0.55; color: rgba(116,180,155,0.16); pointer-events: none; user-select: none; }
     .alumni-quote-text { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: clamp(17px,1.8vw,22px); color: var(--tdp); line-height: 1.75; margin-bottom: 30px; display: block; }
     .alumni-quote-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--hd); padding-top: 24px; }
@@ -447,6 +477,7 @@
     /* light-background variant (alumni showcase) */
     .alumni-quote-card.light { margin: 0 0 26px; max-width: none; background: #fff; border-color: var(--hl); }
     .alumni-quote-card.light::after { border-color: var(--hl); }
+    .alumni-quote-card.light .quote-wash { opacity: 0.85; }
     .alumni-quote-card.light .alumni-quote-mark { color: rgba(27,67,50,0.12); }
     .alumni-quote-card.light .alumni-quote-text { color: var(--tp); }
     .alumni-quote-card.light .alumni-quote-name { color: var(--tp); }
@@ -461,7 +492,11 @@
 
     .uni-photo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 32px; }
     .uni-photo-card { background: #fff; border: 1px solid var(--hl); padding: 0; cursor: pointer; text-align: left; display: flex; flex-direction: column; font: inherit; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+    /* Rows lift in opposite directions on hover: the top row rises, the row below
+       it presses down. data-lift is set in JS from each card's actual row, so it
+       stays correct when the grid drops to 3 or 2 columns. */
     .uni-photo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(27,67,50,0.12); }
+    .uni-photo-card[data-lift="down"]:hover { transform: translateY(4px); box-shadow: 0 -10px 26px rgba(27,67,50,0.10); }
     .uni-photo-card.active { border-color: var(--forest); box-shadow: 0 0 0 2px var(--forest), 0 12px 28px rgba(27,67,50,0.14); }
     .uni-photo-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; border-bottom: 1px solid var(--hl); filter: saturate(0.92); }
     .uni-photo-label { display: flex; align-items: center; padding: 18px 16px; }
@@ -510,8 +545,9 @@
     .back-context { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; color: rgba(255,255,255,0.88); line-height: 1.5; }
 
     /* ─── NEWSLETTER TEASER ─── */
-    #news-teaser { background: var(--canvas); border-bottom: 1px solid var(--hl); padding: 56px 0; display: none; }
-    #news-teaser.has-posts { display: block; }
+    #news-teaser { background: var(--canvas); border-bottom: 1px solid var(--hl); padding: 56px 0; }
+    .news-fallback { grid-column: 1 / -1; background: #fff; border: 1px solid var(--hl); padding: 40px 24px; text-align: center; }
+    .news-fallback p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: var(--ts); margin: 0 0 16px; }
     .news-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-bottom: 28px; }
     .news-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(28px,3.2vw,44px); font-weight: 400; color: var(--tp); letter-spacing: -0.02em; line-height: 1.1; }
     .news-h2 em { font-style: italic; color: var(--forest-mid); }
@@ -527,6 +563,83 @@
     /* ─── JOINING PATH (inside How It Works) ─── */
     @media (max-width: 600px) { #news-teaser { padding: 44px 0; } }
 
+    /* ─── SPONSORS & GRANTS ───
+       Three quiet blocks on the dark ground: the thank-you, who funded us, and
+       what the money actually does. Cards are built from data/sponsors.json, so
+       the number of sponsors (1, 2, or 3) sets the layout on its own. */
+    #sponsors { background: var(--dark); border-top: 1px solid var(--hd); padding: 76px 0 84px; position: relative; overflow: hidden; }
+    #sponsors::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .sp-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 44px; }
+
+    /* Block 1 — the thank-you */
+    .sp-head { text-align: center; max-width: 720px; margin: 0 auto 44px; }
+    .sp-chip { display: inline-flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(184,144,90,0.34); border-radius: 100px; padding: 7px 17px; margin-bottom: 24px; }
+    .sp-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(32px,4.4vw,54px); font-weight: 400; color: var(--tdp); line-height: 1.06; letter-spacing: -0.025em; }
+    .sp-h2 em { display: block; font-style: italic; color: var(--forest-pale); position: relative; }
+    /* The gold sweep under the italic half of the heading. */
+    .sp-h2 .sp-swoop { position: absolute; left: 4%; bottom: -0.14em; width: 92%; height: 12px; overflow: visible; }
+    .sp-h2 .sp-swoop path { fill: none; stroke: var(--gold); stroke-width: 2.2; stroke-linecap: round; opacity: 0.85; }
+    .sp-lede { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--tds); line-height: 1.75; margin-top: 20px; }
+    .sp-season { display: inline-flex; align-items: center; gap: 9px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--hd); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest-pale); }
+
+    /* The thank-you photo */
+    .sp-photo { position: relative; border: 1px solid var(--hd); border-radius: 14px; overflow: hidden; margin-bottom: 44px; }
+    .sp-photo img { width: 100%; display: block; aspect-ratio: 21 / 9; object-fit: cover; object-position: center 40%; filter: saturate(0.92) brightness(0.94); }
+    /* Caption sits under the photo rather than over it; overlaid, it landed on
+       the faces of the students in the front row. */
+    .sp-photo figcaption { padding: 13px 20px; border-top: 1px solid var(--hd); background: var(--dark-card); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; letter-spacing: 0.02em; color: var(--tds); text-align: center; }
+
+    /* Block 2 — who funded us. Auto-fits 1, 2, or 3 cards. */
+    .sp-grid { display: grid; gap: 16px; margin-bottom: 44px; }
+    .sp-grid[data-count="1"] { grid-template-columns: minmax(0, 640px); justify-content: center; }
+    .sp-grid[data-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sp-grid[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .sp-card { background: var(--dark-card); border: 1px solid var(--hd); border-radius: 14px; padding: 30px 28px 24px; display: flex; flex-direction: column; transition: border-color 0.25s ease, transform 0.25s ease; }
+    .sp-card:hover { border-color: rgba(184,144,90,0.32); transform: translateY(-3px); }
+    .sp-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
+    .sp-eyebrow { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tds); }
+    .sp-amount { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 14px; color: var(--gold); border: 1px solid rgba(184,144,90,0.3); border-radius: 100px; padding: 5px 13px; white-space: nowrap; flex-shrink: 0; }
+    .sp-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(24px,2.3vw,31px); font-weight: 500; color: var(--tdp); line-height: 1.14; letter-spacing: -0.015em; }
+    .sp-tagline { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; color: var(--forest-pale); line-height: 1.55; margin-top: 8px; }
+    .sp-body { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: var(--tds); line-height: 1.78; margin-top: 16px; }
+    .sp-note { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10.5px; color: rgba(156,173,154,0.62); margin-top: auto; padding-top: 20px; }
+
+    /* Block 3 — the need, and where the money goes */
+    .sp-need { display: grid; grid-template-columns: 1.15fr 1fr; gap: 44px; align-items: center; border-top: 1px solid var(--hd); padding-top: 44px; }
+    .sp-need-h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(26px,3.1vw,38px); font-weight: 400; color: var(--tdp); line-height: 1.12; letter-spacing: -0.02em; }
+    /* margin-left keeps the hand-drawn ring from clipping the word before it. */
+    .sp-need-h3 span { position: relative; font-style: italic; color: var(--gold); white-space: nowrap; margin-left: 0.22em; }
+    /* Loose pen ring around the member count. */
+    .sp-need-h3 span svg { position: absolute; left: -7%; top: -22%; width: 114%; height: 150%; overflow: visible; }
+    .sp-need-h3 span svg path { fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; opacity: 0.65; }
+    .sp-need-p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; color: var(--tds); line-height: 1.8; margin-top: 16px; }
+    .sp-alloc { background: var(--dark-card); border: 1px solid var(--hd); border-radius: 14px; padding: 26px 26px 22px; }
+    .sp-alloc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tds); padding-bottom: 14px; border-bottom: 1px solid var(--hd); margin-bottom: 16px; }
+    .sp-alloc-row { margin-bottom: 15px; }
+    .sp-alloc-row:last-child { margin-bottom: 0; }
+    .sp-alloc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12.5px; color: var(--tdp); margin-bottom: 7px; }
+    .sp-alloc-pct { color: var(--gold); font-weight: 700; font-size: 12px; }
+    .sp-alloc-track { height: 4px; border-radius: 100px; background: rgba(240,237,230,0.08); overflow: hidden; }
+    .sp-alloc-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--gold), var(--forest-pale)); width: 0; transition: width 1s cubic-bezier(0.25,1,0.5,1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sp-alloc-fill { transition: none; }
+    }
+    @media (max-width: 900px) {
+      .sp-grid[data-count="3"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sp-need { grid-template-columns: 1fr; gap: 30px; }
+    }
+    @media (max-width: 680px) {
+      #sponsors { padding: 60px 0 66px; }
+      .sp-inner { padding: 0 24px; }
+      .sp-grid[data-count="2"], .sp-grid[data-count="3"] { grid-template-columns: 1fr; }
+      .sp-photo img { aspect-ratio: 4 / 3; }
+    }
+
     /* ─── JOIN ─── */
     #join { background: var(--dark); border-top: 1px solid var(--hd); border-bottom: 1px solid var(--hd); padding: 60px 0; position: relative; overflow: hidden; }
     #join::before {
@@ -535,12 +648,48 @@
       background-size: 180px 180px;
     }
     .join-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-    .join-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(36px,4.2vw,58px); font-weight: 400; color: var(--tdp); letter-spacing: -0.025em; line-height: 1.02; margin-bottom: 14px; }
-    .join-p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--tds); line-height: 1.75; margin-bottom: 18px; }
-    .join-steps-mini { list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-    .join-steps-mini li { display: flex; align-items: baseline; gap: 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; color: var(--tds); line-height: 1.5; }
-    .jsm-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; color: var(--forest-pale); flex-shrink: 0; width: 16px; }
-    .join-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .join-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(36px,4.2vw,58px); font-weight: 400; color: var(--tdp); letter-spacing: -0.025em; line-height: 1.02; margin-bottom: 16px; }
+    /* Underline draw on dark backgrounds needs the gold accent, not forest-mid,
+       to stay visible — the shared rule in the About section styles it for the
+       cream background. */
+    .join-h2 .underline-svg path { stroke: var(--gold); }
+    .join-p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--tds); line-height: 1.75; margin-bottom: 4px; }
+    /* Highlighter-marker mark: an angled translucent gold band behind the phrase,
+       like a real highlighter stroke rather than a flat rectangle. */
+    .join-mark { background: linear-gradient(103deg, rgba(184,144,90,0) 0%, rgba(184,144,90,0.32) 8%, rgba(184,144,90,0.32) 92%, rgba(184,144,90,0) 100%); color: var(--tdp); padding: 0.04em 0.05em; border-radius: 2px 6px 3px 7px / 4px 3px 6px 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    .join-lede { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-style: italic; color: var(--forest-pale); line-height: 1.6; margin: 18px 0 22px; }
+    .join-steps-mini { list-style: none; margin: 0 0 26px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    .join-steps-mini li { display: flex; align-items: center; gap: 13px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; color: var(--tds); line-height: 1.5; }
+    /* Numeral chips, matching the pill/badge language used for level-badge and
+       keynote-chip elsewhere, so this list reads as a web UI step tracker rather
+       than a plain typed list. */
+    .jsm-num { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(240,237,230,0.25); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; color: var(--tdp); transition: border-color 0.2s ease, color 0.2s ease; }
+    .join-steps-mini li:hover .jsm-num { border-color: var(--gold); color: var(--gold); }
+    .join-btns { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .join-btn-note { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; color: var(--tds); }
+
+    /* ─── SOCRATES BUST (kintsugi treatment) ───
+       The bust is split along one gentle diagonal, the lower piece nudged away
+       from the upper, and the fracture traced in gold, the way broken ceramics
+       are repaired rather than hidden. Two off-round rings wrap the whole thing
+       so it reads as a struck medallion instead of a pasted-on cutout.
+       Purely decorative, so it is aria-hidden and drops out on smaller screens
+       where the column reflows and there is no clear space for it. */
+    .join-col { position: relative; }
+    .join-bust { position: absolute; right: 8px; bottom: 30px; width: 168px; height: 168px; pointer-events: none; transform: rotate(-3deg); }
+    .join-bust-shard {
+      position: absolute; inset: 0;
+      background: url('brand-assets/socrates-bust.png') center / contain no-repeat;
+      /* Pale stone against the dark green, without washing out the linework. */
+      filter: brightness(1.55) contrast(0.82) grayscale(1);
+      opacity: 0.46;
+    }
+    .join-bust-shard-a { clip-path: polygon(0 0, 100% 0, 100% 40%, 0 56%); }
+    /* The offset alone carries the fracture; no drawn seam across the face. */
+    .join-bust-shard-b { clip-path: polygon(0 56%, 100% 40%, 100% 100%, 0 100%); transform: translate(7px, 5px); }
+    .join-bust-ring { position: absolute; inset: -13px; border: 1px solid rgba(184,144,90,0.28); border-radius: 58% 42% 47% 53% / 52% 46% 54% 48%; }
+    .join-bust-ring-2 { inset: -22px; border-color: rgba(116,180,155,0.14); border-radius: 44% 56% 60% 40% / 55% 48% 52% 45%; transform: rotate(-8deg); }
+    @media (max-width: 1120px) { .join-bust { display: none; } }
     .join-cal-embed { border: 1px solid var(--hd); overflow: hidden; position: relative; }
     .join-cal-embed::after { content: ''; position: absolute; bottom: -4px; right: -4px; width: 100%; height: 100%; border: 1px solid var(--forest); pointer-events: none; }
     .join-cal-embed iframe { display: block; width: 100%; border: 0; }
@@ -567,6 +716,7 @@
     .site-footer-social a:last-child { border-right: none; }
     .site-footer-social a:hover { color: #b8905a; background: rgba(184,144,90,0.1); }
     .site-footer-copy { position: relative; z-index: 1; width: 100%; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; color: rgba(156,173,154,0.35); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 34px; padding: 22px 24px 0; border-top: 1px solid #1e3020; }
+    .site-footer-disclaimer { position: relative; z-index: 1; width: 100%; max-width: 640px; margin: 10px auto 0; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; color: rgba(156,173,154,0.4); line-height: 1.6; padding: 0 24px; }
     @media (max-width: 820px) {
       .site-footer { padding: 44px 0 22px; }
       .site-footer-inner { flex-direction: column; align-items: center; text-align: center; padding: 0 24px; gap: 22px; }
@@ -597,7 +747,11 @@
     }
     @media (max-width: 768px) {
       .bento-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+      /* Stacked, the stepped heights just look like inconsistent boxes. */
       .parl-levels { grid-template-columns: 1fr; }
+      .parl-level-card[data-tier="n"],
+      .parl-level-card[data-tier="jv"],
+      .parl-level-card[data-tier="v"] { min-height: 0; }
       .uni-photo-row { grid-template-columns: repeat(2, 1fr); }
       .uni-detail-panel { padding: 32px 26px; }
       .benefit-block { padding: 34px 26px; }
@@ -693,7 +847,7 @@
       <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
 
       <div class="hero-eyebrow">San Marin High School &nbsp;·&nbsp; Novato, CA</div>
-      <div class="hero-section-ctr">00 — Homepage</div>
+      <div class="hero-section-ctr">00 &middot; Homepage</div>
 
       <h1 class="hero-h1">
         San Marin<br />
@@ -704,7 +858,7 @@
       <div class="hero-rule"></div>
 
       <p class="hero-sub">Competing. Speaking. Leading.</p>
-      <p class="hero-tag2">California's competitive parliamentary debate program.</p>
+      <p class="hero-tag2">Marin County's longest-running parliamentary debate program.</p>
 
       <div class="hero-btns">
         <a href="#join" class="btn btn-forest btn-pulse">Join Now</a>
@@ -725,7 +879,6 @@
       <div class="hero-quote-carousel" id="hero-quote-carousel">
         <div class="hero-quote-inner" id="hero-quote-inner">
           <span class="hero-quote-text" id="hero-quote-text"></span>
-          <div class="hero-quote-meta" id="hero-quote-meta"></div>
         </div>
       </div>
     </div>
@@ -766,7 +919,7 @@
       <span class="ticker-dot" aria-hidden="true">•</span>
       <div class="ticker-item" data-href="https://smhsponyexpress.org/9754/news/san-marin-wins-big-in-speech-and-debate/">
         <span class="ticker-num">#1</span>
-        <span class="ticker-label">Speech &amp; Debate Club, NW Bay Area</span>
+        <span class="ticker-label">Largest Program in Marin County</span>
       </div>
       <span class="ticker-dot" aria-hidden="true">•</span>
 
@@ -801,7 +954,7 @@
       <span class="ticker-dot" aria-hidden="true">•</span>
       <div class="ticker-item" data-href="https://smhsponyexpress.org/9754/news/san-marin-wins-big-in-speech-and-debate/">
         <span class="ticker-num">#1</span>
-        <span class="ticker-label">Speech &amp; Debate Club, NW Bay Area</span>
+        <span class="ticker-label">Largest Program in Marin County</span>
       </div>
       <span class="ticker-dot" aria-hidden="true">•</span>
 
@@ -812,15 +965,15 @@
   <section id="about" class="section-reveal">
     <div class="about-inner">
       <div class="about-photo">
-        <img src="teampictures/580213877_1413246730661090_3449423014134675675_n.jpg"
-             alt="San Marin Debate Team" />
+        <img src="teampictures/574897749_1404009414918155_5541499868964448540_n.jpg"
+             alt="San Marin debate team in formal wear with trophies after a tournament" />
       </div>
       <div class="about-text fade-up">
-        <div class="sec-label">01 — About Snapshot</div>
+        <div class="sec-label">01 &middot; About Snapshot</div>
         <h2 class="sec-h2">Who We <em>Are</em></h2>
         <div class="gold-rule"></div>
         <p class="body-p">San Marin Speech &amp; Debate started as a handful of students who just wanted to argue, and somehow turned that into something real. No professional setup, no outside help. Just a group of kids who <span class="underline-phrase" id="about-underline-phrase">figured it out together<svg class="underline-svg" viewBox="0 0 300 8" preserveAspectRatio="none" aria-hidden="true"><path d="M2,5 Q75,2 150,5 Q225,8 298,5"/></svg></span>, year after year.</p>
-        <p class="body-p">Over a decade later, the team has won competitions across the Bay Area, made it to the California State Tournament, and in 2026 walked into one of the biggest invitationals in the state and finished in the top eight. Twenty-six students. One volunteer coach. And the thing is, that almost didn't happen...</p>
+        <p class="body-p">Nearly twenty years later, the team has won competitions across the Bay Area, made it to the California State Tournament, and in 2026 walked into one of the biggest invitationals in the state and finished in the top eight. Twenty-six students. One volunteer coach. And the thing is, that almost didn't happen...</p>
         <div style="margin-top:28px;">
           <a href="about.html" class="btn btn-outline">
             Learn More
@@ -860,10 +1013,29 @@
   <!-- ═══════ ALUMNI SHOWCASE ═══════ -->
   <section id="alumni-showcase" class="section-reveal">
     <div class="sec-inner">
-      <div class="sec-label">02 — Alumni Outcomes</div>
+      <div class="sec-label">02 &middot; Alumni Outcomes</div>
       <h2 class="alumni-main-h2">Our alumni go everywhere.</h2>
-      <p class="alumni-sub-text">From Bay Area stages to research labs, courtrooms, and places you wouldn't expect.</p>
+      <p class="alumni-sub-text">They go on to research labs, courtrooms, lecture halls, and plenty of places we did not see coming.</p>
       <blockquote class="alumni-quote-card light fade-up">
+        <!-- Painted wash. The turbulence filter roughens the edges of the shape so it
+             reads as a brush sweep rather than a clean vector blob. -->
+        <svg class="quote-wash" viewBox="0 0 600 190" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <filter id="quoteWashRough" x="-18%" y="-40%" width="136%" height="180%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.014 0.052" numOctaves="4" seed="9" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" xChannelSelector="R" yChannelSelector="G"/>
+              <feGaussianBlur stdDeviation="0.7"/>
+            </filter>
+            <linearGradient id="quoteWashFill" x1="0" y1="0" x2="1" y2="0.35">
+              <stop offset="0%"   stop-color="#1b4332" stop-opacity="0.26"/>
+              <stop offset="38%"  stop-color="#2d6a4f" stop-opacity="0.14"/>
+              <stop offset="72%"  stop-color="#74b49b" stop-opacity="0.13"/>
+              <stop offset="100%" stop-color="#b8905a" stop-opacity="0.20"/>
+            </linearGradient>
+          </defs>
+          <path filter="url(#quoteWashRough)" fill="url(#quoteWashFill)"
+                d="M22,92 C118,44 252,36 374,52 C456,63 524,46 570,66 C594,77 592,116 562,127 C500,150 398,136 298,143 C206,149 116,164 56,145 C18,133 6,108 22,92 Z"/>
+        </svg>
         <span class="alumni-quote-mark" aria-hidden="true">&rdquo;</span>
         <span class="alumni-quote-text">"Of all the things I learned in high school, public speaking is the only skill which I return to every day. Whenever I'm navigating interviews, leading classroom discussions, or backpedaling out of a political debate I really want to avoid, I fall back to the lessons I learned in speech and debate."</span>
         <div class="alumni-quote-foot">
@@ -884,38 +1056,75 @@
   <section id="program" class="section-reveal">
     <div class="sec-inner fade-up">
       <div class="sec-header">
-        <div class="sec-label">03 — How It Works</div>
-        <h2 class="sec-header-h2">Parliamentary Debate, Made Simple</h2>
-        <p class="sec-header-p">Two teams get a topic shortly before the round, then trade six speeches — one side for, one side against. No scripts, no memorizing. Everyone starts at Novice, and we teach the rest at practice.</p>
+        <div class="sec-label">03 &middot; How It Works</div>
+        <h2 class="sec-header-h2" aria-label="Parliamentary Debate, Made Simple">Parliamentary Debate, Made&nbsp;<span class="type-slot" aria-hidden="true"><span id="type-word">Simple</span><span class="type-caret"></span></span></h2>
+        <p class="sec-header-p">Two teams get a topic shortly before the round, then trade six speeches, one side for and one side against. No scripts, no memorizing. Everyone starts at Novice, and we teach the rest at practice.</p>
       </div>
 
       <div class="parl-levels">
-        <div class="parl-level-card">
+        <div class="parl-level-card" data-tier="n">
           <span class="parl-start-flag">Start Here</span>
           <span class="level-badge level-n">Novice</span>
-          <div class="parl-level-name">Your first year</div>
-          <p class="parl-level-desc">Same format, shorter speeches — room to find your footing.</p>
+          <div class="parl-level-name">Starting off</div>
+          <p class="parl-level-desc">Longer prep time and shorter speeches, so there is room to find your footing.</p>
         </div>
-        <div class="parl-level-card">
+        <div class="parl-level-card" data-tier="jv">
           <span class="level-badge level-jv">JV</span>
-          <div class="parl-level-name">Building experience</div>
+          <div class="parl-level-name">Getting there</div>
           <p class="parl-level-desc">Full-length speeches against more experienced debaters.</p>
         </div>
-        <div class="parl-level-card">
+        <div class="parl-level-card" data-tier="v">
           <span class="level-badge level-v">Varsity</span>
           <div class="parl-level-name">The top level</div>
           <p class="parl-level-desc">Our most experienced competitors, at the highest level of competition.</p>
         </div>
       </div>
+
+      <!-- ── ROUND FORMAT ──
+           Segment widths are set from the minute values, so editing a number
+           below re-sizes the bar automatically. -->
+      <div class="parl-format">
+        <p class="fmt-intro">Same format at every level. Four constructive speeches, then two rebuttals. Only the clock changes. Each block below is one speech, sized to its minutes.</p>
+
+        <div class="fmt-block">
+          <div class="fmt-head">
+            <span class="fmt-title">Novice</span>
+            <span class="fmt-meta"><b>30 min</b> prep, then <b>26 min</b> of speeches</span>
+          </div>
+          <div class="fmt-bar">
+            <div class="fmt-seg" data-kind="con" style="flex-grow:5">5</div>
+            <div class="fmt-seg" data-kind="con" style="flex-grow:5">5</div>
+            <div class="fmt-seg" data-kind="con" style="flex-grow:5">5</div>
+            <div class="fmt-seg" data-kind="con" style="flex-grow:5">5</div>
+            <div class="fmt-seg" data-kind="reb" style="flex-grow:3">3</div>
+            <div class="fmt-seg" data-kind="reb" style="flex-grow:3">3</div>
+          </div>
+        </div>
+
+        <div class="fmt-block">
+          <div class="fmt-head">
+            <span class="fmt-title">JV &amp; Varsity</span>
+            <span class="fmt-meta"><b>20 min</b> prep, then <b>40 min</b> of speeches</span>
+          </div>
+          <div class="fmt-bar">
+            <div class="fmt-seg" data-kind="con" style="flex-grow:7">7</div>
+            <div class="fmt-seg" data-kind="con" style="flex-grow:8">8</div>
+            <div class="fmt-seg" data-kind="con" style="flex-grow:8">8</div>
+            <div class="fmt-seg" data-kind="con" style="flex-grow:8">8</div>
+            <div class="fmt-seg" data-kind="reb" style="flex-grow:4">4</div>
+            <div class="fmt-seg" data-kind="reb" style="flex-grow:5">5</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ═══════ NEWSLETTER TEASER (shown only when the feed loads) ═══════ -->
+  <!-- ═══════ NEWSLETTER TEASER ═══════ -->
   <section id="news-teaser" class="section-reveal" aria-label="Latest newsletter posts">
     <div class="sec-inner">
       <div class="news-head">
         <div>
-          <div class="sec-label">04 — Latest Updates</div>
+          <div class="sec-label">04 &middot; Latest Updates</div>
           <h2 class="news-h2">Fresh from <em>the team</em></h2>
         </div>
         <a href="events.html" class="btn btn-outline">All Updates &amp; Photos</a>
@@ -925,12 +1134,57 @@
   </section>
 
   <!-- ═══════ JOIN + CALENDAR ═══════ -->
+  <!-- ═══════ SPONSORS & GRANTS ═══════
+       Cards and percentages come from data/sponsors.json. Edit that file to
+       change sponsors; nothing here needs touching. -->
+  <section id="sponsors" class="section-reveal" aria-labelledby="sp-heading">
+    <div class="sp-inner">
+
+      <div class="sp-head fade-up">
+        <span class="sp-chip">Championing Future Leaders</span>
+        <h2 class="sp-h2" id="sp-heading">Our Foundation of
+          <em>Generosity &amp; Support<svg class="sp-swoop" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3,8 C62,3 128,2 190,5 C232,7 268,9 297,6"/></svg></em>
+        </h2>
+        <p class="sp-lede">San Marin Speech and Debate does not run on its own. Our growth, our results, and how far we can travel to compete all rest on people who chose to invest in a student program.</p>
+        <div class="sp-season" id="sp-season"></div>
+      </div>
+
+      <figure class="sp-photo fade-up">
+        <img src="teampictures/580213877_1413246730661090_3449423014134675675_n.jpg"
+             alt="The San Marin debate team holding handmade thank-you signs for School Fuel" loading="lazy" />
+        <figcaption>The team saying thank you to School Fuel</figcaption>
+      </figure>
+
+      <div class="sp-grid fade-up" id="sp-grid"></div>
+
+      <div class="sp-need fade-up">
+        <div>
+          <h3 class="sp-need-h3">Our squad has grown to
+            <span>30+ active members<svg viewBox="0 0 260 44" preserveAspectRatio="none" aria-hidden="true"><path d="M128,3 C74,1 16,8 7,20 C-1,31 34,40 96,42 C160,44 232,38 250,26 C262,17 226,6 168,3"/></svg></span>
+          </h3>
+          <p class="sp-need-p">A bigger team is a good problem, but it is still a problem. Registration, travel, and lodging all scale with the number of students we bring, and we compete against private programs with budgets we do not have. Grants are what close that gap.</p>
+        </div>
+        <div class="sp-alloc" id="sp-alloc">
+          <div class="sp-alloc-title">Where the funding goes</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <section id="join" class="section-reveal">
     <div class="join-inner">
-      <div class="fade-up">
-        <div class="sec-label light">05 — Get Involved</div>
-        <h2 class="join-h2">Join Speech &amp; Debate</h2>
-        <p class="join-p">Open to every student — no experience, no tryout.</p>
+      <div class="fade-up join-col">
+        <div class="join-bust" aria-hidden="true">
+          <span class="join-bust-ring join-bust-ring-2"></span>
+          <span class="join-bust-ring"></span>
+          <span class="join-bust-shard join-bust-shard-a"></span>
+          <span class="join-bust-shard join-bust-shard-b"></span>
+        </div>
+        <div class="sec-label light">05 &middot; Get Involved</div>
+        <h2 class="join-h2">Join Speech &amp; <span class="underline-phrase" id="join-underline-phrase">Debate<svg class="underline-svg" viewBox="0 0 210 8" preserveAspectRatio="none" aria-hidden="true"><path d="M2,5 Q52,2 105,5 Q158,8 208,5"/></svg></span></h2>
+        <p class="join-p">Open to every student. <span class="join-mark">No experience, no tryout.</span></p>
+        <p class="join-lede">Most of us walked in without knowing what parliamentary debate even was. It goes like this:</p>
         <ol class="join-steps-mini">
           <li><span class="jsm-num">1</span>Show up on a Wednesday</li>
           <li><span class="jsm-num">2</span>Learn the format at practice</li>
@@ -938,15 +1192,16 @@
         </ol>
         <div class="join-btns">
           <a href="https://forms.gle/N3ShiSWrztLDWy1N9" target="_blank" rel="noopener" class="btn btn-forest btn-pulse" style="font-size:12px;padding:14px 30px;">Join Now</a>
+          <span class="join-btn-note">One quick form, and we'll follow up by email.</span>
         </div>
       </div>
       <div class="fade-up d2">
         <div class="join-cal-embed">
           <div style="filter: invert(1) hue-rotate(180deg) contrast(0.95);">
             <iframe
-              src="https://calendar.google.com/calendar/embed?height=380&wkst=1&ctz=America%2FLos_Angeles&showPrint=0&showTitle=0&showNav=1&showDate=1&showTabs=0&showCalendars=0&mode=AGENDA&src=ODU5NmIxYTg4NzM4MWJiZjhmYWUzNTYzZDRiZGU5ZTVjZmZiMGE3MjY5MDc2NzFmZmI2NzQ0ZDY0NzIyZTY1ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23009688"
-              title="San Marin Speech &amp; Debate — Upcoming Events"
-              height="380" scrolling="no"></iframe>
+              src="https://calendar.google.com/calendar/embed?height=420&wkst=1&ctz=America%2FLos_Angeles&showPrint=0&showTz=0&showTitle=0&showCalendars=0&src=ODU5NmIxYTg4NzM4MWJiZjhmYWUzNTYzZDRiZGU5ZTVjZmZiMGE3MjY5MDc2NzFmZmI2NzQ0ZDY0NzIyZTY1ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23009688"
+              title="San Marin Speech &amp; Debate Upcoming Events"
+              width="570" height="420" scrolling="no"></iframe>
           </div>
         </div>
       </div>
@@ -985,7 +1240,8 @@
         </a>
       </div>
     </div>
-    <div class="site-footer-copy">© 2025 San Marin High School Speech &amp; Debate Club · All rights reserved</div>
+    <div class="site-footer-copy">© <span data-current-year>2026</span> San Marin High School Speech &amp; Debate Club · All rights reserved</div>
+    <p class="site-footer-disclaimer">This site is run by student volunteers and is not an official publication of the school district. Schedules, results, and other details are updated as the season goes and may change without notice.</p>
   </footer>
 
   <!-- MOBILE BOTTOM NAV -->
@@ -1000,11 +1256,13 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script>
     /* ═══ DATA ═══ */
+    // Lines that fade in and out over the hero photo. Add or edit any line here.
+    // They show unattributed, so no name or season is needed.
     const HERO_QUOTES = [
-      { quote: "Debate gave me the confidence to walk into any room and hold my own.",     name: "Jordan M.",  role: "Varsity Debater", year: "2025" },
-      { quote: "The research and critical thinking carry into every class and interview.",  name: "Priya K.",   role: "JV Debater",      year: "2026" },
-      { quote: "I used to freeze when called on. Now I volunteer to go first.",             name: "Tyler B.",   role: "Novice",          year: "2027" },
-      { quote: "One season changed how I listen to people, not just how I talk.",          name: "Aisha L.",   role: "Varsity Debater", year: "2025" }
+      "Debate gave me the confidence to walk into any room and hold my own.",
+      "The research and critical thinking carry into every class and interview.",
+      "I used to freeze when called on. Now I volunteer to go first.",
+      "One season changed how I listen to people, not just how I talk."
     ];
 
     /* ─── LENIS ─── */
@@ -1037,21 +1295,8 @@
       });
     })();
 
-    /* ─── SECTION REVEAL OBSERVER ─── */
-    const sectionIo = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); sectionIo.unobserve(e.target); }
-      });
-    }, { threshold: 0.06 });
-    document.querySelectorAll('.section-reveal').forEach(el => sectionIo.observe(el));
-
-    /* ─── CLIP + FADE-UP OBSERVER ─── */
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal, .reveal-x, .fade-up').forEach(el => io.observe(el));
+    /* Scroll-reveal observers removed — every section is visible from first
+       paint. See the note beside .section-reveal in the stylesheet above. */
 
     /* ─── HERO PARALLAX ─── */
     const heroImg = document.getElementById('hero-img');
@@ -1084,22 +1329,63 @@
     (function () {
       const inner  = document.getElementById('hero-quote-inner');
       const textEl = document.getElementById('hero-quote-text');
-      const metaEl = document.getElementById('hero-quote-meta');
-      if (!inner || !textEl || !metaEl) return;
+      if (!inner || !textEl) return;
       let idx = 0;
-      function render(q) {
-        textEl.textContent = '“' + q.quote + '”';
-        metaEl.textContent = '— ' + q.name + ' · ' + q.role + ', ' + q.year;
-      }
-      render(HERO_QUOTES[0]);
+      textEl.textContent = HERO_QUOTES[0];
       setInterval(() => {
         inner.classList.add('fading');
         setTimeout(() => {
           idx = (idx + 1) % HERO_QUOTES.length;
-          render(HERO_QUOTES[idx]);
+          textEl.textContent = HERO_QUOTES[idx];
           inner.classList.remove('fading');
         }, 400);
       }, 4500);
+    })();
+
+    /* ─── TYPED WORD: "Parliamentary Debate, Made ___" ───
+       Add, remove, or reorder the words below. Two plain, two elevated, then
+       French and Italian. They all mean the same thing, so the line reads
+       correctly at any point in the cycle. */
+    (function () {
+      const WORDS = ['Simple', 'Clear', 'Lucid', 'Effortless', 'Limpide', 'Chiaro'];
+      const el = document.getElementById('type-word');
+      if (!el) return;
+
+      // Anyone who asked for less motion just gets the first word, held.
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = WORDS[0];
+        const caret = document.querySelector('.type-caret');
+        if (caret) caret.style.animation = 'none';
+        return;
+      }
+
+      const TYPE_MS = 78, ERASE_MS = 42, HOLD_MS = 1700, GAP_MS = 420;
+      let wordIdx = 0, charIdx = WORDS[0].length, erasing = true;
+
+      function step() {
+        const word = WORDS[wordIdx];
+        if (erasing) {
+          charIdx--;
+          el.textContent = word.slice(0, charIdx);
+          if (charIdx === 0) {
+            erasing = false;
+            wordIdx = (wordIdx + 1) % WORDS.length;
+            setTimeout(step, GAP_MS);
+          } else {
+            setTimeout(step, ERASE_MS);
+          }
+        } else {
+          charIdx++;
+          el.textContent = word.slice(0, charIdx);
+          if (charIdx === word.length) {
+            erasing = true;
+            setTimeout(step, HOLD_MS);
+          } else {
+            setTimeout(step, TYPE_MS);
+          }
+        }
+      }
+      setTimeout(step, HOLD_MS);
     })();
 
     /* ─── NAV DROPDOWN ─── */
@@ -1176,24 +1462,28 @@
       if (lenis) {
         lenis.on('scroll', updateAboutParallax);
       } else {
-        window.addEventListener('scroll', () => requestAnimationFrame(updateAboutParallax), { passive: true });
+        // Coalesce to one update per frame, the same way the hero parallax does.
+        // Without the flag every scroll event queues its own callback.
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => { updateAboutParallax(); ticking = false; });
+        }, { passive: true });
       }
       window.addEventListener('resize', updateAboutParallax);
       updateAboutParallax();
     })();
 
-    /* ─── SVG UNDERLINE DRAW ─── */
+    /* ─── SVG UNDERLINE DRAW (any number of .underline-phrase instances) ─── */
     (function () {
-      const phrase = document.getElementById('about-underline-phrase');
-      if (!phrase) return;
-      const svg  = phrase.querySelector('.underline-svg');
-      const path = svg ? svg.querySelector('path') : null;
-      if (!path) return;
-      let drawn = false;
+      const phrases = document.querySelectorAll('.underline-phrase');
+      if (!phrases.length) return;
       const io = new IntersectionObserver(entries => {
         entries.forEach(e => {
-          if (!e.isIntersecting || drawn) return;
-          drawn = true;
+          const svg  = e.target.querySelector('.underline-svg');
+          const path = svg ? svg.querySelector('path') : null;
+          if (!e.isIntersecting || !path) return;
           const len = path.getTotalLength();
           path.style.strokeDasharray = len;
           path.style.strokeDashoffset = len;
@@ -1209,7 +1499,7 @@
           io.unobserve(e.target);
         });
       }, { threshold: 0.6 });
-      io.observe(phrase);
+      phrases.forEach(p => io.observe(p));
     })();
 
     /* ─── BENEFITS JOG-WHEEL ─── */
@@ -1255,7 +1545,7 @@
         { id: 'yale', name: 'Yale University', short: 'Yale', letter: 'Y', photo: 'collegephotos/yale.webp',
           alumni: [{ name: 'Ben Rasmussen', classOf: null, field: 'Global Affairs & Intl. Security', desc: '"Researcher, Roosevelt Institute and Global Intelligence Trust. Interned at Hong Kong Economic Trade Office tracking Baltic Sea geopolitical strategies."' }] },
         { id: 'princeton', name: 'Princeton University', short: 'Princeton', letter: 'P', photo: 'collegephotos/princeton.webp',
-          alumni: [] },
+          alumni: [{ name: 'Bilal Mubarack', classOf: 'Class of 2020', field: 'Philosophy', desc: '"Read philosophy at Princeton from 2016 to 2020. Served on the Debate Panel and directed Model Congress."' }] },
         { id: 'stanford', name: 'Stanford University', short: 'Stanford', letter: 'S', photo: 'collegephotos/stanford.jpg',
           alumni: [{ name: 'Mahalia Morgan', classOf: 'Class of 2023', field: 'Political Science', desc: '"Received the San Rafael Elks Lodge Most Valuable Student award and won the North Bay Leadership Teen Speech Competition."' }] },
         { id: 'cal', name: 'UC Berkeley', short: 'UC Berkeley', letter: 'C', photo: 'collegephotos/cal.jpg',
@@ -1266,15 +1556,15 @@
           ] },
         { id: 'ucla', name: 'UC Los Angeles', short: 'UC Los Angeles', letter: 'U', photo: 'collegephotos/ucla.jpg',
           alumni: [
-            { name: 'John Homan', classOf: 'Class of 2026–2030', field: 'Mechanical Engineering', desc: '"Focusing on structural mechanics and physical momentum dynamics."' },
-            { name: 'Aashna Selvraj', classOf: 'Class of 2026', field: 'Psychobiology', desc: '"Researching the intersection of cognitive function and biological pathways."' }
+            { name: 'John Hohman', classOf: 'Class of 2026-2030', field: 'Mechanical Engineering', desc: '"Focusing on structural mechanics and physical momentum dynamics."' },
+            { name: 'Aashna Selvaraj', classOf: 'Class of 2026-2030', field: 'Psychobiology', desc: '"Researching the intersection of cognitive function and biological pathways."' }
           ] },
         { id: 'caltech', name: 'California Institute of Technology', short: 'Caltech', letter: 'C', photo: 'collegephotos/caltech.jpg',
-          alumni: [{ name: 'Tyler Kollenbrander', classOf: null, field: 'Electrical / Mechanical Engineering', desc: '"National Merit Scholar; elected County Superintendent of Schools. Selected as 1 of 20 students globally for USC Energy Resources program."' }] },
+          alumni: [{ name: 'Tyler Colenbrander', classOf: null, field: 'Electrical / Mechanical Engineering', desc: '"National Merit Scholar; elected County Superintendent of Schools. Selected as 1 of 20 students globally for USC Energy Resources program."' }] },
         { id: 'oxford', name: 'University of Oxford', short: 'Oxford', letter: 'O', photo: 'collegephotos/oxford.webp',
-          alumni: [] },
+          alumni: [{ name: 'Izagani Aquino', classOf: 'MSc, Humanities Division', field: 'Digital Scholarship', desc: '"Reading for a master\'s in digital scholarship at Oxford, working on how digital methods are applied to humanities research."' }] },
         { id: 'dartmouth', name: 'Dartmouth College', short: 'Dartmouth', letter: 'D', photo: 'collegephotos/dartmouth.avif',
-          alumni: [] }
+          alumni: [{ name: 'Emilie Baxter', classOf: null, field: 'Geography', desc: '"Third-year Pathways MD student at Harvard Medical School; conducted a global-health research project in Uganda."' }] }
       ];
 
       var activeIdx = 0;
@@ -1315,6 +1605,26 @@
         });
       }
 
+      // Group the cards into grid rows by their offsetTop, then alternate which way
+      // each row moves on hover. Re-run on resize because the column count changes.
+      function assignHoverRows() {
+        var tops = [];
+        row.querySelectorAll('.uni-photo-card').forEach(function (card) {
+          var top = card.offsetTop;
+          var rowIdx = tops.indexOf(top);
+          if (rowIdx === -1) { tops.push(top); rowIdx = tops.length - 1; }
+          card.dataset.lift = rowIdx % 2 === 0 ? 'up' : 'down';
+        });
+      }
+      assignHoverRows();
+      (function () {
+        var t;
+        window.addEventListener('resize', function () {
+          clearTimeout(t);
+          t = setTimeout(assignHoverRows, 150);
+        });
+      })();
+
       function buildPanelInner() {
         var uni = UNIS[activeIdx];
         var inner = document.createElement('div');
@@ -1332,7 +1642,7 @@
           var empty = document.createElement('p');
           empty.className = 'uni-alum-desc uni-alum-entry';
           empty.style.animationDelay = '40ms';
-          empty.textContent = 'Alumni profiles for this campus are being verified — check back soon.';
+          empty.textContent = 'Alumni profiles for this campus are being verified. Check back soon.';
           grid.appendChild(empty);
         }
         uni.alumni.forEach(function (a, ai) {
@@ -1376,10 +1686,91 @@
       panel.appendChild(buildPanelInner());
     })();
 
+    /* ─── SPONSORS & GRANTS ───
+       Reads data/sponsors.json and builds the cards. One, two, or three
+       sponsors all lay out correctly; the count drives the grid. Built with
+       DOM APIs rather than innerHTML so the JSON can never inject markup. */
+    (function () {
+      var grid  = document.getElementById('sp-grid');
+      var alloc = document.getElementById('sp-alloc');
+      var seasonEl = document.getElementById('sp-season');
+      var section  = document.getElementById('sponsors');
+      if (!grid || !alloc || !section) return;
+
+      function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text) n.textContent = text;
+        return n;
+      }
+
+      fetch('data/sponsors.json')
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) {
+          if (seasonEl && data.season) seasonEl.textContent = data.season;
+
+          // ── Sponsor cards ──
+          var list = (data.sponsors || []).filter(function (s) { return s && s.name; }).slice(0, 3);
+          grid.setAttribute('data-count', String(list.length));
+
+          list.forEach(function (s) {
+            var card = el('article', 'sp-card');
+
+            // Top row carries the eyebrow and the grant badge. Either may be
+            // absent, and the row is skipped entirely if both are.
+            if (s.eyebrow || s.amount) {
+              var top = el('div', 'sp-card-top');
+              top.appendChild(s.eyebrow ? el('span', 'sp-eyebrow', s.eyebrow) : el('span'));
+              if (s.amount) top.appendChild(el('span', 'sp-amount', s.amount + ' Grant'));
+              card.appendChild(top);
+            }
+
+            card.appendChild(el('h3', 'sp-name', s.name));
+            if (s.tagline) card.appendChild(el('p', 'sp-tagline', s.tagline));
+            if (s.body)    card.appendChild(el('p', 'sp-body', s.body));
+            if (s.note)    card.appendChild(el('div', 'sp-note', s.note));
+            grid.appendChild(card);
+          });
+
+          // ── Funding split ──
+          var rows = (data.allocation || []).filter(function (a) { return a && a.label; });
+          rows.forEach(function (a) {
+            var pct = Math.max(0, Math.min(100, Number(a.percent) || 0));
+            var row  = el('div', 'sp-alloc-row');
+            var head = el('div', 'sp-alloc-head');
+            head.appendChild(el('span', null, a.label));
+            head.appendChild(el('span', 'sp-alloc-pct', pct + '%'));
+            var track = el('div', 'sp-alloc-track');
+            var fill  = el('div', 'sp-alloc-fill');
+            fill.setAttribute('data-pct', pct);
+            track.appendChild(fill);
+            row.appendChild(head); row.appendChild(track);
+            alloc.appendChild(row);
+          });
+
+          // Bars fill when the block is first scrolled to.
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              io.unobserve(e.target);
+              e.target.querySelectorAll('.sp-alloc-fill').forEach(function (f) {
+                f.style.width = f.getAttribute('data-pct') + '%';
+              });
+            });
+          }, { threshold: 0.35 });
+          io.observe(alloc);
+        })
+        .catch(function () {
+          // Nothing to thank anyone for if the file will not load; drop the
+          // whole section rather than leaving an empty frame on the page.
+          section.style.display = 'none';
+        });
+    })();
+
     /* ─── NEWSLETTER TEASER ───
-       Pulls the 3 latest Substack posts (same feed as the Media page).
-       The section stays hidden unless the feed loads, so a proxy outage
-       never leaves a broken block on the homepage. */
+       Pulls the 3 latest Substack posts (same feed as the Media page). If the
+       proxy is down or the feed is empty, a fallback card links to the Media
+       page instead of leaving a blank gap on the homepage. */
     (function () {
       var section = document.getElementById('news-teaser');
       var grid = document.getElementById('news-grid');
@@ -1394,10 +1785,24 @@
         return (d.textContent || '').replace(/\s+/g, ' ').trim();
       }
 
+      function showFallback() {
+        grid.innerHTML = '';
+        var box = document.createElement('div');
+        box.className = 'news-fallback';
+        var p = document.createElement('p');
+        p.textContent = "Couldn't load the latest posts right now.";
+        var a = document.createElement('a');
+        a.className = 'btn btn-outline';
+        a.href = 'events.html';
+        a.textContent = 'View Updates & Photos';
+        box.appendChild(p); box.appendChild(a);
+        grid.appendChild(box);
+      }
+
       fetch(FEED)
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function (data) {
-          if (data.status !== 'ok' || !data.items || !data.items.length) return;
+          if (data.status !== 'ok' || !data.items || !data.items.length) { showFallback(); return; }
           data.items.slice(0, 3).forEach(function (item) {
             // Built with DOM APIs (not innerHTML) so feed content can't inject markup
             var card = document.createElement('a');
@@ -1428,13 +1833,11 @@
             card.appendChild(date); card.appendChild(title); card.appendChild(brief); card.appendChild(more);
             grid.appendChild(card);
           });
-          section.classList.add('has-posts');
-          // Section was display:none when the reveal observer first ran — show it now
-          section.classList.add('is-visible');
         })
-        .catch(function () { /* leave the section hidden */ });
+        .catch(showFallback);
     })();
 
   </script>
+  <script src="site-dates.js"></script>
 </body>
 </html>

@@ -1,0 +1,48 @@
+{
+  "_README": [
+    "SPONSORS AND GRANTS — shown in the 'Generosity & Support' section on the homepage.",
+    "",
+    "HOW TO UPDATE:",
+    "  Edit the 'sponsors' list below. You may list ONE, TWO, or THREE sponsors.",
+    "  The section lays itself out to match, so two sponsors fill the row evenly",
+    "  and three fit side by side. Adding a fourth will not display.",
+    "",
+    "EACH SPONSOR:",
+    "  name     (required) the organisation's name",
+    "  eyebrow  small line above the name, e.g. 'Established 1994'",
+    "  tagline  one short line under the name",
+    "  amount   the grant, e.g. '$5,000'. Leave as \"\" to hide the badge.",
+    "  body     a short paragraph. Two or three sentences is plenty.",
+    "  note     small line at the bottom of the card",
+    "",
+    "Anything you leave as \"\" is simply left out, so a sparse entry still looks right.",
+    "Keep the quotes and commas exactly as they appear, or the file will not load."
+  ],
+
+  "season": "2025-2026 Season",
+
+  "sponsors": [
+    {
+      "name": "Frankie Poulos Foundation",
+      "eyebrow": "Established 1994",
+      "tagline": "In loving memory of Frankie Poulos, championing Novato's youth",
+      "amount": "$1,000",
+      "body": "Founded by Jim and Kelly Poulos, the foundation has contributed over $400,000 to local youth institutions. Their grant went directly into keeping our program running.",
+      "note": "Supporting independent thinkers"
+    },
+    {
+      "name": "School Fuel",
+      "eyebrow": "Novato's Education Foundation",
+      "tagline": "Funding programs across the Novato Unified School District",
+      "amount": "$5,000",
+      "body": "School Fuel's investment keeps San Marin debaters travelling to premier Bay Area invitationals, which matters more every year as our costs grow alongside the size of the team.",
+      "note": "Making a lasting community impact"
+    }
+  ],
+
+  "allocation": [
+    { "label": "Tournament registration fees", "percent": 40 },
+    { "label": "Travel and student lodging",   "percent": 35 },
+    { "label": "Coaching and resources",        "percent": 25 }
+  ]
+}

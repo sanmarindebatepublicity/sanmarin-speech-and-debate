@@ -2,17 +2,24 @@
 
 /* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* The browser hides [hidden] with display:none, but that is a UA rule and any
+   author `display:` beats it — .sidebar-link{display:flex} silently un-hid the
+   captain-only link for every member. Role-gated markup depends on `hidden`
+   actually hiding, so enforce it. */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #142a1a;
+  background: #181d19;
   color: #ecefe6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   background-image:
-    radial-gradient(ellipse 70% 50% at 18% 0%, rgba(40,72,46,0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 50% at 18% 0%, rgba(44,58,48,0.28) 0%, transparent 65%),
     radial-gradient(ellipse 60% 50% at 88% 18%, rgba(196,165,90,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(28,54,32,0.4) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(35,44,38,0.35) 0%, transparent 70%);
   background-attachment: fixed;
 }
 
@@ -35,7 +42,7 @@ body {
 .nav-brand-text .top { font-size: 18px; font-weight: 600; color: #1b4332; letter-spacing: -0.01em; font-family: 'Cormorant Garamond', Georgia, serif; line-height: 1.1; }
 .nav-brand-text .bot { font-size: 10px; font-weight: 500; color: #2d6a4f; letter-spacing: 0.06em; text-transform: uppercase; }
 .nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; background: rgba(27,67,50,0.05); border: 1px solid rgba(27,67,50,0.11); border-radius: 100px; padding: 5px; gap: 2px; }
-.nav-links > a { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(27,67,50,0.55); text-decoration: none; padding: 7px 16px; border-radius: 100px; transition: color 0.2s ease, background 0.2s ease; white-space: nowrap; }
+.nav-links > a { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(27,67,50,0.75); text-decoration: none; padding: 7px 16px; border-radius: 100px; transition: color 0.2s ease, background 0.2s ease; white-space: nowrap; }
 .nav-links > a:hover { color: #1b4332; background: rgba(27,67,50,0.06); }
 .nav-links > a.active { color: #fff; background: #1b4332; }
 .nav-cta { font-size: 11px !important; font-weight: 700 !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; color: #1b4332 !important; text-decoration: none !important; padding: 10px 20px !important; background: transparent !important; border: 1px solid rgba(27,67,50,0.32) !important; border-radius: 100px !important; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease !important; white-space: nowrap; flex-shrink: 0; }
@@ -43,7 +50,7 @@ body {
 .nav-cta:hover { background: #1b4332 !important; color: #fff !important; border-color: #1b4332 !important; }
 .nav-cta.nav-cta-active { background: #1b4332 !important; color: #fff !important; border-color: #1b4332 !important; }
 .nav-dropdown { position: relative; }
-.nav-dd-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(27,67,50,0.55); padding: 7px 16px; border-radius: 100px; transition: color 0.2s ease, background 0.2s ease; }
+.nav-dd-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(27,67,50,0.75); padding: 7px 16px; border-radius: 100px; transition: color 0.2s ease, background 0.2s ease; }
 .nav-dd-btn:hover { color: #1b4332; background: rgba(27,67,50,0.06); }
 .nav-dd-btn.active, .nav-dropdown.open .nav-dd-btn { color: #fff; background: #1b4332; }
 .nav-dd-chevron { transition: transform 0.2s ease; }
@@ -59,9 +66,9 @@ body {
 .hamburger { display: none; background: none; border: none; cursor: pointer; color: #1b4332; padding: 6px; border-radius: 6px; }
 .mobile-nav { display: none; flex-direction: column; background: #f4f3ef; border-top: 1px solid #dad6d0; padding: 12px 20px 20px; gap: 2px; }
 .mobile-nav.open { display: flex; }
-.mob-link { display: block; padding: 10px 8px; font-size: 14px; font-weight: 500; color: rgba(27,67,50,0.55); text-decoration: none; border-bottom: 1px solid #dad6d0; }
+.mob-link { display: block; padding: 10px 8px; font-size: 14px; font-weight: 500; color: rgba(27,67,50,0.75); text-decoration: none; border-bottom: 1px solid #dad6d0; }
 .mob-link:hover, .mob-link.active { color: #1b4332; }
-.mob-acc-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 8px; font-size: 14px; font-weight: 500; color: rgba(27,67,50,0.55); background: none; border: none; border-bottom: 1px solid #dad6d0; cursor: pointer; }
+.mob-acc-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 8px; font-size: 14px; font-weight: 500; color: rgba(27,67,50,0.75); background: none; border: none; border-bottom: 1px solid #dad6d0; cursor: pointer; }
 .mob-acc-btn.active { color: #1b4332; }
 .mob-acc-panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.2s; opacity: 0; padding-left: 16px; }
 .mob-acc-panel.open { max-height: 200px; opacity: 1; }
@@ -83,7 +90,7 @@ body {
 .portal-sidebar {
   width: 210px;
   flex-shrink: 0;
-  background: rgba(15,28,17,0.72);
+  background: rgba(19,23,20,0.78);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-right: 1px solid rgba(255,255,255,0.05);
@@ -142,7 +149,7 @@ body {
   left: 18px;
   width: 38px;
   height: 38px;
-  background: rgba(15,28,17,0.92);
+  background: rgba(19,23,20,0.93);
   border: 1px solid rgba(196,165,90,0.28);
   border-radius: 10px;
   color: #c4a55a;
@@ -333,7 +340,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: rgba(28,54,32,0.5);
+  background: rgba(36,44,38,0.5);
   border: 1px solid rgba(196,165,90,0.13);
   border-radius: 18px;
   backdrop-filter: blur(10px);
@@ -380,7 +387,7 @@ body {
 
 /* ── COMING SOON ── */
 .coming-soon-block {
-  background: rgba(28,54,32,0.5);
+  background: rgba(36,44,38,0.5);
   border: 1px solid rgba(196,165,90,0.14);
   border-radius: 18px;
   backdrop-filter: blur(10px);
@@ -422,7 +429,7 @@ body {
   left: 0;
   right: 0;
   height: 58px;
-  background: rgba(15,28,17,0.92);
+  background: rgba(19,23,20,0.93);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -445,37 +452,13 @@ body {
 .tab-btn.active { color: #c4a55a; transform: translateY(-1px); }
 .tab-btn svg { width: 22px; height: 22px; }
 
-/* ── SHARED PORTAL ANIMATIONS ── */
-@media (prefers-reduced-motion: no-preference) {
-  /* Reveal-on-scroll base */
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
-    will-change: opacity, transform;
-  }
-  .reveal.is-in { opacity: 1; transform: translateY(0); }
-
-  .reveal-left {
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: opacity 0.45s ease-out, transform 0.45s ease-out;
-  }
-  .reveal-left.is-in { opacity: 1; transform: translateX(0); }
-
-  /* Stagger children when a parent uses .stagger */
-  .stagger .reveal:nth-child(1).is-in { transition-delay: 0s; }
-  .stagger .reveal:nth-child(2).is-in { transition-delay: 0.08s; }
-  .stagger .reveal:nth-child(3).is-in { transition-delay: 0.16s; }
-  .stagger .reveal:nth-child(4).is-in { transition-delay: 0.24s; }
-  .stagger .reveal:nth-child(5).is-in { transition-delay: 0.32s; }
-  .stagger .reveal:nth-child(6).is-in { transition-delay: 0.40s; }
-  .stagger .reveal:nth-child(7).is-in { transition-delay: 0.48s; }
-  .stagger .reveal:nth-child(8).is-in { transition-delay: 0.56s; }
-  .stagger .reveal:nth-child(9).is-in { transition-delay: 0.64s; }
-  .stagger .reveal:nth-child(10).is-in { transition-delay: 0.72s; }
-  .stagger .reveal:nth-child(n+11).is-in { transition-delay: 0.80s; }
-}
+/* ── SHARED PORTAL ANIMATIONS ──
+   Reveal-on-scroll removed. Portal content is visible from first paint.
+   These classes stay as inert no-ops because the markup still carries them
+   and pages call window.__portalObserve on dynamically injected cards. */
+.reveal, .reveal.is-in,
+.reveal-left, .reveal-left.is-in { opacity: 1; transform: none; }
+.stagger .reveal.is-in { transition-delay: 0s; }
 
 /* Soft visual section separator */
 .soft-divider {
@@ -518,4 +501,57 @@ body {
   .page-hero { padding: 28px 18px 26px; border-radius: 14px; }
   .page-hero-title { font-size: 24px; }
   .soft-divider { margin: 36px 0; }
+}
+
+/* ── PORTAL SEARCH ── */
+.sidebar-search { position: relative; padding: 12px 14px 4px; }
+#portal-search {
+  width: 100%;
+  padding: 8px 11px;
+  font: inherit; font-size: 12.5px;
+  color: #ecefe6;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+}
+#portal-search::placeholder { color: rgba(236,239,230,0.65); }
+#portal-search:focus {
+  outline: none;
+  border-color: rgba(196,165,90,0.55);
+  box-shadow: 0 0 0 3px rgba(196,165,90,0.15);
+}
+#portal-search-results {
+  position: absolute;
+  top: calc(100% - 2px); left: 14px; right: 14px;
+  z-index: 60;
+  max-height: 320px; overflow-y: auto;
+  background: #20241f;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.5);
+  padding: 5px;
+}
+.psr-group {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #c4a55a;
+  padding: 8px 9px 4px;
+}
+.psr-item {
+  display: block; width: 100%;
+  text-align: left;
+  font: inherit; font-size: 12.5px; line-height: 1.4;
+  color: rgba(236,239,230,0.88);
+  background: none; border: none; border-radius: 7px;
+  padding: 7px 9px;
+  cursor: pointer;
+}
+.psr-item:hover, .psr-item.psr-active { background: rgba(196,165,90,0.16); color: #fff; }
+.psr-item:focus-visible { outline: 2px solid #c4a55a; outline-offset: -2px; }
+
+/* The landing highlight after a jump */
+.search-hit {
+  outline: 2px solid rgba(196,165,90,0.85);
+  outline-offset: 3px;
+  transition: outline-color 0.4s ease;
 }

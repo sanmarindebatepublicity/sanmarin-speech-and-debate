@@ -6,11 +6,9 @@ token.json
 # Dev tooling (package.json/package-lock.json ARE deployed — Vercel needs them
 # to install googleapis for the /api functions)
 node_modules
-serve.py
-serve.rb
 serve.mjs
 HOW-TO-RUN.md
-CLAUDE (1).md
+CLAUDE.md
 skills-lock.json
 .agents
 .tmp
@@ -20,5 +18,3 @@ skills-lock.json
 pages
 Mockupimages
 bottommemberportalsignuppagecalender
-config.json
-photos.json

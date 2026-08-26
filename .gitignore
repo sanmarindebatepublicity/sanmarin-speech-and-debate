@@ -1,7 +1,22 @@
-# Secrets — never commit
+# Secrets — never commit.
+# .env.example is the one file here that is safe to commit: placeholders only.
 .env
+.env.local
+.env.*.local
+.env.development
+.env.production
+!.env.example
+
+# Google service-account keys, under any of the names Google hands them out as
 credentials.json
 token.json
+service-account*.json
+*service-account*.json
+*serviceaccount*.json
+gcp-*.json
+google-credentials*.json
+*.pem
+*.p12
 
 # Dependencies
 node_modules/
@@ -14,3 +29,6 @@ node_modules/
 # Large design-reference media (exceeds GitHub's comfortable file size;
 # screen recording of the homepage mockup, kept locally only)
 Mockupimages/*.mov
+
+# Claude Code local machine settings (agent definitions ARE committed)
+.claude/settings.local.json

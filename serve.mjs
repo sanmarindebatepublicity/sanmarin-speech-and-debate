@@ -18,7 +18,12 @@ function loadEnv() {
       const eq = trimmed.indexOf('=');
       if (eq < 0) continue;
       const key = trimmed.slice(0, eq).trim();
-      const val = trimmed.slice(eq + 1).trim();
+      let val = trimmed.slice(eq + 1).trim();
+      // Strip one layer of matching quotes, same as dotenv (.env.example
+      // tells people to single-quote JSON values, so this loader must honor that).
+      if ((val.startsWith("'") && val.endsWith("'")) || (val.startsWith('"') && val.endsWith('"'))) {
+        val = val.slice(1, -1);
+      }
       if (key && process.env[key] === undefined) process.env[key] = val;
     }
   } catch (_) {}
@@ -83,6 +88,11 @@ http.createServer(async (req, res) => {
       let body = '';
       req.on('data', chunk => { body += chunk; });
       await new Promise(resolve => req.on('end', resolve));
+
+      // Vercel gives handlers a parsed req.query; mirror that locally so the
+      // same handler code runs identically in both places.
+      const qs = req.url.indexOf('?') > -1 ? req.url.slice(req.url.indexOf('?') + 1) : '';
+      req.query = Object.fromEntries(new URLSearchParams(qs));
 
       const handler = require(handlerPath);
       await handler(req, wrapRes(res));

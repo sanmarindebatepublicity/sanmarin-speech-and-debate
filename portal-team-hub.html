@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Team Hub — Member Portal — San Marin Speech &amp; Debate</title>
+  <link rel="icon" type="image/png" href="brand-assets/faviconhorse.png" />
+  <link rel="apple-touch-icon" href="brand-assets/faviconhorse.png" />
+  <title>Team Hub &middot; Member Portal &middot; San Marin Speech &amp; Debate</title>
 
   <script>
     (function() {
@@ -77,7 +79,7 @@
       gap: 18px;
     }
     .announcement-card {
-      background: rgba(28,54,32,0.5);
+      background: rgba(36,44,38,0.5);
       border: 1px solid rgba(196,165,90,0.12);
       border-radius: 16px;
       backdrop-filter: blur(10px);
@@ -151,7 +153,7 @@
       padding: 36px 28px;
       color: rgba(236,239,230,0.5);
       font-size: 14px;
-      background: rgba(28,54,32,0.35);
+      background: rgba(36,44,38,0.35);
       border: 1px dashed rgba(196,165,90,0.18);
       border-radius: 16px;
       text-align: center;
@@ -161,7 +163,7 @@
     .bylaws-card {
       background:
         radial-gradient(ellipse 60% 100% at 100% 0%, rgba(196,165,90,0.08) 0%, transparent 70%),
-        rgba(28,54,32,0.55);
+        rgba(36,44,38,0.55);
       border: 1px solid rgba(196,165,90,0.14);
       border-radius: 18px;
       backdrop-filter: blur(10px);
@@ -247,7 +249,7 @@
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      background: rgba(28,54,32,0.5);
+      background: rgba(36,44,38,0.5);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 100px;
       color: rgba(236,239,230,0.55);
@@ -272,7 +274,7 @@
 
     /* Award card */
     .award-card {
-      background: rgba(28,54,32,0.55);
+      background: rgba(36,44,38,0.55);
       border: 1px solid rgba(196,165,90,0.12);
       border-radius: 18px;
       backdrop-filter: blur(10px);
@@ -337,7 +339,7 @@
 
     /* Skeleton loading */
     .awards-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .skeleton-card { background: rgba(28,54,32,0.4); border: 1px solid rgba(255,255,255,0.06); border-radius: 18px; overflow: hidden; }
+    .skeleton-card { background: rgba(35,44,38,0.35); border: 1px solid rgba(255,255,255,0.06); border-radius: 18px; overflow: hidden; }
     .skeleton-img { width: 100%; aspect-ratio: 4/3; background: rgba(255,255,255,0.04); animation: pulse 1.5s ease-in-out infinite; }
     .skeleton-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
     .skeleton-line { height: 12px; background: rgba(255,255,255,0.05); border-radius: 4px; animation: pulse 1.5s ease-in-out infinite; }
@@ -348,7 +350,7 @@
     .awards-error,
     .awards-empty {
       padding: 36px 28px;
-      background: rgba(28,54,32,0.35);
+      background: rgba(36,44,38,0.35);
       border: 1px dashed rgba(196,165,90,0.18);
       border-radius: 16px;
       color: rgba(236,239,230,0.5);
@@ -469,6 +471,12 @@
         </button>
       </div>
 
+      <div class="sidebar-search">
+        <input id="portal-search" type="search" placeholder="Search this page" autocomplete="off"
+               role="combobox" aria-expanded="false" aria-controls="portal-search-results" aria-label="Search this page" />
+        <div id="portal-search-results" role="listbox" hidden></div>
+      </div>
+
       <nav class="sidebar-nav" aria-label="Portal sections">
         <a href="portal-team-hub.html" class="sidebar-link active" aria-current="page">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
@@ -490,6 +498,15 @@
             <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
           </svg>
           Training Vault
+        </a>
+        <!-- Captains only. Hidden in markup and revealed by the role check
+             below, so members never see it even briefly. -->
+        <a href="captain-docs.html" class="sidebar-link" id="sidebar-captain-docs" hidden>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Captain Docs
         </a>
       </nav>
 
@@ -539,6 +556,48 @@
         <div id="announcements-container">
           <div class="announcements-empty">Loading announcements…</div>
         </div>
+      </section>
+
+      <hr class="soft-divider" />
+
+      <!-- ══════════ SECTION: SUGGEST A TOPIC ══════════ -->
+      <section class="hub-section" aria-labelledby="suggest-heading">
+        <div class="hub-section-header reveal-left">
+          <div class="hub-section-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="hub-section-eyebrow">Your Input</div>
+            <div id="suggest-heading" class="hub-section-title">Suggest a Meeting Topic</div>
+            <div class="hub-section-subtitle">Tell us what you want to cover at the next practice</div>
+          </div>
+        </div>
+
+        <a class="bylaws-card reveal"
+           href="https://forms.gle/F7FK7gmKpyvDZVUx8"
+           target="_blank" rel="noopener noreferrer">
+          <div class="bylaws-doc-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="bylaws-info">
+            <div class="bylaws-title">Open the suggestion form</div>
+            <div class="bylaws-subtitle">
+              Anything you want to practice, a case you keep losing to, a rule you
+              are unsure about, or a speaker you would like to hear from. Officers
+              read these before planning each meeting.
+            </div>
+            <div class="bylaws-actions">
+              <span class="bylaws-btn bylaws-btn-primary">
+                Suggest a Topic
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
       </section>
 
       <hr class="soft-divider" />
@@ -622,7 +681,7 @@
           </div>
         </div>
 
-        <a href="https://docs.google.com/document/d/1fUFruS3torl1ewYsiqGMmcP-bTbG2Xrf/edit?usp=sharing&ouid=101496105348273774476&rtpof=true&sd=true" target="_blank" rel="noopener" class="bylaws-card reveal" style="text-decoration:none;display:flex;">
+        <a href="https://docs.google.com/document/d/1fUFruS3torl1ewYsiqGMmcP-bTbG2Xrf/view" target="_blank" rel="noopener" class="bylaws-card reveal" style="text-decoration:none;display:flex;">
           <div class="bylaws-doc-icon" aria-hidden="true">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -675,6 +734,16 @@
 
   <script>
     /* ── Sign out ── */
+    /* Captains get one extra sidebar entry. The link ships hidden so a member
+       never sees it, even for a frame, if this script is slow or blocked. */
+    (function() {
+      var link = document.getElementById('sidebar-captain-docs');
+      if (!link) return;
+      var role = '';
+      try { role = localStorage.getItem('sanmarinAuthRole') || ''; } catch(e) {}
+      if (role === 'captain') link.hidden = false;
+    })();
+
     document.getElementById('sidebar-signout').addEventListener('click', function() {
       try { localStorage.removeItem('sanmarinAuthRole'); localStorage.removeItem('sanmarinAuthTime'); } catch(e) {}
       window.location.href = 'portal.html';
@@ -722,35 +791,11 @@
       if (mobAccBtn && mobAccPanel) { mobAccBtn.addEventListener('click', function() { var open = mobAccPanel.classList.toggle('open'); mobAccBtn.setAttribute('aria-expanded', String(open)); mobAccPanel.setAttribute('aria-hidden', String(!open)); }); }
     })();
 
-    /* ── REVEAL ON SCROLL ── */
-    (function() {
-      if (typeof window === 'undefined') return;
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce || !('IntersectionObserver' in window)) {
-        // Fallback — show all immediately
-        document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
-        window.__portalObserve = function(root) {
-          (root || document).querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
-        };
-        return;
-      }
-      var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-in');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-      function observeAll(root) {
-        (root || document).querySelectorAll('.reveal:not(.is-in), .reveal-left:not(.is-in)').forEach(function(el) {
-          io.observe(el);
-        });
-      }
-      window.__portalObserve = observeAll;
-      observeAll();
-    })();
+    /* ── REVEAL ON SCROLL — removed ──
+       Portal content is visible from first paint. __portalObserve stays as a
+       no-op because the announcement and award renderers call it after
+       injecting cards; removing it would throw. */
+    window.__portalObserve = function () {};
 
     /* ── ANNOUNCEMENTS ── */
     (function() {
@@ -906,5 +951,6 @@
     }
   </script>
 
+  <script src="portal-search.js"></script>
 </body>
 </html>

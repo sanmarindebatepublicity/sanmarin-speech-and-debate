@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Competition Toolkit — Member Portal — San Marin Speech &amp; Debate</title>
+  <link rel="icon" type="image/png" href="brand-assets/faviconhorse.png" />
+  <link rel="apple-touch-icon" href="brand-assets/faviconhorse.png" />
+  <title>Competition Toolkit &middot; Member Portal &middot; San Marin Speech &amp; Debate</title>
 
   <script>
     (function() {
@@ -102,7 +104,7 @@
     @media (max-width: 720px) { .tk-resource-grid { grid-template-columns: 1fr; } }
 
     .tk-res-card {
-      background: rgba(28,54,32,0.5);
+      background: rgba(36,44,38,0.5);
       border: 1px solid rgba(196,165,90,0.13);
       border-radius: 16px;
       backdrop-filter: blur(10px);
@@ -215,7 +217,7 @@
       justify-content: space-between;
       padding: 12px 16px;
       border-bottom: 1px solid rgba(255,255,255,0.07);
-      background: rgba(28,54,32,0.6);
+      background: rgba(36,44,38,0.6);
     }
     .tk-pdf-panel-title {
       font-size: 11.5px;
@@ -544,7 +546,7 @@
       align-items: center;
       gap: 14px;
       padding: 20px 24px;
-      background: rgba(28,54,32,0.5);
+      background: rgba(36,44,38,0.5);
       border: 1px solid rgba(196,165,90,0.13);
       border-radius: 16px;
       backdrop-filter: blur(10px);
@@ -729,6 +731,12 @@
         </button>
       </div>
 
+      <div class="sidebar-search">
+        <input id="portal-search" type="search" placeholder="Search this page" autocomplete="off"
+               role="combobox" aria-expanded="false" aria-controls="portal-search-results" aria-label="Search this page" />
+        <div id="portal-search-results" role="listbox" hidden></div>
+      </div>
+
       <nav class="sidebar-nav" aria-label="Portal sections">
         <a href="portal-team-hub.html" class="sidebar-link">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
@@ -750,6 +758,15 @@
             <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
           </svg>
           Training Vault
+        </a>
+        <!-- Captains only. Hidden in markup and revealed by the role check
+             below, so members never see it even briefly. -->
+        <a href="captain-docs.html" class="sidebar-link" id="sidebar-captain-docs" hidden>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Captain Docs
         </a>
       </nav>
 
@@ -1225,35 +1242,23 @@
   </nav>
 
   <script>
-    /* ── REVEAL ON SCROLL ── */
-    (function() {
-      if (typeof window === 'undefined') return;
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce || !('IntersectionObserver' in window)) {
-        document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
-        window.__portalObserve = function(root) {
-          (root || document).querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
-        };
-        return;
-      }
-      var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-in');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-      function observeAll(root) {
-        (root || document).querySelectorAll('.reveal:not(.is-in), .reveal-left:not(.is-in)').forEach(function(el) {
-          io.observe(el);
-        });
-      }
-      window.__portalObserve = observeAll;
-      observeAll();
-    })();
+    /* ── REVEAL ON SCROLL — removed ──
+       Portal content is visible from first paint. __portalObserve stays as a
+       no-op because the announcement and award renderers call it after
+       injecting cards; removing it would throw. */
+    window.__portalObserve = function () {};
 
     /* ── SIGN OUT ── */
+    /* Captains get one extra sidebar entry. The link ships hidden so a member
+       never sees it, even for a frame, if this script is slow or blocked. */
+    (function() {
+      var link = document.getElementById('sidebar-captain-docs');
+      if (!link) return;
+      var role = '';
+      try { role = localStorage.getItem('sanmarinAuthRole') || ''; } catch(e) {}
+      if (role === 'captain') link.hidden = false;
+    })();
+
     document.getElementById('sidebar-signout').addEventListener('click', function() {
       try {
         localStorage.removeItem('sanmarinAuthRole');
@@ -1364,6 +1369,37 @@
     (function() {
       var TOTAL_ITEMS = document.querySelectorAll('.pk-items input[type="checkbox"]').length;
 
+      /* Checked state persists in localStorage, keyed by item label. Without
+         this a page reload mid-tournament-morning wiped the whole list — the
+         one moment the list is actually in use. Keyed by label rather than
+         index so editing the list does not silently shift everyone's ticks. */
+      var STORE_KEY = 'smPackingList';
+      function keyOf(cb) {
+        var lbl = cb.closest('.pk-item').querySelector('.pk-item-label');
+        return lbl ? lbl.textContent.trim() : '';
+      }
+      function saveState() {
+        try {
+          var done = [];
+          document.querySelectorAll('.pk-items input[type="checkbox"]:checked').forEach(function(cb) {
+            var k = keyOf(cb); if (k) done.push(k);
+          });
+          localStorage.setItem(STORE_KEY, JSON.stringify(done));
+        } catch(e) {}
+      }
+      function loadState() {
+        var done = [];
+        try { done = JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch(e) {}
+        if (!Array.isArray(done) || !done.length) return;
+        document.querySelectorAll('.pk-items input[type="checkbox"]').forEach(function(cb) {
+          if (done.indexOf(keyOf(cb)) !== -1) {
+            cb.checked = true;
+            cb.closest('.pk-item').classList.add('checked');
+          }
+        });
+      }
+      loadState();
+
       function updateProgress() {
         var checked = document.querySelectorAll('.pk-items input[type="checkbox"]:checked').length;
         var pct = TOTAL_ITEMS > 0 ? Math.round((checked / TOTAL_ITEMS) * 100) : 0;
@@ -1390,6 +1426,7 @@
           updateProgress();
           var group = this.getAttribute('data-group');
           if (group) updateGroupCount(group);
+          saveState();
         });
       });
 
@@ -1401,6 +1438,7 @@
         });
         updateProgress();
         ['attire', 'supplies', 'personal'].forEach(function(g) { updateGroupCount(g); });
+        saveState();
       });
 
       // Initial state
@@ -1409,5 +1447,6 @@
     })();
   </script>
 
+  <script src="portal-search.js"></script>
 </body>
 </html>

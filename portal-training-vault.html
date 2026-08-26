@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Training Vault — Member Portal — San Marin Speech &amp; Debate</title>
+  <link rel="icon" type="image/png" href="brand-assets/faviconhorse.png" />
+  <link rel="apple-touch-icon" href="brand-assets/faviconhorse.png" />
+  <title>Training Vault &middot; Member Portal &middot; San Marin Speech &amp; Debate</title>
 
   <script>
     (function() {
@@ -37,12 +39,12 @@
   <style>
     /* ── Portal body: vault-styles overwrites body — keep relaxed dark green ── */
     body {
-      background: #142a1a !important;
+      background: #181d19 !important;
       color: #ecefe6 !important;
       background-image:
-        radial-gradient(ellipse 70% 50% at 18% 0%, rgba(40,72,46,0.45) 0%, transparent 65%),
+        radial-gradient(ellipse 70% 50% at 18% 0%, rgba(44,58,48,0.28) 0%, transparent 65%),
         radial-gradient(ellipse 60% 50% at 88% 18%, rgba(196,165,90,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 45% at 50% 100%, rgba(28,54,32,0.4) 0%, transparent 70%) !important;
+        radial-gradient(ellipse 60% 45% at 50% 100%, rgba(35,44,38,0.35) 0%, transparent 70%) !important;
       background-attachment: fixed !important;
     }
 
@@ -139,7 +141,7 @@
     @media (max-width: 640px) { .pdf-grid { grid-template-columns: 1fr; } }
 
     .pdf-card {
-      background: rgba(28,54,32,0.5);
+      background: rgba(36,44,38,0.5);
       border: 1px solid rgba(196,165,90,0.13);
       border-radius: 14px;
       backdrop-filter: blur(10px);
@@ -327,6 +329,12 @@
         </button>
       </div>
 
+      <div class="sidebar-search">
+        <input id="portal-search" type="search" placeholder="Search this page" autocomplete="off"
+               role="combobox" aria-expanded="false" aria-controls="portal-search-results" aria-label="Search this page" />
+        <div id="portal-search-results" role="listbox" hidden></div>
+      </div>
+
       <nav class="sidebar-nav" aria-label="Portal sections">
         <a href="portal-team-hub.html" class="sidebar-link">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
@@ -348,6 +356,15 @@
             <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-linecap="round"/>
           </svg>
           Training Vault
+        </a>
+        <!-- Captains only. Hidden in markup and revealed by the role check
+             below, so members never see it even briefly. -->
+        <a href="captain-docs.html" class="sidebar-link" id="sidebar-captain-docs" hidden>
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Captain Docs
         </a>
       </nav>
 
@@ -734,35 +751,23 @@
   <script src="vault-app.js"></script>
 
   <script>
-    /* ── REVEAL ON SCROLL ── */
-    (function() {
-      if (typeof window === 'undefined') return;
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce || !('IntersectionObserver' in window)) {
-        document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
-        window.__portalObserve = function(root) {
-          (root || document).querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
-        };
-        return;
-      }
-      var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-in');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-      function observeAll(root) {
-        (root || document).querySelectorAll('.reveal:not(.is-in), .reveal-left:not(.is-in)').forEach(function(el) {
-          io.observe(el);
-        });
-      }
-      window.__portalObserve = observeAll;
-      observeAll();
-    })();
+    /* ── REVEAL ON SCROLL — removed ──
+       Portal content is visible from first paint. __portalObserve stays as a
+       no-op because the announcement and award renderers call it after
+       injecting cards; removing it would throw. */
+    window.__portalObserve = function () {};
 
     /* Sign out */
+    /* Captains get one extra sidebar entry. The link ships hidden so a member
+       never sees it, even for a frame, if this script is slow or blocked. */
+    (function() {
+      var link = document.getElementById('sidebar-captain-docs');
+      if (!link) return;
+      var role = '';
+      try { role = localStorage.getItem('sanmarinAuthRole') || ''; } catch(e) {}
+      if (role === 'captain') link.hidden = false;
+    })();
+
     document.getElementById('sidebar-signout').addEventListener('click', function() {
       try {
         localStorage.removeItem('sanmarinAuthRole');
@@ -844,5 +849,6 @@
     })();
   </script>
 
+  <script src="portal-search.js"></script>
 </body>
 </html>
