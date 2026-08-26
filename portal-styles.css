@@ -452,37 +452,13 @@ body {
 .tab-btn.active { color: #c4a55a; transform: translateY(-1px); }
 .tab-btn svg { width: 22px; height: 22px; }
 
-/* ── SHARED PORTAL ANIMATIONS ── */
-@media (prefers-reduced-motion: no-preference) {
-  /* Reveal-on-scroll base */
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
-    will-change: opacity, transform;
-  }
-  .reveal.is-in { opacity: 1; transform: translateY(0); }
-
-  .reveal-left {
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: opacity 0.45s ease-out, transform 0.45s ease-out;
-  }
-  .reveal-left.is-in { opacity: 1; transform: translateX(0); }
-
-  /* Stagger children when a parent uses .stagger */
-  .stagger .reveal:nth-child(1).is-in { transition-delay: 0s; }
-  .stagger .reveal:nth-child(2).is-in { transition-delay: 0.08s; }
-  .stagger .reveal:nth-child(3).is-in { transition-delay: 0.16s; }
-  .stagger .reveal:nth-child(4).is-in { transition-delay: 0.24s; }
-  .stagger .reveal:nth-child(5).is-in { transition-delay: 0.32s; }
-  .stagger .reveal:nth-child(6).is-in { transition-delay: 0.40s; }
-  .stagger .reveal:nth-child(7).is-in { transition-delay: 0.48s; }
-  .stagger .reveal:nth-child(8).is-in { transition-delay: 0.56s; }
-  .stagger .reveal:nth-child(9).is-in { transition-delay: 0.64s; }
-  .stagger .reveal:nth-child(10).is-in { transition-delay: 0.72s; }
-  .stagger .reveal:nth-child(n+11).is-in { transition-delay: 0.80s; }
-}
+/* ── SHARED PORTAL ANIMATIONS ──
+   Reveal-on-scroll removed. Portal content is visible from first paint.
+   These classes stay as inert no-ops because the markup still carries them
+   and pages call window.__portalObserve on dynamically injected cards. */
+.reveal, .reveal.is-in,
+.reveal-left, .reveal-left.is-in { opacity: 1; transform: none; }
+.stagger .reveal.is-in { transition-delay: 0s; }
 
 /* Soft visual section separator */
 .soft-divider {

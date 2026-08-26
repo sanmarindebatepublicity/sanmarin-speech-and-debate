@@ -634,10 +634,8 @@
     // The "last updated" stamp is handled by last-updated.js, loaded at the
     // bottom of this page. Any element with data-last-updated gets filled in.
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    /* Scroll-reveal removed — content is visible from first paint. See the
+       note above .fade-in in about-styles.css. */
 
     // Timeline jog wheel
     (function() {
@@ -646,13 +644,7 @@
       var spineProgress = document.querySelector('.spine-progress');
       if (!nodes.length || !entries.length) return;
 
-      // Reveal entries on scroll
-      var revealObserver = new IntersectionObserver(function(observed) {
-        observed.forEach(function(obs) {
-          if (obs.isIntersecting) obs.target.classList.add('visible');
-        });
-      }, { threshold: 0.1 });
-
+      // Entries are visible from the start; only the spine indicator tracks scroll.
       // Activate the corresponding node when entry crosses the viewport center band,
       // and fluidly grow the gold spine-progress fill down to that node.
       var activeObserver = new IntersectionObserver(function(observed) {
@@ -671,7 +663,6 @@
       }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
 
       entries.forEach(function(entry) {
-        revealObserver.observe(entry);
         activeObserver.observe(entry);
       });
     })();

@@ -743,33 +743,11 @@
   <script src="vault-app.js"></script>
 
   <script>
-    /* ── REVEAL ON SCROLL ── */
-    (function() {
-      if (typeof window === 'undefined') return;
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce || !('IntersectionObserver' in window)) {
-        document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
-        window.__portalObserve = function(root) {
-          (root || document).querySelectorAll('.reveal, .reveal-left').forEach(function(el) { el.classList.add('is-in'); });
-        };
-        return;
-      }
-      var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-in');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-      function observeAll(root) {
-        (root || document).querySelectorAll('.reveal:not(.is-in), .reveal-left:not(.is-in)').forEach(function(el) {
-          io.observe(el);
-        });
-      }
-      window.__portalObserve = observeAll;
-      observeAll();
-    })();
+    /* ── REVEAL ON SCROLL — removed ──
+       Portal content is visible from first paint. __portalObserve stays as a
+       no-op because the announcement and award renderers call it after
+       injecting cards; removing it would throw. */
+    window.__portalObserve = function () {};
 
     /* Sign out */
     /* Captains get one extra sidebar entry. The link ships hidden so a member

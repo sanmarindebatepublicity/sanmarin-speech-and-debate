@@ -471,8 +471,9 @@
     }
 
     /* ── FADE ── */
-    .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
-    .fade-in.visible { opacity: 1; transform: none; }
+    /* Scroll-reveal removed: content is visible from first paint rather than
+       waiting on script. Kept as no-ops so existing markup needs no edits. */
+    .fade-in, .fade-in.visible { opacity: 1; transform: none; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
@@ -932,12 +933,7 @@
 
     // ── Scroll fade-in ────────────────────────────────────────
 
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+    /* Scroll-reveal observer removed — see .fade-in in the stylesheet above. */
 
     // ── Nav dropdown + hamburger ──────────────────────────────
 
