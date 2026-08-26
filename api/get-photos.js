@@ -93,7 +93,7 @@ async function listFolderImages(drive, folderId) {
   do {
     const params = {
       q,
-      fields: 'nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, thumbnailLink)',
+      fields: 'nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, thumbnailLink, description)',
       orderBy: 'createdTime desc',
       pageSize: PAGE_SIZE,
       spaces: 'drive',
@@ -123,6 +123,10 @@ function toPhoto(file) {
   return {
     id: file.id,
     name: typeof file.name === 'string' ? file.name : '',
+    // Whatever the uploader typed into the file's Description box in Drive.
+    // This is how a photo gets a real caption without touching the repo:
+    // right-click the file in Drive, File information, Description.
+    description: typeof file.description === 'string' ? file.description.trim() : '',
     url: resizeThumbnail(file.thumbnailLink, 'w' + CAROUSEL_WIDTH) || fallbackUrl(file.id, CAROUSEL_WIDTH),
     fullUrl: resizeThumbnail(file.thumbnailLink, 'w' + MODAL_WIDTH) || fallbackUrl(file.id, MODAL_WIDTH),
   };

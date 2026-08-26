@@ -528,7 +528,10 @@
       position: relative; overflow: hidden;
       padding: 0;
       border-radius: 4px;
-      border: 1px solid var(--color-border-card);
+      /* A photo fills this card edge to edge, so the light card border read as a
+         white hairline against darker images. A faint forest tint keeps the gold
+         hover edge working without outlining every photo. */
+      border: 1px solid rgba(27,67,50,0.10);
       background: var(--color-bg-card-tint);
       box-shadow: 0 1px 2px rgba(27,67,50,0.03);
       cursor: pointer;
@@ -632,6 +635,14 @@
       transition: opacity 0.3s var(--ease-lux);
     }
     .lb-img.lb-loading { opacity: 0; }
+    .lb-caption {
+      position: relative; z-index: 1;
+      max-width: min(720px, calc(100vw - 160px));
+      margin: 14px auto 0;
+      text-align: center;
+      font-size: 13.5px; line-height: 1.55;
+      color: rgba(240,237,230,0.78);
+    }
 
     /* Spinner shown while lightbox image loads */
     .lb-spinner {
@@ -804,6 +815,8 @@
         <img id="lb-img" src="" alt="" class="lb-img" referrerpolicy="no-referrer" />
         <div class="lb-spinner" id="lb-spinner"></div>
       </div>
+      <!-- Caption comes from the photo's Description in Drive; stays hidden when blank -->
+      <p class="lb-caption" id="lb-caption" hidden></p>
     </div>
   </section>
 
@@ -1079,6 +1092,7 @@
 
       var lightbox   = document.getElementById('lightbox');
       var lbImg      = document.getElementById('lb-img');
+      var lbCaption  = document.getElementById('lb-caption');
       var lbClose    = document.getElementById('lb-close');
       var lbBackdrop = document.getElementById('lb-backdrop');
 
@@ -1097,6 +1111,17 @@
         lbImg.classList.add('lb-loading');
         lbImg.src = photo.fullUrl;
         lbImg.alt = photo.alt;
+
+        // Show the Drive description under the photo, or nothing if there isn't one.
+        if (lbCaption) {
+          if (photo.caption) {
+            lbCaption.textContent = photo.caption;
+            lbCaption.hidden = false;
+          } else {
+            lbCaption.textContent = '';
+            lbCaption.hidden = true;
+          }
+        }
         lbImg.onload = function () { lbImg.classList.remove('lb-loading'); };
         lbImg.onerror = function () { lbImg.classList.remove('lb-loading'); };
 
@@ -1283,10 +1308,15 @@
           var photos = raw
             .filter(function (p) { return p && typeof p.url === 'string' && typeof p.fullUrl === 'string'; })
             .map(function (p, i) {
+              // A photo's caption is its Drive file Description, so captions are
+              // written in Drive and never in this repo. Falls back to a generic
+              // label when the uploader left the Description blank.
+              var caption = (p && typeof p.description === 'string') ? p.description.trim() : '';
               return {
                 url: p.url,
                 fullUrl: p.fullUrl,
-                alt: 'San Marin Speech and Debate team photo ' + (i + 1),
+                caption: caption,
+                alt: caption || ('San Marin Speech and Debate team photo ' + (i + 1)),
               };
             });
           render(photos);
