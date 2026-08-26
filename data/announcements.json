@@ -2,23 +2,23 @@
   "_instructions": "To add a new announcement: copy an entry in the 'items' array, update the fields, and save. Sort by date (newest first). Format: YYYY-MM-DD. Leave 'link' and 'linkText' as empty strings if there is no button link.",
   "items": [
     {
-      "title": "State Qualifier Results — Congratulations!",
-      "date": "2026-05-14",
-      "body": "A huge congratulations to our state qualifiers from the recent tournament! Results have been posted on the team spreadsheet. Check your emails for travel information and next steps from Coach Kenyon.",
+      "title": "Welcome to the 2026–2027 Season!",
+      "date": "2026-08-02",
+      "body": "First meeting is Wednesday, September 26th after school (3:00 PM) in Room 918 (Mr. Blok's room). Bring a notebook, pen and the signed permission form. Food will be provided. Get ready to meet new and exciting people!",
       "link": "",
       "linkText": ""
     },
     {
-      "title": "End-of-Year Banquet — Save the Date",
-      "date": "2026-05-08",
-      "body": "Our annual awards banquet is scheduled for June 5th at 6:00 PM in the San Marin MPR. All members, parents, and coaches are invited. Please RSVP by May 28th using the link below.",
-      "link": "https://docs.google.com/forms",
-      "linkText": "RSVP Here"
+      "title": "First Tournament of this Season",
+      "date": "2026-08-21",
+      "body": "Our first tournament of the season is GGSA Debate 2: Parli Congress on Saturday, September 26, at San Ramon Valley High School in Danville! Come compete, build your skills, and kick off the season with the team—everyone should join!",
+      "link": "https://www.tabroom.com/index/search.mhtml",
+      "linkText": "Tabroom"
     },
     {
-      "title": "Welcome to the 2025–2026 Season!",
-      "date": "2025-09-01",
-      "body": "First meeting is Wednesday, September 3rd after school in Room 204. Bring a notebook and a pen. Officer applications will be open through September 10th. We can't wait to see everyone — it's going to be a great year!",
+      "title": "Club Fair at San Marin",
+      "date": "2026-08-22",
+      "body": "We will be at the Club Fair in the Quad, on Wednesday, September 16th in the Quad during lunch. Come by to learn more about the club, meet the team, and sign up!",
       "link": "",
       "linkText": ""
     }

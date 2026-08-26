@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Events &amp; Media — San Marin Speech &amp; Debate</title>
+  <title>Events &amp; Media &middot; San Marin Speech &amp; Debate</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -477,52 +477,56 @@
     .gallery-inner { max-width: 1200px; margin: 0 auto; }
     .gallery-heading-row { margin-bottom: 44px; }
 
-    /* Season tabs */
-    .gallery-tabs {
-      display: flex; gap: 2px;
-      border-bottom: 1px solid var(--color-border-base);
-      margin-bottom: 40px;
-      overflow-x: auto; scrollbar-width: none;
+    /* ── Count + controls row ── */
+    .gal-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap; margin-bottom: 22px;
     }
-    .gallery-tabs::-webkit-scrollbar { display: none; }
-    .gallery-tab-btn {
-      position: relative;
-      display: inline-flex; align-items: center;
-      padding: 14px 24px;
+    .gal-count {
       font-family: var(--font-body);
       font-size: 11px; font-weight: 600;
       letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--color-text-citation);
-      background: transparent; border: none;
-      cursor: pointer; white-space: nowrap;
-      transition: color 0.4s var(--ease-lux);
     }
-    .gallery-tab-btn::after {
-      content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
-      background: linear-gradient(90deg, var(--color-gold), var(--color-gold-soft));
-      transform: scaleX(0); transform-origin: center;
-      transition: transform 0.5s var(--ease-lux);
+    .gal-arrows { display: flex; gap: 8px; }
+    .gal-arrow {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid var(--color-border-base);
+      color: var(--color-accent);
+      cursor: pointer;
+      transition: background 0.35s var(--ease-lux), border-color 0.35s var(--ease-lux), opacity 0.35s var(--ease-lux);
     }
-    /* keep the first tab flush with the section heading above it */
-    .gallery-tab-btn:first-child { padding-left: 2px; }
-    .gallery-tab-btn:hover { color: var(--color-accent); }
-    .gallery-tab-btn:focus-visible { outline: 2px solid var(--color-gold); outline-offset: -3px; }
-    .gallery-tab-btn.active { color: var(--color-accent); }
-    .gallery-tab-btn.active::after { transform: scaleX(1); }
+    .gal-arrow:hover:not(:disabled) { background: var(--color-bg-card-tint); border-color: var(--color-gold); }
+    .gal-arrow:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 2px; }
+    .gal-arrow:disabled { opacity: 0.28; cursor: default; }
+    /* Touch devices scroll the carousel by swiping, so the arrows are redundant. */
+    @media (hover: none) { .gal-arrows { display: none; } }
 
-    /* Tab skeleton */
-    .gallery-tab-skel {
-      height: 13px; width: 96px; border-radius: 2px; margin: 15px 14px;
-      background: linear-gradient(90deg, var(--color-bg-card-tint) 0%, #e4e0d8 50%, var(--color-bg-card-tint) 100%);
-      background-size: 200% 100%;
-      animation: skel-shimmer 1.8s ease-in-out infinite;
+    /* ── Carousel ──
+       overflow-x lives on this track alone, never on the page, so the gallery
+       cannot introduce a global horizontal scrollbar. */
+    .gal-track {
+      display: flex; gap: 18px;
+      overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 2px 2px 6px;
+      margin: 0 -2px;
+      overscroll-behavior-x: contain;
     }
+    .gal-track::-webkit-scrollbar { display: none; }
 
-    /* Photo grid — masonry via CSS columns */
-    .gallery-grid { columns: 3; column-gap: 22px; }
-    .gallery-photo-item {
-      break-inside: avoid; margin-bottom: 22px;
+    .gal-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      width: clamp(230px, 27vw, 340px);
+      aspect-ratio: 4 / 3;
       position: relative; overflow: hidden;
+      padding: 0;
       border-radius: 4px;
       border: 1px solid var(--color-border-card);
       background: var(--color-bg-card-tint);
@@ -530,64 +534,74 @@
       cursor: pointer;
       transition: box-shadow 0.6s var(--ease-lux), transform 0.6s var(--ease-lux), border-color 0.6s var(--ease-lux);
     }
-    .gallery-photo-item img {
-      width: 100%; display: block;
+    .gal-item img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
       transition: transform 0.9s var(--ease-lux);
     }
-    .gallery-photo-item:hover {
-      transform: translateY(-6px);
+    .gal-item:hover {
+      transform: translateY(-5px);
       border-color: rgba(184,144,90,0.45);
       box-shadow: 0 22px 48px rgba(27,67,50,0.14), 0 4px 12px rgba(27,67,50,0.06);
     }
-    .gallery-photo-item:hover img { transform: scale(1.06); }
-    .gallery-photo-item:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
-    .gallery-photo-overlay {
+    .gal-item:hover img { transform: scale(1.06); }
+    .gal-item:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+    .gal-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(13,26,16,0.74) 0%, rgba(13,26,16,0.20) 55%, rgba(13,26,16,0.06) 100%);
       display: flex; align-items: center; justify-content: center;
       color: #f0ede6;
       opacity: 0;
       transition: opacity 0.45s var(--ease-lux);
+      pointer-events: none;
     }
-    .gallery-photo-item:hover .gallery-photo-overlay,
-    .gallery-photo-item:focus-visible .gallery-photo-overlay { opacity: 1; }
-    .gallery-photo-overlay svg {
+    .gal-item:hover .gal-overlay,
+    .gal-item:focus-visible .gal-overlay { opacity: 1; }
+    .gal-overlay svg {
       transform: translateY(8px);
       transition: transform 0.55s var(--ease-lux);
       filter: drop-shadow(0 2px 10px rgba(0,0,0,0.45));
     }
-    .gallery-photo-item:hover .gallery-photo-overlay svg,
-    .gallery-photo-item:focus-visible .gallery-photo-overlay svg { transform: none; }
+    .gal-item:hover .gal-overlay svg,
+    .gal-item:focus-visible .gal-overlay svg { transform: none; }
 
-    /* Photo grid skeleton */
-    .gallery-skel-wrap { columns: 3; column-gap: 22px; }
-    .gallery-skel {
-      break-inside: avoid; margin-bottom: 22px;
-      border-radius: 4px; aspect-ratio: 4/3;
+    /* ── Loading skeleton ── */
+    .gal-skel {
+      flex: 0 0 auto;
+      width: clamp(230px, 27vw, 340px);
+      aspect-ratio: 4 / 3;
+      border-radius: 4px;
       border: 1px solid var(--color-border-card);
       background: linear-gradient(90deg, var(--color-bg-card) 0%, var(--color-bg-card-tint) 50%, var(--color-bg-card) 100%);
       background-size: 200% 100%;
       animation: skel-shimmer 1.8s ease-in-out infinite;
     }
-    .gallery-skel:nth-child(3n+2) { aspect-ratio: 3/4; }
-
     @keyframes skel-shimmer {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
 
-    /* Empty / error states — span the full masonry width, not one column */
+    /* ── Empty / error states ── */
     .gallery-state {
-      column-span: all;
-      text-align: center; padding: 72px 24px;
+      width: 100%;
+      text-align: center; padding: 66px 24px;
       font-family: var(--font-body);
       font-size: 15px; color: var(--color-text-muted); line-height: 1.7;
+      border: 1px solid var(--color-border-card);
+      border-radius: 4px;
+      background: var(--color-bg-card);
     }
     .gallery-state strong {
       display: block; margin-bottom: 10px;
       font-family: var(--font-display);
       font-size: 26px; font-weight: 600; letter-spacing: -0.01em;
       color: var(--color-text-primary);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gal-track { scroll-behavior: auto; }
+      .gal-skel { animation: none; }
+      .gal-item, .gal-item img, .gal-overlay { transition: none; }
     }
 
     /* ── Lightbox (deep forest, bronze accents) ── */
@@ -651,34 +665,6 @@
       transform: scale(1.06);
     }
 
-    .lb-prev, .lb-next {
-      position: fixed; top: 50%; transform: translateY(-50%); z-index: 2;
-      width: 54px; height: 54px; border-radius: 50%;
-      background: rgba(240,237,230,0.06);
-      border: 1px solid rgba(240,237,230,0.16);
-      color: #f0ede6; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.35s var(--ease-lux), border-color 0.35s var(--ease-lux), transform 0.35s var(--ease-lux);
-    }
-    .lb-prev { left: 20px; }
-    .lb-next { right: 20px; }
-    .lb-prev:hover, .lb-next:hover {
-      background: rgba(184,144,90,0.18);
-      border-color: rgba(184,144,90,0.55);
-    }
-    .lb-prev:hover { transform: translateY(-50%) translateX(-3px); }
-    .lb-next:hover { transform: translateY(-50%) translateX(3px); }
-
-    .lb-counter {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 2;
-      font-family: var(--font-body);
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(240,237,230,0.55);
-      background: rgba(13,26,16,0.55);
-      border: 1px solid rgba(240,237,230,0.12);
-      padding: 7px 18px; border-radius: 999px;
-    }
 
     /* ── RESPONSIVE: GALLERY + NEWSLETTER ── */
     @media (max-width: 1024px) {
@@ -689,10 +675,8 @@
       #photo-gallery { padding: 64px 24px; }
       #events-section { padding: 64px 24px; }
       .gallery-heading-row { margin-bottom: 34px; }
-      .gallery-tabs { margin-bottom: 30px; }
-      .gallery-tab-btn { padding: 13px 18px; }
-      .gallery-grid, .gallery-skel-wrap { columns: 2; column-gap: 16px; }
-      .gallery-photo-item, .gallery-skel { margin-bottom: 16px; }
+      .gal-item, .gal-skel { width: clamp(210px, 62vw, 280px); }
+      .gal-track { gap: 14px; }
       .blog-col-header { align-items: flex-start; gap: 26px; margin-bottom: 34px; }
       .feed-card-header { gap: 16px; padding: 18px; }
       .feed-card-img-wrap { width: 92px; height: 68px; }
@@ -701,14 +685,10 @@
       .post-body { font-size: 15px; }
     }
     @media (max-width: 520px) {
-      .gallery-grid, .gallery-skel-wrap { columns: 1; }
       .feed-card-brief { display: none; }
       .feed-card-chevron { width: 30px; height: 30px; }
       .subscribe-btn { padding: 13px 26px; }
-      .lb-img-wrap { max-width: calc(100vw - 80px); }
-      .lb-prev, .lb-next { width: 44px; height: 44px; }
-      .lb-prev { left: 8px; }
-      .lb-next { right: 8px; }
+      .lb-img-wrap { max-width: calc(100vw - 40px); }
     }
   </style>
 </head>
@@ -773,7 +753,7 @@
        PAGE HEADER
   ════════════════════════════════════════════ -->
   <section class="leadership-header">
-    <p class="season-label">2025–2026 Season</p>
+    <p class="season-label">2025-2026 Season</p>
     <h1>Events &amp; Media</h1>
     <div class="divider"></div>
     <p class="subtitle">Photo galleries, newsletters, and season highlights</p>
@@ -787,49 +767,43 @@
       <div class="gallery-heading-row">
         <div class="sec-eyebrow">Photo Gallery</div>
         <h2 class="sec-heading">Season <em>Highlights</em></h2>
-        <p class="sec-sub">Tournaments, showcases, and the quiet moments in between — captured across every season of the program.</p>
+        <p class="sec-sub">Tournaments, showcases, and everything in between, captured across every season of the program.</p>
         <div class="gold-rule"></div>
       </div>
 
-      <!-- Season tabs — populated by JS -->
-      <div id="gallery-tabs" class="gallery-tabs" role="tablist" aria-label="Season tabs">
-        <!-- Skeleton tab placeholders while seasons load -->
-        <div class="gallery-tab-skel"></div>
-        <div class="gallery-tab-skel"></div>
-        <div class="gallery-tab-skel"></div>
+      <!-- Count + desktop arrows -->
+      <div class="gal-bar">
+        <span class="gal-count" id="gal-count" aria-live="polite"></span>
+        <div class="gal-arrows">
+          <button type="button" class="gal-arrow" id="gal-prev" aria-label="Scroll photos left" disabled>
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="gal-arrow" id="gal-next" aria-label="Scroll photos right" disabled>
+            <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
 
-      <!-- Photo grid — populated by JS -->
-      <div id="gallery-grid" class="gallery-grid" aria-live="polite">
-        <!-- Skeleton photo placeholders -->
-        <div class="gallery-skel-wrap">
-          <div class="gallery-skel"></div>
-          <div class="gallery-skel"></div>
-          <div class="gallery-skel"></div>
-          <div class="gallery-skel"></div>
-          <div class="gallery-skel"></div>
-          <div class="gallery-skel"></div>
-        </div>
+      <!-- Carousel — populated from /api/get-photos -->
+      <div id="gallery-track" class="gal-track" role="group" aria-label="Team photos" tabindex="0">
+        <div class="gal-skel"></div>
+        <div class="gal-skel"></div>
+        <div class="gal-skel"></div>
+        <div class="gal-skel"></div>
+        <div class="gal-skel"></div>
       </div>
     </div>
 
-    <!-- Lightbox -->
+    <!-- Image modal -->
     <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
       <div class="lb-backdrop" id="lb-backdrop"></div>
-      <button class="lb-close" id="lb-close" aria-label="Close lightbox">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
-      </button>
-      <button class="lb-prev" id="lb-prev" aria-label="Previous photo">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button type="button" class="lb-close" id="lb-close" aria-label="Close photo">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
       </button>
       <div class="lb-img-wrap">
-        <img id="lb-img" src="" alt="" class="lb-img" />
+        <img id="lb-img" src="" alt="" class="lb-img" referrerpolicy="no-referrer" />
         <div class="lb-spinner" id="lb-spinner"></div>
       </div>
-      <button class="lb-next" id="lb-next" aria-label="Next photo">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <div class="lb-counter" id="lb-counter"></div>
     </div>
   </section>
 
@@ -845,7 +819,7 @@
           <div>
             <div class="sec-eyebrow">Newsletter</div>
             <h2 class="sec-heading">Team Updates &amp; <em>Recaps</em></h2>
-            <p class="sec-sub">Tournament results, roster news, and reflections from the season — published straight from our Substack.</p>
+            <p class="sec-sub">Tournament results, roster news, and reflections from the season, published straight from our Substack.</p>
             <div class="gold-rule"></div>
           </div>
           <a id="subscribe-btn" href="#" target="_blank" rel="noopener noreferrer" class="subscribe-btn">
@@ -903,7 +877,7 @@
         </a>
       </div>
     </div>
-    <div class="site-footer-copy">© 2025 San Marin High School Speech &amp; Debate Club · All rights reserved</div>
+    <div class="site-footer-copy">© <span data-current-year>2026</span> San Marin High School Speech &amp; Debate Club · All rights reserved</div>
   </footer>
 
   <script>
@@ -1091,184 +1065,234 @@
     })();
 
     /*
-     * Photo gallery — fetches seasons and photos from /api/get-photos
-     * which reads from Google Drive via a Vercel serverless function.
-     * No code changes needed when new season folders are added to Drive.
+     * Photo carousel — reads /api/get-photos, which lists one Google Drive
+     * folder server-side. Adding a photo to that folder is the only step
+     * needed to publish it here; nothing in this file changes.
      */
-    (function() {
+    (function () {
       var API = '/api/get-photos';
 
-      var tabsEl   = document.getElementById('gallery-tabs');
-      var gridEl   = document.getElementById('gallery-grid');
-      var lightbox = document.getElementById('lightbox');
-      var lbImg    = document.getElementById('lb-img');
-      var lbPrev   = document.getElementById('lb-prev');
-      var lbNext   = document.getElementById('lb-next');
-      var lbClose  = document.getElementById('lb-close');
-      var lbCounter = document.getElementById('lb-counter');
-      var lbSpinner = document.getElementById('lb-spinner');
+      var trackEl = document.getElementById('gallery-track');
+      var countEl = document.getElementById('gal-count');
+      var prevBtn = document.getElementById('gal-prev');
+      var nextBtn = document.getElementById('gal-next');
+
+      var lightbox   = document.getElementById('lightbox');
+      var lbImg      = document.getElementById('lb-img');
+      var lbClose    = document.getElementById('lb-close');
       var lbBackdrop = document.getElementById('lb-backdrop');
 
-      var currentPhotos = [];
-      var currentIdx    = 0;
+      if (!trackEl || !lightbox) return;
 
-      // Local copy — the newsletter IIFE's escapeHTML is not in scope here, and
-      // referencing it threw a ReferenceError inside renderGrid, which the fetch
-      // .catch() swallowed as "Couldn't load photos" on every successful load.
-      function escapeHTML(s) {
-        return String(s == null ? '' : s)
-          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-      }
+      var lastFocused = null;   // button to hand focus back to on close
+      var savedScrollY = 0;
 
-      /* ── Lightbox ── */
-      function openLb(idx) {
-        currentIdx = idx;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ─── Modal ─────────────────────────────────────────────── */
+
+      function openModal(photo, triggerBtn) {
+        lastFocused = triggerBtn || null;
+
+        lbImg.classList.add('lb-loading');
+        lbImg.src = photo.fullUrl;
+        lbImg.alt = photo.alt;
+        lbImg.onload = function () { lbImg.classList.remove('lb-loading'); };
+        lbImg.onerror = function () { lbImg.classList.remove('lb-loading'); };
+
         lightbox.removeAttribute('hidden');
-        // Trigger fade-in on next frame
-        requestAnimationFrame(function() { lightbox.classList.add('lb-open'); });
+        requestAnimationFrame(function () { lightbox.classList.add('lb-open'); });
+
+        // Lock the page behind the modal without losing the reading position.
+        savedScrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.style.top = '-' + savedScrollY + 'px';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
         document.body.style.overflow = 'hidden';
-        showLbPhoto();
+
         lbClose.focus();
       }
 
-      function closeLb() {
-        lightbox.classList.remove('lb-open');
-        lightbox.addEventListener('transitionend', function handler() {
-          lightbox.setAttribute('hidden', '');
-          lightbox.removeEventListener('transitionend', handler);
-        });
-        document.body.style.overflow = '';
-      }
-
-      function showLbPhoto() {
-        var photo = currentPhotos[currentIdx];
-        lbImg.classList.add('lb-loading');
-        lbImg.src = photo.fullUrl;
-        lbImg.alt = photo.name || ('Photo ' + (currentIdx + 1));
-        lbCounter.textContent = (currentIdx + 1) + ' / ' + currentPhotos.length;
-        lbImg.onload  = function() { lbImg.classList.remove('lb-loading'); };
-        lbImg.onerror = function() { lbImg.classList.remove('lb-loading'); };
-      }
-
-      function prevPhoto() {
-        currentIdx = (currentIdx - 1 + currentPhotos.length) % currentPhotos.length;
-        showLbPhoto();
-      }
-      function nextPhoto() {
-        currentIdx = (currentIdx + 1) % currentPhotos.length;
-        showLbPhoto();
-      }
-
-      lbClose.addEventListener('click', closeLb);
-      lbPrev.addEventListener('click', prevPhoto);
-      lbNext.addEventListener('click', nextPhoto);
-      lbBackdrop.addEventListener('click', closeLb);
-      document.addEventListener('keydown', function(e) {
+      function closeModal() {
         if (lightbox.hasAttribute('hidden')) return;
-        if (e.key === 'Escape')      closeLb();
-        if (e.key === 'ArrowLeft')   prevPhoto();
-        if (e.key === 'ArrowRight')  nextPhoto();
+
+        lightbox.classList.remove('lb-open');
+
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, savedScrollY);
+
+        var finish = function () {
+          lightbox.setAttribute('hidden', '');
+          lbImg.removeAttribute('src');
+          lbImg.alt = '';
+          if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
+          lastFocused = null;
+        };
+
+        // transitionend alone would never fire if the fade is disabled, so the
+        // timeout is the one that actually guarantees cleanup.
+        var done = false;
+        var once = function () { if (done) return; done = true; finish(); };
+        lightbox.addEventListener('transitionend', once, { once: true });
+        setTimeout(once, reduceMotion ? 0 : 420);
+      }
+
+      lbClose.addEventListener('click', closeModal);
+      lbBackdrop.addEventListener('click', closeModal);
+
+      document.addEventListener('keydown', function (e) {
+        if (lightbox.hasAttribute('hidden')) return;
+        if (e.key === 'Escape') { e.preventDefault(); closeModal(); }
       });
 
-      /* ── Grid ── */
-      var expandIcon = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      // Keep tabbing inside the modal while it is open. With only one control
+      // this is short, but it stops focus wandering to the page behind.
+      lightbox.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+        e.preventDefault();
+        lbClose.focus();
+      });
 
-      function showGridSkeleton() {
-        gridEl.innerHTML =
-          '<div class="gallery-skel-wrap">' +
-            '<div class="gallery-skel"></div>' +
-            '<div class="gallery-skel"></div>' +
-            '<div class="gallery-skel"></div>' +
-            '<div class="gallery-skel"></div>' +
-            '<div class="gallery-skel"></div>' +
-            '<div class="gallery-skel"></div>' +
-          '</div>';
+      /* ─── Carousel ──────────────────────────────────────────── */
+
+      var EXPAND_ICON =
+        '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true">' +
+        '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+      function setArrowState() {
+        var max = trackEl.scrollWidth - trackEl.clientWidth;
+        var x = trackEl.scrollLeft;
+        prevBtn.disabled = x <= 1;
+        nextBtn.disabled = max <= 1 || x >= max - 1;
       }
 
-      function renderGrid(photos) {
-        if (!photos || !photos.length) {
-          gridEl.innerHTML =
-            '<div class="gallery-state">' +
-              '<strong>No photos yet</strong>' +
-              'Photos will appear here once uploaded to Google Drive.' +
-            '</div>';
+      function page(dir) {
+        trackEl.scrollBy({
+          left: dir * Math.max(240, trackEl.clientWidth * 0.8),
+          behavior: reduceMotion ? 'auto' : 'smooth',
+        });
+      }
+
+      prevBtn.addEventListener('click', function () { page(-1); });
+      nextBtn.addEventListener('click', function () { page(1); });
+      trackEl.addEventListener('scroll', setArrowState, { passive: true });
+      window.addEventListener('resize', setArrowState);
+
+      /*
+       * Vertical wheel scrolls the carousel, but only while it can still move
+       * in that direction. At either end the event is left alone so the page
+       * keeps scrolling normally and the carousel never traps the visitor.
+       */
+      trackEl.addEventListener('wheel', function (e) {
+        if (e.deltaY === 0) return;                    // horizontal gesture: leave to the browser
+        var max = trackEl.scrollWidth - trackEl.clientWidth;
+        if (max <= 0) return;                          // nothing to scroll
+
+        var atStart = trackEl.scrollLeft <= 0;
+        var atEnd = trackEl.scrollLeft >= max - 1;
+        if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+
+        e.preventDefault();
+        trackEl.scrollLeft += e.deltaY;
+      }, { passive: false });
+
+      function showSkeleton() {
+        trackEl.innerHTML = '';
+        for (var i = 0; i < 5; i++) {
+          var sk = document.createElement('div');
+          sk.className = 'gal-skel';
+          trackEl.appendChild(sk);
+        }
+        countEl.textContent = '';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+      }
+
+      function showState(title, message) {
+        trackEl.innerHTML = '';
+        var box = document.createElement('div');
+        box.className = 'gallery-state';
+        var strong = document.createElement('strong');
+        strong.textContent = title;
+        box.appendChild(strong);
+        box.appendChild(document.createTextNode(message));
+        trackEl.appendChild(box);
+        countEl.textContent = '';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+      }
+
+      /*
+       * Built with DOM APIs rather than HTML strings, so every value coming
+       * back from the API is inserted as text or as a property and can never
+       * be parsed as markup.
+       */
+      function render(photos) {
+        if (!photos.length) {
+          showState('No photos yet', 'Photos will appear here as soon as they are added.');
           return;
         }
-        currentPhotos = photos;
-        gridEl.innerHTML = photos.map(function(photo, i) {
-          return (
-            '<div class="gallery-photo-item" tabindex="0" role="button" aria-label="View photo ' + (i + 1) + '"' +
-                ' onclick="__galleryOpen(' + i + ')"' +
-                ' onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();__galleryOpen(' + i + ')}">' +
-              '<img src="' + escapeHTML(photo.url) + '" alt="Season photo ' + (i + 1) + '" loading="lazy" />' +
-              '<div class="gallery-photo-overlay">' + expandIcon + '</div>' +
-            '</div>'
-          );
-        }).join('');
-      }
 
-      window.__galleryOpen = function(idx) { openLb(idx); };
+        trackEl.innerHTML = '';
 
-      /* ── Season loading ── */
-      function loadPhotos(folderId) {
-        showGridSkeleton();
-        fetch(API + '?folderId=' + encodeURIComponent(folderId))
-          .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-          .then(function(data) { renderGrid(data.photos || []); })
-          .catch(function(err) {
-            console.error('[gallery] photos fetch failed:', err);
-            gridEl.innerHTML =
-              '<div class="gallery-state">' +
-                '<strong>Couldn\'t load photos</strong>' +
-                'Check your connection or try again shortly.' +
-              '</div>';
-          });
-      }
-
-      /* ── Tab building ── */
-      function buildTabs(seasons) {
-        tabsEl.innerHTML = '';
-        if (!seasons.length) {
-          tabsEl.innerHTML = '<span style="padding:14px 4px;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-citation)">No seasons found</span>';
-          gridEl.innerHTML = '<div class="gallery-state"><strong>No seasons yet</strong>Add a season folder to Google Drive to get started.</div>';
-          return;
-        }
-
-        seasons.forEach(function(season, i) {
+        photos.forEach(function (photo, i) {
           var btn = document.createElement('button');
-          btn.className = 'gallery-tab-btn' + (i === 0 ? ' active' : '');
-          btn.setAttribute('role', 'tab');
-          btn.setAttribute('aria-selected', String(i === 0));
-          btn.textContent = season.name;
-          btn.addEventListener('click', function() {
-            tabsEl.querySelectorAll('.gallery-tab-btn').forEach(function(b) {
-              b.classList.remove('active');
-              b.setAttribute('aria-selected', 'false');
-            });
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-            loadPhotos(season.id);
-          });
-          tabsEl.appendChild(btn);
+          btn.type = 'button';
+          btn.className = 'gal-item';
+          btn.setAttribute('aria-label', 'View photo ' + (i + 1) + ' of ' + photos.length);
+
+          var img = document.createElement('img');
+          img.src = photo.url;
+          img.alt = photo.alt;
+          img.loading = i < 3 ? 'eager' : 'lazy';   // first screenful is not lazy
+          img.decoding = 'async';
+          // Google's signed thumbnail links reject requests that carry a
+          // Referer header (429), which browsers send by default cross-origin.
+          img.referrerPolicy = 'no-referrer';
+          btn.appendChild(img);
+
+          var overlay = document.createElement('span');
+          overlay.className = 'gal-overlay';
+          overlay.innerHTML = EXPAND_ICON;          // static markup, no API data
+          btn.appendChild(overlay);
+
+          // A real button already fires click on Enter and Space.
+          btn.addEventListener('click', function () { openModal(photo, btn); });
+
+          trackEl.appendChild(btn);
         });
 
-        // Auto-load the first (newest) season
-        loadPhotos(seasons[0].id);
+        countEl.textContent = photos.length === 1 ? '1 photo' : photos.length + ' photos';
+        setArrowState();
       }
 
-      /* ── Bootstrap: fetch season list ── */
-      fetch(API + '?type=seasons')
-        .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-        .then(function(data) { buildTabs(data.seasons || []); })
-        .catch(function(err) {
-          console.error('[gallery] seasons fetch failed:', err);
-          tabsEl.innerHTML = '';
-          gridEl.innerHTML =
-            '<div class="gallery-state">' +
-              '<strong>Gallery unavailable</strong>' +
-              'Could not connect to the photo service. Make sure the site is deployed on Vercel.' +
-            '</div>';
+      /* ─── Load ──────────────────────────────────────────────── */
+
+      showSkeleton();
+
+      fetch(API)
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          var raw = (data && Array.isArray(data.photos)) ? data.photos : [];
+          var photos = raw
+            .filter(function (p) { return p && typeof p.url === 'string' && typeof p.fullUrl === 'string'; })
+            .map(function (p, i) {
+              return {
+                url: p.url,
+                fullUrl: p.fullUrl,
+                alt: 'San Marin Speech and Debate team photo ' + (i + 1),
+              };
+            });
+          render(photos);
+        })
+        .catch(function () {
+          showState('Photos are unavailable', 'We could not load the gallery just now. Please try again shortly.');
         });
     })();
 
@@ -1319,5 +1343,6 @@
       }
     })();
   </script>
+  <script src="site-dates.js"></script>
 </body>
 </html>

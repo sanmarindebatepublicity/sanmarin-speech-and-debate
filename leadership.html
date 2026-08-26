@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leadership Team — San Marin Speech &amp; Debate</title>
+  <title>Leadership Team &middot; San Marin Speech &amp; Debate</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -259,15 +259,46 @@
     }
 
     /* ── MESSAGE ── */
-    #message { background: #091410; padding: 100px 32px; border-top: 3px solid #1b5e35; }
-    .message-inner { max-width: 820px; margin: 0 auto; text-align: center; }
-    .message-inner .section-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #4ade80; justify-content: center; display: flex; margin-bottom: 36px; }
-    .message-inner blockquote { font-size: 26px; font-weight: 400; color: rgba(255,255,255,0.85); font-style: italic; line-height: 1.7; margin-bottom: 40px; }
-    .message-inner blockquote::before { content: '\201C'; font-size: 120px; color: #1b5e35; line-height: 0; vertical-align: -0.38em; margin-right: 6px; font-style: normal; }
-    .message-inner blockquote::after  { content: '\201D'; font-size: 120px; color: #1b5e35; line-height: 0; vertical-align: -0.38em; margin-left:  6px; font-style: normal; }
-    .message-sig { padding-top: 4px; }
-    .message-sig .name { font-size: 14px; font-weight: 700; color: #fff; }
-    .message-sig .role { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; margin-top: 4px; }
+    /* Deep forest ground from the site palette. The previous neon-green-on-
+       near-black read like a terminal window; this is the same restraint the
+       rest of the site uses. */
+    #message { background: #0d1a10; padding: 104px 32px; border-top: 1px solid #1e3020; position: relative; overflow: hidden; }
+    #message::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(184,144,90,0.4) 50%, transparent); }
+    .message-inner { max-width: 860px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .message-inner .section-tag { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #b8905a; justify-content: center; display: flex; align-items: center; gap: 12px; margin-bottom: 34px; }
+    .message-inner .section-tag::before, .message-inner .section-tag::after { content: ''; width: 24px; height: 1px; background: rgba(184,144,90,0.5); }
+    /* Serif, light, and cut into the surface rather than sitting on it: a dark
+       edge below and a barely-there light edge above reads as engraved. */
+    .message-inner blockquote {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(25px, 3.4vw, 40px);
+      font-weight: 300;
+      font-style: normal;
+      color: #efece4;
+      line-height: 1.42;
+      letter-spacing: -0.012em;
+      margin: 0 0 30px;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.6), 0 -1px 0 rgba(255,255,255,0.05);
+    }
+    .message-inner blockquote::before,
+    .message-inner blockquote::after { content: none; }
+
+    /* One brush stroke, painted across on first view. */
+    .message-stroke { display: block; width: min(430px, 68%); height: 20px; margin: 0 auto 30px; overflow: visible; }
+    .message-stroke path { fill: #b8905a; }
+    .message-stroke-clip {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 1.15s cubic-bezier(0.32, 0.72, 0.3, 1);
+    }
+    #message.painted .message-stroke-clip { clip-path: inset(0 0 0 0); }
+
+    .message-sig { padding-top: 2px; }
+    .message-sig .name { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #f0ede6; }
+    .message-sig .role { font-family: 'Inter', sans-serif; font-size: 11.5px; color: rgba(156,173,154,0.75); letter-spacing: 0.05em; margin-top: 7px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .message-stroke-clip { transition: none; clip-path: inset(0 0 0 0); }
+    }
 
     /* ── FOOTER ── */
     /* ─── FOOTER (unified site-wide) ─── */
@@ -305,13 +336,16 @@
     /* ── FOLDER CARD ── */
     .folder-card {
       position: relative;
-      padding-bottom: 24px;
+      /* Each card sizes to its own content. Without this, the grid stretches every
+         card in a row to match the tallest one, and the folder tabs of the short
+         cards drift away from their bios. */
+      align-self: start;
       cursor: pointer;
     }
     .card-inner {
       background: #f5f4ef;
       border-radius: 14px;
-      padding: 12px 12px 16px;
+      padding: 12px 12px 8px;
       transition: box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .folder-card:hover .card-inner {
@@ -326,7 +360,8 @@
       opacity: 0.85;
     }
     .folder-card.open .bio-collapse-wrap {
-      max-height: 600px;
+      /* Generous ceiling — the longest bios run well past 600px in a narrow column. */
+      max-height: 1200px;
       opacity: 1;
     }
     .bio-full-text {
@@ -359,24 +394,34 @@
     .folder-card.open .bio-spoiler-fade {
       opacity: 0;
     }
+    /* Sits in normal flow inside .card-inner, directly under the bio text, so it
+       stays attached to its own bio at any card height. */
     .folder-tab {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 58%;
-      height: 34px;
-      background: #f5f4ef;
-      border-radius: 0 0 12px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 4px;
+      width: 100%;
+      height: 30px;
+      margin-top: 10px;
+      padding: 0;
+      background: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .folder-card:hover .folder-tab {
+      background: rgba(107, 114, 128, 0.07);
+    }
+    .folder-tab:focus-visible {
+      outline: 2px solid #1b4332;
+      outline-offset: 2px;
     }
     .tab-line {
       display: block;
-      width: 44%;
+      width: 26px;
       height: 1.5px;
       background: rgba(107, 114, 128, 0.5);
       border-radius: 2px;
@@ -384,9 +429,45 @@
     .tab-line:nth-child(1) { animation: tabPulse 2s ease-in-out infinite; }
     .tab-line:nth-child(2) { animation: tabPulse 2s ease-in-out 0.3s infinite; }
     .tab-line:nth-child(3) { animation: tabPulse 2s ease-in-out 0.6s infinite; }
+    /* Once the bio is open the tab has nothing left to advertise, so settle it down. */
+    .folder-card.open .tab-line { animation: none; opacity: 0.45; }
     @keyframes tabPulse {
       0%, 100% { opacity: 0.2; }
       50% { opacity: 0.8; }
+    }
+
+    /* ── SHORT BIOS: no toggle needed ──
+       syncBioToggles() in the script below adds .bio-fits to any card whose bio
+       already fits in the collapsed box. Those cards show the full text with no
+       tab and no fade. This is measured, not hardcoded, so editing a bio longer
+       or shorter in the roster data automatically gets the right treatment and
+       nothing is ever cut off without a way to open it. */
+    .folder-card.bio-fits { cursor: default; }
+    .folder-card.bio-fits .bio-collapse-wrap {
+      max-height: none;
+      opacity: 1;
+    }
+    .folder-card.bio-fits .bio-full-text {
+      -webkit-line-clamp: unset;
+      line-clamp: unset;
+      display: block;
+      overflow: visible;
+    }
+    .folder-card.bio-fits .bio-spoiler-fade { display: none; }
+    /* Inline link inside a bio. Raised above the card's click target so it
+       navigates cleanly rather than just toggling the card. */
+    .bio-link { position: relative; z-index: 2; color: #1b4332; font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(27,67,50,0.32); }
+    .bio-link:hover { border-bottom-color: #1b4332; }
+    .folder-card.bio-fits .folder-tab { display: none; }
+    .folder-card.bio-fits:hover .card-inner { box-shadow: none; }
+
+    /* Used for a single synchronous measurement; never painted. */
+    .folder-card.measuring .bio-collapse-wrap { max-height: none; transition: none; }
+    .folder-card.measuring .bio-full-text {
+      -webkit-line-clamp: unset;
+      line-clamp: unset;
+      display: block;
+      overflow: visible;
     }
 
     /* ── FADE ── */
@@ -579,11 +660,26 @@
     <div class="message-inner fade-in">
       <div class="section-tag">Message from Leadership</div>
       <blockquote>
-        If debate has taught me anything it is that every side has a story, and that every story deserves a chance to be told and fought for, anything less is an injustice to the truth
+        If debate has taught me anything, it is that every side has a story, and that every story deserves a chance to be told and fought for. Anything less is an injustice to the truth.
       </blockquote>
+
+      <!-- Single tapered brush stroke. The rough filter gives it a loaded-brush
+           edge; the clip wipe paints it on left to right when scrolled to. -->
+      <svg class="message-stroke" viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="strokeRough" x="-6%" y="-45%" width="112%" height="190%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.022 0.28" numOctaves="3" seed="4" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+        <g class="message-stroke-clip">
+          <path filter="url(#strokeRough)" d="M4,10.2 C60,5.2 135,3.2 210,4.4 C270,5.3 332,7.3 395,6.0 C398,5.9 399.5,8.3 396,9.1 C333,11.7 271,10.8 211,11.1 C136,11.5 61,13.9 5,15.1 C2,15.3 1.2,10.6 4,10.2 Z"/>
+        </g>
+      </svg>
+
       <div class="message-sig">
-        <div class="name">— Logan Alsterlind, Co-Vice President</div>
-        <div class="role">San Marin Speech &amp; Debate · 2025–2026 Season</div>
+        <div class="name">Logan Alsterlind, Co-Vice President</div>
+        <div class="role">San Marin Speech &amp; Debate · 2025-2026 Season</div>
       </div>
     </div>
   </section>
@@ -620,7 +716,7 @@
         </a>
       </div>
     </div>
-    <div class="site-footer-copy">© 2025 San Marin High School Speech &amp; Debate Club · All rights reserved</div>
+    <div class="site-footer-copy">© <span data-current-year>2026</span> San Marin High School Speech &amp; Debate Club · All rights reserved</div>
   </footer>
 
   <script>
@@ -629,7 +725,7 @@
     // ═══════════════════════════════════════════════════════════
 
     var pageHeader = {
-      season: "2025–2026 Season",
+      season: "2025-2026 Season",
       subtitle: "The students and mentors who guide San Marin Speech & Debate"
     };
 
@@ -637,8 +733,13 @@
     document.getElementById('header-subtitle').textContent = pageHeader.subtitle;
 
     // ═══════════════════════════════════════════════════════════
-    // ROSTER DATA — update names, roles, subtitles, bios, and
+    // ROSTER DATA. Update names, roles, subtitles, bios, and
     // image paths here. Bio placeholders are easy find-and-replace.
+    //
+    // collapsible: true  puts the "read more" tab on a card and hides the bio
+    // behind it. Leave it off and the whole bio shows on the card, which is what
+    // most officers use. If a bio is ever pasted in long enough to blow out the
+    // card, the tab comes back on its own so nothing gets cut off.
     // ═══════════════════════════════════════════════════════════
 
     var executiveTeam = [
@@ -661,13 +762,14 @@
         role: "Co-Vice President",
         subtitle: "Co-Vice President · Junior, '26",
         bio: "Hi, I’m Logan (left). I’ve been a member of San Marin Speech and Debate for two years and have served as Vice President throughout my sophomore and junior years. Outside of debate, I compete in Mock Trial, lead lighting for technical theatre, and edit the news section of the Pony Express",
+        collapsible: true,
         image: "leadershipphotos/logan-alsterlind.jpg"
       },
       {
         name: "Moksh Shah",
         role: "Co-Vice President",
         subtitle: "Co-Vice President · Junior, '26",
-        bio: "My name is Moksh and I am the vice president for debate. I will do anything in my power to benefit this team and I'm excited for an amazing year!",
+        bio: "My name is Moksh (right) and I am the vice president for debate. I will do anything in my power to benefit this team and I'm excited for an amazing year!",
         image: "leadershipphotos/moksh-shah.jpg"
       }
     ];
@@ -684,7 +786,8 @@
         name: "Sharva Banker",
         role: "Debate Captain",
         subtitle: "Debate Captain · Junior, '26",
-        bio: "Hi everyone! I’m Sharva, and I’m excited to be one of your Speech and Debate Captains for the 2026–27 school year. I’ve been on the team for the past two years as a varsity debater and have loved the community and competition. I’m looking forward to working with all of you this season!",
+        bio: "Hi everyone! I’m Sharva, and I’m excited to be one of your Speech and Debate Captains for the 2026-27 school year. I’ve been on the team for the past two years as a varsity debater and have loved the community and competition. I’m looking forward to working with all of you this season!",
+        collapsible: true,
         image: "leadershipphotos/sharva-banker.jpg",
       },
       {
@@ -692,14 +795,15 @@
         role: "Publicity Captain",
         subtitle: "Publicity Captain · Sophomore, '26",
         bio: "Hi, I’m Hamza. I enjoy programming, playing basketball, and hanging out with friends. I’m excited to be part of the team this year.",
+        collapsible: true,
         image: "https://placehold.co/400x533/0d1820/4ade80?text=Photo"
       },
       {
         name: "Arnav Lal",
         role: "Publicity Captain",
         subtitle: "Publicity Captain · Junior, '26",
-        bio: "Bio coming soon — check back for more about Arnav's role on the team.",
-        image: "leadershipphotos/arnav-lal.png"
+        bio: "Hi, I'm Arnav, one of the publicity captains. Outside of debate, I spend a lot of time at the gym, cooking, and getting into fashion. I'm looking forward to sharing some of the things I enjoy and getting to know the team better.",
+        image: "leadershipphotos/arnav-lal.jpeg"
       }
     ];
 
@@ -708,27 +812,26 @@
         name: "Mrs. Kenyon",
         role: "Debate Coach",
         subtitle: "Debate Coach",
-        bio: "Bio coming soon — check back for more about Mrs. Kenyon's role on the team.",
-        image: "https://placehold.co/400x533/0b1e12/1b5e35?text=Photo"
+        bio: "Karen Kenyon has coached San Marin since the club was founded in 2007, entirely as a volunteer. <a class=\"bio-link\" href=\"about.html#coach-spotlight\">Read the full story of how she built this program &rarr;</a>",
+        image: "leadershipphotos/karen-kenyon.jpeg"
       },
       {
-        name: "Ms. Laabs",
+        name: "Mr. Blok",
         role: "Faculty Advisor",
         subtitle: "Faculty Advisor",
-        bio: "Bio coming soon — check back for more about Ms. Laabs's role on the team.",
-        image: "https://placehold.co/400x533/0b1e12/1b5e35?text=Photo"
+        bio: "Mr. Blok teaches STEM science at San Marin and is the club's faculty advisor for the 2026-27 season. The team meets in his room, 918.",
+        image: "leadershipphotos/tim-blok.webp"
       }
     ];
 
     // ── Folder card — state ───────────────────────────────────
 
-    var activeId = null;
-
     function collapseAll() {
       document.querySelectorAll('.folder-card.open').forEach(function(c) {
         c.classList.remove('open');
+        var tab = c.querySelector('.folder-tab');
+        if (tab) tab.setAttribute('aria-expanded', 'false');
       });
-      activeId = null;
     }
 
     // ── Render ────────────────────────────────────────────────
@@ -739,7 +842,8 @@
 
       el.innerHTML = people.map(function(p, i) {
         var fid = id + '-' + i;
-        return '<div class="person-card folder-card ' + tierClass + '" data-fid="' + fid + '">' +
+        return '<div class="person-card folder-card ' + tierClass + '" data-fid="' + fid + '"' +
+          (p.collapsible ? ' data-collapsible="true"' : '') + '>' +
           '<div class="card-inner">' +
             '<div class="person-img-wrap">' +
               '<img src="' + p.image + '" alt="' + p.name + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://placehold.co/400x533/0d1820/4ade80?text=Photo\';" />' +
@@ -750,36 +854,69 @@
               '<p class="bio-full-text">' + p.bio + '</p>' +
               '<div class="bio-spoiler-fade"></div>' +
             '</div>' +
-          '</div>' +
-          '<div class="folder-tab" aria-label="Read bio for ' + p.name + '">' +
-            '<span class="tab-line"></span>' +
-            '<span class="tab-line"></span>' +
-            '<span class="tab-line"></span>' +
+            '<button type="button" class="folder-tab" aria-expanded="false" aria-label="Read bio for ' + p.name + '">' +
+              '<span class="tab-line"></span>' +
+              '<span class="tab-line"></span>' +
+              '<span class="tab-line"></span>' +
+            '</button>' +
           '</div>' +
         '</div>';
       }).join('');
 
+      // Each card opens and closes on its own. Opening one never closes another.
       el.querySelectorAll('.folder-card').forEach(function(card) {
-        var fid = card.getAttribute('data-fid');
         card.addEventListener('click', function() {
-          if (activeId === fid) {
-            card.classList.remove('open');
-            activeId = null;
-          } else {
-            if (activeId) {
-              var prev = document.querySelector('[data-fid="' + activeId + '"]');
-              if (prev) prev.classList.remove('open');
-            }
-            card.classList.add('open');
-            activeId = fid;
-          }
+          if (card.classList.contains('bio-fits')) return;  // nothing hidden, nothing to toggle
+          var isOpen = card.classList.toggle('open');
+          var tab = card.querySelector('.folder-tab');
+          if (tab) tab.setAttribute('aria-expanded', String(isOpen));
         });
+      });
+    }
+
+    // ── Decide which cards get the "read more" tab ──────────────────────
+    // A card gets one when the roster marks it collapsible: true. Everyone else
+    // shows their whole bio on the card.
+    //
+    // The safety net: if an un-flagged bio is edited long enough to overrun the
+    // card badly, it gets a tab anyway rather than running down the page. That
+    // way a future captain can paste in any bio without the layout breaking or
+    // text being cut off with no way to read it. Re-runs on resize because a
+    // narrower column wraps the same text into more lines.
+
+    function syncBioToggles() {
+      var RUNAWAY_HEIGHT = 340;  // px of bio before an un-flagged card gets a tab
+      document.querySelectorAll('.folder-card').forEach(function(card) {
+        var text = card.querySelector('.bio-full-text');
+        if (!text) return;
+
+        card.classList.add('measuring');
+        var fullHeight = text.scrollHeight;
+        card.classList.remove('measuring');
+
+        var wantsTab = card.dataset.collapsible === 'true' || fullHeight > RUNAWAY_HEIGHT;
+        card.classList.toggle('bio-fits', !wantsTab);
+        if (!wantsTab) card.classList.remove('open');
+
+        var tab = card.querySelector('.folder-tab');
+        if (tab) tab.setAttribute('aria-expanded', String(wantsTab && card.classList.contains('open')));
       });
     }
 
     renderGrid('grid-executive', executiveTeam, 'tier-gold');
     renderGrid('grid-captains',  captains,       'tier-silver');
     renderGrid('grid-advisors',  advisors,        'tier-diamond');
+    syncBioToggles();
+
+    (function() {
+      var t;
+      window.addEventListener('resize', function() {
+        clearTimeout(t);
+        t = setTimeout(syncBioToggles, 150);
+      });
+      // Web fonts land after first paint and change how many lines a bio takes.
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncBioToggles);
+    })();
 
     // ── Scroll-collapse ───────────────────────────────────────
 
@@ -787,7 +924,7 @@
       var section = document.getElementById('officers');
       if (!section) return;
       window.addEventListener('scroll', function() {
-        if (!activeId) return;
+        if (!document.querySelector('.folder-card.open')) return;
         var rect = section.getBoundingClientRect();
         if (rect.bottom < -150) collapseAll();
       }, { passive: true });
@@ -849,6 +986,23 @@
         });
       }
     })();
+
+    /* ─── LEADERSHIP QUOTE: PAINT THE STROKE ───
+       One class flip on first view; the wipe itself is a CSS transition. */
+    (function () {
+      var section = document.getElementById('message');
+      if (!section) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          io.unobserve(e.target);
+          e.target.classList.add('painted');
+        });
+      }, { threshold: 0.45 });
+      io.observe(section);
+    })();
+
   </script>
+  <script src="site-dates.js"></script>
 </body>
 </html>
