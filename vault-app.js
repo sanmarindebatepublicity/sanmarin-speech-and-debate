@@ -172,9 +172,9 @@
     hdr.setAttribute('tabindex', '0');
     hdr.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     hdr.innerHTML =
-      '<div class="unit-number">' + esc(unit.icon) + '</div>' +
+      '<div class="unit-number">' + String(unitIdx + 1).padStart(2, '0') + '</div>' +
       '<div class="unit-meta">' +
-        '<div class="unit-title">Unit ' + (unitIdx + 1) + ' — ' + esc(unit.title) + '</div>' +
+        '<div class="unit-title">' + esc(unit.title) + '</div>' +
         '<div class="unit-subtitle">' + unit.lessons.length + ' lessons · ' + doneInUnit + '/' + unit.lessons.length + ' completed</div>' +
       '</div>' +
       '<div class="unit-right">' +
@@ -271,7 +271,7 @@
     { text: 'Every argument you hear is data. Every rebuttal is practice. Every round is a rep.',  author: 'San Marin S&D' },
     { text: 'Extend, never repeat. Make the judge feel the weight of every dropped argument.',     author: 'Senior Debater'     },
     { text: 'Preparation is the confidence you carry before the round starts.',                    author: 'Coaching Notes'     },
-    { text: 'In a debate, the winner makes the judge think they are right — not just that they are right.', author: 'Team Philosophy' },
+    { text: 'In a debate, the winner makes the judge think they are right, not just that they are right.', author: 'Team Philosophy' },
   ];
 
   function renderQuoteBox() {
@@ -280,7 +280,7 @@
     var q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
     box.innerHTML =
       '<div class="quote-text">' + esc(q.text) + '</div>' +
-      '<div class="quote-author">— ' + esc(q.author) + '</div>';
+      '<div class="quote-author">' + esc(q.author) + '</div>';
   }
 
   /* ─────────────────────────────────────────────────────────────
@@ -330,7 +330,7 @@
     var strip = el('div', 'step-strip');
     lesson.steps.forEach(function (step, i) {
       var pip = el('div', 'step-pip');
-      pip.title = 'Step ' + (i + 1) + (step.type === 'exercise' ? ' — ' + (EXERCISE_NAMES[step.exerciseType] || 'Exercise') : '');
+      pip.title = 'Step ' + (i + 1) + (step.type === 'exercise' ? ' · ' + (EXERCISE_NAMES[step.exerciseType] || 'Exercise') : '');
       pip.addEventListener('click', function () { goToStep(i); });
       strip.appendChild(pip);
     });
@@ -368,7 +368,7 @@
   function getStepLabel(step, index) {
     if (step.type === 'content') {
       var m = step.html.match(/<h[23][^>]*>([^<]+)/);
-      return m ? m[1].trim() : ('Read — Part ' + (index + 1));
+      return m ? m[1].trim() : ('Read · Part ' + (index + 1));
     }
     return EXERCISE_NAMES[step.exerciseType] || 'Exercise';
   }
@@ -467,7 +467,6 @@
       updateStreak();
       saveProgress();
       updateNavButtons(lesson, state.currentStep);
-      launchConfetti();
       showCompletionOverlay(lesson);
     });
 
@@ -529,29 +528,10 @@
   }
 
   /* ─────────────────────────────────────────────────────────────
-     CONFETTI
+     CONFETTI — removed. The completion overlay's stamp is the one
+     authored completion moment; raining confetti belonged to the
+     old dark theme's motion language, not the catalog's.
   ───────────────────────────────────────────────────────────── */
-  function launchConfetti() {
-    var container = document.getElementById('confetti-container');
-    if (!container) return;
-    var colors = ['#d4a843', '#4ade80', '#60a5fa', '#f87171', '#a78bfa', '#fb923c', '#e2c06a'];
-    var shapes = ['', 'circle', 'strip'];
-    for (var i = 0; i < 72; i++) {
-      (function (idx) {
-        setTimeout(function () {
-          var piece = document.createElement('div');
-          piece.className             = 'confetti-piece ' + shapes[idx % shapes.length];
-          piece.style.left            = (Math.random() * 100) + '%';
-          piece.style.top             = '-20px';
-          piece.style.background      = colors[idx % colors.length];
-          piece.style.animationDuration = (1.4 + Math.random() * 2) + 's';
-          piece.style.opacity         = '1';
-          container.appendChild(piece);
-          setTimeout(function () { if (piece.parentNode) piece.parentNode.removeChild(piece); }, 4000);
-        }, idx * 22);
-      }(i));
-    }
-  }
 
   /* ─────────────────────────────────────────────────────────────
      COMPLETION OVERLAY
@@ -560,14 +540,17 @@
     var overlay = el('div', 'completion-overlay');
     var card    = el('div', 'completion-card');
 
+    var starSvg =
+      '<svg width="26" height="26" viewBox="0 0 24 24" fill="#b8905a" aria-hidden="true">' +
+      '<path d="M12 2l2.9 6.26 6.86 0.74-5.12 4.63 1.42 6.75L12 16.9l-6.06 3.48 1.42-6.75L2.24 9l6.86-0.74z"/></svg>';
     card.innerHTML =
-      '<div class="completion-icon">🎉</div>' +
+      '<div class="completion-icon"><span class="pt-stamp">Complete</span></div>' +
       '<div class="completion-title">Lesson Complete!</div>' +
-      '<div class="completion-subtitle">' + esc(lesson.title) + ' — great work. Keep building your debate skills one lesson at a time.</div>' +
+      '<div class="completion-subtitle">' + esc(lesson.title) + '. Great work. Keep building your debate skills one lesson at a time.</div>' +
       '<div class="completion-stars">' +
-        '<div class="completion-star">⭐</div>' +
-        '<div class="completion-star">⭐</div>' +
-        '<div class="completion-star">⭐</div>' +
+        '<div class="completion-star">' + starSvg + '</div>' +
+        '<div class="completion-star">' + starSvg + '</div>' +
+        '<div class="completion-star">' + starSvg + '</div>' +
       '</div>';
 
     var btn = el('button', 'btn btn-primary btn-lg', 'Continue');

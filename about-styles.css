@@ -564,8 +564,28 @@ body {
 
 /* ─── RESPONSIVE: TIMELINE ─── */
 @media (max-width: 900px) {
-  #hero { padding: 0 24px; gap: 0; }
-  .hero-img-col { display: none; }
+  /* Below 900px the hero stops being two columns side by side. The team photo
+     used to be hidden here entirely, which meant phone visitors never saw it.
+     Now the hero stacks instead: text first, then the photo underneath at full
+     width. Nothing is lost, it just reads top to bottom. */
+  #hero {
+    padding: 96px 24px 72px;
+    gap: 36px;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+  }
+  .hero-img-col {
+    width: 100%;
+    align-self: stretch;
+    margin-bottom: 8px;
+  }
+  .hero-img-col img {
+    /* Shorter than the desktop crop so the photo does not take over the screen
+       on a phone, and wide enough to still read as a team photo. */
+    height: clamp(200px, 34vh, 300px);
+    object-position: center 30%;
+  }
   #principles { padding: 72px 24px; }
   .principles-grid { grid-template-columns: repeat(2, 1fr); }
 }

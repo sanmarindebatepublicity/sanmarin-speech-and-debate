@@ -499,6 +499,8 @@
       .message-inner blockquote::after { font-size: 80px; }
     }
   </style>
+  <!-- Mobile polish. Must stay the LAST stylesheet so its phone-only rules win. -->
+  <link rel="stylesheet" href="mobile-polish.css" />
 </head>
 <body>
 
@@ -722,6 +724,10 @@
     <div class="site-footer-copy">© <span data-current-year>2026</span> San Marin High School Speech &amp; Debate Club · All rights reserved</div>
   </footer>
 
+  <!-- Smooth scrolling + the shared scroll hook used by scroll-driven effects.
+       Must load BEFORE this page's own script so that script can call SiteScroll. -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="site-scroll.js"></script>
   <script>
     // ═══════════════════════════════════════════════════════════
     // HEADER CONTENT — update season and subtitle text here

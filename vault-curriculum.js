@@ -31,7 +31,7 @@ window.CURRICULUM = [
 </ul>
 
 <h3>Prep Time</h3>
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice format (that's you):</strong> <strong>30 minutes</strong> of prep time after the resolution is announced.<br/>
   <strong>JV/Varsity format:</strong> <strong>20 minutes</strong> of prep time.
 </div>
@@ -137,7 +137,7 @@ window.CURRICULUM = [
 <h3>1. Statements of Fact</h3>
 <p>A <strong>fact resolution</strong> presents an opinion as if it were a provable fact. Both teams argue whether the statement is true or false.</p>
 <p><strong>How to spot one:</strong> Can you answer it with yes or no? Is someone stating an opinion as a fact?</p>
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Examples from our team's practice:</strong><br/>
   "The death penalty benefits outweigh consequences."<br/>
   "Carceral justice organizations should prioritize education in prisons that prepares inmates for particular jobs over general education."
@@ -147,7 +147,7 @@ window.CURRICULUM = [
 <h3>2. Questions of Value</h3>
 <p>A <strong>value resolution</strong> asks which of two principles, standards, or things is more important. Both sides argue that their <span class="key-term" data-definition="A principle or standard — like justice, freedom, privacy, or equality — that one side argues is more important or should be prioritized over the other side's value.">value</span> is superior.</p>
 <p><strong>How to spot one:</strong> Does it ask which of two things is "better" or "more important"? Does it ask you to weigh a moral principle?</p>
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Examples from our team's practice:</strong><br/>
   "The environmental movement ought to prioritize ecocentrism over anthropocentric ecology."<br/>
   "When in conflict, environmental protection is prioritized over natural landscape."
@@ -157,7 +157,7 @@ window.CURRICULUM = [
 <h3>3. Questions of Policy</h3>
 <p>A <strong>policy resolution</strong> identifies a problem in the <span class="key-term" data-definition="The way things are right now — the existing state of affairs before any change. Policy debates always start from the status quo and ask whether it should change.">status quo</span> and calls for a specific solution. The Affirmative must propose a real plan; the Negative argues the plan is unnecessary or harmful.</p>
 <p><strong>How to spot one:</strong> Does it contain the word <em>should</em>? Does it require a law, policy, or government action?</p>
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Examples from our team's practice:</strong><br/>
   "The USFG should prohibit the sale of genetic data for commercial purposes."<br/>
   "The USFG should substantially increase its investment in space colonization."<br/>
@@ -203,7 +203,7 @@ window.CURRICULUM = [
 <h2>How a Round Works</h2>
 <p>Six speeches total. Constructives first — where ALL arguments get introduced. Then rebuttals, where you tell the judge why you won. No new arguments in rebuttals — ever.</p>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice Format (San Marin beginners)</strong><br/>
   Constructive speeches: <strong>5 min each</strong> · Rebuttals: <strong>3 min each</strong> · Prep time: <strong>30 min</strong>
 </div>
@@ -213,7 +213,7 @@ window.CURRICULUM = [
 
 <table style="width:100%;border-collapse:collapse;margin:16px 0;">
   <thead>
-    <tr style="border-bottom:2px solid rgba(255,255,255,.12);">
+    <tr style="border-bottom:2px solid rgba(27,67,50,.12);">
       <th style="text-align:left;padding:10px 14px;color:var(--text-muted);font-size:12px;font-weight:700;letter-spacing:.05em;">SPEECH</th>
       <th style="text-align:left;padding:10px 14px;color:var(--text-muted);font-size:12px;font-weight:700;letter-spacing:.05em;">SPEAKER</th>
       <th style="text-align:right;padding:10px 14px;color:var(--text-muted);font-size:12px;font-weight:700;letter-spacing:.05em;">NOVICE</th>
@@ -221,19 +221,19 @@ window.CURRICULUM = [
     </tr>
   </thead>
   <tbody>
-    <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+    <tr style="border-bottom:1px solid rgba(27,67,50,.06);">
       <td style="padding:10px 14px;color:var(--text-primary);font-weight:600;">1st Affirmative Constructive</td>
       <td style="padding:10px 14px;color:var(--text-secondary);">1st Aff — sets the entire case</td>
       <td style="padding:10px 14px;text-align:right;font-family:var(--font-mono);color:var(--gold-300);font-weight:700;">5 min</td>
       <td style="padding:10px 14px;text-align:right;font-family:var(--font-mono);color:var(--text-muted);font-weight:700;">7 min</td>
     </tr>
-    <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+    <tr style="border-bottom:1px solid rgba(27,67,50,.06);">
       <td style="padding:10px 14px;color:var(--text-primary);font-weight:600;">1st Negative Constructive</td>
       <td style="padding:10px 14px;color:var(--text-secondary);">1st Neg — attacks Aff + builds Neg case</td>
       <td style="padding:10px 14px;text-align:right;font-family:var(--font-mono);color:var(--gold-300);font-weight:700;">5 min</td>
       <td style="padding:10px 14px;text-align:right;font-family:var(--font-mono);color:var(--text-muted);font-weight:700;">8 min</td>
     </tr>
-    <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+    <tr style="border-bottom:1px solid rgba(27,67,50,.06);">
       <td style="padding:10px 14px;color:var(--text-primary);font-weight:600;">2nd Affirmative Constructive</td>
       <td style="padding:10px 14px;color:var(--text-secondary);">2nd Aff — defends Aff + attacks Neg case</td>
       <td style="padding:10px 14px;text-align:right;font-family:var(--font-mono);color:var(--gold-300);font-weight:700;">5 min</td>
@@ -253,7 +253,7 @@ window.CURRICULUM = [
 
 <table style="width:100%;border-collapse:collapse;margin:16px 0;">
   <thead>
-    <tr style="border-bottom:2px solid rgba(255,255,255,.12);">
+    <tr style="border-bottom:2px solid rgba(27,67,50,.12);">
       <th style="text-align:left;padding:10px 14px;color:var(--text-muted);font-size:12px;font-weight:700;letter-spacing:.05em;">SPEECH</th>
       <th style="text-align:left;padding:10px 14px;color:var(--text-muted);font-size:12px;font-weight:700;letter-spacing:.05em;">SPEAKER</th>
       <th style="text-align:right;padding:10px 14px;color:var(--text-muted);font-size:12px;font-weight:700;letter-spacing:.05em;">NOVICE</th>
@@ -261,7 +261,7 @@ window.CURRICULUM = [
     </tr>
   </thead>
   <tbody>
-    <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+    <tr style="border-bottom:1px solid rgba(27,67,50,.06);">
       <td style="padding:10px 14px;color:var(--text-primary);font-weight:600;">Negative Rebuttal</td>
       <td style="padding:10px 14px;color:var(--text-secondary);">1st Neg speaker (speaks twice!)</td>
       <td style="padding:10px 14px;text-align:right;font-family:var(--font-mono);color:var(--gold-300);font-weight:700;">3 min</td>
@@ -335,7 +335,7 @@ window.CURRICULUM = [
 <h3>Why It Matters — A Real Example</h3>
 <p>Resolution: <em>"The USFG should prohibit the sale of genetic data for commercial purposes."</em></p>
 <p>If the Aff defines "commercial purposes" too narrowly — excluding research companies that profit from data — the Neg can challenge it:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "We challenge the Affirmative's definition. They've excluded biotech research firms that sell genetic insights commercially. This is self-serving — their plan only works if those firms are excluded. We define 'commercial purposes' as any for-profit use of genetic data, which is the plain-language reading."
 </div>
 <p>That's a <span class="key-term" data-definition="An argument raised by the Negative claiming that the Affirmative's definitions are unfair, off-topic, or don't reflect what the resolution actually intends to debate.">Topicality</span> challenge. Now the debate is about definitions, not contentions — the trap you want to avoid.</p>
@@ -343,11 +343,11 @@ window.CURRICULUM = [
 <h3>The Golden Rule</h3>
 <p>Your definitions must be <span class="key-term" data-definition="A definition is topical when it captures what a reasonable person would understand the resolution to mean — not a cleverly twisted interpretation designed to give your side an unfair advantage.">topical</span>. Ask yourself: <strong>"Would a reasonable person agree this captures what the resolution actually intends to debate?"</strong></p>
 
-<div style="background:rgba(74,222,128,.07);border-left:3px solid #4ade80;padding:12px 18px;border-radius:0 10px 10px 0;margin:10px 0;">
-  <strong style="color:#a7f3d0;">✓ Fair:</strong> On "The USFG should guarantee universal childcare" — defining "universal childcare" as "federally funded, accessible childcare for all families regardless of income." Broad, topical, defensible.
+<div style="background:rgba(45,106,79,.07);border-left:3px solid #1e7a45;padding:12px 18px;border-radius:0 10px 10px 0;margin:10px 0;">
+  <strong style="color:#1e6b45;">✓ Fair:</strong> On "The USFG should guarantee universal childcare" — defining "universal childcare" as "federally funded, accessible childcare for all families regardless of income." Broad, topical, defensible.
 </div>
-<div style="background:rgba(248,113,113,.07);border-left:3px solid #f87171;padding:12px 18px;border-radius:0 10px 10px 0;margin:10px 0;">
-  <strong style="color:#fca5a5;">✗ Unfair:</strong> Defining "universal childcare" as "only programs serving children under 1 year old" to match what you prepped. Too narrow, clearly strategic, won't survive a Topicality challenge.
+<div style="background:rgba(160,61,45,.07);border-left:3px solid #a03d2d;padding:12px 18px;border-radius:0 10px 10px 0;margin:10px 0;">
+  <strong style="color:#a03d2d;">✗ Unfair:</strong> Defining "universal childcare" as "only programs serving children under 1 year old" to match what you prepped. Too narrow, clearly strategic, won't survive a Topicality challenge.
 </div>
 
 <h3>What to Define</h3>
@@ -405,19 +405,19 @@ window.CURRICULUM = [
 <h3>The Four Main Criteria</h3>
 
 <div style="display:grid;gap:10px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.1);border-radius:12px;padding:14px 18px;">
     <div style="font-weight:800;color:var(--gold-300);margin-bottom:4px;">Net Benefits</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.5;">Which side produces more overall good vs. harm? <strong>Most common in policy debates.</strong> If the plan creates more benefit than harm, Aff wins.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.1);border-radius:12px;padding:14px 18px;">
     <div style="font-weight:800;color:var(--gold-300);margin-bottom:4px;">Preponderance of Evidence</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.5;">Whichever side brings the most credible evidence tips the scale. Works in policy and fact debates.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.1);border-radius:12px;padding:14px 18px;">
     <div style="font-weight:800;color:var(--gold-300);margin-bottom:4px;">Moral Imperative</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.5;">Which position is most ethically defensible, regardless of practical consequences? <strong>Most common in value debates.</strong></p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.1);border-radius:12px;padding:14px 18px;">
     <div style="font-weight:800;color:var(--gold-300);margin-bottom:4px;">On Balance</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.5;">Is the statement more true than false overall? You don't have to prove it's universally true. <strong>Great for fact debates.</strong> Always define this when you use it.</p>
   </div>
@@ -475,19 +475,19 @@ window.CURRICULUM = [
 <h3>The Four Parts</h3>
 
 <div style="display:grid;gap:10px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">CLAIM</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">Your argument, stated clearly as a statement (never a question). Always number it: <em>"Our first contention is…"</em> One line the judge can write down.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">EVIDENCE</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">Facts, statistics, examples — with sources. Use Subpoint A / Subpoint B if you have multiple pieces. Good anecdotal evidence strengthens your case too.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">WARRANT</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">Explain WHY your evidence proves your claim. Connect the dots explicitly. Every claim needs reasoning to back it up — don't just state a stat and move on.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">IMPACT</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">IMPACT your arguments — tell the judge why it matters. What changes in the real world? What happens if the judge votes wrong? This is what makes a judge care. Slow down here.</p>
   </div>
@@ -496,7 +496,7 @@ window.CURRICULUM = [
 <h3>Example — Four Parts in Action</h3>
 <p>Using a resolution our team has practiced: <em>"The USFG should prohibit the sale of genetic data for commercial purposes."</em></p>
 
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.25);border-radius:12px;padding:18px 20px;margin:14px 0;">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.25);border-radius:12px;padding:18px 20px;margin:14px 0;">
   <p style="margin:0 0 10px;"><strong style="color:var(--gold-300);">Claim:</strong> "Our first contention is that commercial genetic data sales expose individuals to discrimination and privacy violations."</p>
   <p style="margin:0 0 10px;"><strong style="color:var(--gold-300);">Evidence:</strong><br/>
   Subpoint A — A 2021 ProPublica investigation found that insurance companies purchased genetic risk scores from data brokers to adjust premiums without customer knowledge.<br/>
@@ -507,7 +507,7 @@ window.CURRICULUM = [
 
 <p>Notice how the evidence isn't just floating there — the warrant connects the statistics to the claim, and the impact tells the judge exactly what's at stake. <strong>Your goal is three well-constructed contentions</strong> for a solid, complete case.</p>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:16px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:16px 0;">
   <strong>Team practice tips — contentions:</strong>
   <ul style="margin:8px 0 0;padding-left:18px;color:var(--text-secondary);font-size:14px;line-height:1.8;">
     <li><strong>Make sure your arguments have enough evidence.</strong> A claim without evidence is an assertion — easy to dismiss.</li>
@@ -566,33 +566,33 @@ window.CURRICULUM = [
 <p>Your 1AC speech (5 min novice / 7 min JV-V) should follow this exact order:</p>
 
 <div style="counter-reset:step-counter;display:flex;flex-direction:column;gap:10px;margin:16px 0;">
-  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:28px;">1.</span>
     <div><strong>Opening Remark / Introduction</strong> — A compelling hook that draws the judge in and states the resolution. Make it memorable — this is your first impression.</div>
   </div>
-  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:28px;">2.</span>
     <div><strong>Roadmap</strong> — After your intro, tell the judge what you'll cover. Keep it brief and high-level — not too specific, not too long. Once you say your roadmap, you have to stick to it.
-    <div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.15);border-radius:8px;padding:10px 14px;margin-top:8px;font-style:italic;font-size:13px;color:var(--text-secondary);">"In the next few minutes, I will frame the debate, define key terms, and present two contentions supporting the Affirmation."</div>
+    <div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.15);border-radius:8px;padding:10px 14px;margin-top:8px;font-style:italic;font-size:13px;color:var(--text-secondary);">"In the next few minutes, I will frame the debate, define key terms, and present two contentions supporting the Affirmation."</div>
     </div>
   </div>
-  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:28px;">3.</span>
     <div><strong>Resolutional Analysis — Definitions</strong> — State the type of resolution and define key terms. This is Observation One in formal case structure.</div>
   </div>
-  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:28px;">4.</span>
     <div><strong>Criteria (Observation Two)</strong> — Establish your judging standard and explain why the judge should use it to evaluate this round.</div>
   </div>
-  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:28px;">5.</span>
     <div><strong>Contention 1</strong> — Your strongest argument. Full claim → evidence → warrant → impact structure.</div>
   </div>
-  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:28px;">6.</span>
     <div><strong>Contention 2</strong> — Your second argument. Same structure.</div>
   </div>
-  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+  <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 18px;background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:28px;">7.</span>
     <div><strong>Conclusion / Underview</strong> — Briefly summarize your key points and urge a vote for the Affirmation. Leave them with your strongest impression.</div>
   </div>
@@ -603,7 +603,7 @@ window.CURRICULUM = [
 <p>The <span class="key-term" data-definition="Required in policy debates. Specifies: WHO acts (Agent of Action), WHAT they do, WHEN it happens, and HOW it's funded and enforced. Must be presented by the Affirmative.">plan</span> uses the WHO/WHAT/WHEN/HOW framework — see Lesson 10.2 for the full breakdown.</p>
 
 <h3>Mastering Your Prep Clock</h3>
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:10px 16px;border-radius:0 8px 8px 0;margin:8px 0 12px;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:10px 16px;border-radius:0 8px 8px 0;margin:8px 0 12px;">
   <strong>Novice: 30 minutes</strong> · JV/Varsity: 20 minutes
 </div>
 <ul>
@@ -656,7 +656,7 @@ window.CURRICULUM = [
             html: `
 <h2>The First Affirmative Constructive Speech (1AC)</h2>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice: 5 minutes</strong> · JV/Varsity: 7 minutes
 </div>
 
@@ -665,12 +665,12 @@ window.CURRICULUM = [
 <h3>What You Must Cover — In Order</h3>
 
 <p><strong>1. Introduction + State the Resolution</strong><br/>Open with a hook and state your position clearly. Example using a real resolution our team has practiced:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:8px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:8px 0;font-style:italic;color:var(--text-secondary);">
 "Millions of families struggle to afford childcare — or can't find it at all. For this reason and others, we of the Affirmation support the resolution: <em>The USFG should guarantee universal childcare.</em>"
 </div>
 
 <p><strong>2. Roadmap</strong><br/>Tell the judge what's coming so they can flow it accurately. The roadmap goes <em>after</em> your intro, but keep it brief and high-level — not too specific, not too long. Once you say your roadmap, you have to stick to it.</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:8px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:8px 0;font-style:italic;color:var(--text-secondary);">
 "In the next few minutes, I will frame this debate, define key terms, and present two reasons why the Affirmation wins."
 </div>
 
@@ -727,7 +727,7 @@ window.CURRICULUM = [
             html: `
 <h2>The Second Affirmative Constructive Speech (2AC)</h2>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice: 5 minutes</strong> · JV/Varsity: 8 minutes
 </div>
 
@@ -737,25 +737,25 @@ window.CURRICULUM = [
 
 <p><strong>Step 1: Strong Opening + Reaffirm</strong></p>
 <p>Start with a powerful line and re-commit to the resolution:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "How we handle energy in the next few years will be vitally important. My partner and I continue to believe that alternate energy sources are our best future, and we support the resolution: <em>Resolved: the USFG should significantly increase the use of alternate energy sources.</em>"
 </div>
 
 <p><strong>Step 2: Roadmap</strong></p>
 <p>With so much to cover, a clear roadmap is critical:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "During these 8 minutes, I will first address the Negation's concerns with our definitions, then attack the Negation's case, and finally return to our contentions and rebuild them. Let's begin…"
 </div>
 
 <p><strong>Step 3: Defend the Framing (If Attacked)</strong></p>
 <p>If the Negative challenged your definitions, criteria, or resolution type — respond now. Explain why your framing is correct:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "The Negation argued that we should include nuclear power in our definition of alternate energy. We respectfully disagree. Our definition captures the clear intent of the resolution — shifting away from our dominant fossil fuel dependency. Nuclear has its own distinct policy debates; conflating it here muddies this round unfairly."
 </div>
 
 <p><strong>Step 4: Attack the Negative's Contentions</strong></p>
 <p>Take down each Negative argument, in the order they presented them:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "The Negation told you that developing alternate energy will cost too much. We disagree. Researching and developing alternate energy sources will provide hundreds of thousands of new jobs. Giving handouts in longer unemployment benefits is only a short-term solution. Creating new jobs creates lasting, sustainable economic growth — which costs far less in the long run."
 </div>
 
@@ -763,19 +763,19 @@ window.CURRICULUM = [
 <p>This is the most important and most misunderstood part of the 2AC. After the Negative attacks your contentions, you must rebuild them. But you cannot simply <em>repeat</em> what your partner said. You must <span class="key-term" data-definition="To extend an argument means to build on it by answering the specific attacks made against it and adding new analysis — not just restating what your partner already said.">extend</span> — answer their specific attacks, add new reasoning, and show why your argument is still standing.</p>
 
 <div style="display:grid;gap:12px;margin:16px 0;">
-  <div style="background:rgba(248,113,113,.07);border-left:3px solid #f87171;padding:12px 18px;border-radius:0 10px 10px 0;">
-    <strong style="color:#fca5a5;">✗ Just Repeating (Wrong):</strong><br/>
+  <div style="background:rgba(160,61,45,.07);border-left:3px solid #a03d2d;padding:12px 18px;border-radius:0 10px 10px 0;">
+    <strong style="color:#a03d2d;">✗ Just Repeating (Wrong):</strong><br/>
     <span style="color:var(--text-secondary);font-size:14px;">"As my partner stated, we are too dependent on foreign oil. This is a major problem for America."</span>
   </div>
-  <div style="background:rgba(74,222,128,.07);border-left:3px solid #4ade80;padding:12px 18px;border-radius:0 10px 10px 0;">
-    <strong style="color:#a7f3d0;">✓ Extending (Right):</strong><br/>
+  <div style="background:rgba(45,106,79,.07);border-left:3px solid #1e7a45;padding:12px 18px;border-radius:0 10px 10px 0;">
+    <strong style="color:#1e6b45;">✓ Extending (Right):</strong><br/>
     <span style="color:var(--text-secondary);font-size:14px;">"The Negation demands we show a harm in our oil dependence. I point to the recent spike in gas prices — the U.S. is at the mercy of oil-rich countries who can charge whatever they want. The higher costs are real hardship for millions of families. As for their domestic drilling suggestion: that requires drilling in highly sensitive environments. Look at the Gulf oil spill. It is better all around to transition to friendlier energy sources that free us from oil-wealthy nations."</span>
   </div>
 </div>
 
 <p><strong>Step 6: Conclusion</strong></p>
 <p>Summarize why the Affirmative has won and close strong:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Let's look back. The Affirmative has given you three significant and unique arguments showing that alternate energy must be our top priority. We've proven that the Negation's economic concerns are outweighed by the job-creating power of renewables. The conclusion is simple: a vote for the Affirmation."
 </div>
 
@@ -789,7 +789,7 @@ window.CURRICULUM = [
   <li>✓ Refuted ALL points, not just the easy ones</li>
   <li>✓ Gave a conclusion urging an Affirmative vote</li>
 </ul>
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:10px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:10px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
   <strong>Delivery reminder:</strong> Sound confident — don't just read off the paper. Slow down when you're impacting your strongest arguments. The judge is watching you, not just listening.
 </div>
 `
@@ -847,7 +847,7 @@ window.CURRICULUM = [
             html: `
 <h2>The First Negative Constructive Speech (1NC)</h2>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice: 5 minutes</strong> · JV/Varsity: 8 minutes
 </div>
 
@@ -855,56 +855,56 @@ window.CURRICULUM = [
 
 <h3>Step 1: Introduction — State Your Opposition</h3>
 <p>Open with a hook that signals you're opposed to the resolution. Don't just say "we disagree" — show it with a line that makes the resolution feel wrong from the first sentence:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "While 'exploring alternative energy sources' may presently seem like the PC thing to do, developing these sources will be extremely expensive. It is for this reason and others, we stand opposed to the resolution."
 </div>
 
 <h3>Step 2: Roadmap — Tell the Judge What's Coming</h3>
 <p>The judge is flowing fast. A clear roadmap helps them organize their notes and prepares them to follow your three-part structure:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "In the next few minutes, I will: 1) discuss some concerns we have with how the AFF framed the debate, 2) present the Negative case, and 3) return to the Affirmative's case and show why it is flawed. Turning first to the Affirmative's framing of the debate…"
 </div>
 
 <h3>Step 3: Challenge the Framing (If Needed)</h3>
 <p>The Affirmative set the rules when they defined terms and chose judging criteria. Your first job is to decide whether to accept or challenge those choices. Three framing elements to evaluate:</p>
 <div style="display:grid;gap:12px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.1);border-radius:12px;padding:16px 20px;">
     <div style="font-weight:800;color:var(--gold-300);margin-bottom:6px;">1. The Type of Resolution</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Did the AFF correctly identify this as a fact, value, or policy debate? If they misidentified it, tell the judge why — it changes which standards apply to the whole round.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.1);border-radius:12px;padding:16px 20px;">
     <div style="font-weight:800;color:var(--gold-300);margin-bottom:6px;">2. The Judging Criteria</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Do you prefer a different standard? Explain why yours is more appropriate:</p>
-    <div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.15);border-radius:8px;padding:12px 16px;margin-top:8px;font-style:italic;color:var(--text-secondary);font-size:13px;">"The Affirmative told you this is a policy debate, and we are in agreement. However, they want the judging criteria to be preponderance of evidence. We believe that evidence can always be found to support an argument, and we prefer that the judge use net benefits — the number and quality of the benefits we secure for the American people."</div>
+    <div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.15);border-radius:8px;padding:12px 16px;margin-top:8px;font-style:italic;color:var(--text-secondary);font-size:13px;">"The Affirmative told you this is a policy debate, and we are in agreement. However, they want the judging criteria to be preponderance of evidence. We believe that evidence can always be found to support an argument, and we prefer that the judge use net benefits — the number and quality of the benefits we secure for the American people."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.1);border-radius:12px;padding:16px 20px;">
     <div style="font-weight:800;color:var(--gold-300);margin-bottom:6px;">3. The Definitions — This Is a <span class="key-term" data-definition="An argument raised by the Negative claiming that the Affirmative's definitions are unfair, off-topic, or don't reflect what the resolution actually intends to debate. A topicality argument forces the AFF to defend their definitions instead of their substantive arguments.">Topicality</span> Argument</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">The most common framing challenge. Attack definitions that don't reflect the intent of the resolution. On the alternate energy topic, the AFF excluded nuclear power — here's how to challenge it:</p>
-    <div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.15);border-radius:8px;padding:12px 16px;margin-top:8px;font-style:italic;color:var(--text-secondary);font-size:13px;">"We disagree with the Affirmative's definition of alternative energy sources. They exempted 'nuclear power' from their definition. Clearly, most of our power comes from oil, making nuclear power clearly an 'alternate' source. The AFF has purposefully kept it out because nuclear power is both costly and detrimental, as we will show. So we need to redefine alternate energy sources to include nuclear power, and it is on that definition that the Negative will debate."</div>
+    <div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.15);border-radius:8px;padding:12px 16px;margin-top:8px;font-style:italic;color:var(--text-secondary);font-size:13px;">"We disagree with the Affirmative's definition of alternative energy sources. They exempted 'nuclear power' from their definition. Clearly, most of our power comes from oil, making nuclear power clearly an 'alternate' source. The AFF has purposefully kept it out because nuclear power is both costly and detrimental, as we will show. So we need to redefine alternate energy sources to include nuclear power, and it is on that definition that the Negative will debate."</div>
   </div>
 </div>
 
 <h3>Step 4: Present the Negative Case FIRST</h3>
 <p>Here's the most important strategic principle of the 1NC: <strong>present your Negative contentions before you attack the AFF case.</strong> Why? If you run out of time — and you will feel time pressure — you've already gotten your own arguments on record. If you attack the AFF first and run short on time, your own case never gets presented.</p>
 <p>Your Negative contentions should be <span class="key-term" data-definition="Negative arguments that stand on their own merits, independent of what the AFF said. The judge should be able to vote Negative on these contentions even if every AFF argument were true.">unique to the Negative side</span>:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Now let's turn to the Negative's two contentions. Number #1 — Developing alternate energy sources will cost far too much money — money that could be better spent on other things."
 </div>
 
 <h3>Step 5: Cross-Applying Your Arguments</h3>
 <p>If one of your Negative contentions also destroys an AFF argument, <strong>cross-apply it</strong> — tell the judge you'll return to use that same analysis later. This is efficient: one argument does double duty:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "As we consider the Affirmative's first argument on the benefits of solar power, we would like you to cross apply our first negative argument on the huge cost of alternate energy sources — solar energy being one of those. Solar energy may be nice, but it is going to cost WAY TOO MUCH."
 </div>
 
 <h3>Step 6: Attack the AFF Contentions — In Order</h3>
 <p>Attack each AFF contention in the exact order they presented them. This keeps the judge's flow clean and organized. Watch the clock — this step gets skipped more often than any other because speakers run long on their Neg case:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "The Affirmative's first contention is that we are too dependent on foreign oil. We would argue first that the Negative shows you no HARM in this. They present no examples of where our dependence has led to a significant harm to U.S. citizens. Second, we argue that the U.S. is already taking steps to minimize our need to get oil from other countries. Statistics show that the U.S. has enough of its own supplies to last for hundreds of years…"
 </div>
 
 <h3>Step 7: Conclusion</h3>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Because the Affirmative has a faulty definition of terms and has presented arguments that are flawed AND because we have provided two solid arguments supporting economic considerations, we ask for a Negative ballot."
 </div>
 
@@ -918,7 +918,7 @@ window.CURRICULUM = [
   <li>✓ Attacked ALL AFF contentions in the order they were presented</li>
   <li>✓ Gave a conclusion urging a Negative vote</li>
 </ul>
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:10px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:10px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
   <strong>Delivery reminder:</strong> Sound confident — don't just read off the paper. Refute ALL the points, not just the easy ones. Slow down when you're making your key attacks.
 </div>
 `
@@ -965,7 +965,7 @@ window.CURRICULUM = [
             html: `
 <h2>The Second Negative Constructive Speech (2NC)</h2>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice: 5 minutes</strong> · JV/Varsity: 8 minutes
 </div>
 
@@ -973,12 +973,12 @@ window.CURRICULUM = [
 
 <h3>Step 1: Strong Opening — Reaffirm the Negative Position</h3>
 <p>Don't just say "we still disagree." Paint a picture that makes the resolution feel urgent and wrong:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "If you asked a guy in the unemployment line, a woman in front of her foreclosed home, a young adult with huge college loans — 'Alternate energy sources or economic prosperity?' — I think we know what they would answer. Economic security, along with the other arguments we've presented, show why the Negative is against this resolution."
 </div>
 
 <h3>Step 2: Roadmap</h3>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Here's where I'll be going during the next 8 minutes. I will first handle our continued problem with the definition of terms, then move to the attacks on our negative contentions — showing you why they aren't valid — and finally I will go back up to the top of the flow to deal with the Affirmative's case."
 </div>
 
@@ -989,12 +989,12 @@ window.CURRICULUM = [
 <p>The AFF attacked your partner's contentions during the 2AC. Now you must rebuild them. The cardinal rule: <strong>don't just repeat what your partner said — EXTEND.</strong> Extending means you answer their specific attacks and add new analysis.</p>
 
 <div style="display:grid;gap:12px;margin:16px 0;">
-  <div style="background:rgba(248,113,113,.07);border-left:3px solid #f87171;padding:12px 18px;border-radius:0 10px 10px 0;">
-    <strong style="color:#fca5a5;">✗ Just Repeating (Wrong):</strong><br/>
+  <div style="background:rgba(160,61,45,.07);border-left:3px solid #a03d2d;padding:12px 18px;border-radius:0 10px 10px 0;">
+    <strong style="color:#a03d2d;">✗ Just Repeating (Wrong):</strong><br/>
     <span style="color:var(--text-secondary);font-size:14px;">"As my partner mentioned, alternate energy is too expensive. This is a major economic problem."</span>
   </div>
-  <div style="background:rgba(74,222,128,.07);border-left:3px solid #4ade80;padding:12px 18px;border-radius:0 10px 10px 0;">
-    <strong style="color:#a7f3d0;">✓ Extending (Right):</strong><br/>
+  <div style="background:rgba(45,106,79,.07);border-left:3px solid #1e7a45;padding:12px 18px;border-radius:0 10px 10px 0;">
+    <strong style="color:#1e6b45;">✓ Extending (Right):</strong><br/>
     <span style="color:var(--text-secondary);font-size:14px;">"The Affirmative said it is better to stimulate the economy through job creation, but we don't believe many jobs will come from the alternate energy sector. First, most of the initial jobs will be for specially trained scientists and engineers — those groups aren't the ones hurting for jobs right now. Second, the jobs created will only last if the company lasts. Look at Solyndra — Obama poured billions into that company and it went bankrupt. When it did, so did the jobs. And finally, we need a STOP GAP measure because jobs are needed now — not in 10 years."</span>
   </div>
 </div>
@@ -1003,13 +1003,13 @@ window.CURRICULUM = [
 
 <h3>Step 5: Tear Down the AFF Rebuilds</h3>
 <p>Your partner attacked the AFF's contentions in the 1NC. The 2AC rebuilt them. Now tear them down again — specifically responding to what the 2AC said, not what the 1AC originally said:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "The Affirmative told you that dependence on oil was bad, and we responded that we needed to see the harm in this. The Affirmative responds that there have been recent hikes in oil prices. In response, we would argue that energy prices will certainly be higher under their case. Companies that develop alternate energy sources must recoup their expenses, and they will hit up the American taxpayer to get them. Those costs are likely to be higher than the current price of oil."
 </div>
 
 <h3>Step 6: Summary — Set Up the Rebuttal</h3>
 <p>Close by crystallizing the Negative's key arguments. You want the judge thinking about these going into the rebuttal speeches:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Remember: this debate is on what we value most — alternate energy sources or economic prosperity for our citizens. While solar and wind energy seem nice, we have clearly shown that we need to place a priority on our ailing economy. The Affirmative doesn't present a significant harm, while we have presented benefits to our citizens NOW — the choice is clear, and it is a vote for the Negative."
 </div>
 
@@ -1024,7 +1024,7 @@ window.CURRICULUM = [
   <li>✓ Extended arguments — pointed out flaws in the 2AC analysis</li>
   <li>✓ Gave a strong conclusion setting up the Negative Rebuttal</li>
 </ul>
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:10px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:10px 16px;border-radius:0 8px 8px 0;margin:12px 0;">
   <strong>Delivery reminder:</strong> Sound confident — don't just read off the paper. Watch your pacing — slow down on key points so the judge can flow them.
 </div>
 `
@@ -1085,20 +1085,20 @@ window.CURRICULUM = [
 
 <h3>The Pattern</h3>
 <div style="display:grid;gap:10px;margin:16px 0;">
-  <div style="background:rgba(96,165,250,.08);border-left:4px solid #60a5fa;padding:14px 20px;border-radius:0 12px 12px 0;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#93c5fd;font-size:13px;margin-bottom:4px;">STEP 1 — THEY SAID</div>
+  <div style="background:rgba(47,95,143,.08);border-left:4px solid #2f5f8f;padding:14px 20px;border-radius:0 12px 12px 0;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#2f5f8f;font-size:13px;margin-bottom:4px;">STEP 1 — THEY SAID</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Summarize what the opposition said — <strong>very briefly</strong>. One or two sentences max. If you spend too long here, you're just reinforcing their argument and letting the judge hear it again. Summarize and move on.</p>
   </div>
-  <div style="background:rgba(248,113,113,.08);border-left:4px solid #f87171;padding:14px 20px;border-radius:0 12px 12px 0;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#fca5a5;font-size:13px;margin-bottom:4px;">STEP 2 — BUT</div>
+  <div style="background:rgba(160,61,45,.08);border-left:4px solid #a03d2d;padding:14px 20px;border-radius:0 12px 12px 0;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#a03d2d;font-size:13px;margin-bottom:4px;">STEP 2 — BUT</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Tell the judge what's wrong with the opposition's argument. Is it inaccurate? Insignificant? Exaggerated? Not proven? Choose your angle and state it cleanly.</p>
   </div>
-  <div style="background:rgba(167,139,250,.08);border-left:4px solid #a78bfa;padding:14px 20px;border-radius:0 12px 12px 0;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#c4b5fd;font-size:13px;margin-bottom:4px;">STEP 3 — BECAUSE</div>
+  <div style="background:rgba(91,74,158,.08);border-left:4px solid #5b4a9e;padding:14px 20px;border-radius:0 12px 12px 0;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#5b4a9e;font-size:13px;margin-bottom:4px;">STEP 3 — BECAUSE</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Explain <em>why</em> it's wrong. Present your logic and evidence. If you have multiple reasons, divide them into labeled subpoints (A, B, C). If the opposition had subpoints, <strong>attack each subpoint separately</strong> — don't let any of them slide.</p>
   </div>
-  <div style="background:rgba(74,222,128,.08);border-left:4px solid #4ade80;padding:14px 20px;border-radius:0 12px 12px 0;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#a7f3d0;font-size:13px;margin-bottom:4px;">STEP 4 — THEREFORE</div>
+  <div style="background:rgba(45,106,79,.08);border-left:4px solid #1e7a45;padding:14px 20px;border-radius:0 12px 12px 0;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#1e6b45;font-size:13px;margin-bottom:4px;">STEP 4 — THEREFORE</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Draw the conclusion. Show the judge how this attack weakens your opponent's case and how it supports <em>your</em> position in the debate. Always tie it back to the resolution — this is what makes the attack matter.</p>
   </div>
 </div>
@@ -1106,17 +1106,17 @@ window.CURRICULUM = [
 <h3>Example — All Four Steps in Action</h3>
 <p>The Affirmative argued: <em>"Cell phones lead to risky behaviors in teens — Subpoint A: teens talking on phones while walking had a 45% greater chance of a close call (U. of Alabama, 2008). Subpoint B: 1 in 3 teens have been victimized by cyberbullying (KidsHealth.org)."</em></p>
 
-<div style="border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;margin:16px 0;">
-  <div style="background:rgba(96,165,250,.08);border-bottom:1px solid rgba(255,255,255,.07);padding:14px 20px;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#93c5fd;font-size:11px;letter-spacing:.08em;margin-bottom:6px;">THEY SAID</div>
+<div style="border:1px solid rgba(27,67,50,.12);border-radius:14px;overflow:hidden;margin:16px 0;">
+  <div style="background:rgba(47,95,143,.08);border-bottom:1px solid rgba(27,67,50,.07);padding:14px 20px;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#2f5f8f;font-size:11px;letter-spacing:.08em;margin-bottom:6px;">THEY SAID</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">that cell phones lead teens to risky behaviors — and as their Subpoint A says, it often happens while walking and talking on the phone.</p>
   </div>
-  <div style="background:rgba(248,113,113,.07);border-bottom:1px solid rgba(255,255,255,.07);padding:14px 20px;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#fca5a5;font-size:11px;letter-spacing:.08em;margin-bottom:6px;">BUT</div>
+  <div style="background:rgba(160,61,45,.07);border-bottom:1px solid rgba(27,67,50,.07);padding:14px 20px;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#a03d2d;font-size:11px;letter-spacing:.08em;margin-bottom:6px;">BUT</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">risky behaviors are an accepted part of being a teenager and those risky behaviors will continue even if teens don't have cell phones.</p>
   </div>
-  <div style="background:rgba(167,139,250,.07);border-bottom:1px solid rgba(255,255,255,.07);padding:14px 20px;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#c4b5fd;font-size:11px;letter-spacing:.08em;margin-bottom:6px;">BECAUSE</div>
+  <div style="background:rgba(91,74,158,.07);border-bottom:1px solid rgba(27,67,50,.07);padding:14px 20px;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#5b4a9e;font-size:11px;letter-spacing:.08em;margin-bottom:6px;">BECAUSE</div>
     <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px;">teens are always involved in risky behavior, and as a society we have accepted that risk as part of the teen years:</p>
     <ul style="color:var(--text-secondary);font-size:14px;margin:0 0 8px;padding-left:20px;">
       <li>Subpoint A — They can drive, though it increases their accident risk</li>
@@ -1125,13 +1125,13 @@ window.CURRICULUM = [
     </ul>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;"><em>And on Subpoint B (cyberbullying):</em> kids will be bullied regardless of the cell phone. 56% of students say they have personally felt some sort of bullying at school. The bullying will not stop just because cell phones aren't there.</p>
   </div>
-  <div style="background:rgba(74,222,128,.07);padding:14px 20px;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#a7f3d0;font-size:11px;letter-spacing:.08em;margin-bottom:6px;">THEREFORE</div>
+  <div style="background:rgba(45,106,79,.07);padding:14px 20px;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#1e6b45;font-size:11px;letter-spacing:.08em;margin-bottom:6px;">THEREFORE</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">the Affirmation's claim that cell phones are bad because they lead to risky behavior isn't significant. Many of those risky behaviors aren't inherent to the cell phone and will continue with or without it. This contention goes to the Negative.</p>
   </div>
 </div>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:16px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:16px 0;">
   <strong>Team practice tips — refutation:</strong>
   <ul style="margin:8px 0 0;padding-left:18px;color:var(--text-secondary);font-size:14px;line-height:1.8;">
     <li><strong>Refute ALL the points, not just the easy ones.</strong> Judges notice when you dodge a strong argument. Skipping it is the same as losing it.</li>
@@ -1187,29 +1187,29 @@ window.CURRICULUM = [
 <h3>The Three Targets</h3>
 
 <div style="display:grid;gap:14px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);font-size:11px;letter-spacing:.1em;margin-bottom:8px;">TARGET 1 — THE CLAIM</div>
     <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px;line-height:1.6;">Ask: <strong>Is the claim overstated? Does it suffer from a logical fallacy?</strong></p>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">If the opponent states something as a universal truth that's only sometimes true, attack the overstatement. If the claim assumes what it's trying to prove (circular reasoning) or leaps from a small cause to a catastrophic effect (<span class="key-term" data-definition="A logical fallacy that assumes one event will inevitably lead to a chain of increasingly dire consequences — without proving each step in the chain. Example: 'If we allow cell phones in schools, students will be distracted, grades will fall, and our entire education system will collapse.'">slippery slope</span>), call it out.</p>
-    <div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.15);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;color:var(--text-secondary);">
+    <div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.15);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;color:var(--text-secondary);">
       <strong>Example claim attack:</strong> "The Affirmative claims banning cell phones will eliminate teen distraction. But that's an overstatement — distraction existed long before cell phones. Daydreaming, passing notes, and staring out windows are all forms of teen distraction with nothing to do with phones. The claim is too broad."
     </div>
   </div>
 
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);font-size:11px;letter-spacing:.1em;margin-bottom:8px;">TARGET 2 — THE WARRANT</div>
     <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px;line-height:1.6;">Ask: <strong>Does the evidence actually support the claim? Is the source credible? Is the reasoning logical?</strong></p>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">The warrant is the bridge between evidence and claim. Even if the evidence is real, it might not prove what they say it proves. Check: Is the source biased? Is the study outdated? Does the statistic measure what they claim? A warrant attack says: "Your evidence doesn't connect to your claim the way you think it does."</p>
-    <div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.15);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;color:var(--text-secondary);">
+    <div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.15);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;color:var(--text-secondary);">
       <strong>Example warrant attack:</strong> "The Affirmative cites a University of Alabama study from 2008. But that study is 17 years old — conducted before modern smartphones even existed. Technology, teen behavior, and safety features have changed dramatically. Drawing conclusions about today's teens from research that old doesn't hold."
     </div>
   </div>
 
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);font-size:11px;letter-spacing:.1em;margin-bottom:8px;">TARGET 3 — THE IMPACT</div>
     <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px;line-height:1.6;">Ask: <strong>Does the impact actually matter? Is it as significant as the opponent claims?</strong></p>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Even if the claim is true and the evidence supports it, you can argue that <span class="key-term" data-definition="Arguing that even if an argument is true, its real-world consequences are too minor, too speculative, or too limited in scope to matter to the resolution. You're not denying the fact — you're minimizing its significance.">the impact is not significant enough to matter</span>. Small effects, effects on tiny numbers of people, or effects that are already being solved are all weak impacts you can challenge.</p>
-    <div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.15);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;color:var(--text-secondary);">
+    <div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.15);border-radius:8px;padding:10px 14px;margin-top:10px;font-size:13px;color:var(--text-secondary);">
       <strong>Example impact attack:</strong> "Even if we grant that some teens are distracted by phones while walking, the wave of teen injuries the Affirmative describes doesn't show up in the data. The actual pedestrian injury rate for teens has been declining for a decade, even as phone use has skyrocketed. Their impact is speculative — not backed by real-world trends."
     </div>
   </div>
@@ -1285,21 +1285,21 @@ window.CURRICULUM = [
 <h3>Step 2: Divide into 6 Columns — One Per Speech</h3>
 <p>A parliamentary debate has 6 speeches. Draw lines to divide your paper into <strong>6 equal vertical columns</strong> and label each one at the top:</p>
 
-<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;margin:16px 0;">
-  <div style="display:grid;grid-template-columns:repeat(6,1fr);border-bottom:2px solid rgba(212,168,67,.3);">
-    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">1AC</div>
-    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">1NC</div>
-    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">2AC</div>
-    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">2NC</div>
-    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">NR</div>
+<div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.1);border-radius:12px;overflow:hidden;margin:16px 0;">
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);border-bottom:2px solid rgba(184,144,90,.3);">
+    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(27,67,50,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">1AC</div>
+    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(27,67,50,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">1NC</div>
+    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(27,67,50,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">2AC</div>
+    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(27,67,50,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">2NC</div>
+    <div style="padding:10px 8px;text-align:center;border-right:1px solid rgba(27,67,50,.08);font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">NR</div>
     <div style="padding:10px 8px;text-align:center;font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-300);">AR</div>
   </div>
   <div style="display:grid;grid-template-columns:repeat(6,1fr);min-height:70px;">
-    <div style="border-right:1px solid rgba(255,255,255,.08);padding:8px 6px;font-size:11px;color:var(--text-muted);">AFF case here</div>
-    <div style="border-right:1px solid rgba(255,255,255,.08);padding:8px 6px;font-size:11px;color:var(--text-muted);">NEG responses + NEG case (back side)</div>
-    <div style="border-right:1px solid rgba(255,255,255,.08);padding:8px 6px;"></div>
-    <div style="border-right:1px solid rgba(255,255,255,.08);padding:8px 6px;"></div>
-    <div style="border-right:1px solid rgba(255,255,255,.08);padding:8px 6px;"></div>
+    <div style="border-right:1px solid rgba(27,67,50,.08);padding:8px 6px;font-size:11px;color:var(--text-muted);">AFF case here</div>
+    <div style="border-right:1px solid rgba(27,67,50,.08);padding:8px 6px;font-size:11px;color:var(--text-muted);">NEG responses + NEG case (back side)</div>
+    <div style="border-right:1px solid rgba(27,67,50,.08);padding:8px 6px;"></div>
+    <div style="border-right:1px solid rgba(27,67,50,.08);padding:8px 6px;"></div>
+    <div style="border-right:1px solid rgba(27,67,50,.08);padding:8px 6px;"></div>
     <div style="padding:8px 6px;"></div>
   </div>
 </div>
@@ -1316,15 +1316,15 @@ window.CURRICULUM = [
 
 <h3>Step 4: Three Golden Rules for Every Column</h3>
 <div style="display:grid;gap:10px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">1.</span>
     <div><strong>Abbreviate everything.</strong> You are writing while someone speaks at full speed. Develop shorthands now: "b/c" for because, "w/" for with, "↑" for increase, "↓" for decrease, "→" for leads to, "≠" for doesn't prove or disproves, "gov" for government, "res" for resolution.</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">2.</span>
     <div><strong>Leave space between each argument.</strong> Don't cram everything together. Every contention needs room below it for responses in the next column. If you run out of vertical space, you'll have nowhere to write the 2NC's response to the 1AC's third contention.</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">3.</span>
     <div><strong>Write responses directly across from what they respond to.</strong> If the 1NC attacks AFF Contention 2, write that attack in the 1NC column at the same vertical height as Contention 2. This is what makes flowing powerful — you can trace an argument horizontally across the entire debate.</div>
   </div>
@@ -1368,7 +1368,7 @@ window.CURRICULUM = [
 <h3>The First Column: Flowing the 1AC</h3>
 <p>Write the AFF case as it's presented. If you <em>are</em> on AFF, fill this column in during prep time — it saves frantic writing during the speech. For each contention, capture: claim, key evidence, source, subpoint labels (A, B…). No full sentences — just enough to reconstruct the argument.</p>
 
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:12px 0;">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:12px 0;">
   <p style="margin:0 0 8px;font-weight:700;color:var(--gold-300);font-size:13px;">Example — Flowing the 1AC's Contention 1 (cell phones):</p>
   <p style="margin:0;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);line-height:2.2;">C1: cell phones → risky behav in teens<br/>A. walking+talking: 45% ↑ acc risk (U.Alabama '08)<br/>B. cyberbullying: 1/3 teens victimized (KidsHealth)<br/>W: cell phones = expose teens to risk → hurts them<br/>I: ban phones → ↓ deaths, injuries, esteem probs</p>
 </div>
@@ -1379,7 +1379,7 @@ window.CURRICULUM = [
 
 <h3>Marking Dropped Arguments</h3>
 <p>A <span class="key-term" data-definition="When a team fails to respond to an argument made by the opposing team. In debate, a dropped argument is generally considered conceded — the dropping team is treated as if they agreed the argument is true.">dropped argument</span> is powerful. When you notice one, mark it clearly — draw a circle in the empty space or write <strong>DROP</strong> in the blank cell. Then call it out in your speech:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:12px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:12px 0;font-style:italic;color:var(--text-secondary);">
 "Notice that the Negative dropped our second contention entirely — the cyberbullying evidence from KidsHealth showing 1 in 3 teens victimized. The Negative offered no response. That argument stands uncontested, and the judge should treat it as conceded."
 </div>
 
@@ -1393,16 +1393,16 @@ window.CURRICULUM = [
 <p>Build your own system — anything that lets you write faster than full words. Common ones:</p>
 
 <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">↑ = increase / more / better</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">↓ = decrease / less / worse</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">→ = leads to / causes</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">≠ = does not / disproves</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">w/ = with &nbsp;·&nbsp; w/o = without</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">b/c = because &nbsp;·&nbsp; ∴ = therefore</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">C1, C2 = Contention 1, 2</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">DROP = dropped argument</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">X = cross-apply</div>
-  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">VI = voting issue</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">↑ = increase / more / better</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">↓ = decrease / less / worse</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">→ = leads to / causes</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">≠ = does not / disproves</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">w/ = with &nbsp;·&nbsp; w/o = without</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">b/c = because &nbsp;·&nbsp; ∴ = therefore</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">C1, C2 = Contention 1, 2</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">DROP = dropped argument</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">X = cross-apply</div>
+  <div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.07);border-radius:8px;padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">VI = voting issue</div>
 </div>
 
 <p><strong>The test:</strong> can your partner pick up your flow mid-speech and know exactly where you are? If yes — you're doing it right.</p>
@@ -1469,22 +1469,22 @@ window.CURRICULUM = [
 <p>Every POI you raise should have a clear reason behind it. The three purposes from the source material are:</p>
 
 <div style="display:grid;gap:12px;margin:16px 0;">
-  <div style="background:rgba(96,165,250,.08);border-left:4px solid #60a5fa;padding:14px 20px;border-radius:0 12px 12px 0;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#93c5fd;font-size:12px;margin-bottom:6px;">CLARIFY</div>
+  <div style="background:rgba(47,95,143,.08);border-left:4px solid #2f5f8f;padding:14px 20px;border-radius:0 12px 12px 0;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#2f5f8f;font-size:12px;margin-bottom:6px;">CLARIFY</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Ask questions to ensure you understand what the other team is saying. You cannot respond to arguments you don't have on your flow. More critically: you don't want to lose a debate by <span class="key-term" data-definition="Attacking a weakened or distorted version of your opponent's argument rather than their actual argument. Responding to a strawman you misunderstood is worse than not responding at all.">responding to a strawman</span> — an argument you got wrong because you misunderstood it.</p>
-    <div style="background:rgba(96,165,250,.07);border-radius:8px;padding:10px 14px;margin-top:10px;font-style:italic;font-size:13px;color:var(--text-secondary);">"Point of information — when you say 'alternate energy sources,' does your team include nuclear power in that definition?"</div>
+    <div style="background:rgba(47,95,143,.07);border-radius:8px;padding:10px 14px;margin-top:10px;font-style:italic;font-size:13px;color:var(--text-secondary);">"Point of information — when you say 'alternate energy sources,' does your team include nuclear power in that definition?"</div>
   </div>
 
-  <div style="background:rgba(167,139,250,.08);border-left:4px solid #a78bfa;padding:14px 20px;border-radius:0 12px 12px 0;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#c4b5fd;font-size:12px;margin-bottom:6px;">COMMIT</div>
+  <div style="background:rgba(91,74,158,.08);border-left:4px solid #5b4a9e;padding:14px 20px;border-radius:0 12px 12px 0;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#5b4a9e;font-size:12px;margin-bottom:6px;">COMMIT</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Ask questions that make the opposing team commit to a specific position or fact. This serves two purposes: it prevents them from being vague or shifting their argument later in the debate, and it creates a link you can use in your own case. Once they say it on the record, you can hold them to it.</p>
-    <div style="background:rgba(167,139,250,.07);border-radius:8px;padding:10px 14px;margin-top:10px;font-style:italic;font-size:13px;color:var(--text-secondary);">"Point of information — is your team claiming that solar energy alone is sufficient to fully replace oil, or only that it can supplement it?"</div>
+    <div style="background:rgba(91,74,158,.07);border-radius:8px;padding:10px 14px;margin-top:10px;font-style:italic;font-size:13px;color:var(--text-secondary);">"Point of information — is your team claiming that solar energy alone is sufficient to fully replace oil, or only that it can supplement it?"</div>
   </div>
 
-  <div style="background:rgba(74,222,128,.08);border-left:4px solid #4ade80;padding:14px 20px;border-radius:0 12px 12px 0;">
-    <div style="font-family:var(--font-mono);font-weight:800;color:#a7f3d0;font-size:12px;margin-bottom:6px;">CONTEST</div>
+  <div style="background:rgba(45,106,79,.08);border-left:4px solid #1e7a45;padding:14px 20px;border-radius:0 12px 12px 0;">
+    <div style="font-family:var(--font-mono);font-weight:800;color:#1e6b45;font-size:12px;margin-bottom:6px;">CONTEST</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Ask questions that directly challenge a point the speaker is making — as a preempt to your own case or to set up a specific argument. You can even lay a trap: ask a commit question now that you'll use to spring an argument in your next speech. In conjunction with a commit question, you may create a contradiction you can exploit.</p>
-    <div style="background:rgba(74,222,128,.07);border-radius:8px;padding:10px 14px;margin-top:10px;font-style:italic;font-size:13px;color:var(--text-secondary);">"Point of information — can you name a single country that has successfully replaced fossil fuels with renewable energy at the national level within a 10-year timeline?"</div>
+    <div style="background:rgba(45,106,79,.07);border-radius:8px;padding:10px 14px;margin-top:10px;font-style:italic;font-size:13px;color:var(--text-secondary);">"Point of information — can you name a single country that has successfully replaced fossil fuels with renewable energy at the national level within a 10-year timeline?"</div>
   </div>
 </div>
 
@@ -1536,25 +1536,25 @@ window.CURRICULUM = [
 <h3>The Four Rules for Handling POIs</h3>
 
 <div style="display:grid;gap:12px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">1.</span>
     <div>
       <strong>Limit how many POIs you take.</strong> You can set the terms: <em>"I'll take your first of three points."</em> This signals confidence, controls the pace of your speech, and prevents the opposing team from interrupting every 30 seconds. You decide when you're done taking points — not them.
     </div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">2.</span>
     <div>
       <strong>Never stop mid-sentence or mid-argument to answer.</strong> If someone rises while you're in the middle of a critical point, you can wave them off with: <em>"I'll take your point at the end of this argument."</em> Then finish what you were saying, then accept the POI. This keeps the judge's attention on your argument — not on the interruption.
     </div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">3.</span>
     <div>
       <strong>Answer in the least amount of words necessary.</strong> A POI should get a concise response — not a 90-second sub-speech. Answer cleanly and move on. Don't be rude, but don't let follow-up questions drag you down either. Limit follow-ups: one answer, done.
     </div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">4.</span>
     <div>
       <strong>Don't do your opponent's work for them.</strong> If you think the question is irrelevant or off-topic, say so: <em>"I find that point irrelevant to the resolution."</em> If they think it's worthwhile, let them spend their own speech time making those arguments. By engaging with an irrelevant point, you elevate it and give it credibility it doesn't deserve.
@@ -1622,12 +1622,12 @@ window.CURRICULUM = [
 
 <h3>What Qualifies — and What Doesn't</h3>
 <div style="display:grid;gap:12px;margin:16px 0;">
-  <div style="background:rgba(74,222,128,.07);border-left:3px solid #4ade80;padding:14px 18px;border-radius:0 10px 10px 0;">
-    <strong style="color:#a7f3d0;">Legitimate — You CAN raise a Point of Order for:</strong><br/>
+  <div style="background:rgba(45,106,79,.07);border-left:3px solid #1e7a45;padding:14px 18px;border-radius:0 10px 10px 0;">
+    <strong style="color:#1e6b45;">Legitimate — You CAN raise a Point of Order for:</strong><br/>
     <span style="color:var(--text-secondary);font-size:14px;">Any argument in the rebuttal that was never mentioned in the 1AC, 1NC, 2AC, or 2NC. New claims, new evidence on a completely new issue, new contentions — if it wasn't on the flow from the constructive phase, it's new.</span>
   </div>
-  <div style="background:rgba(248,113,113,.07);border-left:3px solid #f87171;padding:14px 18px;border-radius:0 10px 10px 0;">
-    <strong style="color:#fca5a5;">Not a Point of Order — Extensions and Analysis:</strong><br/>
+  <div style="background:rgba(160,61,45,.07);border-left:3px solid #a03d2d;padding:14px 18px;border-radius:0 10px 10px 0;">
+    <strong style="color:#a03d2d;">Not a Point of Order — Extensions and Analysis:</strong><br/>
     <span style="color:var(--text-secondary);font-size:14px;">Adding new evidence or analysis to an argument that was already introduced in constructive speeches is called extending — it's allowed and expected. The test is: was the core argument already on the flow? If yes, they're extending. If the argument itself is completely new, that's a Point of Order.</span>
   </div>
 </div>
@@ -1638,25 +1638,25 @@ window.CURRICULUM = [
 <h3>How to Raise a Point of Order — Four Steps</h3>
 <p>When you decide to raise one, keep it short and focused. Going off on a tangent dilutes the power of the point. Here's the structure:</p>
 <div style="display:grid;gap:8px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">1.</span>
     <div><strong>Identify the argument.</strong> State exactly what they just said that you believe is new.</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">2.</span>
     <div><strong>State its impact.</strong> Is this a game-changer? Why does it matter to the outcome of the debate?</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">3.</span>
     <div><strong>Explain why it's unfair.</strong> Typically: because this argument is new, there is no opportunity to adequately respond to it.</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">4.</span>
     <div><strong>Keep it short.</strong> A Point of Order is not your speech. State it, let the judge rule, and move on.</div>
   </div>
 </div>
 
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:16px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:16px 0;font-style:italic;color:var(--text-secondary);">
 <strong style="color:var(--gold-300);font-style:normal;">Example — How to raise a Point of Order:</strong><br/>
 "Point of Order — the Affirmative just argued in their rebuttal that the plan would also reduce carbon emissions. This was never mentioned in any of the four constructive speeches — it did not appear in the 1AC, and the AFF did not bring it up when attacking our contentions. This is a brand-new argument. Because we are now in rebuttals, we have no opportunity to respond to it. We ask the judge to disallow this argument."
 </div>
@@ -1769,7 +1769,7 @@ window.CURRICULUM = [
             html: `
 <h2>The Negative Rebuttal (NR)</h2>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice: 3 minutes</strong> · JV/Varsity: 4 minutes
 </div>
 
@@ -1782,30 +1782,30 @@ window.CURRICULUM = [
 
 <p><strong>Step 1: Frame the Round for the Judge</strong></p>
 <p>Open with a clear, big-picture statement of what this debate has really been about. Crystallize the central clash in one or two sentences:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "This debate comes down to one question: can the Affirmative show that the benefits of switching to alternate energy outweigh the massive, immediate economic costs? We have shown they cannot — and here's why."
 </div>
 
 <p><strong>Step 2: Call Out Drops</strong></p>
 <p>Before going into your voting issues, explicitly identify any AFF arguments that were dropped by the AFF themselves. If the AFF failed to extend one of their own contentions in the 2AC, call it out now:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Notice that in their last speech, the Affirmative dropped their second contention on job creation entirely — they offered no defense of it. That argument is uncontested and conceded to the Negative."
 </div>
 
 <p><strong>Step 3: Your 2–3 Voting Issues</strong></p>
 <p>State each voting issue clearly, explain the argument, explain why you've won it, and explain why it's decisive to the resolution. This is the heart of your rebuttal. Be specific — don't just say "we won the cost argument." Tell the judge exactly which evidence was extended, why the AFF didn't address it, and what that means for the resolution:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Voting Issue 1: Alternate energy is economically unsustainable. Our Solyndra example — Obama poured billions into that company and it went bankrupt, taking all the jobs with it — was never responded to by the Affirmative in either of their speeches. That example stands as concrete proof that the job creation benefit the AFF claims is not durable. The Affirmative cannot show net benefits when their own best economic example collapsed."
 </div>
 
 <p><strong>Step 4: Explain Why Your Arguments Outweigh</strong></p>
 <p>Even if the judge grants some AFF arguments, you need to explain why your arguments outweigh theirs under the judging criteria. If the criteria is net benefits: show the NEG side produces more overall good. If it's on balance: show the NEG arguments are more significant than the AFF arguments:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Even if the Affirmative shows some environmental benefit — which they haven't proven — the immediate economic harm to working Americans outweighs a speculative future environmental advantage. Jobs and economic stability affect Americans today. Environmental projections are decades away. Under net benefits, the NEG wins."
 </div>
 
 <p><strong>Step 5: Close with a Clear Vote Request</strong></p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "The Affirmative has not shown a significant harm, their economic benefits are unproven, and our cost argument stands uncontested. The choice is clear. We ask for a Negative ballot."
 </div>
 `
@@ -1852,7 +1852,7 @@ window.CURRICULUM = [
             html: `
 <h2>The Affirmative Rebuttal (AR)</h2>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice: 3 minutes</strong> · JV/Varsity: 5 minutes
 </div>
 
@@ -1863,7 +1863,7 @@ window.CURRICULUM = [
 
 <h3>Step 1: Address the Negative's Voting Issues — Efficiently</h3>
 <p>The Negative just identified 2–3 reasons they think they've won. You need to knock each one down — but briefly. Don't re-argue the whole round. One or two focused sentences per issue is often enough to show the judge why the NEG's framing doesn't hold:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "The Negative says their strongest voting issue is cost — the Solyndra example. But Solyndra was one company. The solar industry as a whole has grown 89% in the last five years and now employs 260,000 Americans. One bankruptcy from a decade ago does not represent an entire sector. Their cost argument relies on an outlier, not a trend."
 </div>
 
@@ -1871,13 +1871,13 @@ window.CURRICULUM = [
 
 <h3>Step 2: Extend and Crystallize Your Voting Issues</h3>
 <p>Once you've dealt with the NEG's framing, pivot to your own affirmative voting issues. These should be the arguments you've won — arguments the NEG couldn't answer, arguments tied to your strongest evidence, and arguments that directly support the resolution:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "Now, here's why the Affirmation wins this debate. Voting Issue 1: The Negative never responded to our environmental contention. The scientific consensus on climate risk from fossil fuels is not contested — and the Negative offered zero analysis against it. That argument stands, and it's the most significant long-term harm in this round."
 </div>
 
 <h3>Step 3: The Final 30 Seconds — End Powerfully</h3>
 <p>You have the final word of the entire debate. Don't end by trailing off with "and so, for all these reasons, vote affirmative." End with a statement that gives the judge a clear, memorable reason to vote for you:</p>
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:10px 0;font-style:italic;color:var(--text-secondary);">
 "This debate is about whether America can afford to keep burning fossil fuels. The Negative says we can't afford to change. The Affirmation says we can't afford not to. We've shown the scientific necessity, the economic opportunity, and the national security benefit of alternate energy. The Negative's one example of a failed company does not outweigh the weight of evidence we've brought today. The choice is clear — vote Affirmative."
 </div>
 
@@ -1943,23 +1943,23 @@ window.CURRICULUM = [
 <h3>The Five-Step Prep Process</h3>
 
 <div style="display:grid;gap:8px;margin:14px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">1.</span>
     <div><strong>Define the Key Terms.</strong> Topical definitions only — what a reasonable person would use. Narrow or strange definitions invite Topicality challenges that derail your debate.</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">2.</span>
     <div><strong>Set the Criteria.</strong> Use <span class="key-term" data-definition="A judging standard meaning: if your position is more true overall — not necessarily true in every single case — you win.">on balance</span> or "more often than not." Never use a criteria requiring universal proof — that's impossible in any fact debate.</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">3.</span>
     <div><strong>Brainstorm.</strong> Generate 5–6+ arguments. Don't filter yet — just get ideas on paper. You won't use all of them.</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">4.</span>
     <div><strong>Rank and Divide.</strong> Pick the top 2–3 strongest. Rest become backup. You and your partner each develop your assigned contentions fully — make sure each has enough evidence.</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(27,67,50,.08);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;">
     <span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:20px;">5.</span>
     <div><strong>Write It by Hand — Both Partners.</strong> No printed materials in the round. If only one partner writes the case, the other may not be able to speak to it under pressure.</div>
   </div>
@@ -1968,14 +1968,14 @@ window.CURRICULUM = [
 <h3>Full Framework for a Fact Case</h3>
 <p>The source material provides a specific framework every fact case should follow:</p>
 
-<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;margin:16px 0;">
+<div style="background:rgba(27,67,50,.03);border:1px solid rgba(27,67,50,.1);border-radius:12px;overflow:hidden;margin:16px 0;">
   <div style="padding:0;">
-    <div style="padding:10px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">1.</span><div><strong>Opening Remark</strong> — A compelling hook, then state the resolution.</div></div>
-    <div style="padding:10px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">2.</span><div><strong>Resolutional Analysis</strong> — State the type (fact) and define key terms.</div></div>
-    <div style="padding:10px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">3.</span><div><strong>Establish Criteria</strong> — State "on balance" or "more often than not" and explain why this is the right standard for this resolution.</div></div>
-    <div style="padding:10px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">4.</span><div><strong>Contention 1</strong> — Fully developed: claim → evidence → warrant → impact.</div></div>
-    <div style="padding:10px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">5.</span><div><strong>Contention 2</strong> — Same structure.</div></div>
-    <div style="padding:10px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">6.</span><div><strong>Contention 3 (optional but recommended)</strong> — Same structure.</div></div>
+    <div style="padding:10px 18px;border-bottom:1px solid rgba(27,67,50,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">1.</span><div><strong>Opening Remark</strong> — A compelling hook, then state the resolution.</div></div>
+    <div style="padding:10px 18px;border-bottom:1px solid rgba(27,67,50,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">2.</span><div><strong>Resolutional Analysis</strong> — State the type (fact) and define key terms.</div></div>
+    <div style="padding:10px 18px;border-bottom:1px solid rgba(27,67,50,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">3.</span><div><strong>Establish Criteria</strong> — State "on balance" or "more often than not" and explain why this is the right standard for this resolution.</div></div>
+    <div style="padding:10px 18px;border-bottom:1px solid rgba(27,67,50,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">4.</span><div><strong>Contention 1</strong> — Fully developed: claim → evidence → warrant → impact.</div></div>
+    <div style="padding:10px 18px;border-bottom:1px solid rgba(27,67,50,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">5.</span><div><strong>Contention 2</strong> — Same structure.</div></div>
+    <div style="padding:10px 18px;border-bottom:1px solid rgba(27,67,50,.06);display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">6.</span><div><strong>Contention 3 (optional but recommended)</strong> — Same structure.</div></div>
     <div style="padding:10px 18px;display:flex;gap:12px;"><span style="font-family:var(--font-mono);font-weight:800;color:var(--gold-400);flex-shrink:0;min-width:24px;">7.</span><div><strong>Underview</strong> — Briefly summarize your key arguments and urge a vote for your side.</div></div>
   </div>
 </div>
@@ -2035,16 +2035,16 @@ window.CURRICULUM = [
 <h3>Your Value IS Your Criteria</h3>
 <p><strong>Your value tells the judge what lens to use.</strong> If you argue for "ecological integrity," the judge asks: which side better protects ecosystems? Every contention must connect to that lens. Pick a value that's hard for the Negative to claim — if both teams can say they're arguing for "justice," you haven't differentiated.</p>
 
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:16px 20px;margin:16px 0;">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:16px 20px;margin:16px 0;">
   <p style="margin:0 0 10px;font-weight:700;color:var(--gold-300);">Example: "The environmental movement ought to prioritize ecocentrism."</p>
   <div style="display:grid;gap:8px;">
-    <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px 14px;">
+    <div style="background:rgba(27,67,50,.04);border-radius:8px;padding:10px 14px;">
       <strong style="color:var(--gold-300);">AFF Value:</strong> <span style="color:var(--text-secondary);">Ecological Integrity — the principle that the natural world has intrinsic value independent of human benefit.</span>
     </div>
-    <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px 14px;">
+    <div style="background:rgba(27,67,50,.04);border-radius:8px;padding:10px 14px;">
       <strong style="color:var(--gold-300);">Contention 1:</strong> <span style="color:var(--text-secondary);">Anthropocentric frameworks have failed — decades of human-centered environmentalism have not stopped species collapse or ecosystem destruction. Ecocentrism demands we put nature first, not second.</span>
     </div>
-    <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px 14px;">
+    <div style="background:rgba(27,67,50,.04);border-radius:8px;padding:10px 14px;">
       <strong style="color:var(--gold-300);">Contention 2:</strong> <span style="color:var(--text-secondary);">Ecocentrism creates stronger long-term protections — when nature has rights independent of human utility, political trade-offs can't override those protections.</span>
     </div>
   </div>
@@ -2118,23 +2118,23 @@ window.CURRICULUM = [
 <p>A <span class="key-term" data-definition="A debate resolution that requires the affirmative team to identify a significant problem in the status quo and present a plan to solve it. Policy resolutions typically contain the word 'should.'">policy case</span> has a higher burden than fact or value cases. You're not just arguing something is true — you're arguing a problem exists <em>and</em> your plan fixes it. Your team has debated this: <em>"The USFG should prohibit the sale of genetic data for commercial purposes."</em> That's a policy resolution — identify the harm, present the plan, prove it works.</p>
 
 <div style="display:grid;gap:10px;margin:16px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:10px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:10px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">1 — SIGNIFICANT HARM</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">The problem that exists right now. Build a story: who is hurt, how badly, why it matters. Has to be significant — small inconveniences don't win rounds.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:10px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:10px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">2 — INHERENCY</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">Why won't the problem fix itself without your plan? If you skip this, the judge assumes the status quo is already solving it.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:10px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:10px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">3 — PLAN</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">The specific policy you're proposing. Precise language, four planks: Agency, Enforcement, Funding, Timeline. Once you read it, you don't change it.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:10px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:10px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">4 — SOLVENCY</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">How your plan actually fixes the harm. This closes the loop — problem exists, can't self-correct, your plan works.</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:10px;padding:14px 18px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:10px;padding:14px 18px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:4px;">5 — ADVANTAGES</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;">Extra benefits beyond solving the harm. More reasons the judge should vote your way.</p>
   </div>
@@ -2208,18 +2208,18 @@ window.CURRICULUM = [
 <p>Here's the simplest way to remember what your plan needs to include:</p>
 
 <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0;">
-  <div style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.3);border-radius:12px;padding:16px 18px;">
-    <div style="font-family:var(--font-mono);font-size:18px;font-weight:900;color:rgba(96,165,250,1);margin-bottom:6px;">WHO</div>
+  <div style="background:rgba(47,95,143,.1);border:1px solid rgba(47,95,143,.3);border-radius:12px;padding:16px 18px;">
+    <div style="font-family:var(--font-mono);font-size:18px;font-weight:900;color:rgba(47,95,143,1);margin-bottom:6px;">WHO</div>
     <div style="font-weight:700;color:var(--text-primary);margin-bottom:4px;">Agent of Action</div>
     <p style="margin:0;color:var(--text-secondary);font-size:13px;">Who enacts the plan? Be specific: Congress, a federal agency, the President — not just "the government."</p>
   </div>
-  <div style="background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);border-radius:12px;padding:16px 18px;">
-    <div style="font-family:var(--font-mono);font-size:18px;font-weight:900;color:rgba(167,139,250,1);margin-bottom:6px;">WHAT</div>
+  <div style="background:rgba(91,74,158,.1);border:1px solid rgba(91,74,158,.3);border-radius:12px;padding:16px 18px;">
+    <div style="font-family:var(--font-mono);font-size:18px;font-weight:900;color:rgba(91,74,158,1);margin-bottom:6px;">WHAT</div>
     <div style="font-weight:700;color:var(--text-primary);margin-bottom:4px;">Plan Details</div>
     <p style="margin:0;color:var(--text-secondary);font-size:13px;">What exactly does the plan do? The specific mandate — what is required, prohibited, or created.</p>
   </div>
-  <div style="background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);border-radius:12px;padding:16px 18px;">
-    <div style="font-family:var(--font-mono);font-size:18px;font-weight:900;color:rgba(74,222,128,1);margin-bottom:6px;">WHEN</div>
+  <div style="background:rgba(45,106,79,.1);border:1px solid rgba(45,106,79,.3);border-radius:12px;padding:16px 18px;">
+    <div style="font-family:var(--font-mono);font-size:18px;font-weight:900;color:rgba(45,106,79,1);margin-bottom:6px;">WHEN</div>
     <div style="font-weight:700;color:var(--text-primary);margin-bottom:4px;">Timeframe</div>
     <p style="margin:0;color:var(--text-secondary);font-size:13px;">When does it happen? When does it go into effect, and over what timeline does it roll out?</p>
   </div>
@@ -2230,7 +2230,7 @@ window.CURRICULUM = [
   </div>
 </div>
 
-<div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:12px;padding:14px 18px;margin:12px 0;">
+<div style="background:rgba(184,144,90,.05);border:1px solid rgba(184,144,90,.2);border-radius:12px;padding:14px 18px;margin:12px 0;">
   <strong style="color:var(--gold-300);">Example — "The USFG should prohibit the sale of genetic data for commercial purposes":</strong><br/>
   <span style="color:var(--text-secondary);font-size:14px;"><strong>WHO:</strong> Congress passes legislation · <strong>WHAT:</strong> prohibits companies from selling genetic data for commercial profit · <strong>WHEN:</strong> effective 12 months after enactment · <strong>HOW:</strong> enforced by the FTC with civil penalties up to $10M per violation; funded through existing FTC budget</span>
 </div>
@@ -2239,29 +2239,29 @@ window.CURRICULUM = [
 <p>Every policy plan has four required components called <span class="key-term" data-definition="The four required sections of a policy plan: Agency (who enacts it), Enforcement (who ensures compliance), Funding (how it's paid for), and Timeline (when it happens and how long it takes).">planks</span>. Think of planks as the legs of a table — remove one and the whole thing becomes unstable.</p>
 
 <div style="display:grid;gap:12px;margin:20px 0;">
-  <div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.3);border-radius:12px;padding:18px 20px;">
-    <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:rgba(96,165,250,1);letter-spacing:.1em;margin-bottom:6px;">PLANK 1 — AGENCY</div>
+  <div style="background:rgba(47,95,143,.07);border:1px solid rgba(47,95,143,.3);border-radius:12px;padding:18px 20px;">
+    <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:rgba(47,95,143,1);letter-spacing:.1em;margin-bottom:6px;">PLANK 1 — AGENCY</div>
     <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px;"><strong>Who enacts the plan?</strong></p>
     <p style="margin:0;color:var(--text-muted);font-size:13px;line-height:1.6;">Identify the specific body that will carry out the policy: Congress, a federal regulatory agency, the President, state governments, etc. Be specific — "the government" is too vague and easy to attack.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The United States Congress will pass legislation requiring…"</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The United States Congress will pass legislation requiring…"</div>
   </div>
-  <div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.3);border-radius:12px;padding:18px 20px;">
-    <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:rgba(96,165,250,1);letter-spacing:.1em;margin-bottom:6px;">PLANK 2 — ENFORCEMENT</div>
+  <div style="background:rgba(47,95,143,.07);border:1px solid rgba(47,95,143,.3);border-radius:12px;padding:18px 20px;">
+    <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:rgba(47,95,143,1);letter-spacing:.1em;margin-bottom:6px;">PLANK 2 — ENFORCEMENT</div>
     <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px;"><strong>Who makes sure the plan is followed?</strong></p>
     <p style="margin:0;color:var(--text-muted);font-size:13px;line-height:1.6;">A plan with no enforcement mechanism is easy to attack on solvency — if there's no consequence for non-compliance, the plan might not work. Identify the enforcement body: courts, regulatory agencies, law enforcement.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "…enforced by the Environmental Protection Agency with civil penalties for violations…"</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "…enforced by the Environmental Protection Agency with civil penalties for violations…"</div>
   </div>
-  <div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.3);border-radius:12px;padding:18px 20px;">
-    <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:rgba(96,165,250,1);letter-spacing:.1em;margin-bottom:6px;">PLANK 3 — FUNDING</div>
+  <div style="background:rgba(47,95,143,.07);border:1px solid rgba(47,95,143,.3);border-radius:12px;padding:18px 20px;">
+    <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:rgba(47,95,143,1);letter-spacing:.1em;margin-bottom:6px;">PLANK 3 — FUNDING</div>
     <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px;"><strong>Who pays for the plan and how much does it cost?</strong></p>
     <p style="margin:0;color:var(--text-muted);font-size:13px;line-height:1.6;">The Negative will attack underfunded plans. Identify the funding source: federal appropriations, existing agency budgets, a new tax, public-private partnerships. You don't need an exact dollar figure, but you need a realistic source.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "…funded through reallocation of existing Department of Energy discretionary budget…"</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "…funded through reallocation of existing Department of Energy discretionary budget…"</div>
   </div>
-  <div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.3);border-radius:12px;padding:18px 20px;">
-    <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:rgba(96,165,250,1);letter-spacing:.1em;margin-bottom:6px;">PLANK 4 — TIMELINE</div>
+  <div style="background:rgba(47,95,143,.07);border:1px solid rgba(47,95,143,.3);border-radius:12px;padding:18px 20px;">
+    <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:rgba(47,95,143,1);letter-spacing:.1em;margin-bottom:6px;">PLANK 4 — TIMELINE</div>
     <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px;"><strong>When does the plan happen? How long does it take?</strong></p>
     <p style="margin:0;color:var(--text-muted);font-size:13px;line-height:1.6;">Plans without a timeline feel vague. State when implementation begins and how long the full rollout takes. A phased implementation is fine and often more defensible than "immediately."</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "…to be implemented within 18 months of passage, with full compliance required within three years."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "…to be implemented within 18 months of passage, with full compliance required within three years."</div>
   </div>
 </div>
 
@@ -2328,17 +2328,17 @@ window.CURRICULUM = [
 <p><span class="key-term" data-definition="The section of the affirmative policy case that explains how and why the plan will eliminate or significantly reduce the harms identified.">Solvency</span> proves your plan actually fixes the harm. Weak solvency — "this could help" — loses rounds. Strong solvency ties your plan's specific mechanism directly to the inherency barrier and shows why it produces the result you promised in harms.</p>
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:10px;padding:16px;text-align:center;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:10px;padding:16px;text-align:center;">
     <div style="font-size:22px;margin-bottom:8px;">🔥</div>
     <div style="font-family:var(--font-mono);font-size:10px;font-weight:800;color:var(--gold-400);letter-spacing:.08em;margin-bottom:6px;">HARMS</div>
     <p style="margin:0;font-size:12px;color:var(--text-muted);line-height:1.5;">The problem exists and it's serious</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:10px;padding:16px;text-align:center;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:10px;padding:16px;text-align:center;">
     <div style="font-size:22px;margin-bottom:8px;">🧱</div>
     <div style="font-family:var(--font-mono);font-size:10px;font-weight:800;color:var(--gold-400);letter-spacing:.08em;margin-bottom:6px;">INHERENCY</div>
     <p style="margin:0;font-size:12px;color:var(--text-muted);line-height:1.5;">The barrier keeps it from fixing itself</p>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:10px;padding:16px;text-align:center;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:10px;padding:16px;text-align:center;">
     <div style="font-size:22px;margin-bottom:8px;">🔑</div>
     <div style="font-family:var(--font-mono);font-size:10px;font-weight:800;color:var(--gold-400);letter-spacing:.08em;margin-bottom:6px;">SOLVENCY</div>
     <p style="margin:0;font-size:12px;color:var(--text-muted);line-height:1.5;">Your plan is the key that breaks through the barrier</p>
@@ -2399,25 +2399,25 @@ window.CURRICULUM = [
 <h3>The Four-Part Topicality Framework</h3>
 
 <div style="display:grid;gap:12px;margin:20px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">1 — INTERPRETATION</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Your definition of the key term in dispute. This is the standard the Affirmative's plan must meet. Use a dictionary, expert source, or common usage to establish what the term means in context.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Under our interpretation, 'alternative energy sources' refers to renewable energy sources — solar, wind, geothermal, and hydroelectric — which are defined by contrast to fossil fuels."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Under our interpretation, 'alternative energy sources' refers to renewable energy sources — solar, wind, geothermal, and hydroelectric — which are defined by contrast to fossil fuels."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">2 — VIOLATION</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">How the Affirmative's plan fails to meet your interpretation. Be specific — point to the exact part of the plan that falls outside the definition.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The Affirmative has run a case entirely about nuclear power. Nuclear energy is not a renewable source — it relies on finite uranium deposits and generates long-lived radioactive waste. It does not meet our interpretation."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The Affirmative has run a case entirely about nuclear power. Nuclear energy is not a renewable source — it relies on finite uranium deposits and generates long-lived radioactive waste. It does not meet our interpretation."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">3 — STANDARD</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Why your interpretation is the correct one. Common standards include: dictionary definition, expert consensus, common usage, or what the resolution-writers most likely intended.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The standard is common usage — when policymakers and the general public discuss 'alternative energy,' nuclear power is consistently categorized separately from renewables in legislation, textbooks, and energy policy literature."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The standard is common usage — when policymakers and the general public discuss 'alternative energy,' nuclear power is consistently categorized separately from renewables in legislation, textbooks, and energy policy literature."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">4 — VOTER</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Why topicality is a voting issue — why the judge should vote Negative if the Affirmative is non-topical. Common voters include: fairness (Negative couldn't prepare for a case outside the resolution) and education (debating off-topic cases produces no educational value).</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Topicality is a voting issue for two reasons. First, fairness: if the Affirmative can run any plan regardless of the resolution, the Negative has no way to prepare. Second, education: debates constrained by the resolution produce better clash and deeper learning than debates about an unlimited topic."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Topicality is a voting issue for two reasons. First, fairness: if the Affirmative can run any plan regardless of the resolution, the Negative has no way to prepare. Second, education: debates constrained by the resolution produce better clash and deeper learning than debates about an unlimited topic."</div>
   </div>
 </div>
 
@@ -2471,25 +2471,25 @@ window.CURRICULUM = [
 <h3>The Four-Part Disadvantage Framework</h3>
 
 <div style="display:grid;gap:12px;margin:20px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">UNIQUENESS</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Prove that the harmful outcome is <em>not</em> already happening in the status quo. This establishes that the plan is what <em>causes</em> it. Without uniqueness, the Affirmative can argue: "This bad thing is already happening — our plan doesn't make it worse."</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Currently, federal education spending is stable. The status quo does not include an unfunded mandate of this scale."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Currently, federal education spending is stable. The status quo does not include an unfunded mandate of this scale."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">LINK</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Prove the connection between the plan and the harmful outcome. The link is your argument that the plan specifically <em>triggers</em> the disadvantage. A strong link is direct and specific to the Affirmative's plan.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The Affirmative's plan requires 80% renewable energy in all new school construction, which the Department of Energy estimates will cost an average of $2.3 million more per building than conventional construction."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The Affirmative's plan requires 80% renewable energy in all new school construction, which the Department of Energy estimates will cost an average of $2.3 million more per building than conventional construction."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">BRINK</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">The threshold at which the disadvantage becomes catastrophic — why the plan pushes us over the edge, rather than just adding a small cost. The brink argues we're close enough to a tipping point that the plan's additional pressure causes a qualitative shift in outcomes.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "School districts are already operating at budget deficits averaging 8% nationwide. The additional construction cost pushes dozens of districts across the insolvency threshold."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "School districts are already operating at budget deficits averaging 8% nationwide. The additional construction cost pushes dozens of districts across the insolvency threshold."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">IMPACT</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">The ultimate harm that results. The impact must be significant enough to outweigh whatever the Affirmative is solving. You'll weigh your impact against the Affirmative's advantage — magnitude (how bad), probability (how likely), and timeframe (how soon).</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Insolvent school districts are forced to cancel programs, lay off teachers, and defer maintenance — directly harming the educational outcomes of the very students the Affirmative's plan is supposed to benefit."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Insolvent school districts are forced to cancel programs, lay off teachers, and defer maintenance — directly harming the educational outcomes of the very students the Affirmative's plan is supposed to benefit."</div>
   </div>
 </div>
 `
@@ -2536,15 +2536,15 @@ window.CURRICULUM = [
             html: `
 <h2>Introduction to Counterplans</h2>
 
-<div style="background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.25);border-radius:12px;padding:16px 20px;margin:0 0 16px;">
-  <strong style="color:#fca5a5;">Counterplans are OPTIONAL.</strong>
+<div style="background:rgba(160,61,45,.07);border:1px solid rgba(160,61,45,.25);border-radius:12px;padding:16px 20px;margin:0 0 16px;">
+  <strong style="color:#a03d2d;">Counterplans are OPTIONAL.</strong>
   <p style="margin:8px 0 0;color:var(--text-secondary);font-size:14px;">If you're in a rush during prep, unsure of the resolution, or don't think a counterplan would be your strongest option — <strong>don't make one.</strong> It is better to have no counterplan than one that is noncompetitive or ineffective. A weak counterplan gives the Affirmative free points. Only run a counterplan when you have a genuinely strong, competitive alternative.</p>
 </div>
 
 <p>Most Negative teams defend the status quo — arguing that the Affirmative's plan is unnecessary or harmful. But the Negative can also present a <span class="key-term" data-definition="A policy proposal offered by the Negative team that is not the status quo and not the Affirmative plan. The counterplan competes with the Affirmative plan by offering a superior alternative.">counterplan</span> — their own solution that is better than the Affirmative's.</p>
 
 <h3>The Hamburger vs. Chinese Food Analogy</h3>
-<div style="background:rgba(255,255,255,.04);border-left:3px solid var(--gold-400);padding:14px 20px;margin:20px 0;border-radius:0 8px 8px 0;">
+<div style="background:rgba(27,67,50,.04);border-left:3px solid var(--gold-400);padding:14px 20px;margin:20px 0;border-radius:0 8px 8px 0;">
   <p style="margin:0 0 12px;font-size:14px;color:var(--text-secondary);line-height:1.7;">Your source documents explain counterplans with a perfect analogy: <em>"Let's say your friend is hungry and suggests that you go get hamburgers. But you suggest that Chinese food is a better idea. Both plans compete for the same money and the same time. Now your job is to show that your counterplan for Chinese food is a better way to solve your hunger problem."</em></p>
   <p style="margin:0;font-size:14px;color:var(--text-secondary);line-height:1.7;">The friend (Affirmative) identified a real problem — hunger. You (Negative) agree the problem is real, but argue your solution is better. You don't defend starvation (the status quo). You compete on which plan better solves the agreed-upon harm.</p>
 </div>
@@ -2566,20 +2566,20 @@ window.CURRICULUM = [
 <p>These "one shoe fits all" counterplans can be adapted to many rounds:</p>
 
 <div style="display:grid;gap:12px;margin:20px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">AGENT COUNTERPLAN</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">You accept the Affirmative's goal but argue that a different agent should implement it. Classic version: if the Affirmative uses the federal government, you counterplan with the states (or vice versa). You need evidence that the Affirmative's agent is ineffective and yours is better.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The Affirmation wants the U.S. federal government to provide malaria medications. We counterplan with the World Health Organization, which has existing infrastructure and global expertise that the U.S. federal government lacks."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The Affirmation wants the U.S. federal government to provide malaria medications. We counterplan with the World Health Organization, which has existing infrastructure and global expertise that the U.S. federal government lacks."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">STUDY COUNTERPLAN</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">You argue that we need more information before committing to the Affirmative's plan — that locking in a policy before full study is harmful. Must include: who does the study, how long it takes (6–18 months), and a mandate to act on findings.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Rather than immediately mandating solar energy in all schools, we counterplan with a 12-month independent study by the National Academies of Sciences to evaluate cost-effectiveness, grid compatibility, and regional feasibility — then mandate action based on findings."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Rather than immediately mandating solar energy in all schools, we counterplan with a 12-month independent study by the National Academies of Sciences to evaluate cost-effectiveness, grid compatibility, and regional feasibility — then mandate action based on findings."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">CONSULTATION COUNTERPLAN</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">You argue that the Affirmative's unilateral action will create disadvantages, and that consulting a relevant group or commission first would prevent those harms. The counterplan gives that group veto power over whether the plan is implemented.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Before implementing a federal paid leave mandate, we counterplan with mandatory consultation with the National Federation of Independent Business and small business stakeholders — allowing implementation only if consultation produces consensus."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Before implementing a federal paid leave mandate, we counterplan with mandatory consultation with the National Federation of Independent Business and small business stakeholders — allowing implementation only if consultation produces consensus."</div>
   </div>
 </div>
 `
@@ -2630,25 +2630,25 @@ window.CURRICULUM = [
 <p>The Negative has conceded your harms. Now your only job is to show that your plan is the better solution. Use the <span class="key-term" data-definition="The four-part Affirmative response to a counterplan: Solvency (CP doesn't solve), Theory (CP is procedurally unfair), Offense (advantages or disadvantages specific to the CP), Permutation (both plans can coexist — the CP isn't competitive).">STOP method</span> to systematically attack every pillar the counterplan stands on.</p>
 
 <div style="display:grid;gap:12px;margin:20px 0;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">S — SOLVENCY</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Argue that the counterplan does not actually solve the harms the Affirmative presented. Apply the same solvency scrutiny the Negative uses against your plan — does the counterplan have a credible mechanism? A realistic timeline? A funded enforcement structure?</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example against Study CP: "A 12-month study solves nothing. During that study period, harms continue. At the end, the study's recommendations are non-binding. This counterplan doesn't solve — it delays."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example against Study CP: "A 12-month study solves nothing. During that study period, harms continue. At the end, the study's recommendations are non-binding. This counterplan doesn't solve — it delays."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">T — THEORY</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Challenge whether the counterplan is procedurally legitimate. Theory arguments claim the counterplan is unfair or reduces educational value. Examples: the counterplan is topical (if it's topical, it affirms the resolution), it's conditional (the Negative should have to commit), or it's too vague to evaluate.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The Negative's Agent counterplan is topical — having states implement this policy is still topical government action under the resolution. A topical counterplan affirms the resolution, and the judge should reject it."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "The Negative's Agent counterplan is topical — having states implement this policy is still topical government action under the resolution. A topical counterplan affirms the resolution, and the judge should reject it."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">O — OFFENSE</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">Run arguments that attack the counterplan directly — advantages the counterplan can't solve, or disadvantages the counterplan creates. This turns the net benefits calculation against the Negative's own proposal.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example against Consultation CP: "Consultation with industry groups will be captured by fossil fuel interests and delay action indefinitely — creating a disadvantage to the counterplan that doesn't apply to our plan."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example against Consultation CP: "Consultation with industry groups will be captured by fossil fuel interests and delay action indefinitely — creating a disadvantage to the counterplan that doesn't apply to our plan."</div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;padding:18px 20px;">
+  <div style="background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;padding:18px 20px;">
     <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);letter-spacing:.1em;margin-bottom:6px;">P — PERMUTATION</div>
     <p style="margin:0;color:var(--text-secondary);font-size:14px;line-height:1.6;">A <span class="key-term" data-definition="A test of competition: the Affirmative imagines doing both the plan and the counterplan simultaneously. If the permutation achieves the benefits of both without contradiction, the counterplan is not competitive — it doesn't force a choice.">permutation</span> is a thought experiment: <em>what if we do both the plan and the counterplan?</em> If the permutation works — if both can be done simultaneously without contradiction — the counterplan fails its competition burden. It doesn't force a choice between the two proposals. The Affirmative wins because there's no reason to reject their plan if the counterplan can also be adopted.</p>
-    <div style="margin-top:12px;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Permutation — do both the federal carbon tax AND consult with trading partners first. There's no logical reason we can't implement the plan AND engage in consultation. The plans aren't mutually exclusive. The counterplan therefore fails competition, and the judge has no reason to reject our plan."</div>
+    <div style="margin-top:12px;background:rgba(27,67,50,0.1);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-secondary);font-style:italic;">Example: "Permutation — do both the federal carbon tax AND consult with trading partners first. There's no logical reason we can't implement the plan AND engage in consultation. The plans aren't mutually exclusive. The counterplan therefore fails competition, and the judge has no reason to reject our plan."</div>
   </div>
 </div>
 
@@ -2710,7 +2710,7 @@ window.CURRICULUM = [
             html: `
 <h2>Your Prep Time</h2>
 
-<div style="background:rgba(212,168,67,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
+<div style="background:rgba(184,144,90,.07);border-left:3px solid var(--gold-400);padding:12px 18px;border-radius:0 10px 10px 0;margin:12px 0;">
   <strong>Novice: 30 minutes</strong> of prep time · JV/Varsity: 20 minutes
 </div>
 
@@ -2719,8 +2719,8 @@ window.CURRICULUM = [
 <p>Don't improvise prep. Follow a phase-by-phase process — it's the difference between walking in ready and scrambling through your first speech. Here's the novice breakdown (scale down proportionally for JV/V's 20 minutes):</p>
 
 <div style="display:grid;gap:10px;margin:20px 0;">
-  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;overflow:hidden;">
-    <div style="background:rgba(212,168,67,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(212,168,67,.2);">
+  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;overflow:hidden;">
+    <div style="background:rgba(184,144,90,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(184,144,90,.2);">
       <div style="text-align:center;">
         <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);">0–3</div>
         <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">MIN</div>
@@ -2732,8 +2732,8 @@ window.CURRICULUM = [
     </div>
   </div>
 
-  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;overflow:hidden;">
-    <div style="background:rgba(212,168,67,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(212,168,67,.2);">
+  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;overflow:hidden;">
+    <div style="background:rgba(184,144,90,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(184,144,90,.2);">
       <div style="text-align:center;">
         <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);">3–9</div>
         <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">MIN</div>
@@ -2745,8 +2745,8 @@ window.CURRICULUM = [
     </div>
   </div>
 
-  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;overflow:hidden;">
-    <div style="background:rgba(212,168,67,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(212,168,67,.2);">
+  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;overflow:hidden;">
+    <div style="background:rgba(184,144,90,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(184,144,90,.2);">
       <div style="text-align:center;">
         <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);">9–12</div>
         <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">MIN</div>
@@ -2758,8 +2758,8 @@ window.CURRICULUM = [
     </div>
   </div>
 
-  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;overflow:hidden;">
-    <div style="background:rgba(212,168,67,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(212,168,67,.2);">
+  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;overflow:hidden;">
+    <div style="background:rgba(184,144,90,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(184,144,90,.2);">
       <div style="text-align:center;">
         <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);">12–22</div>
         <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">MIN</div>
@@ -2771,8 +2771,8 @@ window.CURRICULUM = [
     </div>
   </div>
 
-  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;overflow:hidden;">
-    <div style="background:rgba(212,168,67,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(212,168,67,.2);">
+  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;overflow:hidden;">
+    <div style="background:rgba(184,144,90,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(184,144,90,.2);">
       <div style="text-align:center;">
         <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);">22–26</div>
         <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">MIN</div>
@@ -2784,8 +2784,8 @@ window.CURRICULUM = [
     </div>
   </div>
 
-  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(255,255,255,.04);border:1px solid rgba(212,168,67,.3);border-radius:12px;overflow:hidden;">
-    <div style="background:rgba(212,168,67,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(212,168,67,.2);">
+  <div style="display:grid;grid-template-columns:80px 1fr;gap:0;background:rgba(27,67,50,.04);border:1px solid rgba(184,144,90,.3);border-radius:12px;overflow:hidden;">
+    <div style="background:rgba(184,144,90,.15);padding:16px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(184,144,90,.2);">
       <div style="text-align:center;">
         <div style="font-family:var(--font-mono);font-size:11px;font-weight:800;color:var(--gold-400);">26–30</div>
         <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">MIN</div>
@@ -2799,7 +2799,7 @@ window.CURRICULUM = [
 </div>
 
 <h3>The Cardinal Rule of Prep Time</h3>
-<div style="background:rgba(255,255,255,.04);border-left:3px solid var(--gold-400);padding:14px 20px;margin:20px 0;border-radius:0 8px 8px 0;">
+<div style="background:rgba(27,67,50,.04);border-left:3px solid var(--gold-400);padding:14px 20px;margin:20px 0;border-radius:0 8px 8px 0;">
   <p style="margin:0;font-size:14px;color:var(--text-secondary);line-height:1.7;"><strong>Never spend all your prep time writing — leave time to think.</strong> A debate round is not an essay you prepared in advance; it's a live exchange. The team that spends 29 of their 30 minutes writing and no time thinking about the opponent's strategy enters the round tactically blind. The team that understands both sides' arguments can respond, adapt, and pivot in real time.</p>
 </div>
 `

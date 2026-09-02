@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="about-styles.css" />
+  <!-- Mobile polish. Must stay the LAST stylesheet so its phone-only rules win. -->
+  <link rel="stylesheet" href="mobile-polish.css" />
 </head>
 <body>
 
@@ -438,6 +440,10 @@
     <div class="site-footer-copy">© <span data-current-year>2026</span> San Marin High School Speech &amp; Debate Club · All rights reserved</div>
   </footer>
 
+  <!-- Smooth scrolling + the shared scroll hook used by scroll-driven effects.
+       Must load BEFORE this page's own script so that script can call SiteScroll. -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="site-scroll.js"></script>
   <script>
     // ─── AWARD CARDS DATA ───
     // To add, remove, or edit an award, modify this array only. No other code changes required.
@@ -769,14 +775,14 @@
     })();
 
     /* ─── HERO PHOTO: PAPER RESPONSE ───
-       The photo shifts and tilts a little under the cursor, the way a held
-       photograph does. Motion is deliberately small and settles back on exit. */
+       The photo shifts and tilts a little, the way a held photograph does.
+       On a computer it follows the cursor; on a phone it follows scrolling.
+       Motion is deliberately small and settles back to level. */
     (function () {
       var col = document.querySelector('.hero-img-col');
       var img = col ? col.querySelector('img') : null;
       if (!img) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      if (!window.matchMedia('(hover: hover)').matches) return;  // skip touch
 
       img.style.transition = 'transform 0.5s cubic-bezier(0.25,1,0.5,1)';
       img.style.willChange = 'transform';
@@ -791,6 +797,28 @@
           target.ry.toFixed(2) + 'deg) scale(' + target.s.toFixed(4) + ')';
       }
       function schedule() { if (!rafId) rafId = requestAnimationFrame(apply); }
+
+      /* PHONES AND TABLETS
+         There is no cursor to follow, so the tilt is driven by scrolling
+         instead. The photo leans back as it comes up the screen and settles
+         level as it reaches the middle, which reads like the same held
+         photograph responding to being moved. */
+      if (SiteScroll.isTouch) {
+        img.style.transition = 'transform 0.4s cubic-bezier(0.25,1,0.5,1)';
+        SiteScroll.onScroll(function () {
+          var r = col.getBoundingClientRect();
+          if (!r.width || !r.height) return;             // photo hidden at this width
+          if (r.bottom < 0 || r.top > window.innerHeight) return;
+          // -1 above the middle of the screen, +1 below it
+          var offset = ((r.top + r.height / 2) - window.innerHeight / 2) / (window.innerHeight / 2);
+          offset = Math.max(-1, Math.min(1, offset));
+          target.rx = offset * 3.5;
+          target.ry = 0;
+          target.s = 1 + (1 - Math.abs(offset)) * 0.012;
+          schedule();
+        });
+        return;
+      }
 
       col.addEventListener('mousemove', function (e) {
         var r = col.getBoundingClientRect();

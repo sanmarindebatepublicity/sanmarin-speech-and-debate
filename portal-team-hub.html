@@ -30,175 +30,170 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="portal-styles.css" />
 
   <style>
-    /* ── TEAM HUB SPECIFIC STYLES ── */
-    .hub-section {
-      margin-bottom: 72px;
-    }
+    /* ── TEAM HUB · catalog listings ── */
+    .hub-section { margin-bottom: 68px; }
+
+    /* Section head: serif title on the rule, registrar label on the right */
     .hub-section-header {
+      border-bottom: 1px solid var(--pt-rule);
+      padding-bottom: 14px;
+      margin-bottom: 0;
+    }
+    .hub-section-head-row {
       display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .hub-section-title {
+      font-family: var(--pt-serif);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--pt-ink);
+      letter-spacing: -0.01em;
+      line-height: 1.1;
     }
     .hub-section-eyebrow {
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.24em;
+      font-family: var(--pt-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #c4a55a;
-      margin-bottom: 8px;
+      color: var(--pt-bronze-deep);
+      white-space: nowrap;
     }
-    .hub-section-icon {
-      width: 42px;
-      height: 42px;
-      background: rgba(196,165,90,0.1);
-      border-radius: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #c4a55a;
-      flex-shrink: 0;
-      transition: transform 0.3s ease, background 0.3s ease;
+    .hub-section-subtitle {
+      font-size: 13.5px;
+      color: var(--pt-ink-soft);
+      margin-top: 7px;
+      line-height: 1.5;
     }
-    .hub-section:hover .hub-section-icon {
-      transform: rotate(-4deg);
-      background: rgba(196,165,90,0.15);
-    }
-    .hub-section-icon svg { width: 19px; height: 19px; }
-    .hub-section-title { font-size: 22px; font-weight: 800; color: #f5f4ec; letter-spacing: -0.025em; }
-    .hub-section-subtitle { font-size: 13.5px; color: rgba(236,239,230,0.5); margin-top: 4px; line-height: 1.5; }
+    /* Sections whose content is a sheet (not a ruled list) breathe after the head */
+    .hub-section-header.head-gap { margin-bottom: 24px; }
 
-    /* ── ANNOUNCEMENTS — asymmetric stack ── */
-    .announcements-list {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
+    /* ── ANNOUNCEMENTS — the notices ledger ── */
+    .announcements-list { display: flex; flex-direction: column; }
     .announcement-card {
-      background: rgba(36,44,38,0.5);
-      border: 1px solid rgba(196,165,90,0.12);
-      border-radius: 16px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 26px 28px;
-      position: relative;
-      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      column-gap: 32px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--pt-rule);
+      transition: background 0.18s ease;
     }
-    .announcement-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(196,165,90,0.28);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
-    }
-    .announcement-card::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 28px;
-      bottom: 28px;
-      width: 3px;
-      background: linear-gradient(180deg, #c4a55a, rgba(196,165,90,0.1));
-      border-radius: 0 3px 3px 0;
-      opacity: 0.7;
-    }
-    .announcement-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
+    .announcement-card:hover { background: rgba(27,67,50,0.025); }
+    .announcement-meta { grid-row: 1 / 4; padding-top: 7px; }
     .announcement-date {
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
+      font-family: var(--pt-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(236,239,230,0.38);
+      color: var(--pt-bronze-deep);
+      line-height: 1.6;
     }
     .announcement-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: #d8b96d;
-      letter-spacing: -0.015em;
-      margin-bottom: 10px;
-      line-height: 1.3;
+      grid-column: 2;
+      font-family: var(--pt-serif);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--pt-ink);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
+    /* The newest notice leads at display size, like a catalog's front matter */
+    .announcements-list .announcement-card:first-child .announcement-title { font-size: 30px; }
     .announcement-body {
+      grid-column: 2;
       font-size: 14.5px;
-      color: rgba(236,239,230,0.75);
+      color: var(--pt-ink-soft);
       line-height: 1.7;
+      max-width: 66ch;
       margin-bottom: 0;
     }
     .announcement-link {
+      grid-column: 2;
+      justify-self: start;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-top: 16px;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #6db285;
-      text-decoration: none;
-      letter-spacing: 0.08em;
+      margin-top: 14px;
+      font-family: var(--pt-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      border: 1px solid rgba(109,178,133,0.45);
-      border-radius: 100px;
-      padding: 8px 16px;
-      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      color: var(--pt-forest-mid);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(45,106,79,0.4);
+      transition: color 0.18s ease, text-decoration-color 0.18s ease;
     }
-    .announcement-link:hover { background: #2d6a4f; color: #fff; border-color: #2d6a4f; transform: translateY(-1px); }
-    .announcement-link svg { width: 12px; height: 12px; }
+    .announcement-link:hover { color: var(--pt-ink); text-decoration-color: var(--pt-bronze); }
+    .announcement-link:active { color: var(--pt-bronze-deep); }
+    .announcement-link svg { width: 11px; height: 11px; }
     .announcements-empty {
-      padding: 36px 28px;
-      color: rgba(236,239,230,0.5);
+      padding: 30px 0;
+      color: var(--pt-ink-soft);
       font-size: 14px;
-      background: rgba(36,44,38,0.35);
-      border: 1px dashed rgba(196,165,90,0.18);
-      border-radius: 16px;
-      text-align: center;
+      border-bottom: 1px solid var(--pt-rule);
+    }
+    @media (max-width: 640px) {
+      .announcement-card { grid-template-columns: 1fr; row-gap: 4px; padding: 22px 0; }
+      .announcement-meta { grid-row: auto; padding-top: 0; }
+      .announcement-title, .announcement-body, .announcement-link { grid-column: 1; }
+      .announcements-list .announcement-card:first-child .announcement-title { font-size: 26px; }
     }
 
-    /* ── BY-LAWS CARD ── */
+    /* ── DOCUMENT SHEETS (by-laws, suggestion form) ── */
     .bylaws-card {
-      background:
-        radial-gradient(ellipse 60% 100% at 100% 0%, rgba(196,165,90,0.08) 0%, transparent 70%),
-        rgba(36,44,38,0.55);
-      border: 1px solid rgba(196,165,90,0.14);
-      border-radius: 18px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 30px 30px;
+      background: var(--pt-sheet);
+      border: 1px solid var(--pt-rule);
+      border-radius: 3px;
+      padding: 26px 28px;
       display: flex;
       align-items: flex-start;
-      gap: 22px;
+      gap: 20px;
       max-width: 640px;
-      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+      text-decoration: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
+    a.bylaws-card:hover {
+      border-color: var(--pt-rule-strong);
+      box-shadow: 0 6px 18px rgba(27,67,50,0.09);
+    }
+    a.bylaws-card:active { box-shadow: 0 2px 8px rgba(27,67,50,0.08); }
     .bylaws-doc-icon {
-      width: 56px;
-      height: 56px;
-      background: rgba(196,165,90,0.12);
-      border-radius: 14px;
+      width: 44px;
+      height: 44px;
+      background: #fff;
+      border: 1px solid var(--pt-rule);
+      border-radius: 3px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #c4a55a;
+      color: var(--pt-bronze-deep);
       flex-shrink: 0;
     }
-    .bylaws-doc-icon svg { width: 26px; height: 26px; }
+    .bylaws-doc-icon svg { width: 21px; height: 21px; }
     .bylaws-info { flex: 1; min-width: 0; }
     .bylaws-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: #f5f4ec;
-      letter-spacing: -0.015em;
+      font-family: var(--pt-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--pt-ink);
+      letter-spacing: -0.01em;
       margin-bottom: 6px;
     }
     .bylaws-subtitle {
       font-size: 13.5px;
-      color: rgba(236,239,230,0.55);
-      line-height: 1.6;
+      color: var(--pt-ink-soft);
+      line-height: 1.65;
       margin-bottom: 18px;
     }
     .bylaws-actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -206,176 +201,170 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 9px 18px;
-      font-size: 11.5px;
+      padding: 10px 20px;
+      font-family: var(--pt-sans);
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.25s ease;
       cursor: pointer;
-      border: none;
       border-radius: 100px;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
     }
     .bylaws-btn-primary {
-      background: #2d6a4f;
-      color: #fff;
+      background: var(--pt-forest);
+      color: #f4f3ef;
+      border: 1.5px solid var(--pt-forest);
     }
-    .bylaws-btn-primary:hover { background: #348160; }
+    a.bylaws-card:hover .bylaws-btn-primary,
+    .bylaws-btn-primary:hover { background: var(--pt-forest-mid); border-color: var(--pt-forest-mid); box-shadow: 0 8px 20px rgba(27,67,50,0.22); }
     .bylaws-btn-secondary {
       background: transparent;
-      color: rgba(236,239,230,0.7);
-      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--pt-ink);
+      border: 1.5px solid rgba(27,67,50,0.38);
     }
-    .bylaws-btn-secondary:hover { border-color: rgba(196,165,90,0.5); color: #c4a55a; }
+    .bylaws-btn-secondary:hover { background: rgba(27,67,50,0.05); border-color: var(--pt-forest); }
     .bylaws-btn svg { width: 13px; height: 13px; }
-    a.bylaws-card:hover {
-      border-color: rgba(196,165,90,0.32);
-      transform: translateY(-3px);
-      box-shadow: 0 14px 36px rgba(0,0,0,0.32);
-    }
 
-    /* ── AWARDS SECTION ── */
+    /* ── AWARDS — the roll of honor ── */
     .awards-filter-bar {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 28px;
+      margin: 22px 0 26px;
     }
     .year-filter-btn {
-      padding: 7px 18px;
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      padding: 7px 14px;
+      font-family: var(--pt-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: rgba(36,44,38,0.5);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 100px;
-      color: rgba(236,239,230,0.55);
+      background: transparent;
+      border: 1px solid var(--pt-rule);
+      border-radius: 2px;
+      color: var(--pt-ink-soft);
       cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.25s ease;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
     }
-    .year-filter-btn:hover { border-color: rgba(196,165,90,0.4); color: #c4a55a; transform: translateY(-1px); }
-    .year-filter-btn.active { background: #2d6a4f; border-color: #2d6a4f; color: #fff; }
+    .year-filter-btn:hover { border-color: var(--pt-rule-strong); color: var(--pt-ink); }
+    .year-filter-btn:active { background: rgba(27,67,50,0.06); }
+    .year-filter-btn.active { background: var(--pt-forest); border-color: var(--pt-forest); color: #f4f3ef; }
 
-    /* Asymmetric awards grid — varied sizes for visual interest */
+    /* Asymmetric plate grid — varied sizes kept from the old layout */
     .awards-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 22px;
+      gap: 24px 22px;
       grid-auto-flow: dense;
     }
     .award-card { grid-column: span 2; }
-    /* Every 7th card spans 3 cols, with photo on the left */
     .award-card.feature { grid-column: span 3; }
-    .award-card.tall { grid-row: span 1; }
 
-    /* Award card */
     .award-card {
-      background: rgba(36,44,38,0.55);
-      border: 1px solid rgba(196,165,90,0.12);
-      border-radius: 18px;
-      backdrop-filter: blur(10px);
+      background: var(--pt-sheet);
+      border: 1px solid var(--pt-rule);
+      border-radius: 3px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .award-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(196,165,90,0.34);
-      box-shadow: 0 14px 36px rgba(0,0,0,0.35);
+      border-color: var(--pt-rule-strong);
+      box-shadow: 0 8px 22px rgba(27,67,50,0.1);
     }
     .award-photo {
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
       display: block;
-      background: rgba(26,46,26,0.6);
-      transition: transform 0.5s ease;
+      background: #e9e6de;
+      border-bottom: 1px solid var(--pt-rule);
     }
-    .award-card:hover .award-photo { transform: scale(1.04); }
     .award-initials {
       width: 100%;
       aspect-ratio: 4 / 3;
-      background:
-        radial-gradient(ellipse at center, rgba(196,165,90,0.18) 0%, rgba(196,165,90,0.06) 70%);
+      background: var(--pt-paper-rail);
+      border-bottom: 1px solid var(--pt-rule);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      font-weight: 900;
-      color: #d8b96d;
-      letter-spacing: -0.02em;
+      font-family: var(--pt-serif);
+      font-size: 40px;
+      font-weight: 600;
+      color: var(--pt-bronze-deep);
+      letter-spacing: 0.02em;
     }
-    .award-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
-    .award-name { font-size: 15px; font-weight: 800; color: #f5f4ec; letter-spacing: -0.01em; }
-    .award-meta { font-size: 12.5px; color: rgba(236,239,230,0.5); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; line-height: 1.5; }
+    .award-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .award-name {
+      font-family: var(--pt-serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--pt-ink);
+      letter-spacing: -0.005em;
+      line-height: 1.15;
+    }
+    .award-meta { font-size: 12.5px; color: var(--pt-ink-soft); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; line-height: 1.55; }
     .award-year-badge {
       display: inline-block;
-      padding: 2px 8px;
-      border-radius: 100px;
-      background: rgba(255,255,255,0.06);
-      color: rgba(236,239,230,0.55);
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      padding: 1px 7px;
+      border: 1px solid var(--pt-rule-strong);
+      border-radius: 2px;
+      color: var(--pt-ink-soft);
+      font-family: var(--pt-mono);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums;
     }
     .award-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
     .award-pill {
       display: inline-block;
-      padding: 4px 10px;
-      border-radius: 100px;
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 2px;
+      font-family: var(--pt-mono);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      border: 1px solid;
     }
-    .pill-gold { background: rgba(196,165,90,0.14); color: #d8b96d; border: 1px solid rgba(196,165,90,0.32); }
-    .pill-coral { background: rgba(192,57,43,0.1); color: #ff9a8a; border: 1px solid rgba(192,57,43,0.28); }
-    .pill-emerald { background: rgba(45,106,79,0.18); color: #6db285; border: 1px solid rgba(45,106,79,0.36); }
+    .pill-gold    { background: rgba(184,144,90,0.08);  color: var(--pt-bronze-deep); border-color: var(--pt-bronze); }
+    .pill-coral   { background: rgba(160,61,45,0.06);   color: var(--pt-madder);      border-color: rgba(160,61,45,0.45); }
+    .pill-emerald { background: rgba(45,106,79,0.07);   color: var(--pt-forest-mid);  border-color: rgba(45,106,79,0.4); }
 
     /* Skeleton loading */
-    .awards-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .skeleton-card { background: rgba(35,44,38,0.35); border: 1px solid rgba(255,255,255,0.06); border-radius: 18px; overflow: hidden; }
-    .skeleton-img { width: 100%; aspect-ratio: 4/3; background: rgba(255,255,255,0.04); animation: pulse 1.5s ease-in-out infinite; }
+    .awards-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 26px; }
+    .skeleton-card { background: var(--pt-sheet); border: 1px solid var(--pt-rule); border-radius: 3px; overflow: hidden; }
+    .skeleton-img { width: 100%; aspect-ratio: 4/3; background: #e9e6de; animation: pulse 1.5s ease-in-out infinite; }
     .skeleton-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
-    .skeleton-line { height: 12px; background: rgba(255,255,255,0.05); border-radius: 4px; animation: pulse 1.5s ease-in-out infinite; }
+    .skeleton-line { height: 12px; background: #e9e6de; border-radius: 2px; animation: pulse 1.5s ease-in-out infinite; }
     .skeleton-line.w80 { width: 80%; }
     .skeleton-line.w55 { width: 55%; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 
     .awards-error,
     .awards-empty {
-      padding: 36px 28px;
-      background: rgba(36,44,38,0.35);
-      border: 1px dashed rgba(196,165,90,0.18);
-      border-radius: 16px;
-      color: rgba(236,239,230,0.5);
+      padding: 30px 0;
+      border-bottom: 1px solid var(--pt-rule);
+      color: var(--pt-ink-soft);
       font-size: 14px;
-      text-align: center;
+      margin-top: 4px;
     }
 
-    /* Calendar card */
+    /* Calendar sheet */
     .hub-calendar-wrap {
-      border: 1px solid rgba(196,165,90,0.16);
-      background: rgba(22,40,24,0.55);
-      border-radius: 18px;
-      padding: 8px;
+      border: 1px solid var(--pt-rule);
+      background: #fff;
+      border-radius: 3px;
+      padding: 6px;
       overflow: hidden;
-      backdrop-filter: blur(10px);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: border-color 0.2s ease;
     }
-    .hub-calendar-wrap:hover {
-      border-color: rgba(196,165,90,0.3);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.28);
-    }
-    .hub-calendar-wrap iframe {
-      border-radius: 12px;
-      overflow: hidden;
-    }
+    .hub-calendar-wrap:hover { border-color: var(--pt-rule-strong); }
+    .hub-calendar-wrap iframe { border-radius: 2px; overflow: hidden; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
@@ -390,15 +379,26 @@
       .awards-grid { grid-template-columns: 1fr 1fr; }
       .award-card,
       .award-card.feature { grid-column: span 1; }
-
+      .hub-section-title { font-size: 24px; }
     }
     @media (max-width: 540px) {
       .awards-grid, .awards-skeleton { grid-template-columns: 1fr; }
-      .bylaws-card { flex-direction: column; gap: 16px; padding: 24px; }
+      .bylaws-card { flex-direction: column; gap: 16px; padding: 22px; }
     }
   </style>
+  <!-- Mobile polish. Must stay the LAST stylesheet so its phone-only rules win. -->
+  <link rel="stylesheet" href="mobile-polish.css" />
 </head>
 <body>
+
+<!-- impeccable:direction seed 53ddd366
+THESIS: The member portal is San Marin's own course catalog; it refuses the dark glass dashboard of glowing stacked cards.
+OWN-WORLD: Cream catalog stock #f4f3ef, forest ink #1b4332, bronze stamps #b8905a; Cormorant Garamond display, Plus Jakarta Sans text, JetBrains Mono registrar labels; one 1px hairline rule system, double-hairline datelines, square corners, pill buttons reserved for primary actions.
+STORY: A member opens the catalog, reads the term line, scans ruled listings, and acts; finished things are stamped, never hidden.
+FIRST VIEWPORT: Index rail on the left; heavy top rule and serif title block with dateline; the notices ledger begins immediately; search and sign-out live in the rail.
+FORM: The Course Catalog, candidate 4 of the ordered surface list, seed 53ddd366.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
 
   <!-- ═══════════════ SITE NAVBAR ═══════════════ -->
   <nav id="navbar">
@@ -534,45 +534,33 @@
     <main class="portal-main">
 
       <div class="page-hero reveal">
-        <div class="page-hero-tag">Member Portal</div>
         <h1 class="page-hero-title">Team Hub</h1>
-        <p class="page-hero-sub">Announcements, awards, by-laws, and team resources — your home base.</p>
+        <div class="page-hero-tag">Member Portal &middot; San Marin Speech &amp; Debate</div>
+        <p class="page-hero-sub">Announcements, awards, by-laws, and team resources, all in one place.</p>
       </div>
 
       <!-- ══════════ SECTION 1: ANNOUNCEMENTS ══════════ -->
       <section class="hub-section" aria-labelledby="announcements-heading">
         <div class="hub-section-header reveal-left">
-          <div class="hub-section-icon" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <div class="hub-section-head-row">
+            <h2 id="announcements-heading" class="hub-section-title">Announcements</h2>
+            <span class="hub-section-eyebrow">News</span>
           </div>
-          <div>
-            <div class="hub-section-eyebrow">News</div>
-            <div id="announcements-heading" class="hub-section-title">Announcements</div>
-            <div class="hub-section-subtitle">Latest updates from team leadership</div>
-          </div>
+          <div class="hub-section-subtitle">Latest updates from team leadership</div>
         </div>
         <div id="announcements-container">
-          <div class="announcements-empty">Loading announcements…</div>
+          <div class="announcements-empty">Loading announcements&hellip;</div>
         </div>
       </section>
 
-      <hr class="soft-divider" />
-
       <!-- ══════════ SECTION: SUGGEST A TOPIC ══════════ -->
       <section class="hub-section" aria-labelledby="suggest-heading">
-        <div class="hub-section-header reveal-left">
-          <div class="hub-section-icon" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <div class="hub-section-header head-gap reveal-left">
+          <div class="hub-section-head-row">
+            <h2 id="suggest-heading" class="hub-section-title">Suggest a Meeting Topic</h2>
+            <span class="hub-section-eyebrow">Your Input</span>
           </div>
-          <div>
-            <div class="hub-section-eyebrow">Your Input</div>
-            <div id="suggest-heading" class="hub-section-title">Suggest a Meeting Topic</div>
-            <div class="hub-section-subtitle">Tell us what you want to cover at the next practice</div>
-          </div>
+          <div class="hub-section-subtitle">Tell us what you want to cover at the next practice</div>
         </div>
 
         <a class="bylaws-card reveal"
@@ -600,50 +588,32 @@
         </a>
       </section>
 
-      <hr class="soft-divider" />
-
-      <!-- ══════════ SECTION 2: AWARDS ══════════ -->
       <!-- ══════════ SECTION: TEAM SCHEDULE ══════════ -->
       <section class="hub-section" aria-labelledby="schedule-heading">
-        <div class="hub-section-header reveal-left">
-          <div class="hub-section-icon" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
+        <div class="hub-section-header head-gap reveal-left">
+          <div class="hub-section-head-row">
+            <h2 id="schedule-heading" class="hub-section-title">Team Schedule</h2>
+            <span class="hub-section-eyebrow">Calendar</span>
           </div>
-          <div>
-            <div class="hub-section-eyebrow">Calendar</div>
-            <div id="schedule-heading" class="hub-section-title">Team Schedule</div>
-            <div class="hub-section-subtitle">Upcoming meetings, tournaments, and events</div>
-          </div>
+          <div class="hub-section-subtitle">Upcoming meetings, tournaments, and events</div>
         </div>
         <div class="hub-calendar-wrap reveal">
           <iframe
             src="https://calendar.google.com/calendar/embed?height=400&wkst=1&ctz=America%2FLos_Angeles&showPrint=0&showTitle=0&showNav=1&showDate=1&showTabs=0&showCalendars=0&mode=MONTH&src=ODU5NmIxYTg4NzM4MWJiZjhmYWUzNTYzZDRiZGU5ZTVjZmZiMGE3MjY5MDc2NzFmZmI2NzQ0ZDY0NzIyZTY1ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23009688"
-            title="San Marin Speech &amp; Debate — Team Schedule"
+            title="San Marin Speech &amp; Debate · Team Schedule"
             width="100%" height="400" frameborder="0" scrolling="no"
             style="display:block;"></iframe>
         </div>
       </section>
 
-      <hr class="soft-divider" />
-
+      <!-- ══════════ SECTION: AWARDS ══════════ -->
       <section class="hub-section" aria-labelledby="awards-heading">
         <div class="hub-section-header reveal-left">
-          <div class="hub-section-icon" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="8" r="6"/>
-              <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <div class="hub-section-head-row">
+            <h2 id="awards-heading" class="hub-section-title">Awards &amp; Recognition</h2>
+            <span class="hub-section-eyebrow">Recognition</span>
           </div>
-          <div>
-            <div class="hub-section-eyebrow">Recognition</div>
-            <div id="awards-heading" class="hub-section-title">Awards &amp; Recognition</div>
-            <div class="hub-section-subtitle">Celebrating our team's achievements across tournaments and seasons</div>
-          </div>
+          <div class="hub-section-subtitle">Celebrating our team's achievements across tournaments and seasons</div>
         </div>
 
         <!-- Year filter — populated by JS -->
@@ -660,28 +630,17 @@
         </div>
       </section>
 
-      <hr class="soft-divider" />
-
-      <!-- ══════════ SECTION 3: BY-LAWS ══════════ -->
+      <!-- ══════════ SECTION: BY-LAWS ══════════ -->
       <section class="hub-section" aria-labelledby="bylaws-heading">
-        <div class="hub-section-header reveal-left">
-          <div class="hub-section-icon" aria-hidden="true">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
-              <polyline points="14 2 14 8 20 8"/>
-              <line x1="16" y1="13" x2="8" y2="13"/>
-              <line x1="16" y1="17" x2="8" y2="17"/>
-              <polyline points="10 9 9 9 8 9"/>
-            </svg>
+        <div class="hub-section-header head-gap reveal-left">
+          <div class="hub-section-head-row">
+            <h2 id="bylaws-heading" class="hub-section-title">Team By-Laws</h2>
+            <span class="hub-section-eyebrow">Reference</span>
           </div>
-          <div>
-            <div class="hub-section-eyebrow">Reference</div>
-            <div id="bylaws-heading" class="hub-section-title">Team By-Laws</div>
-            <div class="hub-section-subtitle">Official constitution and team rules</div>
-          </div>
+          <div class="hub-section-subtitle">Official constitution and team rules</div>
         </div>
 
-        <a href="https://docs.google.com/document/d/1fUFruS3torl1ewYsiqGMmcP-bTbG2Xrf/view" target="_blank" rel="noopener" class="bylaws-card reveal" style="text-decoration:none;display:flex;">
+        <a href="https://docs.google.com/document/d/1fUFruS3torl1ewYsiqGMmcP-bTbG2Xrf/view" target="_blank" rel="noopener" class="bylaws-card reveal">
           <div class="bylaws-doc-icon" aria-hidden="true">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -732,6 +691,10 @@
     </a>
   </nav>
 
+  <!-- Smooth scrolling + the shared scroll hook used by scroll-driven effects.
+       Must load BEFORE this page's own script so that script can call SiteScroll. -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="site-scroll.js"></script>
   <script>
     /* ── Sign out ── */
     /* Captains get one extra sidebar entry. The link ships hidden so a member
@@ -871,7 +834,7 @@
 
       function renderAwards(awards) {
         if (awards.length === 0) {
-          awardsContainer.innerHTML = '<div class="awards-empty">No awards found for this filter — try another year above.</div>';
+          awardsContainer.innerHTML = '<div class="awards-empty">No awards found for this filter. Try another year above.</div>';
           return;
         }
         awardsContainer.innerHTML = '<div class="awards-grid stagger">' +

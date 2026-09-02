@@ -1,0 +1,35 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "portal.html"
+        ],
+        "createdAt": "2026-08-27T03:48:51.771Z",
+        "reason": "incumbent main-site navbar dropdown shadow, copied verbatim from index.html site chrome outside redesign scope"
+      },
+      {
+        "rule": "overused-font",
+        "value": "plus jakarta sans",
+        "createdAt": "2026-08-27T04:17:55.368Z",
+        "reason": "incumbent site brand: Plus Jakarta Sans is the body face across index/about/leadership since before this session, and the user's brief required the portal to match the existing website theme"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "width",
+        "createdAt": "2026-08-27T04:17:55.411Z",
+        "reason": "functional width animation on progress fills (packing list, vault unit/overall progress) and the pre-existing collapsible index rail; the animated property is the component's meaning, not decoration"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "max-height",
+        "createdAt": "2026-08-27T04:17:55.447Z",
+        "reason": "pre-existing accordion technique for the vault unit lesson list and the mobile nav panel; standard collapse implementation, predates this redesign"
+      }
+    ]
+  }
+}

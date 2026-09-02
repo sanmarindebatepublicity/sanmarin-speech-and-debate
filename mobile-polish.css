@@ -1,0 +1,545 @@
+/* ============================================================================
+   MOBILE POLISH
+   ============================================================================
+
+   WHAT THIS FILE IS FOR
+   ---------------------
+   Everything in this file only applies on phones and small tablets. Nothing in
+   here changes how the site looks on a laptop or desktop monitor. That is on
+   purpose, so you can adjust the mobile experience without any risk of breaking
+   the desktop design.
+
+   Every rule lives inside a "@media (max-width: ...)" block. That line means
+   "only use these styles when the screen is narrower than this many pixels."
+
+   HOW TO USE IT
+   -------------
+   This file is loaded LAST on every page, after all the other styles. That is
+   what lets it win when two rules disagree. If you add a page, copy this line
+   into the <head>, as the last stylesheet:
+
+       <link rel="stylesheet" href="mobile-polish.css" />
+
+   THE THREE THINGS THIS FILE DOES
+   -------------------------------
+   1. Makes the very small labels readable on a phone screen.
+   2. Makes buttons and links big enough to tap with a thumb.
+   3. Fixes the phone-only quirks (notch cutouts, tap flash, zoom on typing).
+
+   ============================================================================ */
+
+
+/* ============================================================================
+   PART 1 — TYPE FLOOR
+   ============================================================================
+
+   The site uses very small uppercase labels as a design element. They read fine
+   on a large monitor. On a phone held at arm's length, 8px and 9px text is
+   genuinely hard to read.
+
+   These rules raise the smallest text to a readable floor on phones only:
+
+       tiny labels (was 8px to 10.5px)  ->  11px
+       small text  (was 11px to 11.5px) ->  12px
+
+   The heavily spaced-out labels also get slightly tighter letter spacing. Bigger
+   letters plus the original wide spacing would take up too much room and wrap
+   onto two lines, so the spacing comes down a touch to keep them on one line.
+
+   TO CHANGE THE FLOOR: edit the font-size numbers below. Keep them at 11px or
+   above; below that, text gets hard to read on a phone.
+   ============================================================================ */
+
+@media (max-width: 768px) {
+
+  /* --- Tiny uppercase labels: raised to 11px ------------------------------
+     These are the small all-caps tags scattered around the site: section
+     labels, date stamps, category chips, the footer sub-brand, and so on. */
+  .hero-eyebrow,
+  .hero-section-ctr,
+  .sec-eyebrow,
+  .sec-label,
+  .section-tag,
+  .site-footer-brand-sub,
+  .nav-brand-sub,
+  .ticker-label,
+  .keynote-chip,
+  .news-card-date,
+  .alumni-quote-attr,
+  .sp-eyebrow,
+  .sp-chip,
+  .sp-alloc-title,
+  .level-badge,
+  .parl-start-flag,
+  .hero-updated,
+  .mob-bottom-link,
+  .site-footer-copy,
+  .site-footer-disclaimer,
+  .news-card-more,
+  .feed-card-meta,
+  .sp-season,
+  .sp-note,
+  .fmt-title,
+  .stat-label,
+  .tier-label,
+  .tag,
+  .bot,
+  .login-label,
+  .features-tag,
+  .plate-meta,
+  .hero-runhead-label,
+  .hero-runhead-sep,
+  .hero-runhead-state,
+  .hero-tag2 {
+    font-size: 11px;
+  }
+
+  /* Wide letter spacing costs horizontal room. Now that these labels are
+     bigger, pull the spacing in a little so they still fit on one line. */
+  .hero-eyebrow,
+  .sec-eyebrow,
+  .sec-label,
+  .section-tag,
+  .ticker-label,
+  .sp-eyebrow,
+  .site-footer-brand-sub,
+  .nav-brand-sub,
+  .mob-bottom-link,
+  .login-label,
+  .features-tag,
+  .plate-meta {
+    letter-spacing: 0.12em;
+  }
+
+  /* --- Small body and caption text: raised to 12px ------------------------
+     These carry actual sentences rather than one or two words, so they get the
+     slightly larger 12px floor. */
+  .role,
+  .structure-col-subtitle,
+  .season-label,
+  .coach-title,
+  .card-year,
+  .section-label,
+  .uni-alum-field,
+  .fmt-meta,
+  .join-btn-note,
+  .jsm-num,
+  figcaption {
+    font-size: 12px;
+  }
+
+  /* --- Labels that needed a more specific selector -------------------------
+     CSS resolves a tie by how specific the selector is, not by which file came
+     last. The rules below are written with two class names because that is how
+     the original rule was written, and a single class name would lose to it.
+     If you add a label here, match the shape of the original rule.
+
+     (Original rule -> where it lives)
+       .nav-brand-text .bot        -> about-styles.css and each page's <style>
+       .message-inner .section-tag -> leadership.html
+       .message-sig .role          -> leadership.html
+       .structure-heading .tag     -> leadership.html
+       .leadership-header .season-label -> events / leadership / contact
+       .site-footer-links a        -> about-styles.css and portal pages       */
+
+  .nav-brand-text .bot,
+  .message-inner .section-tag,
+  .structure-heading .tag,
+  .site-footer-links a,
+  .node-label {
+    font-size: 11px;
+  }
+
+  .message-sig .role,
+  .leadership-header .season-label {
+    font-size: 12px;
+  }
+
+  /* The About page sets a few list and caption items to 11px in its own
+     stylesheet. They carry real sentences, so they take the 12px floor too.
+     "html" is on the front of the first one purely to make this rule win over
+     the matching rule further down inside about.html itself. */
+  html #coach-spotlight .coach-title,
+  .coach-creds li,
+  .nav-dd-item-sub {
+    font-size: 12px;
+  }
+}
+
+
+/* ============================================================================
+   PART 2 — TAP TARGETS
+   ============================================================================
+
+   Apple and Google both recommend that anything tappable be at least 44 x 44
+   pixels. Smaller than that and people miss, or hit the wrong link.
+
+   Two different techniques are used below:
+
+   A) For buttons and menu rows, we simply set a minimum height.
+
+   B) For links that sit inside a sentence, we CANNOT make them taller without
+      pushing the text around. Instead we use a trick: add padding to grow the
+      invisible tappable area, then use an equal negative margin to cancel the
+      space it would have taken. The link looks identical, but the finger has a
+      much bigger area to hit.
+
+   TO CHANGE THE MINIMUM SIZE: edit the 44px values. Do not go below 44px.
+   ============================================================================ */
+
+@media (max-width: 768px) {
+
+  /* --- A) Buttons and menu rows get a real minimum height ----------------- */
+
+  /* The three-line menu button in the top bar.
+
+     This one cannot simply be made 44px wide: on a 360px Android screen that
+     extra width pushed the whole nav bar past the edge of the screen and made
+     the page scroll sideways. Instead the button keeps its original size and an
+     invisible 44x44 pad is centred on top of it. Because that pad is positioned
+     absolutely it takes up no room in the layout, so the nav bar is unchanged
+     while the area your thumb can hit is the full recommended size. */
+  .hamburger {
+    position: relative;
+  }
+
+  .hamburger::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Rows inside the opened phone menu. */
+  .mobile-nav a,
+  .mobile-nav button {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* The centered pill button at the bottom of the phone menu needs its text
+     centered rather than left aligned, so it is handled separately. */
+  .mobile-nav .mob-cta {
+    justify-content: center;
+  }
+
+  /* Tabs on the leadership page. */
+  .folder-tab {
+    min-height: 44px;
+  }
+
+  /* The fixed bar pinned to the bottom of the screen on the homepage. */
+  .mob-bottom-link {
+    min-height: 44px;
+  }
+
+  /* Carousel arrows and any other small round icon buttons. */
+  .gal-arrow {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+
+  /* --- B) In-sentence links get an invisible larger hit area -------------- */
+
+  /* These are the small arrow links like "Meet the Team ->" and
+     "Read on Substack ->". The padding grows the tappable box; the matching
+     negative margin means nothing on the page actually moves. */
+  .btn-team,
+  .post-read-more,
+  .news-card-more,
+  .login-help a,
+  .site-footer-copy a,
+  .site-footer-links a {
+    padding-block: 13px;
+    margin-block: -13px;
+    display: inline-block;
+  }
+}
+
+
+/* --- Tablets that are touch-only ------------------------------------------
+   An iPad in portrait is 768px wide, which is just wide enough that the site
+   still shows the full desktop navigation bar rather than the phone menu. Those
+   nav links were sized for a mouse pointer, so on a tablet they are too small
+   to tap comfortably.
+
+   This block deliberately does NOT use a screen width. It uses "hover: none",
+   which means "this device has no mouse pointer". That way a laptop with a
+   narrow window keeps the compact nav it was designed with, and only real touch
+   devices get the bigger targets. */
+
+@media (hover: none) and (pointer: coarse) {
+  .nav-links > a,
+  .nav-dd-btn,
+  .nav-cta {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+
+/* ============================================================================
+   PART 3 — PHONE-ONLY FIXES
+   ============================================================================
+
+   These handle things that only exist on phones and tablets. They are not
+   design choices so much as bugs that only show up on a real device.
+   ============================================================================ */
+
+/* --- Stop iOS from resizing text when the phone is turned sideways ---------
+   Safari on iPhone silently inflates text when you rotate to landscape, which
+   breaks carefully set layouts. This turns that off while still letting people
+   pinch to zoom, which they need for accessibility. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* --- Replace the grey flash when you tap a link ----------------------------
+   By default, mobile browsers flash a translucent grey box over anything you
+   tap. It is a browser default that matches no design system. This swaps it for
+   a faint forest green that belongs to this site's palette. */
+a,
+button,
+[role="button"],
+summary,
+input,
+select,
+textarea,
+label {
+  -webkit-tap-highlight-color: rgba(27, 67, 50, 0.12);
+}
+
+/* --- Remove the old 300ms delay before a tap registers ---------------------
+   Mobile browsers used to wait a third of a second after every tap to see if it
+   was going to be a double-tap-to-zoom. This tells the browser not to wait,
+   which makes every button on the site feel noticeably faster. */
+a,
+button,
+[role="button"],
+summary,
+.folder-tab,
+.gal-arrow,
+.hamburger {
+  touch-action: manipulation;
+}
+
+/* --- Stop iPhones zooming in when you tap a text box -----------------------
+   Safari on iPhone automatically zooms the whole page in whenever you focus a
+   text field whose text is smaller than 16px, and it does not zoom back out.
+   Setting the field text to 16px prevents it entirely. */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="url"],
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* --- Keep content clear of the notch and the home indicator ----------------
+   Modern phones have a rounded corner, a camera notch, and a home bar at the
+   bottom. "env(safe-area-inset-*)" is the browser telling us how much room each
+   of those takes on this particular phone.
+
+   WORTH KNOWING: right now these values come back as zero on iPhone, because
+   the pages do not opt in to drawing underneath those areas. iOS keeps the page
+   clear of them for us, so the rules below currently change nothing and are
+   here as a safety net.
+
+   If a future captain ever wants the page to run truly edge to edge (background
+   colour flowing under the home bar, which looks a little more modern), change
+   the viewport line in every page's <head> from:
+
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   to:
+       <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+   These rules then start doing their job and keep the buttons off the home bar.
+   Test on a real iPhone afterwards; a simulator does not always show it. */
+@media (max-width: 768px) {
+
+  /* The bar pinned to the bottom of the homepage sits over the home indicator
+     on iPhones without this. */
+  .mob-bottom-bar {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* The portal's bottom tab bar has the same problem. Its buttons are centred
+     in the bar, so the extra padding pushes them up clear of the home bar. */
+  .portal-tab-bar {
+    height: calc(56px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* The portal already leaves 96px at the bottom of the page for the tab bar.
+     On a phone with a home indicator the bar is taller than that allowance
+     assumes, so add the difference back. */
+  .portal-main {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Side padding for landscape, where the notch eats into the left or right
+     edge rather than the top. */
+  .nav-inner,
+  .site-footer-inner {
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+}
+
+/* --- Make sure a fixed bottom bar never covers the end of the page ---------
+   A bar pinned to the bottom of the screen floats above the page, so the last
+   few lines of the footer end up hidden behind it. This reserves room at the
+   bottom of the page equal to the bar's height plus the home indicator. */
+@media (max-width: 768px) {
+  body:has(.mob-bottom-bar) {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+
+/* ============================================================================
+   PART 4 — THE MEMBER PORTAL AND TRAINING VAULT
+   ============================================================================
+
+   The portal pages sit behind the team code, so their problems are easy to miss
+   when you are just clicking around the public site. Members use these pages on
+   a phone at tournaments, which is the worst possible place to be fighting with
+   a 16-pixel-tall "Download" link.
+
+   Same two jobs as above, applied to the portal's own class names.
+   ============================================================================ */
+
+@media (max-width: 768px) {
+
+  /* --- Portal type floor: everything below 11px comes up to 11px -----------
+     This list was taken from every rule in portal-styles.css, vault-styles.css,
+     and the portal pages themselves that sets a font size under 11px. If you
+     add a new small label, add its class here too. */
+  .announcement-date,
+  .announcement-link,
+  .award-pill,
+  .award-year-badge,
+  .badge,
+  .btn-sm,
+  .coming-soon-tag,
+  .dash-card-arrow,
+  .drag-target-label,
+  .eyebrow,
+  .guide-count,
+  .hub-section-eyebrow,
+  .lesson-title-tag,
+  .lesson-type-badge,
+  .live-pill,
+  .page-hero-tag,
+  .page-tag,
+  .pdf-btn,
+  .pdf-num,
+  .pk-col-label,
+  .pk-contact-name,
+  .pk-dress-label,
+  .pk-reset-btn,
+  .psr-group,
+  .pt-stamp,
+  .quiz-option-marker,
+  .quote-author,
+  .resource-track-eyebrow,
+  .role-chip,
+  .scenario-header,
+  .sidebar-cal-label,
+  .sidebar-header-title,
+  .sidebar-signout,
+  .stat-label,
+  .step-num,
+  .timer-label,
+  .tk-btn,
+  .tk-coming-soon-badge,
+  .tk-pdf-close,
+  .tk-pdf-panel-title,
+  .tk-section-tag,
+  .year-filter-btn {
+    font-size: 11px;
+  }
+
+  /* These few were written with two names in the original rule, so they need
+     two names here as well or they will not take effect. */
+  .cap-brand-text .bot,
+  .vault-brand-text .bot,
+  .catalog-progress-row .progress-label,
+  .lesson-steps-sidebar h4,
+  .sidebar-widget-header h3 {
+    font-size: 11px;
+  }
+
+  /* These two were written with an id (the "#" name), which always beats a
+     class name. Repeating the id is the only way to override them. */
+  #calendar-embed .cal-header h3,
+  #quick-stats .stats-header h3 {
+    font-size: 11px;
+  }
+
+
+  /* --- Portal tap targets -------------------------------------------------- */
+
+  /* Buttons that were around 30px tall. */
+  .tk-btn,
+  .year-filter-btn,
+  .pk-reset-btn,
+  .sidebar-signout,
+  .vault-link,
+  .signout-btn,
+  .btn-sm {
+    min-height: 44px;
+  }
+
+  /* Small icon-only buttons need width as well as height. */
+  .sidebar-toggle-btn,
+  .tk-pdf-close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* The Training Vault's "View" and "Download" links sit inline at the end of a
+     row, so they cannot be made taller without moving the row. They get the
+     invisible-padding treatment instead. */
+  .pdf-btn,
+  .announcement-link,
+  .dash-card-arrow,
+  .tk-gdoc-fallback a,
+  .login-help a {
+    padding-block: 14px;
+    margin-block: -14px;
+    display: inline-block;
+  }
+
+  /* "View" is a short word, so the link ends up tall enough but too narrow.
+     A minimum width with the text centred fixes that without touching the row. */
+  .pdf-btn {
+    min-width: 44px;
+    text-align: center;
+  }
+
+  /* Packing list rows. The whole row is already a label, so tapping anywhere on
+     it ticks the box. Giving the row a minimum height makes that whole area a
+     comfortable target, and the box itself grows a little for accuracy. */
+  .pk-item {
+    min-height: 44px;
+  }
+
+  .pk-item input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+  }
+}

@@ -166,7 +166,11 @@
       display: flex; align-items: center; justify-content: center;
       font-family: 'JetBrains Mono', monospace;
     }
-    .step-body { flex: 1; padding-top: 3px; }
+    /* min-width: 0 is what stops this column blowing the page open sideways.
+       A flex item refuses to shrink narrower than its widest content unless you
+       say otherwise, and the code blocks inside have long unbreakable lines. On
+       a phone that pushed the whole page about 245px wider than the screen. */
+    .step-body { flex: 1; min-width: 0; padding-top: 3px; }
     .step-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
     .step-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
 
@@ -180,6 +184,8 @@
       padding: 16px 18px;
       color: #e5e7eb;
       overflow-x: auto;
+      /* Scroll inside this box rather than making the page scroll. */
+      max-width: 100%;
       line-height: 1.7;
       margin-top: 10px;
     }
@@ -188,6 +194,9 @@
     .code-block .c { color: rgba(255,255,255,0.35); font-style: italic; }
 
     code.inline {
+      /* Long values (URLs, file paths) have no spaces to break at, so without
+         this they push the layout wider than the screen on a phone. */
+      overflow-wrap: anywhere;
       font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
       background: rgba(201,162,39,0.12); color: #c9a227;
       padding: 2px 7px; border-radius: 5px;
@@ -315,6 +324,8 @@
       outline-offset: 2px;
     }
   </style>
+  <!-- Mobile polish. Must stay the LAST stylesheet so its phone-only rules win. -->
+  <link rel="stylesheet" href="mobile-polish.css" />
 </head>
 <body>
 
@@ -546,6 +557,10 @@ included. List problems in priority order. Do not fix anything yet.</pre>
 
   </main>
 
+  <!-- Smooth scrolling + the shared scroll hook used by scroll-driven effects.
+       Must load BEFORE this page's own script so that script can call SiteScroll. -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="site-scroll.js"></script>
   <script>
     /* Walkthrough videos.
        The recordings are not made yet, so this drives titles only and shows a

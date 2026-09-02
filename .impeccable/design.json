@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-26T00:00:00Z",
+  "title": "Design System: San Marin Speech & Debate",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Catalog Cream",
+        "canonical": "#f4f3ef",
+        "tonalRamp": ["#2b2a26", "#45433d", "#605d55", "#7d7a70", "#9c988d", "#bdb9ad", "#dcd8cd", "#f4f3ef"]
+      },
+      "paper-rail": {
+        "role": "neutral",
+        "displayName": "Rail Stock",
+        "canonical": "#eeece6",
+        "tonalRamp": ["#282720", "#413f37", "#5c594f", "#787468", "#969184", "#b6b1a3", "#d4cfc3", "#eeece6"]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet White",
+        "canonical": "#fbfaf6",
+        "tonalRamp": ["#2d2c27", "#47463f", "#626058", "#7f7d73", "#9e9b90", "#bfbcb0", "#dedbd1", "#fbfaf6"]
+      },
+      "forest-ink": {
+        "role": "primary",
+        "displayName": "Forest Ink",
+        "canonical": "#1b4332",
+        "tonalRamp": ["#0a1b13", "#0f2a1f", "#14372a", "#1b4332", "#2d6a4f", "#4d8f70", "#8bc0a6", "#d3e8de"]
+      },
+      "forest-mid": {
+        "role": "primary",
+        "displayName": "Interactive Forest",
+        "canonical": "#2d6a4f",
+        "tonalRamp": ["#0d2118", "#123024", "#1a4433", "#235742", "#2d6a4f", "#4b8e6e", "#87bda3", "#d1e7dc"]
+      },
+      "forest-pale": {
+        "role": "primary",
+        "displayName": "Pale Forest",
+        "canonical": "#74b49b",
+        "tonalRamp": ["#15291f", "#1e3c2d", "#2b563f", "#3c7458", "#529274", "#74b49b", "#a6d2c1", "#dcefe6"]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Forest Text",
+        "canonical": "#4e6b56",
+        "tonalRamp": ["#141d17", "#1f2c23", "#2d4033", "#3d5644", "#4e6b56", "#6f8b76", "#a2b6a7", "#dbe4dd"]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Faint Forest Text",
+        "canonical": "#7c8f81",
+        "tonalRamp": ["#1c211d", "#2c332e", "#3f4941", "#556056", "#6b786d", "#7c8f81", "#a9b7ad", "#dee5e0"]
+      },
+      "bronze": {
+        "role": "secondary",
+        "displayName": "Status Bronze",
+        "canonical": "#b8905a",
+        "tonalRamp": ["#2c2114", "#43331f", "#5d472b", "#7d5f31", "#9c7847", "#b8905a", "#d4b988", "#f0e5d3"]
+      },
+      "bronze-deep": {
+        "role": "secondary",
+        "displayName": "Deep Bronze",
+        "canonical": "#7d5f31",
+        "tonalRamp": ["#211809", "#332510", "#4a361a", "#5f4523", "#7d5f31", "#a07f4c", "#c9ad81", "#eee2cd"]
+      },
+      "madder": {
+        "role": "tertiary",
+        "displayName": "Madder Red",
+        "canonical": "#a03d2d",
+        "tonalRamp": ["#2a0f0a", "#401710", "#5b2018", "#7a2e21", "#a03d2d", "#c26550", "#dfa294", "#f6e0da"]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#d8d3c8",
+        "tonalRamp": ["#26241f", "#3d3a33", "#565248", "#726d60", "#918b7c", "#b3ad9e", "#d8d3c8", "#f2efe9"]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Strong Edge",
+        "canonical": "#b9b2a2",
+        "tonalRamp": ["#211f1b", "#35322c", "#4c483f", "#665f53", "#847d6d", "#a29a89", "#b9b2a2", "#e3dfd6"]
+      },
+      "dark-forest": {
+        "role": "neutral",
+        "displayName": "Night Forest",
+        "canonical": "#0d1a10",
+        "tonalRamp": ["#0d1a10", "#132419", "#1e3020", "#2b432f", "#3d5c42", "#5b7d61", "#93ad97", "#d5e0d7"]
+      },
+      "dark-hairline": {
+        "role": "neutral",
+        "displayName": "Night Hairline",
+        "canonical": "#1e3020",
+        "tonalRamp": ["#0a130c", "#101d13", "#16261a", "#1e3020", "#2c452f", "#436348", "#7c9a81", "#c9d8cc"]
+      },
+      "dark-text": {
+        "role": "neutral",
+        "displayName": "Paper on Night",
+        "canonical": "#f0ede6",
+        "tonalRamp": ["#2b2925", "#44413b", "#5f5c53", "#7c786e", "#9b978b", "#bcb8ac", "#dbd7cd", "#f0ede6"]
+      },
+      "dark-text-soft": {
+        "role": "neutral",
+        "displayName": "Sage on Night",
+        "canonical": "#9cad9a",
+        "tonalRamp": ["#1e231d", "#2e352d", "#424b41", "#586257", "#707c6f", "#8a9789", "#9cad9a", "#dde4dc"]
+      },
+      "success": {
+        "role": "secondary",
+        "displayName": "Completed Green",
+        "canonical": "#1e7a45",
+        "tonalRamp": ["#08200f", "#0d3119", "#134524", "#185e33", "#1e7a45", "#3f9c66", "#7fc59b", "#d3edde"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Cover Display", "purpose": "The login page cover title only, one per page." },
+      "headline": { "displayName": "Page Title Block", "purpose": "Portal page titles, set directly beneath the 3px rule." },
+      "title": { "displayName": "Section Head", "purpose": "Section titles on their hairline, paired with a mono registrar tag." },
+      "subtitle": { "displayName": "Listing Title", "purpose": "Item titles inside ruled rows, plates, and sheets." },
+      "body": { "displayName": "Reading Copy", "purpose": "All prose, bounded at 58-66ch." },
+      "label": { "displayName": "Registrar Label", "purpose": "Mono uppercase furniture: dates, counts, codes, section tags, statuses." }
+    },
+    "shadows": [
+      { "name": "panel-lift", "value": "0 10px 30px rgba(27,67,50,0.08)", "purpose": "The login panel only; the one object handed to the visitor." },
+      { "name": "popover", "value": "0 10px 28px rgba(27,67,50,0.16)", "purpose": "Transient overlays: the rail search results list." },
+      { "name": "button-hover", "value": "0 8px 20px rgba(27,67,50,0.22)", "purpose": "Filled primary buttons on hover; dropped on active." }
+    ],
+    "motion": [
+      { "name": "ink-settle", "value": "0.18s ease", "purpose": "Default state transition on color, border, and background." },
+      { "name": "page-enter", "value": "0.4s cubic-bezier(0.19, 1, 0.22, 1)", "purpose": "The single authored entrance per view, from an already-visible default." },
+      { "name": "stamp-in", "value": "0.3s cubic-bezier(0.19, 1, 0.22, 1)", "purpose": "The bronze stamp scaling in from 1.25 when a state completes." },
+      { "name": "progress-fill", "value": "0.5s cubic-bezier(0.22, 0.61, 0.36, 1)", "purpose": "Checklist and vault progress bar width changes." }
+    ],
+    "breakpoints": [
+      { "name": "xs", "value": "480px" },
+      { "name": "sm", "value": "560px" },
+      { "name": "md", "value": "640px" },
+      { "name": "rail-drop", "value": "768px" },
+      { "name": "lg", "value": "860px" },
+      { "name": "xl", "value": "1024px" },
+      { "name": "2xl", "value": "1100px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The action button. Pill is reserved for buttons that do something.",
+      "html": "<button class=\"ds-btn-primary\">Enter Portal</button>",
+      "css": ".ds-btn-primary { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #f4f3ef; background: #1b4332; border: 1.5px solid #1b4332; border-radius: 100px; padding: 13px 28px; cursor: pointer; transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; } .ds-btn-primary:hover { background: #2d6a4f; border-color: #2d6a4f; box-shadow: 0 8px 20px rgba(27,67,50,0.22); } .ds-btn-primary:active { box-shadow: none; } .ds-btn-primary:focus-visible { outline: 2px solid #2d6a4f; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outlined companion to the primary pill, for downloads and external links.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Download</a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 6px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #1b4332; background: transparent; border: 1.5px solid rgba(27,67,50,0.32); border-radius: 100px; padding: 8px 16px; text-decoration: none; transition: background 0.18s ease, border-color 0.18s ease; } .ds-btn-secondary:hover { background: rgba(27,67,50,0.05); border-color: #1b4332; } .ds-btn-secondary:active { background: rgba(27,67,50,0.1); } .ds-btn-secondary:focus-visible { outline: 2px solid #2d6a4f; outline-offset: 2px; }"
+    },
+    {
+      "name": "Page Title Block",
+      "kind": "custom",
+      "refersTo": "sheet-panel",
+      "description": "How every portal page opens: heavy rule, serif title, mono dateline ruled top and bottom, standfirst.",
+      "html": "<div class=\"ds-title-block\"><h1 class=\"ds-title-block-h\">Team Hub</h1><div class=\"ds-title-block-date\">Member Portal &middot; San Marin Speech &amp; Debate</div><p class=\"ds-title-block-sub\">Announcements, awards, by-laws, and team resources, all in one place.</p></div>",
+      "css": ".ds-title-block { border-top: 3px solid #1b4332; padding-top: 26px; } .ds-title-block-h { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 54px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.02; color: #1b4332; margin: 0 0 18px; } .ds-title-block-date { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #7d5f31; border-top: 1px solid #d8d3c8; border-bottom: 1px solid #d8d3c8; padding: 8px 0; margin-bottom: 16px; } .ds-title-block-sub { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15.5px; line-height: 1.7; color: #4e6b56; max-width: 58ch; margin: 0; }"
+    },
+    {
+      "name": "Section Head",
+      "kind": "custom",
+      "refersTo": "sheet-panel",
+      "description": "Serif title left, mono registrar tag right on a shared baseline, closed by a hairline.",
+      "html": "<div class=\"ds-section-head\"><div class=\"ds-section-head-row\"><h2 class=\"ds-section-title\">Announcements</h2><span class=\"ds-section-tag\">News</span></div><div class=\"ds-section-sub\">Latest updates from team leadership</div></div>",
+      "css": ".ds-section-head { border-bottom: 1px solid #d8d3c8; padding-bottom: 14px; } .ds-section-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; } .ds-section-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 28px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; color: #1b4332; margin: 0; } .ds-section-tag { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #7d5f31; white-space: nowrap; } .ds-section-sub { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 13.5px; line-height: 1.5; color: #4e6b56; margin-top: 7px; }"
+    },
+    {
+      "name": "Listing Row",
+      "kind": "card",
+      "refersTo": "sheet-panel",
+      "description": "The portal's structural unit, replacing cards: a ruled line with title, description, and right-aligned actions.",
+      "html": "<div class=\"ds-row\"><div class=\"ds-row-main\"><div class=\"ds-row-title\">Speaker Cheat Sheet</div><div class=\"ds-row-desc\">Speech templates for AFF/NEG speakers in fact, value, and policy debates.</div></div><a class=\"ds-row-action\" href=\"#\">View</a></div>",
+      "css": ".ds-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px 0; border-bottom: 1px solid #d8d3c8; transition: background 0.18s ease; } .ds-row:hover { background: rgba(27,67,50,0.025); } .ds-row-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; font-weight: 600; letter-spacing: -0.005em; color: #1b4332; margin-bottom: 4px; } .ds-row-desc { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 13px; line-height: 1.6; color: #4e6b56; max-width: 56ch; } .ds-row-action { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #2d6a4f; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(45,106,79,0.4); transition: color 0.18s ease, text-decoration-color 0.18s ease; } .ds-row-action:hover { color: #1b4332; text-decoration-color: #b8905a; }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "The rail's page search; the same stroke and focus language as the access code field.",
+      "html": "<input class=\"ds-input-search\" type=\"search\" placeholder=\"Search this page\" />",
+      "css": ".ds-input-search { width: 100%; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12.5px; color: #1b4332; background: #fbfaf6; border: 1px solid #d8d3c8; border-radius: 3px; padding: 8px 10px; transition: border-color 0.18s ease, background 0.18s ease; } .ds-input-search::placeholder { color: #4e6b56; } .ds-input-search:hover { border-color: #b9b2a2; } .ds-input-search:focus { outline: none; background: #ffffff; border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45,106,79,0.12); }"
+    },
+    {
+      "name": "Index Rail Item",
+      "kind": "nav",
+      "refersTo": "rail-item",
+      "description": "Portal navigation entry; the active state takes the sheet ground and a rule border rather than a colored bar.",
+      "html": "<nav class=\"ds-rail\"><a class=\"ds-rail-item ds-rail-item-active\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>Team Hub</a><a class=\"ds-rail-item\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><rect x=\"2\" y=\"7\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2\" stroke-linecap=\"round\"/></svg>Competition Toolkit</a></nav>",
+      "css": ".ds-rail { display: flex; flex-direction: column; gap: 2px; background: #eeece6; padding: 12px; } .ds-rail-item { display: flex; align-items: center; gap: 10px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; color: #4e6b56; text-decoration: none; padding: 9px 10px; border: 1px solid transparent; border-radius: 3px; transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease; } .ds-rail-item svg { width: 15px; height: 15px; flex-shrink: 0; } .ds-rail-item:hover { background: rgba(27,67,50,0.05); color: #1b4332; } .ds-rail-item-active { background: #fbfaf6; border-color: #d8d3c8; color: #1b4332; font-weight: 700; } .ds-rail-item-active svg { color: #7d5f31; }"
+    },
+    {
+      "name": "Status Stamp",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "The signature component: completion marks itself in place instead of disappearing.",
+      "html": "<span class=\"ds-stamp\">All Packed</span>",
+      "css": ".ds-stamp { display: inline-block; font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #7d5f31; border: 1.5px solid #b8905a; border-radius: 2px; padding: 3px 9px; transform: rotate(-2deg); animation: ds-stamp-in 0.3s cubic-bezier(0.19, 1, 0.22, 1) both; } @keyframes ds-stamp-in { from { opacity: 0; transform: rotate(-2deg) scale(1.25); } to { opacity: 1; transform: rotate(-2deg) scale(1); } } @media (prefers-reduced-motion: reduce) { .ds-stamp { animation: none; } }"
+    },
+    {
+      "name": "Contents Row",
+      "kind": "custom",
+      "refersTo": "sheet-panel",
+      "description": "The login page's table of contents line: serif title, dotted leader, mono meta flush right.",
+      "html": "<div class=\"ds-toc\"><div class=\"ds-toc-head\"><h3 class=\"ds-toc-title\">Training Vault</h3><span class=\"ds-toc-leader\"></span><span class=\"ds-toc-meta\">12 units &middot; Interactive</span></div><p class=\"ds-toc-desc\">12 interactive curriculum units covering Parliamentary debate from the basics to advanced competitive strategy.</p></div>",
+      "css": ".ds-toc { padding: 24px 0 26px; border-bottom: 1px solid #d8d3c8; } .ds-toc-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; } .ds-toc-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 600; letter-spacing: -0.005em; color: #1b4332; white-space: nowrap; margin: 0; } .ds-toc-leader { flex: 1; border-bottom: 1px dotted #b9b2a2; transform: translateY(-5px); min-width: 40px; } .ds-toc-meta { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #7d5f31; white-space: nowrap; } .ds-toc-desc { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px; line-height: 1.65; color: #4e6b56; max-width: 62ch; margin: 0; }"
+    },
+    {
+      "name": "Checklist Item",
+      "kind": "custom",
+      "refersTo": "input-field",
+      "description": "The packing list line; checked items strike through in bronze rather than vanishing.",
+      "html": "<label class=\"ds-check\"><input type=\"checkbox\" checked /><span class=\"ds-check-label\">Professional outfit (cleaned and ironed)</span></label>",
+      "css": ".ds-check { display: flex; align-items: center; gap: 13px; padding: 11px 6px; border-bottom: 1px solid rgba(216,211,200,0.55); cursor: pointer; user-select: none; transition: background 0.18s ease; } .ds-check:hover { background: rgba(27,67,50,0.03); } .ds-check input[type=\"checkbox\"] { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border: 1.5px solid #b9b2a2; border-radius: 2px; background: #fff; flex-shrink: 0; position: relative; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease; } .ds-check input[type=\"checkbox\"]:hover { border-color: #2d6a4f; } .ds-check input[type=\"checkbox\"]:checked { background: #2d6a4f; border-color: #2d6a4f; } .ds-check input[type=\"checkbox\"]:checked::after { content: ''; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg); } .ds-check-label { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; line-height: 1.45; color: #1b4332; } .ds-check input:checked + .ds-check-label { color: #7c8f81; text-decoration: line-through; text-decoration-color: #b8905a; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Course Catalog",
+    "overview": "This is a printed institution rendered for screen. The public pages are the prospectus, the member portal is the course catalog, and every surface is set on the same cream stock in the same forest ink. Structure comes from ruled divisions and typographic weight, the way it does on paper. The register is academic but not antique: Cormorant Garamond carries display, Plus Jakarta Sans handles reading, and JetBrains Mono does the registrar's work. Color is restrained by strategy, with bronze reserved for the marks that record status. The portal deliberately rejects the SaaS dashboard vocabulary it replaced: no glassmorphism, no glow, no grid of same-size icon cards.",
+    "keyCharacteristics": [
+      "Cream paper ground with forest ink; bronze appears only as a mark of status.",
+      "One 1px hairline system carries every division, on public pages and in the portal alike.",
+      "Serif display, sans body, mono registrar labels: three faces, three jobs, never interchanged.",
+      "Square sheets (2-3px) with pill buttons reserved for primary actions.",
+      "Flat at rest; depth is a hairline or a change of ground, not a shadow."
+    ],
+    "rules": [
+      { "name": "The Bronze Reserve Rule", "body": "Bronze marks status and metadata only: stamps, registrar labels, section tags, completion. It never fills a surface, never becomes a button, and never carries body copy.", "section": "colors" },
+      { "name": "The Two-Ink Rule", "body": "Secondary text is a lighter forest (#4e6b56), never gray. Tinting from the foreground hue is what keeps the cream ground warm.", "section": "colors" },
+      { "name": "The Registrar Label Rule", "body": "Mono uppercase labels are furniture: dates, counts, codes, section tags, statuses. They sit beside a heading on a shared baseline or below it inside rules, never stacked above it as a kicker, and never carry a sentence.", "section": "typography" },
+      { "name": "The Measure Rule", "body": "Reading copy is bounded by ch, not by pixels: 58ch for standfirsts, 66ch for body columns.", "section": "typography" },
+      { "name": "The Flat Sheet Rule", "body": "Sheets and listing rows do not lift. Their hover state changes ink: border color, background tint, or underline. Only buttons and true overlays cast a shadow.", "section": "elevation" },
+      { "name": "The Ink-on-Paper Motion Rule", "body": "Motion is settling ink, not floating glass. Transitions are 0.18-0.22s ease on color, border, and background; each view gets at most one authored entrance. No glows, no infinite loops, no scattered hover animations, and every animation is disabled under prefers-reduced-motion.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do divide with a single 1px #d8d3c8 hairline and let ruled rows carry structure instead of cards.",
+      "Do keep three faces in three jobs: Cormorant for display, Plus Jakarta Sans for reading, JetBrains Mono for registrar labels.",
+      "Do reserve the pill (100px) for buttons that take an action, and keep every other surface square (2-3px).",
+      "Do stamp completed states with the bronze stamp so finished things stay visible.",
+      "Do tint secondary text from the forest hue (#4e6b56), and use Bronze Deep (#7d5f31) for any bronze text below 14px.",
+      "Do theme browser surfaces from the palette: selection is rgba(184,144,90,0.35), focus rings are Forest Mid, scrollbars are #c9c3b4 on transparent, and tabular figures are used for dates, counts, and phone numbers.",
+      "Do honor prefers-reduced-motion on anything that animates.",
+      "Do write visible copy without em or en dashes; separate with a middot in titles and rewrite elsewhere."
+    ],
+    "donts": [
+      "Don't reintroduce glassmorphism: no backdrop-filter, no translucent card ground, no radial glow behind a surface.",
+      "Don't float a sheet or a listing row on hover; change ink, not elevation.",
+      "Don't build a page from same-size cards of icon plus heading plus text.",
+      "Don't stack a mono label above a heading as a kicker; it belongs beside the heading or below it inside rules.",
+      "Don't use a colored left border above 1px on cards, callouts, or alerts.",
+      "Don't substitute emoji or unicode glyphs for icons; icons are authored SVG at 1.8-2 stroke, aria-hidden, inheriting currentColor.",
+      "Don't let bronze fill a surface or carry body copy.",
+      "Don't copy one page's decorative mark vocabulary onto another; the public pages each own their marks and the portal owns the stamp."
+    ]
+  }
+}
