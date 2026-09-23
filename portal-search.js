@@ -18,7 +18,8 @@
   var TARGET_SELECTOR = [
     '.hub-section-title', '.announcement-title', '.award-name', '.bylaws-title',
     '.resource-track-title', '.pdf-name', '.tool-card-title', '.doc-section h2',
-    '.unit-title', '.lesson-row'
+    '.unit-title', '.lesson-row',
+    '.tk-section-title', '.tk-res-title', '.tk-book-title', '.tk-chapter-name'
   ].join(', ');
 
   function sectionOf(el) {
@@ -58,11 +59,21 @@
   function jump(item) {
     close();
     input.blur();
-    item.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    /* A match inside a collapsed section (the textbook's chapter list) has
+       no position until it is shown, so open it first. */
+    var folded = item.el.closest('details');
+    if (folded && !folded.open) folded.open = true;
+    var ls = window.SiteScroll && SiteScroll.instance();
+    if (ls) {
+      var r = item.el.getBoundingClientRect();
+      ls.scrollTo(item.el, { offset: -(window.innerHeight / 2 - r.height / 2) });
+    } else {
+      item.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
     /* Highlight the containing card when there is one, so the pointer is
        visible at a glance rather than underlining three words of heading. */
     var box = item.el.closest(
-      '.announcement-card, .award-card, .bylaws-card, .pdf-card, .tool-card, .doc-section, .course-card, .hub-section'
+      '.tk-chapter, .tk-book, .tk-res-card, .announcement-card, .award-card, .bylaws-card, .pdf-card, .doc-section, .hub-section'
     ) || item.el;
     box.classList.add('search-hit');
     setTimeout(function () { box.classList.remove('search-hit'); }, 2200);

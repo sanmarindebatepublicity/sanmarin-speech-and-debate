@@ -96,6 +96,32 @@ window.SiteScroll = (function () {
         syncTouch: false
       });
 
+      /* Lenis moves the page by setting the scroll position every frame. If
+         the page's CSS also says `html { scroll-behavior: smooth }` (several
+         of our stylesheets do), the browser tries to animate each of those
+         60-a-second jumps on its own, and the two fight. Measured before this
+         fix: asked to scroll 1500px, the page lagged up to 1447px behind and
+         had moved only about 40px after a second and a half. That was the
+         "scroll does nothing, then jumps" feeling on every page but the
+         homepage. Lenis puts the class "lenis" on <html> while it runs, so
+         this switches the browser's smoothing off exactly then, whatever any
+         other stylesheet says. Lenis's own CSS file does the same thing, but
+         it also makes every embedded frame (calendar, PDFs, Google Doc)
+         unclickable, so only the parts we need are copied here. */
+      if (!document.getElementById('site-scroll-css')) {
+        var css = document.createElement('style');
+        css.id = 'site-scroll-css';
+        css.textContent =
+          'html.lenis { scroll-behavior: auto !important; }' +
+          'html.lenis, html.lenis body { height: auto; }' +
+          '.lenis.lenis-stopped { overflow: hidden; }';
+        /* Deliberately not copied from Lenis's CSS: overscroll-behavior on the
+           protected boxes. The photo carousel is one of them, and that rule
+           stopped an up-or-down scroll over it from ever reaching the page,
+           so the Media page froze whenever the cursor was over the photos. */
+        document.head.appendChild(css);
+      }
+
       /* The library needs to be nudged once per frame to do its work. */
       (function raf(time) {
         if (!lenis) return;

@@ -235,6 +235,116 @@
     }
     @media (max-width: 640px) { .tk-pdf-panel iframe { height: 420px; } }
 
+    /* ── THE PARLIAMENTARY TEXTBOOK — a bound book and its contents page ──
+       Same catalog language as the listings above (ruled rows, serif titles,
+       mono labels); the one new thing is a small cloth-bound cover. */
+    .tk-book {
+      display: grid;
+      grid-template-columns: 104px 1fr;
+      gap: 28px;
+      align-items: start;
+      padding: 26px 0 8px;
+    }
+    @media (max-width: 640px) {
+      .tk-book { grid-template-columns: 1fr; gap: 18px; }
+      .tk-book-cover { width: 80px; }
+    }
+    .tk-book-cover {
+      width: 104px;
+      aspect-ratio: 3 / 4;
+      background: var(--pt-forest);
+      border-radius: 2px 6px 6px 2px;
+      box-shadow: inset 6px 0 0 rgba(0,0,0,0.22), 3px 4px 0 var(--pt-rule);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px 10px 12px 15px;
+    }
+    .tk-book-cover b {
+      font-family: var(--pt-serif);
+      font-size: 15px; font-weight: 600; line-height: 1.1;
+      color: #e9d7ae;
+    }
+    .tk-book-cover span {
+      margin-top: 7px;
+      font-family: var(--pt-mono);
+      font-size: 7.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--pt-bronze);
+    }
+    .tk-book-title {
+      font-family: var(--pt-serif);
+      font-size: 30px; font-weight: 600; line-height: 1.1;
+      color: var(--pt-ink); letter-spacing: -0.01em;
+    }
+    .tk-book-meta {
+      display: flex; flex-wrap: wrap; gap: 4px 14px;
+      margin-top: 8px;
+      font-family: var(--pt-mono);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--pt-ink-soft);
+    }
+    .tk-book-lede { margin-top: 12px; font-size: 14px; line-height: 1.65; color: var(--pt-ink-soft); max-width: 60ch; }
+    .tk-book .tk-res-actions { margin-top: 16px; }
+
+    /* Summary: a native <details>, so it opens by click, Enter or Space with no script. */
+    .tk-book-summary { margin-top: 22px; border-top: 1px solid var(--pt-rule); }
+    .tk-book-summary > summary {
+      list-style: none;
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 14px;
+      padding: 2px 0;
+      font-family: var(--pt-mono);
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--pt-bronze-deep);
+    }
+    .tk-book-summary > summary::-webkit-details-marker { display: none; }
+    .tk-book-summary > summary svg { width: 11px; height: 11px; transition: transform 0.2s ease; }
+    .tk-book-summary[open] > summary svg { transform: rotate(90deg); }
+    .tk-book-summary > summary:hover { color: var(--pt-ink); }
+    .tk-book-summary > summary:focus-visible { outline: 2px solid var(--pt-bronze); outline-offset: 4px; }
+    @media (prefers-reduced-motion: reduce) { .tk-book-summary > summary svg { transition: none; } }
+    .tk-book-summary-body { margin-top: 14px; }
+    .tk-book-summary-body p { font-size: 14px; line-height: 1.7; color: var(--pt-ink-soft); max-width: 66ch; }
+    .tk-book-summary-body p + p { margin-top: 10px; }
+    .tk-chapters-label {
+      margin-top: 22px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--pt-rule-strong);
+      font-family: var(--pt-mono);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--pt-ink-soft);
+    }
+    .tk-chapters { list-style: none; margin: 0; padding: 0; }
+    .tk-chapter {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: baseline;
+      padding: 13px 4px;
+      text-align: left;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid var(--pt-rule);
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+      transition: background 0.18s ease;
+    }
+    .tk-chapter:hover { background: rgba(27,67,50,0.025); }
+    .tk-chapter:active { background: rgba(27,67,50,0.06); }
+    .tk-chapter:focus-visible { outline: 2px solid var(--pt-bronze); outline-offset: -2px; }
+    .tk-chapter-name { display: block; font-family: var(--pt-serif); font-size: 19px; font-weight: 600; color: var(--pt-ink); line-height: 1.2; }
+    .tk-chapter-desc { display: block; margin-top: 3px; font-size: 12.5px; line-height: 1.5; color: var(--pt-ink-soft); }
+    .tk-chapter-page { font-family: var(--pt-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--pt-bronze-deep); white-space: nowrap; }
+
+    /* The book gets a taller reader than the one-page templates. */
+    #textbook-panel iframe { height: min(82vh, 900px); }
+    @media (max-width: 640px) { #textbook-panel iframe { height: 70vh; } }
+    .tk-pdf-panel-links { display: flex; align-items: center; gap: 6px; }
+    .tk-pdf-panel-links a.tk-pdf-close { text-decoration: none; }
+
     /* ── TOURNAMENT INFO — document sheet ── */
     .tk-gdoc-wrap {
       border: 1px solid var(--pt-rule);
@@ -875,13 +985,99 @@
 
 
       <!-- ══════════════════════════════════════════
+           SECTION 2: THE PARLIAMENTARY TEXTBOOK
+           Mrs. Kenyon's handbook. The file lives at
+           debate_resources_jv_and_varsity/Parliamentary Textbook.pdf.
+           To publish a new edition, upload it under the same file name.
+           If chapters move, update the page numbers in the list below, using
+           the page number your PDF viewer shows (5 higher than the number
+           printed on the page itself).
+      ══════════════════════════════════════════ -->
+      <section class="tk-section" aria-labelledby="s-book-title">
+        <div class="tk-section-header">
+          <div class="tk-section-head-row">
+            <h2 class="tk-section-title" id="s-book-title">The Parliamentary Textbook</h2>
+            <span class="tk-section-tag">Section 2</span>
+          </div>
+          <p class="tk-section-sub">The whole of parli in one book, from your first round to varsity theory.</p>
+        </div>
+
+        <article class="tk-book" aria-labelledby="tk-book-title">
+          <div class="tk-book-cover" aria-hidden="true">
+            <b>20 Minutes for the Win!</b>
+            <span>Kenyon</span>
+          </div>
+          <div>
+            <h3 class="tk-book-title" id="tk-book-title">20 Minutes for the Win!</h3>
+            <div class="tk-book-meta">
+              <span>By Mrs. Kenyon</span><span>123 pages</span><span>PDF, 9 MB</span><span>Novice to varsity</span>
+            </div>
+            <p class="tk-book-lede">Our coach's handbook for San Marin debaters. Read the quick summary to see what is inside, or jump straight to the chapter you need.</p>
+
+            <div class="tk-res-actions">
+              <button type="button" class="tk-btn tk-btn-primary" id="textbook-view-btn" onclick="toggleTextbook()">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Read the book
+              </button>
+              <a class="tk-btn tk-btn-secondary" href="debate_resources_jv_and_varsity/Parliamentary%20Textbook.pdf" target="_blank" rel="noopener">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Open in new tab
+              </a>
+              <a class="tk-btn tk-btn-secondary" href="debate_resources_jv_and_varsity/Parliamentary%20Textbook.pdf" download="Parliamentary Textbook.pdf">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </a>
+            </div>
+
+            <details class="tk-book-summary">
+              <summary>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Quick summary and chapters
+              </summary>
+              <div class="tk-book-summary-body">
+                <p>Part 1 (Chapters 1 to 20) covers the basics, from speech times and prep to contentions, rebuttals, and your first tournament. Part 2 is for JV and varsity, and covers weighing, counterplans, theory, topicality, and kritiks.</p>
+                <p>New to parli? Read Chapters 1, 3, 4, and 10 first, then Chapter 18 before your first tournament. The back of the book has a glossary, past topics, sample introductions, and the full CHSSA and NPDL rules.</p>
+                <div class="tk-chapters-label">Jump to a chapter</div>
+                <ol class="tk-chapters">
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(6)"><span><span class="tk-chapter-name">The basics of parli</span><span class="tk-chapter-desc">What parli is, the three kinds of motions, speech times, and how to stay ready.</span></span><span class="tk-chapter-page">p. 6</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(11)"><span><span class="tk-chapter-name">What every speech needs</span><span class="tk-chapter-desc">The parts of every speech, and a minute-by-minute plan for prep time.</span></span><span class="tk-chapter-page">p. 11</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(19)"><span><span class="tk-chapter-name">Building and attacking arguments</span><span class="tk-chapter-desc">Writing contentions, refuting the other side, challenging evidence, and flowing.</span></span><span class="tk-chapter-page">p. 19</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(28)"><span><span class="tk-chapter-name">Delivering a great speech</span><span class="tk-chapter-desc">How to sound confident and clear while you speak.</span></span><span class="tk-chapter-page">p. 28</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(31)"><span><span class="tk-chapter-name">Each speaker&#x27;s job</span><span class="tk-chapter-desc">Checklists for every speech, plus points of information. A good first read.</span></span><span class="tk-chapter-page">p. 31</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(43)"><span><span class="tk-chapter-name">Writing a policy plan</span><span class="tk-chapter-desc">Plans, fiat, how to attack a plan, and stock attacks.</span></span><span class="tk-chapter-page">p. 43</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(53)"><span><span class="tk-chapter-name">Winning in rebuttals</span><span class="tk-chapter-desc">Picking voting issues, plus habits that sharpen your debating.</span></span><span class="tk-chapter-page">p. 53</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(59)"><span><span class="tk-chapter-name">Your first tournament</span><span class="tk-chapter-desc">What to expect, online tournaments, and what judges look for.</span></span><span class="tk-chapter-page">p. 59</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(69)"><span><span class="tk-chapter-name">Weighing and counterplans</span><span class="tk-chapter-desc">Impact weighing, running counterplans, and answering them. For JV and varsity.</span></span><span class="tk-chapter-page">p. 69</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(80)"><span><span class="tk-chapter-name">Theory, topicality, and kritiks</span><span class="tk-chapter-desc">Theory shells, speed, topicality, kritiks, and metaphor topics. For JV and varsity.</span></span><span class="tk-chapter-page">p. 80</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(94)"><span><span class="tk-chapter-name">Glossary and past topics</span><span class="tk-chapter-desc">Every parli term defined, past topics, and sample introductions.</span></span><span class="tk-chapter-page">p. 94</span></button></li>
+                  <li><button type="button" class="tk-chapter" onclick="openTextbook(111)"><span><span class="tk-chapter-name">CHSSA and NPDL rules</span><span class="tk-chapter-desc">The full rules both leagues use, as of June 2026.</span></span><span class="tk-chapter-page">p. 111</span></button></li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <div class="tk-pdf-panel" id="textbook-panel" role="region" aria-label="Parliamentary Textbook reader">
+          <div class="tk-pdf-panel-header">
+            <span class="tk-pdf-panel-title">20 Minutes for the Win! <span id="textbook-panel-page"></span></span>
+            <div class="tk-pdf-panel-links">
+              <a class="tk-pdf-close" href="debate_resources_jv_and_varsity/Parliamentary%20Textbook.pdf" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> New tab</a>
+              <button type="button" class="tk-pdf-close" onclick="closeTextbook()"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Close</button>
+            </div>
+          </div>
+          <iframe id="textbook-iframe" title="Parliamentary Textbook PDF"></iframe>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════
            SECTION 2: TOURNAMENT INFORMATION
       ══════════════════════════════════════════ -->
       <section class="tk-section" aria-labelledby="s2-title">
         <div class="tk-section-header head-gap reveal-left">
           <div class="tk-section-head-row">
             <h2 class="tk-section-title" id="s2-title">Tournament Information</h2>
-            <span class="tk-section-tag">Section 2</span>
+            <span class="tk-section-tag">Section 3</span>
           </div>
           <p class="tk-section-sub">Schedules, rules, and details for upcoming tournaments. Updated by team leadership.</p>
         </div>
@@ -912,7 +1108,7 @@
         <div class="tk-section-header head-gap reveal-left">
           <div class="tk-section-head-row">
             <h2 class="tk-section-title" id="s3-title">Tournament Packing List</h2>
-            <span class="tk-section-tag">Section 3</span>
+            <span class="tk-section-tag">Section 4</span>
           </div>
           <p class="tk-section-sub">Everything you need to bring on tournament day. No excuses.</p>
         </div>
@@ -1066,7 +1262,7 @@
         <div class="tk-section-header reveal-left">
           <div class="tk-section-head-row">
             <h2 class="tk-section-title" id="s4b-title">For Parents &amp; Judges</h2>
-            <span class="tk-section-tag">Section 4</span>
+            <span class="tk-section-tag">Section 5</span>
           </div>
         </div>
 
@@ -1147,7 +1343,7 @@
 
   <!-- Smooth scrolling + the shared scroll hook used by scroll-driven effects.
        Must load BEFORE this page's own script so that script can call SiteScroll. -->
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous"></script>
   <script src="site-scroll.js"></script>
   <script>
     /* ── REVEAL ON SCROLL — removed ──
@@ -1241,6 +1437,51 @@
     })();
 
     /* ── PDF TOGGLE (lazy-load) ── */
+    /* ── PARLIAMENTARY TEXTBOOK ──
+       The book is 9 MB, so it loads only when someone asks for it. Chapter
+       buttons open it at a page using #page=N, which the built-in PDF viewers
+       in Chrome, Edge and Firefox honor. Phones and iPads show only the first
+       page of a PDF inside a frame, so there every button opens the book in a
+       new tab instead, where the device's own reader works properly. */
+    var TEXTBOOK_SRC = 'debate_resources_jv_and_varsity/Parliamentary%20Textbook.pdf';
+    var BOOK_ICON = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var CLOSE_ICON = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+    function textbookIsSmallScreen() {
+      return window.matchMedia('(max-width: 760px)').matches ||
+             /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
+    function openTextbook(pageNum) {
+      var url = TEXTBOOK_SRC + (pageNum ? '#page=' + pageNum : '');
+      if (textbookIsSmallScreen()) { window.open(url, '_blank', 'noopener'); return; }
+      var panel = document.getElementById('textbook-panel');
+      var iframe = document.getElementById('textbook-iframe');
+      var label = document.getElementById('textbook-panel-page');
+      /* Clearing first forces the jump even if the book is already at this address. */
+      if (iframe.getAttribute('src') === url) iframe.setAttribute('src', 'about:blank');
+      iframe.setAttribute('src', url);
+      if (label) label.textContent = pageNum ? '\u00b7 Page ' + pageNum : '';
+      panel.classList.add('open');
+      document.getElementById('textbook-view-btn').innerHTML = CLOSE_ICON + ' Hide book';
+      setTimeout(function () {
+        var ls = window.SiteScroll && SiteScroll.instance();
+        if (ls) ls.scrollTo(panel, { offset: -24 });
+        else panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
+    }
+
+    function closeTextbook() {
+      document.getElementById('textbook-panel').classList.remove('open');
+      document.getElementById('textbook-view-btn').innerHTML = BOOK_ICON + ' Read the book';
+    }
+
+    function toggleTextbook() {
+      if (document.getElementById('textbook-panel').classList.contains('open')) closeTextbook();
+      else openTextbook(0);
+    }
+
     function togglePDF(panelId, btn, src) {
       var panel = document.getElementById(panelId);
       var iframeId = panelId.replace('-panel', '-iframe');

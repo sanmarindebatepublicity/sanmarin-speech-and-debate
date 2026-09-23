@@ -32,3 +32,6 @@ Mockupimages/*.mov
 
 # Claude Code local machine settings (agent definitions ARE committed)
 .claude/settings.local.json
+
+# Browser-test scratch output
+.playwright-mcp/

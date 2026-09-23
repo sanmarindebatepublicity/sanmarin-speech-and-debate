@@ -805,7 +805,7 @@
         subtitle: "Publicity Captain · Sophomore, '26",
         bio: "Hi, I’m Hamza. I enjoy programming, playing basketball, and hanging out with friends. I’m excited to be part of the team this year.",
         collapsible: true,
-        image: "https://placehold.co/400x533/0d1820/4ade80?text=Photo"
+        image: "leadershipphotos/hamza-wadera.png"
       },
       {
         name: "Arnav Lal",
@@ -929,15 +929,10 @@
 
     // ── Scroll-collapse ───────────────────────────────────────
 
-    (function() {
-      var section = document.getElementById('officers');
-      if (!section) return;
-      window.addEventListener('scroll', function() {
-        if (!document.querySelector('.folder-card.open')) return;
-        var rect = section.getBoundingClientRect();
-        if (rect.bottom < -150) collapseAll();
-      }, { passive: true });
-    })();
+    /* Scroll-collapse removed. Open cards used to close automatically once
+       you scrolled past the roster, which shrank the page above where you
+       were reading, so the text under the cursor lurched upward mid-scroll
+       (Safari has no scroll anchoring to hide it). Cards now stay as left. */
 
     // ── Scroll fade-in ────────────────────────────────────────
 
