@@ -72,7 +72,14 @@
 
     /* ── FORM SECTION ── */
     #contact-form-section { background: #fff; padding: 80px 32px 100px; border-top: 1px solid #e5e7eb; }
-    .form-wrapper { max-width: 560px; margin: 0 auto; }
+    .contact-layout { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 64px; align-items: start; }
+    .form-wrapper { max-width: 560px; width: 100%; }
+    .contact-photo { margin: 0; }
+    .contact-photo img { display: block; width: 100%; height: auto; border-radius: 4px; box-shadow: 0 24px 56px rgba(27,67,50,0.16), 0 4px 14px rgba(27,67,50,0.08); }
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: minmax(0, 1fr); gap: 48px; justify-items: center; }
+      .contact-photo { width: 100%; max-width: 420px; }
+    }
 
     .form-group { margin-bottom: 24px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; color: #1c1c1e; margin-bottom: 8px; letter-spacing: -0.01em; }
@@ -161,7 +168,7 @@
   <nav id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-brand">
-        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate Seal" />
+        <img src="brand-assets/speechanddebate_logo.png" alt="San Marin Speech &amp; Debate Seal" />
         <div class="nav-brand-text">
           <div class="top">San Marin</div>
           <div class="bot">Speech &amp; Debate</div>
@@ -220,6 +227,7 @@
 
   <!-- ═══════ CONTACT FORM ═══════ -->
   <section id="contact-form-section">
+    <div class="contact-layout">
     <div class="form-wrapper">
       <form action="https://formspree.io/f/xykvznok" method="POST">
         <div class="form-group">
@@ -240,13 +248,17 @@
         </button>
       </form>
     </div>
+    <figure class="contact-photo">
+      <img src="teampictures/contact-2026-27.jpg" alt="A San Marin debater in a Santa hat waving beside the Speech and Debate meeting poster, every Wednesday at 3:00 PM in Room 918" loading="lazy" />
+    </figure>
+    </div>
   </section>
 
   <!-- ═══════ FOOTER ═══════ -->
   <footer class="site-footer">
     <div class="site-footer-inner">
       <div class="site-footer-brand">
-        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate logo" />
+        <img src="brand-assets/speechanddebate_logo.png" alt="San Marin Speech &amp; Debate logo" />
         <div>
           <div class="site-footer-brand-name">San Marin Speech &amp; Debate</div>
           <span class="site-footer-brand-sub">Novato, California</span>

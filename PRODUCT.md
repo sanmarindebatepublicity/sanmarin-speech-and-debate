@@ -33,7 +33,7 @@ Official website plus a member-gated portal for the team. The portal gives membe
 
 - Identity: prestigious school debate team, academic and cutting-edge, never corporate tech or SaaS (user's standing instruction in CLAUDE.md).
 - Site visual world (incumbent, in code): cream paper canvas #f4f3ef / #eeece8, forest greens #1b4332 / #2d6a4f, bronze gold #b8905a, dark forest #0d1a10 with SVG noise on dark sections; Cormorant Garamond display serif, Plus Jakarta Sans text, JetBrains Mono labels; pill nav; per-page editorial mark vocabulary (swoop underline, editor's marks, brush stroke).
-- Assets: seal logo (brand-assets/633CD478...png), horse favicon, socrates-bust.png.
+- Assets: seal logo (brand-assets/speechanddebate_logo.png), horse favicon, socrates-bust.png.
 - Confirmed this session: the portal redesign spans the whole portal (login, Team Hub, Competition Toolkit, shared chrome, and a Training Vault retheme via its CSS variables) and moves to the light register of the main site, replacing the current dark glassmorphism portal theme.
 
 ## Evidence on Hand

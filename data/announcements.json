@@ -2,23 +2,23 @@
   "_instructions": "To add a new announcement: copy an entry in the 'items' array, update the fields, and save. Sort by date (newest first). Format: YYYY-MM-DD. Leave 'link' and 'linkText' as empty strings if there is no button link.",
   "items": [
     {
-      "title": "Welcome to the 2026–2027 Season!",
-      "date": "2026-08-02",
-      "body": "First meeting is Wednesday, September 26th after school (3:00 PM) in Room 918 (Mr. Blok's room). Bring a notebook, pen and the signed permission form. Food will be provided. Get ready to meet new and exciting people!",
+      "title": "Second place at the Aggie Invitational",
+      "date": "2026-11-07",
+      "body": "San Marin competed at the overnight Aggie Invitational against some of the strongest programs in the Bay Area. In Varsity, Sophia & Nora and Chase Cloney & Logan Alsterlind both went undefeated in prelims and broke to elimination rounds. Logan and Chase then won their quarterfinal and semifinal to reach the finals, finishing second overall, the best result in San Marin Debate history. Novices Zainab Syed and Claire Yeo also went undefeated and move up to JV. Thank you to head coach Karen Kenyon, assistant coach Carina Masters, teacher advisor Tim Blok, and parent judges Linda Schiltgen, Amar Lal, and Jim Glogoza.",
       "link": "",
       "linkText": ""
     },
     {
-      "title": "First Tournament of this Season",
-      "date": "2026-08-21",
-      "body": "Our first tournament of the season is GGSA Debate 2: Parli Congress on Saturday, September 26, at San Ramon Valley High School in Danville! Come compete, build your skills, and kick off the season with the team—everyone should join!",
-      "link": "https://www.tabroom.com/index/search.mhtml",
-      "linkText": "Tabroom"
+      "title": "Two promotions at San Ramon",
+      "date": "2026-10-11",
+      "body": "Our second parli tournament of the year was at San Ramon High School in Danville, with 20 students competing. In Junior Varsity, Dylan Lendler & Milo McBride had a winning record and move up to Varsity. In Novice, Caroline Cook & Isabella Hernandez had a winning record and move up to JV. Congratulations to both teams, and thank you to the parents who drove and judged: Mr. Lendler, Ms. Schiltgen, Ms. Liu, Ms. Alsterlind, Ms. Bayar and Ms. Cook.",
+      "link": "",
+      "linkText": ""
     },
     {
-      "title": "Club Fair at San Marin",
-      "date": "2026-08-22",
-      "body": "We will be at the Club Fair in the Quad, on Wednesday, September 16th in the Quad during lunch. Come by to learn more about the club, meet the team, and sign up!",
+      "title": "First tournament at Miramonte",
+      "date": "2026-09-26",
+      "body": "The season opened at Miramonte High School, with new members competing for the first time and returning debaters showing how much they have grown. Michelle Anand & Zoe Knecht went undefeated in Novice and move up to JV. Hamza Wadera & Alexander Cameron and Hannah Yako & Chloe Ru earned winning records in JV and move up to Varsity. Logan Alsterlind & Chase Cloney earned a winning record in Varsity. Thank you to Coach Kenyon, our parent judges and drivers, and our officers.",
       "link": "",
       "linkText": ""
     }

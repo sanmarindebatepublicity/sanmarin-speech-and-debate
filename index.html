@@ -299,6 +299,11 @@
       background: var(--forest);
     }
     .hero-right img { width: 100%; height: 100%; object-fit: cover; opacity: 0.38; display: block; }
+    .hero-right img.hero-team-full {
+      position: absolute; left: 24px; top: 46%; width: calc(100% - 48px); height: auto;
+      transform: translateY(-50%); opacity: 1; object-fit: contain; z-index: 3;
+      border-radius: 3px; box-shadow: 0 28px 60px rgba(8,22,14,0.5), 0 4px 14px rgba(8,22,14,0.3);
+    }
     .hero-right-grad {
       position: absolute; inset: 0;
       background: linear-gradient(to right, rgba(27,67,50,0.85) 0%, transparent 45%);
@@ -802,7 +807,7 @@
   <nav id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-brand">
-        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate Seal" />
+        <img src="brand-assets/speechanddebate_logo.png" alt="San Marin Speech &amp; Debate Seal" />
         <div>
           <div class="nav-brand-name">San Marin</div>
           <span class="nav-brand-sub">Speech &amp; Debate</span>
@@ -897,9 +902,11 @@
 
     <!-- Right — deep forest green panel -->
     <div class="hero-right" id="hero-right-panel">
-      <img src="teampictures/565254287_1392368116082285_5418007671911608714_n.jpg"
-           alt="San Marin Debate Team" id="hero-img" />
+      <img src="teampictures/mira-team-2026-27.jpg"
+           alt="" aria-hidden="true" id="hero-img" />
       <div class="hero-right-grad"></div>
+      <img class="hero-team-full" src="teampictures/mira-team-2026-27.jpg"
+           alt="The full San Marin debate team after the Miramonte tournament, several holding trophies" />
 
       <!-- Cursor spotlight -->
       <div class="hero-spotlight" id="hero-spotlight" aria-hidden="true"></div>
@@ -1241,7 +1248,7 @@
   <footer class="site-footer">
     <div class="site-footer-inner">
       <div class="site-footer-brand">
-        <img src="brand-assets/633CD478-9E32-4A66-83AB-0C7542A40428.png" alt="San Marin Speech &amp; Debate logo" />
+        <img src="brand-assets/speechanddebate_logo.png" alt="San Marin Speech &amp; Debate logo" />
         <div>
           <div class="site-footer-brand-name">San Marin Speech &amp; Debate</div>
           <span class="site-footer-brand-sub">Novato, California</span>
@@ -1633,7 +1640,8 @@
           alumni: [
             { name: 'Gabrielle Skarka', classOf: null, field: 'Public Health / Political Science', desc: '"Interned for Senator Dianne Feinstein; clinical internship in South Africa. Four-year team competitor."' },
             { name: 'Aditya Katewa', classOf: null, field: 'Molecular & Cellular Biology', desc: '"National Merit Scholar on an advanced medical and research track."' },
-            { name: 'Shook Sundararaman', classOf: null, field: 'Molecular & Cell Biology / Neurobiology', desc: '"Core science and laboratory research."' }
+            { name: 'Shook Sundararaman', classOf: null, field: 'Molecular & Cell Biology / Neurobiology', desc: '"Core science and laboratory research."' },
+            { name: 'Noela De Frenza', classOf: null, field: 'Mechanical Engineering, EECS minor', desc: '"Accumulator mechanical lead on Formula Electric at Berkeley, the university\'s electric Formula SAE team."' }
           ] },
         { id: 'ucla', name: 'UC Los Angeles', short: 'UC Los Angeles', letter: 'U', photo: 'collegephotos/ucla.jpg',
           alumni: [

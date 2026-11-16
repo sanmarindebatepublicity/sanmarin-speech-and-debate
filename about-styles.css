@@ -266,14 +266,13 @@ body {
   position: relative;
   z-index: 1;
   flex-shrink: 0;
-  width: clamp(240px, 30vw, 420px);
+  width: clamp(300px, 38vw, 560px);
   align-self: center;
 }
 .hero-img-col img {
   width: 100%;
-  height: clamp(320px, 50vh, 560px);
+  height: auto;
   object-fit: cover;
-  object-position: center top;
   border-radius: 4px;
   display: block;
   filter: brightness(0.9) saturate(0.88);
@@ -580,12 +579,7 @@ body {
     align-self: stretch;
     margin-bottom: 8px;
   }
-  .hero-img-col img {
-    /* Shorter than the desktop crop so the photo does not take over the screen
-       on a phone, and wide enough to still read as a team photo. */
-    height: clamp(200px, 34vh, 300px);
-    object-position: center 30%;
-  }
+  .hero-img-col img { height: auto; }
   #principles { padding: 72px 24px; }
   .principles-grid { grid-template-columns: repeat(2, 1fr); }
 }
